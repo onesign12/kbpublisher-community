@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="./tools/ckeditor5/ckeditor5.css">
+<link rel="stylesheet" href="./tools/ckeditor5_custom/contents.css">
+<style>
+.ck-editor__editable_inline {
+    min-height: 200px;
+}
+.ck-icon {
+    font-size: 0.6em !important;
+}
+</style>
+<!-- <div id="editor_container" style="display: none;"> -->
+   <textarea name="%s" id="editor" style="display:none;">%s</textarea>
+<!-- </div> -->
+<script type="importmap">
+   {
+       "imports": {
+           "ckeditor5": "./tools/ckeditor5/ckeditor5.js",
+           "ckeditor5/": "./tools/ckeditor5/"
+       }
+   }
+</script>
+<script type="module" src="./tools/ckeditor5_custom/%s"></script>
+<!-- <script> -->
+   <!-- editor.language: 'de'; -->
+<!-- </script> -->
+
+<script>
+$(document).ready(function() {
+   LeaveScreenMsg.setEditor(oEditor);
+   LeaveScreenMsg.setFckDefaultValue();
+   // console.log(oEditor);
+   oEditor.fName = document.querySelector('#editor').name;
+   // ShowDiv('editor_container');
+   // console.log(oEditor.fName);
+});
+</script>

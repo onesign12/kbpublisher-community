@@ -1,0 +1,90 @@
+{error_msg}
+
+<script src="tools/ckeditor/ckeditor.js?v={pvhash}"></script>
+<script src="tools/ckeditor_custom/CKDropUploader.js?v={pvhash}"></script>
+<script>
+    CKEDITOR.on('instanceReady', function(evt) {
+        CKDropUploader.init(1, 'definition');
+        //CKDropUploader.setUploadUrl('{ck_drop_upload_url}');
+        
+        LeaveScreenMsg.setEditor(evt.editor);
+        oEditor = evt.editor;
+        LeaveScreenMsg.setFckDefaultValue();
+        
+        evt.editor.on('dialogShow', function(dialogShowEvent) {
+            if(CKEDITOR.env.ie) {
+                $(dialogShowEvent.data._.element.$).find('a[href*="void(0)"]').removeAttr('href');
+            }
+        });
+    });
+</script>
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" id="aContentForm" 
+    onSubmit="LeaveScreenMsg.skipCheck(); return Validate(this);">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{phrase_msg}:</td>
+    <td><input type="text" name="phrase" value="{phrase}" id="phrase" class="longText" style="width: 500px;"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop required">{definition_msg}:</td>
+    <td width="90%">{ckeditor}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{glossary_highlight_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+		    <select name="display_once[highlight]">
+                {highlight_select}
+            </select>
+        </span>
+        <span class="tooltip">{glossary_highlight_tip_msg}</span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{glossary_case_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+	    	<input type="hidden" name="display_once[case]" value="0" />
+	    	<input type="checkbox" name="display_once[case]" id="display_once_case" value="{case_value}" {case_ch} />
+            <label for="display_once_case">{yes_msg}</label>
+        </span>
+        <span class="tooltip">{glossary_case_tip_msg}</span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_msg}:</td>
+    <td>{status_checkbox}</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit" value="{save_msg}" class="button"
+                onClick="validateForm();return false;" />
+                
+            <input type="button" value="{cancel_msg}" 
+                onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+                        
+            <span style="margin-left: 20px;">
+                <input type="button" value="{preview_msg}" class="button" 
+                    onClick="PopupManager.create('{preview_link}', 'r', 'r');">
+            </span>
+        </div>
+    </td>
+</tr>
+</table>
+
+</form>

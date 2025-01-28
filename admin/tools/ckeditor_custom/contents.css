@@ -1,0 +1,102 @@
+/* Styles select */
+
+H2.lineTitle,H3.lineTitle {
+	line-height: 150%; 
+	border-bottom: 1px solid #D4D4D4; 
+	font-weight: normal;
+}
+
+H2.lineTitle { font-size: 1.3em; }
+H3.lineTitle { font-size: 1.2em; color: #333399; }
+
+H2.colorTitle { color: #333399; }
+/*H3.colorTitle { color: #333399; }*/
+
+DIV.box {
+	padding: 5px 10px;
+    overflow:hidden;
+	zoom: 1;
+}
+
+DIV.yellowBox {
+	background-color : #FFFFE1;
+	border : 1px solid #d8d8d8;
+}
+
+DIV.greyBox {
+    background-color : #f6f6f6;
+    border : 1px solid #d8d8d8;
+}
+
+DIV.darkBox {
+    background-color : #3f3f3f;
+    color : #F8F8F8;
+}
+
+
+/* just can use in article */
+ul.extraMargin li,ol.extraMargin li {
+	margin-bottom: 12px;
+}
+
+
+/* FCK buiilt Styles */
+
+h3 {
+/* commented in 7.0 eleontev 18 Mar 2019*/
+/*    color: #333399;*/  
+}
+
+.FCKTitle {
+	font-weight: bold;
+	font-size: 18px;
+	color: #cc3300;
+}
+
+.FCKCode {
+	border: #8b4513 1px solid;
+	padding-right: 5px;
+	padding-left: 5px;
+	color: #000066;
+	font-family: 'Courier New' , Monospace;
+	background-color: #ff9933;
+}
+
+
+/* widgets */
+
+.template_widget.align-right {
+    float: right;
+}
+.template_widget.align-left {
+    float: left;
+}
+.template_widget.align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+blockquote
+{
+	font-style: normal;
+}
+
+
+/* tooltip */
+span._tooltip_user {
+    border-bottom: 1px dotted #000;
+    background-color: #F0F0F0;
+    cursor: help;
+    color: #CC3333;
+}
+
+/* errors */
+.validationError {
+    background: #ffcccc !important;
+}
+
+/* skip glossary */
+.skip_glоssary {
+    background-color: #FFFFAF;
+}

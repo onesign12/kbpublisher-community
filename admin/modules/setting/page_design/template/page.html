@@ -1,0 +1,333 @@
+<link rel="stylesheet" href="../client/skin/jquery/gridstack-{grid_size}.css?v={pvhash}" />
+<link rel="stylesheet" href="css/page_design.css?v={pvhash}" />
+<script src="../client/jscript/jquery/lodash.min.js?v={pvhash}"></script>
+<script src="../client/jscript/jquery/jquery.jeditable.mini.js?v={pvhash}"></script>
+<script src="../client/jscript/jquery/gridstack.js?v={pvhash}"></script>
+<script src="../client/jscript/jquery/gridstack.jQueryUI.js?v={pvhash}"></script>
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{page_design_msg}");
+    
+    var options = {
+        cellHeight: 60,
+        verticalMargin: 10,
+        resizable: {
+            handles: 'e, w, s'
+        }
+    };
+    $('.grid-stack').gridstack(options);
+    
+    LeaveScreenMsg.setDoCheck(1);
+    LeaveScreenMsg.check();
+    $('.grid-stack').on('change', function(event, items) {
+        $('#grid_area').css('background', '#FFFFE1');
+        $('#grid_area div.grid_error').removeClass('grid_error');
+        
+        $('#reset_button').attr('disabled', false).removeClass('buttonDisabled');
+        LeaveScreenMsg.changes = true;
+    });
+    
+    grid = $('.grid-stack').data('gridstack');
+    
+    <tmpl:not_resizable>
+    grid.resizable($('#{id}'), false);
+    </tmpl:not_resizable>
+   
+    $('#customizePopup').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 700,
+        position: {
+            my: 'center top',
+            at: 'center top+10%',
+            of: window
+        },
+        open: function(event, ui) {
+            xajax_loadCustomBlockList();
+        }
+    });
+    
+    makeEditable('.editable');
+    
+    addRecentSettingToPool('{setting_name}', '');
+});
+
+function makeEditable(selector) {
+    $(selector).editable(function(value, settings) {
+        var id = $(this).parent().parent().parent().attr('id');
+        
+        $('#' + id).find('.block_num').show();
+        
+        if (id.substring(0, 6) == 'custom') {
+            if (value == '' && custom_value) {
+                return custom_value;
+            }
+            
+            xajax_updateCustomBlockTitle(id, value);
+        
+        } else {
+            $('#' + id).attr('data-title', value);
+        }        
+        
+        return (value);
+        
+    }, {
+        event: 'dblclick',
+        onblur: 'submit',
+        cssclass: '_editable',
+        placeholder: '',
+        width: 150,
+        height: 15,
+        data: function(value, settings, e) {
+            if (value.substring(0, 3) == '<i>') {
+                custom_value = value;
+                return '';
+            }
+            
+            return value;
+       }
+    });
+    
+    $(selector).on('dblclick', function(e) {
+        $(e.target).next().hide();
+    });
+}
+
+function saveGrid() {
+    var res = _.map($('.grid-stack .grid-stack-item:visible'), function (el) {
+        el = $(el);
+        var node = el.data('_gridstack_node');
+        var data = {
+            id: el.attr('id'),
+            x: node.x,
+            y: node.y,
+            width: node.width,
+            height: node.height,
+            settings: {}
+        };
+        
+        if (el.attr('data-num_entries')) {
+            data['settings']['num_entries'] = el.attr('data-num_entries')
+        }
+        
+        if (el.attr('data-num_columns')) {
+            data['settings']['num_columns'] = el.attr('data-num_columns')
+        }
+        
+        if (el.attr('data-title')) {
+            data['settings']['title'] = el.attr('data-title'); 
+        }
+        
+        return data;
+    });
+    
+    if(res.length > 0){
+        <tmpl:menu_editable>
+        var status = ($('#menu_cell').is(':visible')) ? 1 : 0;;
+        xajax_saveMenuStatus(status);
+        </tmpl:menu_editable>
+        
+        var data = JSON.stringify(res);
+        xajax_saveGrid(data);
+        
+        // $('#save_button').attr('disabled', true).addClass('buttonDisabled');
+        
+    } else {
+    	emptyGrowls();
+        $.growl.error({title: "", message: "{empty_grid_msg}", fixed: true});
+    }
+}
+
+function resetGrid() {
+    LeaveScreenMsg.skipCheck();
+    location.reload();
+}
+
+function addBlock(el) {
+    if (!$(el).hasClass('disabled')) {
+        var id = $(el).attr('id').substring(6);
+        xajax_getBlock(id);
+        
+        $(el).addClass('disabled');
+        
+        emptyGrowls();
+    }
+}
+
+function addEmptyCell() {
+    xajax_getEmptyBlock();
+    emptyGrowls();
+    
+    $('#popup_empty').addClass('disabled');
+}
+
+function toggleMenu() {
+    if (!$('#popup_menu').hasClass('disabled')) {
+        $('#menu_cell').show();
+        $('#popup_menu').addClass('disabled');
+    }
+}
+
+function disableBlocks() {
+    $('#customizePopup div.block:not(.off)').each(function() {
+        $(this).removeClass('disabled');
+        
+        var id = $(this).attr('id').substring(6);
+        if (id == 'menu') {
+            if ($('#menu_cell').is(':visible')) {
+                $(this).addClass('disabled');
+            }
+            
+        } else {
+            if ($('#' + id).length) {
+                $(this).addClass('disabled');
+            }
+        }
+    });
+}
+
+function deleteCustomBlock(id) {
+    confirm2("{sure_delete_msg}", function() {
+        xajax_deleteCustomBlock(id);
+    });
+}
+
+function fadeCustomBlock(id) {
+    $('#' + id).fadeOut(1500, function() {
+        $(this).remove();
+        if ($('#custom_block_list').is(':empty')) {
+            $('#custom_block_caption').hide();
+        }
+    });
+}
+</script>
+
+<div style="margin-top: 15px;">
+    <div style="float: left;margin-left: 10px;">
+        {nav}
+    </div>
+    
+    <div style="float: right;">
+        {add_block_btn}
+    </div>
+    
+    <div style="clear: both;"></div>
+</div>
+
+<div id="grid_area">
+    <tmpl:header>
+    <div id="page_header" class="grid-stack-item ui-state-disabled">
+        <div class="grid-stack-item-content">
+            <span style="float: left;">{header_title} <span style="font-size: 0.8em;">
+            <i>({page_header_msg})</i></span></span>
+        </div>
+    </div>
+    </tmpl:header>
+    
+    <div id="page_content">
+        
+        <tmpl:menu>
+        <div id="menu_cell" style="height: 1px;display: {menu_display};">
+            <div id="menu" class="grid-stack-item ui-state-disabled">
+                <div class="grid-stack-item-content">
+                    <span style="float: left;margin: 10px;">{menu_msg}</span>
+                    
+                    <tmpl:menu_editable>
+                    <div class="widget_actions" style="position: relative;">
+                        <img src="images/icons/close2.svg" class="remove_block_icon" onclick="$('#menu_cell').hide();">
+                    </div>
+                    </tmpl:menu_editable>
+                </div>
+            </div>
+        </div>
+        </tmpl:menu>
+        
+        <div>
+            <div class="grid-stack" data-gs-width="{grid_size}" data-gs-animate="yes">
+                   
+                <tmpl:row>
+                <div id="{id}" class="grid-stack-item" data-gs-x="{x}" data-gs-y="{y}" data-gs-width="{width}" data-gs-height="{height}" {settings_attr}>
+                    <div class="grid-stack-item-content">
+                        <div>
+                            <span style="float: left;" {editable}>{title}</span>
+                            <span class="block_num">{block_num}</span>
+                        </div>
+                        
+                        <div class="widget_actions">
+                            <tmpl:remove_icon>
+                            <img src="images/icons/close2.svg" class="remove_block_icon"
+                                onclick="grid.removeWidget($(this).parents().eq(2));" />
+                            </tmpl:remove_icon>
+                            
+                            <tmpl:settings_popup>
+                            <img src="images/icons/m_add_grey.svg" class="block_settings_icon"
+                                onclick="PopupManager.create('{setting_popup}', 'r', '{id}');" />
+                            </tmpl:settings_popup>
+                        </div>
+                    </div>
+                </div>
+                </tmpl:row>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="{action_link}" method="post" onsubmit="LeaveScreenMsg.skipCheck();">
+
+<div style="text-align: center;margin: 30px;">
+    <input type="button" id="save_button" value="{save_msg}" class="button primary" onclick="saveGrid();" />
+    <input type="submit" name="set_default" id="default_submit" value="{defaults_msg}" class="button secondary"
+        onClick="confirmForm('{sure_default_msg}', 'default_submit');return false;" />
+    <input type="button" id="reset_button" value="{reset_msg}" class="button buttonDisabled" disabled
+        onclick="resetGrid();" style="margin-left: 25px;" />
+</div>
+
+</form>
+
+<div id="customizePopup" title="{available_blocks_msg}">
+    <div autofocus style="margin-top: 20px;">
+        <b>{built_in_blocks_msg}</b>
+    </div>
+    
+    <div>
+        <tmpl:block_row>
+        <div id="popup_{block_id}" class="{block_class}" {block_onclick}>
+            {block_name}
+        </div>
+        </tmpl:block_row>
+    </div>
+    
+    <div id="custom_block_caption" style="margin-top: 20px;display: none;">
+        <b>{custom_blocks_msg}</b>
+    </div>
+    <div id="custom_block_list"></div>
+    
+    <div style="margin-top: 20px;">
+        <b>{special_blocks_msg}</b>
+    </div>
+    <div id="popup_empty" class="block" style="width: 270px;margin: 10px 27px;" onclick="addEmptyCell();">
+        <img src="images/icons/empty_block.svg" 
+            style="width: 12px; height: 12px; float: left;margin-right: 10px;" />
+        {space_msg}
+    </div>
+    
+    <tmpl:menu>
+    <div id="popup_menu" class="block" style="width: 270px;margin: 10px 27px;" onclick="toggleMenu();">
+        <img src="../client/images/icons/toggle_menu.svg" 
+            style="width: 12px; height: 12px; float: left;margin-right: 10px;" />
+        {menu_msg}
+    </div>
+    </tmpl:menu>
+    
+    <div style="margin:20px;">&nbsp;</div>
+    
+    <div class="bottom_button_dialog">
+        <span style="margin-right: 15px;">
+            <a href="#" onClick="PopupManager.create('{custom_block_popup}');">{add_custom_block_msg}</a>    
+        </span>
+            
+        <input type="button" value="{done_msg}" class="button primary"
+            onClick="$('#customizePopup').dialog('close');" />
+    </div>
+</div>

@@ -1,0 +1,46 @@
+/* This styles will not be loaded as css file it copied to html depends on user settings  */
+
+
+/* bottom button */
+.bottom_button {
+    position: fixed;
+    height: 42px;
+    line-height: 42px;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: right;
+    padding-right: 5px;
+    background: rgba(0,0,0,0.6);  /* 60% transparent */
+    color: #fff;
+}
+
+.bottom_button a {
+    color: #fff;
+}
+
+.bottom_button .dropdown-menu li {
+    color: #0a0a0a;
+}
+
+.bottom_button .bbInfo {
+    margin-top: 0px;
+    margin-left: 10px;
+    float: left;
+    color: #fff;
+    display: inline;
+}
+
+#history_comment_a {
+    display: inline;
+}
+
+#autosave_infoblock {
+    float: left;
+    margin: 5px 0 0 10px;
+}
+
+#autosave_infoblock svg {
+    fill: white;
+}

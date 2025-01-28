@@ -1,0 +1,40 @@
+{error_msg}
+
+{hint_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<!-- <tr class="trMoreDarker">
+    <td class="trMoreDarker" nowrap>{title_msg}:</td>
+    <td>
+        {title}
+    </td>
+</tr> -->
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{plugin_key_msg}:</td>
+    <td>
+        <textarea rows="3" name="filetext" style="width: 100%;">{filetext}</textarea>   
+    </td>
+</tr>
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit" id="submit" value="{add_plugins_msg}" class="button"
+                onClick="validateForm();return false;" />
+                
+            <input type="button" value="{cancel_msg}" onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+        </div>
+    </td>
+</tr>
+</table>
+</form>

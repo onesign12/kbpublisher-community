@@ -1,0 +1,74 @@
+ <!-- <script src='https://www.google.com/recaptcha/api.js?render=6Lf6Y5UbAAAAAMeS7M9gZdTdJfypeaNrfLzXyIag'></script> -->
+<!-- <input type="hidden" name="captcha" id="captcha" value="" />  -->
+ <!-- <script>
+    function onClick(e) {
+      e.preventDefault();
+      grecaptcha.ready(function() {
+        grecaptcha.execute('6Lf6Y5UbAAAAAMeS7M9gZdTdJfypeaNrfLzXyIag', {action: 'feedback'}).then(function(token) {
+            // Add your logic to submit to your backend server here.
+            // document.getElementById('captcha').value = token
+        });
+      });
+    }
+</script> -->
+
+<script src='https://www.google.com/recaptcha/api.js' async defer></script>
+<script>
+    $(document).ready(function() {
+        recaptchaDisableBtn();
+    });
+    
+    function recaptchaDisableBtn() {
+        $("#submit").prop( "disabled", true ).addClass('buttonDisabled');
+     }    
+    
+    function recaptchaEnableBtn() {
+        $("#submit").prop( "disabled", false ).removeClass('buttonDisabled');
+     }
+</script>
+
+
+<tmpl:default>
+<div class="grid-x skip"  style="margin-top:15px;">
+    <div class="medium-3 small-12 cell">
+        <label for="captcha"></label>
+    </div>
+    <div class="medium-9 small-12 cell">
+        <div style="float:left;" class="g-recaptcha" data-sitekey="{site_key}" 
+            data-callback="recaptchaEnableBtn" data-expired-callback="recaptchaDisableBtn"></div>
+        <input type="checkbox" name="captcha" id="captcha" value="1" checked=checked
+            style="visibility: hidden; float:left;">
+    </div>
+</div>
+</tmpl:default>
+
+<tmpl:placeholder>
+<div class="grid-x skip">
+    <div class="large-12 cell" style="margin-left: auto; margin-right: auto; width: inherit; margin-top:15px;">
+        <div style="float:left;" class="g-recaptcha" data-sitekey="{site_key}" 
+            data-callback="recaptchaEnableBtn" data-expired-callback="recaptchaDisableBtn"></div>
+        <input type="checkbox" name="captcha" id="captcha" value="1" checked=checked
+            style="visibility: hidden; float:left;">
+    </div>
+</div>
+</tmpl:placeholder>
+
+<tmpl:line>
+<div class="grid-x skip" style="margin-top:15px;">
+    <div class="large-12 cell">
+        <div style="float:left;" class="g-recaptcha" data-sitekey="{site_key}"
+            data-callback="recaptchaEnableBtn" data-expired-callback="recaptchaDisableBtn"></div>
+        <input type="checkbox" name="captcha" id="captcha" value="1" checked=checked
+            style="visibility: hidden; float:left;">
+    </div>
+</div>
+</tmpl:line>
+
+<tmpl:admin>
+<div style="margin-top:30px; margin-bottom:20px;">
+    <div class="g-recaptcha" data-sitekey="{site_key}" style="margin-left: auto; margin-right: auto; width: 300px;"
+        data-callback="recaptchaEnableBtn" data-expired-callback="recaptchaDisableBtn"></div>
+    <input type="checkbox" name="captcha" id="captcha" value="1" checked=checked
+        style="visibility: hidden; float:left;">
+</div>
+</tmpl:admin>

@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>POST data</title>
+</head>
+<body onload="document.getElementsByTagName('input')[0].click();">
+
+	<noscript>
+		<p><strong>Note:</strong> Since your browser does not support JavaScript, you must press the button below once to proceed.</p> 
+	</noscript> 
+	
+	<form method="post" action="{action}">
+	    <input type="submit" style="display: none;" />
+        
+        <tmpl:param>
+        <input type="hidden" name="{name}" value="{value}" />
+        </tmpl:param>
+        
+		<noscript>
+			<button type="submit" class="btn">Submit</button>
+		</noscript>
+	</form>
+
+</body>
+</html>

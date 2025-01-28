@@ -1,0 +1,47 @@
+<script src="jscript/livesearch/quicksilver.js?v={pvhash}"></script>
+<script src="jscript/livesearch/livesearch.js?v={pvhash}"></script>
+<script src="jscript/livesearch/setting.js?v={pvhash}"></script>
+<script>
+$(document).ready(function() {
+    $('#q').liveUpdate('letterTemplatesList').focus();
+});
+</script>
+
+
+<div>
+    <input type="text" value="{filter}" name="q" id="q" class="colorInput" style="width: 240px;" 
+        placeholder="{filter_msg}" autocomplete="off" />
+</div>
+   
+<div id="letterTemplatesList" style="width: 100%;">
+
+    <tmpl:row>
+        <tmpl:group_delim>
+        <div id="delim_group{delim_id}">&nbsp;</div>
+        </tmpl:group_delim>
+        
+        <tmpl:group>
+        <div class="main">
+            <div style="width: 100%;" id="group{group_id}">
+                <p class="trMoreDarker" style="padding: 6px 0px; margin-bottom: 1px; width: 100%;">
+                    <span style="padding-left: 5px;">
+                        <b class="searchable">{group_title_msg}</b> &nbsp;
+                    </span>
+                </p>
+             </div>
+         </tmpl:group>
+           
+        <div id="template_{id}">
+            <table class="default">
+                <tr class="{class} searchable" style="{style}" onDblClick="RecordToDo('{update_link}')">
+                    <td width="1" style="padding: 0 7px;">{in_out_img}</td>
+                    <td><a href="{update_link}" class="listItem">{title}</a></td>          
+                    <!-- <td width="1" align="center">{update_img}</td> -->
+                </tr>
+            </table>
+        </div>
+        
+        {end}          
+    </tmpl:row>
+
+</div>

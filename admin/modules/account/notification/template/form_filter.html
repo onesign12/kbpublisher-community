@@ -1,0 +1,74 @@
+<script src="../client/jscript/DatePickerManager.js?v={pvhash}"></script>
+<script>
+$(function() {
+    var options = {
+        date_format: '{date_format}',
+        week_start: {week_start},
+        current_date: '{current_date}',
+        class_name: 'colorInput'
+    }
+
+    var dp_from = new DatePickerManager('date_from', options, {date_formatted_1});
+    var dp_to = new DatePickerManager('date_to', options, {date_formatted_2});
+    
+    dp_from.setMinDate('{min_date}');
+    
+    var min_date = new Date({date_formatted_1});
+    dp_to.setMinDate(min_date);
+    
+    dp_from.bindTo(dp_to);
+});
+</script>
+
+<style>
+    #custom_period > table td { vertical-align: middle !important; }
+</style>
+
+
+<form style="margin: 0px;">
+{hidden_fields}
+
+
+<div  id="filter_tbl" class="table">
+
+    <div class="grid-x skip">
+        <div class="medium-4 small-12 cell">
+            <div>{date_msg}:</div>
+            <select name="filter[p]" class="colorInput" style="width: 185px;" 
+                onchange="ShowHideCustomDate(this.value)">
+            {period_select}
+            </select>
+        
+            <div id="custom_period" style="display: {custom_display};">
+                <table style="margin-top: 7px; width: 220px;">
+                  <tr>
+                    <td style="text-align: right;">{date_from_msg}:</td>
+                    <td><input type="hidden" id="date_from" name="filter[date_from]" /></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: right;">{date_to_msg}:</td>
+                    <td><input type="hidden" id="date_to" name="filter[date_to]" /></td>
+                  </tr>
+                 </table>
+            </div>
+        </div>
+        
+        <div class="medium-4 small-12 cell">
+            <div>{entry_status_msg}:</div>
+            <select name="filter[s]" class="colorInput" style="width: 185px;">
+            {status_select}
+            </select>
+        </div>
+        
+        <div class="medium-4 small-12 cell">
+            <div>{search_str_msg}:{search_help}</div>
+            <input type="text" name="filter[q]" value="{q}" class="colorInput middleText" style="width: 150px;">
+
+            <button type="submit" name="do_search" value="1" 
+                class="button2 button2_filter">&rarr;</button>
+        </div>        
+    </div>
+
+</div>
+
+</form>

@@ -1,0 +1,57 @@
+<script>
+$(document).ready(function() {
+    
+    $(document).bind('click.splitButton', function(e) {
+        var toggle = $('span.split_button button.btn_caret');
+        var caret = $('span.split_button span.caret');
+        
+        if (!toggle.is(e.target) && !caret.is(e.target)) {
+            $('.dropdown-menu').hide();
+        }
+    });
+    
+    if (window.CKEDITOR && CKEDITOR.instances) {
+        for (var i in CKEDITOR.instances) {
+            CKEDITOR.instances[i].on('focus', function () {
+                $('.dropdown-menu').hide();
+            });
+        }
+    }
+});
+
+function setButtonValue(el, id) {
+	$('#submit_button'+id).val($(el).html());
+	$('#submit_button'+id).attr('data-key', $(el).attr('data-key'));
+    $('#submit_button'+id).attr('onclick', $(el).attr('data-action'));
+    $('#submit_button'+id).attr('name', $(el).attr('data-name'));
+
+	$('.dropdown-menu').hide();
+    $('#submit_button'+id).click();
+}
+
+
+function setButtonValueByDataKey(dkey, el, id) {
+    var s = $(el).find("[data-key='" + dkey + "']"); 
+	$('#submit_button'+id).val(s.html());
+	$('#submit_button'+id).attr('data-key', s.attr('data-key'));
+    $('#submit_button'+id).attr('onclick', s.attr('data-action'));
+    $('#submit_button'+id).attr('name', s.attr('data-name'));
+}
+
+</script>
+
+<span class="split_button">
+    <input type="{button_type}" data-key="{current_key}" name="{selected_name}" id="submit_button{id}" value="{selected_title}"
+        class="button btn_submit {button_class} {button_attr}"
+        onClick="{selected_action}" />
+        
+    <button class="button btn_caret {button_class}" onclick="$('#split_dropdown_menu{id}').toggle(); return false;">
+        <span class="caret"></span>
+    </button>
+    
+    <ul id="split_dropdown_menu{id}" class="dropdown-menu">
+        <tmpl:row>
+        <li data-key="{key}" data-action="{action}" data-name="{name}" onClick="setButtonValue(this, '{id}');">{text}</li>
+        </tmpl:row>
+    </ul>
+</span>

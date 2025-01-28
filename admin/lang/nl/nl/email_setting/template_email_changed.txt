@@ -1,0 +1,9 @@
+Hallo [first_name],
+
+Het e-mailadres van uw [kb_name]-account is onlangs gewijzigd.
+Als u deze wijziging heeft aangebracht, hoeft u verder niets te doen.
+
+Nieuw e-mailadres: [email]
+
+Als u uw wachtwoord niet heeft gewijzigd, laat het ons dan meteen weten via [support_email]
+Het melden hiervan is belangrijk omdat het ons helpt te voorkomen dat fraudeurs uw gegevens stelen.

@@ -1,0 +1,14 @@
+L'utente ha chiuso il suo account KB.
+{request_from_ip_msg}: [ip]
+
+È possibile rivedere e ripristinare i dati su
+[link]
+
+Note dell'utente:
+[message]
+
+{user_info_msg}:
+------------
+ID: [id]
+Nome: [name]
+Email: [email]

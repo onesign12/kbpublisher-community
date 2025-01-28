@@ -1,0 +1,13 @@
+{dear_msg} [first_name] [last_name],
+
+<br /><br />
+<b>{recent_news_msg}:</b><br />
+[content]
+
+
+<br />
+<hr />
+[support_mailer]
+
+<br /><br />
+<div style="font-size: smaller;">{unsubscribe_msg}</div>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" href="admin/css/style.css?v={pvhash}">
+    <link rel="stylesheet" href="client/skin/box.css?v={pvhash}">
+    <style>
+        body {
+            padding: 15px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    {hint_msg}
+    {debug_info}
+
+    <table class="formTable">
+    <tr>
+        <td colspan="2" class="tdTitle">{mapped_data_msg}</td>
+    </tr>
+
+    <tmpl:row_mapped>
+    <tr class="trLighter">
+        <td class="tdFormCaption" valign="top">
+            <span style="padding-left: 10px;">{attr_name}</span>
+        </td>
+        <td>
+            <tmpl:string>
+            {attr_value}
+            </tmpl:string>
+
+            <tmpl:array>
+            <div style="margin-top: 10px;">
+                <textarea rows="3" style="width: 100%;">{attr_value}</textarea>
+            </div>
+            </tmpl:array>
+        </td>
+    </tr>
+    </tmpl:row_mapped>
+
+    </table>
+
+    <br /><br />
+
+
+    <table class="formTable">
+    <tr>
+        <td colspan="2" class="tdTitle">{response_data_msg}</td>
+    </tr>
+
+    <tmpl:row_responce>
+    <tr class="trLighter">
+        <td class="tdFormCaption" valign="top">
+            <span style="padding-left: 10px;">{attr_name}</span>
+        </td>
+        <td>
+            <tmpl:string>
+            {attr_value}
+            </tmpl:string>
+
+            <tmpl:array>
+            <div style="margin-top: 10px;">
+                <textarea rows="3" style="width: 100%;">{attr_value}</textarea>
+            </div>
+            </tmpl:array>
+        </td>
+    </tr>
+    </tmpl:row_responce>
+
+    </table>
+
+    <br />
+
+    <br /><br />
+
+    <div class="bottom_button bb_popup">
+        <input type="button" value="{close_msg}" class="button" onclick="window.close();" />
+    </div>
+</body>
+</html>

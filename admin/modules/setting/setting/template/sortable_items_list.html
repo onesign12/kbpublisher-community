@@ -1,0 +1,153 @@
+<script>
+function deleteItem(group, line) {
+    confirm2("{sure_common_msg}", function() {
+        xajax_deleteItem(group, line);
+    });
+}
+
+function resetToDefault() {
+    confirm2("{sure_default2_msg}", function() {
+        document.location.href = '{default_link}';
+    });
+}
+
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+
+    var current_popup = PopupManager.getCurrentPopup();
+    current_popup.dialog('option', 'beforeClose', updateCounter);
+    
+    for (const p of ['active_rules_list', 'inactive_rules_list']) {
+      $('#' + p).sortable({
+          connectWith: $('.custom_sortable'),
+          placeholder: 'view_placeholder2',
+          forcePlaceholderSize: true,
+          stop: saveSortOrder,
+          over: function(event, ui) {
+              var ul = ui.placeholder.parent();
+              console.log(ul);
+              if (ul.find('input').length == 0) {
+                  ul.removeClass('custom_sortable_empty');
+              }
+          }
+      });
+    
+      $('#' + p).disableSelection();
+    }
+                
+    $('ul.custom_sortable').each(function() {
+        if ($(this).children().length == 0) {
+            $(this).addClass('custom_sortable_empty');
+        }
+    });
+                
+    
+    // $('#active_rules_list').sortable({
+    //     // connectWith: '#inactive_rules_list',
+    //     connectWith: $('.custom_sortable'),
+    //     placeholder: 'view_placeholder2',
+    //     forcePlaceholderSize: true,
+    //     stop: saveSortOrder,
+    //     over: function(e, ui){
+    //         ui.item.addClass('sortable_item');
+    //     }
+    // });
+    // 
+    // $('#inactive_rules_list').sortable({
+    //     // connectWith: '#active_rules_list',
+    //     connectWith: $('.custom_sortable'),
+    //     placeholder: 'view_placeholder2',
+    //     forcePlaceholderSize: true,
+    //     stop: saveSortOrder,
+    //     over: function(e, ui){
+    //         ui.item.addClass('sortable_item');
+    //     }
+    // });
+    // 
+    // $('#active_rules_list, #inactive_rules_list').disableSelection();
+});
+
+function showOptionsPopup(group, line) {
+    var url = '{popup_link}'
+    
+    if (group) {
+        url += '&group=' + group + '&line=' + line;
+    }
+     
+    PopupManager.create(url, 'r', 'r', '{setting_name}', 700, 310);
+}
+
+function updateCounter() {
+    window.top.$('#aContentForm').attr('target', '_self');
+    window.top.$('#aContentForm input[name=popup]').remove();
+    window.top.$('#aContentForm').attr('action', window.top.$('#aContentForm').attr('action').replace('&popup={setting_name}', ''));
+    
+    // var num = $('#active_rules_list tr').length + $('#inactive_rules_list tr').length;
+    var num = $('#active_rules_list li').length + $('#inactive_rules_list li').length;
+    window.top.$('#{setting_name}_count').text(num);
+}
+
+function showInUseHint() {
+    var options = {'ok_title': "{update_layout_msg}"};
+    confirm2('{menu_item_in_use_msg}', function() {
+        PopupManager.create('{page_design_link}');
+    }, options);
+}
+
+function saveSortOrder(event, ui) {
+    var old_line = ui.item.attr('data-line');
+    var old_group = ui.item.attr('data-group');
+    
+    var new_line = ui.item.index();
+    
+    // var parent = ui.item.parent().parent();
+    var parent = ui.item.parent();
+    var group_block_id = parent.attr('id');
+    var new_group = group_block_id.split('_')[0];
+    
+    xajax_saveSortOrder(old_line, old_group, new_line, new_group);
+}
+</script>
+
+<div id="extra_list">
+
+<div style="float: right;">
+    {buttons}
+</div>
+
+<div style="clear: both;height: 10px;"></div>
+
+<form method="post" onSubmit="LeaveScreenMsg.skipCheck();">
+    
+<tmpl:group>
+<div style="padding-bottom: 6px;">
+    <b>{group_title}</b>
+</div>
+<div class="tdTitle" style="padding:1px; margin-bottom: 10px;"></div>
+
+<ul id="{group_id}_rules_list" class="custom_sortable">
+    <tmpl:row>
+    <li class="{class}" id="rule_{line}" data-line="{line}" data-group="{group_id}">
+        {title}
+        <span style="float: right;">
+            {options_img}
+        </span>
+    </li>
+    </tmpl:row>
+</ul>
+
+<br />
+<br />
+</tmpl:group>
+
+</div>
+
+</form>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{defaults_msg}" class="button primary"
+        onClick="resetToDefault();" />
+    
+    <input type="button" value="{done_msg}" class="button" id="close_button"
+        onclick="updateCounter();PopupManager.close();">
+</div>

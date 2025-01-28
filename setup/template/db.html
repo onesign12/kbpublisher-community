@@ -1,0 +1,39 @@
+{user_msg}
+
+<tmpl:install>
+<!-- <b>{num_1}. {create_db_msg}:</b>
+<div style="padding-top: 3px;">{create_sql_command}</div>
+
+<div style="padding-bottom: 5px;"><b>2. {fill_db_msg}:</b></div> -->
+
+<div style="padding-bottom: 10px;">{phrase_msg}</div>
+</tmpl:install>
+
+<fieldset><legend><b>{fill_db_msg}:</b></legend>
+<table class="sTable tableCp3 tableCs1">
+<tr>
+    <td class="tdFormCaption required">{db_driver_msg}:</td>
+    <td>{db_driver_select}</td>
+</tr>
+<tr>
+    <td class="tdFormCaption required">{db_host_msg}:</td>
+    <td><input type="text" name="db_host" value="{db_host}" class="normalText"></td>
+</tr>
+<tr>
+    <td class="tdFormCaption required">{db_base_msg}:</td>
+    <td><input type="text" name="db_base" value="{db_base}" class="normalText"></td>
+</tr>
+<tr>
+    <td class="tdFormCaption required">{db_user_msg}:</td>
+    <td><input type="text" name="db_user" value="{db_user}" class="normalText"></td>
+</tr>
+<tr>
+    <td class="tdFormCaption">{db_pass_msg}:</td>
+    <td><input type="text" name="db_pass" value="{db_pass}" class="normalText"></td>
+</tr>
+<tr>
+    <td class="tdFormCaption">{tbl_pref_msg}:</td>
+    <td><input type="text" name="tbl_pref" value="{tbl_pref}" class="normalText"></td>
+</tr>
+</table>
+</fieldset>

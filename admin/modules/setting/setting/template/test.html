@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>Untitled</title>
+</head>
+
+<body>
+
+
+<script>
+<!--
+//var myOptions = new Array;
+//var myOptions.key = new Array;
+//myOptions.key[0] = 12;
+
+
+var myOptions = [ 
+        ["201", "New Jersey"], 
+        ["202", "Washington, DC"], 
+        ["203", "Connecticut"], 
+        ["204", "Manitoba, Canada"], 
+        ["205", "Alabama"], 
+        ["206", "Washington"], 
+        ["207", "Maine"] // Entire array not shown 
+    ];
+
+//alert(myOptions.201.[0]);
+
+
+
+
+
+//In this example, an object is created containing a single member "bindings", 
+//which contains an array containing three objects, 
+//each containing "ircEvent", "method", and "regex" members.
+
+var myJSONObject = {
+    
+    "default": [
+        {"key": "PRIVMSG", "val": "newURI", "s": "^http://.*"},
+        {"ircEvent": "PRIVMSG", "method": "deleteURI", "regex": "^delete.*"},
+        {"ircEvent": "PRIVMSG", "method": "randomURI", "regex": "^random.*"}
+    ],
+    
+    "defaulta": [
+        {"key": "PRIVMSG", "val": "newURI", "s": "^http://.*"},
+        {"ircEvent": "PRIVMSG", "method": "deleteURI", "regex": "^delete.*"},
+        {"ircEvent": "PRIVMSG", "method": "randomURI", "regex": "^random.*"}
+    ]
+};
+
+
+//Members can be retrieved using dot or subscript operators.
+
+alert(myJSONObject["default"].length)
+//alert(myJSONObject[15][0].method);
+
+
+
+//-->
+</script>
+
+
+</body>
+</html>

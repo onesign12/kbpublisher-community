@@ -1,0 +1,40 @@
+{error_msg}
+
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{title_msg}:</td>
+    <td><input type="text" name="title" value="{title}" class="longText"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{description_msg}:</td>
+    <td>
+        <textarea cols="80" rows="2" name="description" style="width: 100%;">{description}</textarea>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_active_msg}:</td>
+    <td>{status_checkbox}</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <input type="submit" name="submit" value="{save_msg}" class="button">
+        <input type="button" value="{cancel_msg}" onClick="location.href='{cancel_link}'" class="button">
+    </td>
+</tr>
+</table>
+</form>
+
+
+
+

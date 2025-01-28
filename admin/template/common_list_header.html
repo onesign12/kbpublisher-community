@@ -1,0 +1,20 @@
+<div class="nonPrintable" style="margin-bottom: 7px;" id="filter_div">
+<table class="sTable">
+<tr>
+    <td style="vertical-align:bottom; width: 100%;">{left_side}</td>
+    <td style="vertical-align:top; text-align: right; padding-top: 15px;">{add_link}</td>
+</tr>
+</table>
+</div>
+
+<tmpl:by_page>
+<div style="margin-bottom: 10px;">
+{by_page_tpl}
+</div>
+</tmpl:by_page>
+
+<tmpl:bulk_form>
+<form action="{bulk_form_action}" method="post" name="bulk_form" id="bulk_form" 
+    onsubmit="return BulkOnSubmit();">
+{hidden_fields_not_use}
+</tmpl:bulk_form>

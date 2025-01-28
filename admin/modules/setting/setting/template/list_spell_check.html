@@ -1,0 +1,45 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+    
+    <tmpl:set_status>
+    window.top.$('#search_spell_suggest').prop('checked', {status});
+    </tmpl:set_status>
+    
+    <tmpl:close_window>
+    var parent_window = PopupManager.getParentWindow();
+    parent_window.retest('{test_key}');
+    PopupManager.close();
+    </tmpl:close_window>
+});
+</script>
+
+{error_msg}
+
+<table class="listTable2">
+<tr class="tdTitle">
+    <td class="tdTitle">{tool_title_msg}</td>
+    <td style="width: 1px;">{status_active_msg}</td>
+    <td style="width: 1px;">{settings_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}">
+    
+    <td><b>{title}</b><br />{desc}</td>
+    <td style="text-align: center;">{active_img}</td>
+    <td style="text-align: center;">
+        <a href="{settings_link}" title="{view_msg}">
+            <img src="images/icons/info.svg" alt="view" />
+        </a>
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<br />
+<div class="bottom_button bb_popup">
+    <input type="button" name="cancel" value="{close_msg}" class="button" 
+            onClick="PopupManager.close();">
+</div>

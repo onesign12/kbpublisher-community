@@ -1,0 +1,11 @@
+<input type="submit" name="submit" value="{save_msg}" 
+    class="button {class}" {disabled} />
+
+<tmpl:default>
+<input type="submit" name="set_default" id="default_submit" value="{defaults_msg}" 
+    class="button secondary {class}" {disabled}">
+</tmpl:default>
+
+<tmpl:cancel>
+<input type="button" value="{cancel_msg}" class="button" onClick="PopupManager.close();" />
+</tmpl:cancel>

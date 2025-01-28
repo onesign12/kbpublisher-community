@@ -1,0 +1,79 @@
+<div id="header_div" class="header {header_class}">
+    <div class="in_header {container_width_class}">
+        <tmpl:logo>
+        <span id="logo" class="show-for-medium" style="margin-right: 10px;">
+            <a href="{header_title_link}"><img src="{image_data}" alt="{header_title}" /></a>
+        </span>
+        </tmpl:logo>
+        
+        <tmpl:logo_mobile>
+        <span id="logo_mobile" class="hide-for-medium">
+            <a href="{header_title_link}"><img src="{image_data_mobile}" alt="{header_title}" /></a>
+        </span>
+        </tmpl:logo_mobile>
+        
+        <span>
+            <a href="{header_title_link}" class="header">{header_title}</a>
+        </span>
+        
+        <tmpl:header></tmpl:header>
+    </div>
+</div>
+
+<tmpl:form></tmpl:form>
+
+<div class="modal_container">
+
+    <tmpl:no_header>
+    <div class="login hide-for-small-only">
+        {login_block_tmpl}
+    </div>
+    </tmpl:no_header>
+
+    <div style="padding-top: 5px;"></div>
+
+    <a id="content"></a>
+    
+    <div class="modal_title">
+        {modal_title}
+    
+        <tmpl:back_link>
+        <div style="float: right;">
+            <a href="{back_link}">&larr; {back_to_site_msg}</a>
+        </div>
+        </tmpl:back_link>
+    
+    </div>
+
+    {msg}
+    
+    {content}
+
+    <br/>
+    <div class="bottom">
+        <div></div>
+
+        <tmpl:rss_block>
+        <div class="fright">
+            <a href="{rss_link}">
+                <img src="{client_href}images/icons/rss_feed_color.svg" title="RSS"
+                    width="16" height="16" alt="rss" />
+            </a>
+        </div>
+        </tmpl:rss_block>
+
+        <div class="copyright" style="text-align: left;">
+            {copyright_info}
+        </div>
+        
+        <div id="custom_modal_footer">
+            <div class="in_modal_footer {container_width_class}">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    {kbp_debug_info}
+
+<br />

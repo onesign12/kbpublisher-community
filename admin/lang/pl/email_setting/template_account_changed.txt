@@ -1,0 +1,9 @@
+Witaj [first_name],
+
+Dane do Twojego konta w "[kb_name]" zostały niedawno zmienione.
+Jeśli dokonałeś/aś tej zmiany, nie musisz niczego więcej robić.
+
+Żądanie pochodziło z następującego adresu IP: [ip].
+Nowy adres e-mail: [email]
+
+Jeśli nie dokonywałeś/aś zmian na swoim koncie, daj nam niezwłocznie znać pisząc na adres [support_email]. Zgłaszanie tego jest ważne, ponieważ pomaga nam zapobiegać oszustwom i kradzieży Twoich informacji.

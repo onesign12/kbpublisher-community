@@ -1,0 +1,11 @@
+{welcome_msg}:
+
+[message]
+
+--------------------------
+{user_name_msg}:  [name]
+{user_email_msg}: [email]
+{user_username_msg}: [username]
+
+--
+[support_mailer]

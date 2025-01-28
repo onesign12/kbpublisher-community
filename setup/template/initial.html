@@ -1,0 +1,79 @@
+{user_msg}
+
+<div style="padding-bottom: 10px;" class="red">{phrase_msg}</div>
+
+<fieldset><legend><b>{server_msg} / {connection_msg}:</b></legend>
+<table class="sTable tableCp3 tableCs1">
+<tr>
+    <td class="tdFormCaption required">{http_host_msg}:</td>
+    <td><input name="http_host" type="text" id="http_host" value="{http_host}" class="normalText"></td>
+</tr>
+<tr>
+    <td class="tdFormCaption required">{document_root_msg}:</td>
+    <td>
+        <input name="document_root" type="text" id="document_root" value="{document_root}" 
+            class="normalText {document_root_error_class}">
+    </td>
+</tr>
+<tr>
+    <td class="tdFormCaption">{secure_http_msg}:</td>
+    <td>
+    
+        <input type="hidden" name="ssl_admin" value="0">
+        <input type="hidden" name="ssl_client" value="0">        
+    
+        <table class="sTable">
+        <tr>
+            <td><input type="checkbox" name="ssl_admin" id="ssl_admin" value="1" {ssl_admin_ch}>&nbsp;&nbsp;{backend_msg}</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><input type="checkbox" name="ssl_client" id="ssl_client" value="1" {ssl_client_ch}>&nbsp;&nbsp;{frontend_msg}</td>
+        </tr>
+        </table>
+    </td>
+</tr>
+</table>
+</fieldset>
+
+<br>
+<fieldset><legend><b>{directories_msg}:</b></legend>
+<table class="sTable tableCp3 tableCs1">
+<tr>
+    <td class="tdFormCaption required">{client_home_dir_msg}:</td>
+    <td>
+        <input name="client_home_dir" type="text" id="client_home_dir" value="{client_home_dir}" 
+            class="normalText {client_home_dir_error_class}">
+    </td>
+</tr>
+<tr>
+    <td class="tdFormCaption required">{admin_home_dir_msg}:</td>
+    <td>
+        <input name="admin_home_dir" type="text" id="admin_home_dir" value="{admin_home_dir}" 
+            class="normalText {admin_home_dir_error_class}">
+    </td>
+</tr>
+
+<tr>
+    <td class="tdFormCaption required">{cache_dir_msg}:</td>
+    <td>
+        <input name="cache_dir" type="text" id="cache_dir" value="{cache_dir}" 
+            class="normalText {cache_dir_error_class}">
+    </td>
+</tr>
+<tr>
+    <td class="tdFormCaption required">{file_dir_msg}:</td>
+    <td>
+        <input name="file_dir" type="text" id="file_dir" value="{file_dir}" 
+            class="normalText {file_dir_error_class}">
+    </td>
+</tr>
+<tr>
+    <td class="tdFormCaption required">{html_editor_upload_dir_msg}:</td>
+    <td>
+        <input name="html_editor_upload_dir" type="text" id="html_editor_upload_dir" value="{html_editor_upload_dir}" 
+            class="normalText {html_editor_upload_dir_error_class}">
+        </td>
+</tr>
+</table>
+</fieldset>
+
+{version_specific}

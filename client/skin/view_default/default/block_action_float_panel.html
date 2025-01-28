@@ -1,0 +1,116 @@
+<script>
+    
+    $(document).ready(function() {
+        PoolManager.stick_msg = "{pin_msg}";
+        PoolManager.unstick_msg = "{unpin_msg}";
+        
+        $('._tooltip_fp:not([title=""])').tooltipster({
+            contentAsHTML: true,
+            theme: ['tooltipster-kbp'],
+            interactive: true,
+            maxWidth: 300,
+            side: 'left'
+        });
+
+        $('._tooltip_fp2:not([title=""])').tooltipster({
+            contentAsHTML: true,
+            theme: ['tooltipster-kbp'],
+            interactive: true,
+            maxWidth: 300,
+            side: 'left',
+            functionBefore: function(instance) {
+                return ($('#action_menu_panel').is(":hidden")); // for admin dropdown menu
+            }
+        });
+    });
+    
+    
+    function subscribeToEntry(status) {
+        $('#subscribe_panel_item div').css('background-image', 'url("{base_href}client/images/ajax/three-dots.svg")');
+        
+        if(status) {
+            $('#save_panel_item .hasBadgeIcon, #save_panel_item2 .hasBadgeIcon').addClass('badgeIcon');
+            $('#save_panel_item a, #save_panel_item2 a').attr('href', '#remove');
+            $('#save_panel_item a, #save_panel_item2 a').attr('onclick', 'subscribeToEntry(0);');
+            $('#save_panel_item').tooltipster('content', "{remove_from_list_msg}");
+            $('#save_panel_item2 div.icon_title').html("{remove_from_list_msg}");
+        } else {
+            $('#save_panel_item .hasBadgeIcon, #save_panel_item2 .hasBadgeIcon').removeClass('badgeIcon');
+            $('#save_panel_item a, #save_panel_item2 a').attr('href', '#save');
+            $('#save_panel_item a, #save_panel_item2 a').attr('onclick', 'subscribeToEntry(1);');
+            $('#save_panel_item').tooltipster('content', "{save_to_list_msg}");
+            $('#save_panel_item2 div.icon_title').html("{save_to_list_msg}");
+        }
+        
+        xajax_doSubscribe(status);
+    }
+    
+    function showMorePanel() {
+        ModalManager.show('panel_more', 'middle');
+    }
+    
+    
+    function showCommentPanel() {
+        if($('#panel_more').is(":visible")) {
+            ModalManager.hide('panel_more');
+        }
+        
+        ModalManager.show('panel_comment', 'middle');
+    }
+    
+    
+    function closeCommentPanel() {
+        ModalManager.hide('panel_comment');
+    }
+    
+    
+</script>
+<script src="{client_href}jscript/PoolManager.js?v={pvhash}"></script>
+
+<div id="right_panel">
+    <ul id="social-counters">
+        <tmpl:active_item>
+        <li id="{key}_panel_item" title="{title}" class="_tooltip_fp" {li_attr}>
+            <a href="{link}" rel="nofollow" {attr}>
+                <div class="round_icon hasBadgeIcon {badge_class}" 
+                    style="background-image: url('{icon}');" data-color="{color}"></div>
+            </a>
+        </li>
+        </tmpl:active_item>
+        
+        <li title="{more_msg}" class="_tooltip_fp">
+            <a href="#" onclick="showMorePanel();">
+                <div class="round_icon" data-color="{color}"
+                    style="background-image: url('{base_href}client/images/icons/article_panel/more.svg');background-size: auto;">
+                </div>
+            </a>
+        </li>
+        
+        <tmpl:admin_block_menu>
+        <li title="{admin_tools_msg}" class="_tooltip_fp2" id="action_menu_panel_li">
+            <a href="#" data-jq-dropdown="#action_menu_panel" data-horizontal-offset="-10">
+                <div class="round_icon" style="background-image: url('{base_href}client/images/icons/article_panel/ellipsis.svg');background-size: auto;">
+                </div>
+            </a>
+            
+            <div id="action_menu_panel" class="jq-dropdown jq-dropdown-anchor-right jq-dropdown-relative"
+                style="font-size: 0.8em;">
+                {action_menu}
+            </div>
+        </li>
+        </tmpl:admin_block_menu>
+    </ul>
+    
+    <div id="panel_more" style="display: none;">
+        <div style="margin-top: 20px;">
+            {dropdown_block}
+        </div>
+    </div>
+        
+    <div id="panel_comment" style="display: none;">
+        <div style="margin-top: 20px;">
+            {comment_form_block}
+        </div>
+    </div>
+        
+</div>

@@ -1,0 +1,155 @@
+<script>
+    function toggleMobileMenu() {
+		$('#menu_content').toggleClass('menu_open');
+    }
+</script>
+
+<div id="header_div" class="header {header_class}">
+    
+    <div class="in_header {container_width_class}">
+        <div class="hide-for-medium hamburger" data-toggle="leftMenu">
+            <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="login" viewBox="0 0 24 24">
+                    <path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z"/>
+                </svg></a>
+        </div>
+    
+        <tmpl:logo>
+        <span id="logo" class="show-for-medium" style="margin-right: 10px;">
+            <a href="{header_title_link}"><img src="{image_data}" alt="{header_title}" /></a>
+        </span>
+        </tmpl:logo>
+        
+        <tmpl:logo_mobile>
+        <span id="logo_mobile" class="hide-for-medium">
+            <a href="{header_title_link}"><img src="{image_data_mobile}" alt="{header_title}" /></a>
+        </span>
+        </tmpl:logo_mobile>
+        
+        <span>
+            <a href="{header_title_link}" class="header">{header_title}</a>
+        </span>
+        
+        <div class="show-for-small-only" data-toggle="rightMenu" style="margin-left: auto;">
+            <tmpl:logged>
+        	<a href="#" class="login" title="{my_account_msg}">
+            <!-- <a href="{login_link}" class="login" title="{my_account_msg}"> -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="login">
+                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.305c-.261-.586-.789-.991-1.871-1.241-2.293-.529-4.428-.993-3.393-2.945 3.145-5.942.833-9.119-2.489-9.119-3.388 0-5.644 3.299-2.489 9.119 1.066 1.964-1.148 2.427-3.393 2.945-1.084.25-1.608.658-1.867 1.246-1.405-1.723-2.251-3.919-2.251-6.31 0-5.514 4.486-10 10-10s10 4.486 10 10c0 2.389-.845 4.583-2.247 6.305z"/>
+                </svg>
+            </a>
+            </tmpl:logged>
+            
+            <tmpl:not_logged>
+            <a href="#" class="login">       
+                <svg xmlns="http://www.w3.org/2000/svg" class="login" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 18v1h-24v-1h24zm0-6v1h-24v-1h24zm0-6v1h-24v-1h24z" fill="#1040e2"/><path d="M24 19h-24v-1h24v1zm0-6h-24v-1h24v1zm0-6h-24v-1h24v1z"/></svg>
+            </a>
+            </tmpl:not_logged>
+        </div>
+        
+        <tmpl:header>
+        <div class="login hide-for-small-only" style="margin-left: auto;">
+            {login_block_tmpl}
+        </div>
+        </tmpl:header>
+    </div>
+</div>
+
+<div class="off-canvas-wrapper">
+    <div class="off-canvas position-left hide-for-medium" id="leftMenu" data-off-canvas data-transition="push" data-auto-focus="false">
+        {menu_top_popup_tmpl}
+    </div>
+    
+    <div class="off-canvas position-right hide-for-medium" id="rightMenu" data-off-canvas data-transition="push" data-auto-focus="false">
+    	{login_block_mobile_tmpl}
+    </div>
+    
+    <div class="off-canvas-content" data-off-canvas-content>
+        <div class="content" id="content_div">
+            <div class="in_content {container_width_class}">
+			
+    			<tmpl:no_header>
+    			<div class="login hide-for-small-only" style="margin-bottom: 12px;">
+    			    {login_block_tmpl}
+    			</div>
+    			</tmpl:no_header>
+			
+    			{menu_top_tmpl}
+			
+    			<table class="sTable">
+			
+    			<tmpl:form>
+    			<tr>
+    			    <td style="height: 1px;"></td>
+    			    <td style="width: 100%;"></td>
+    			</tr>
+    			</tmpl:form>
+			
+    			<tr>
+			
+    			    <tmpl:form>
+    			    <td class="content1" style="vertical-align: top;">
+    			        <div id="menu_content" style="display: {menu_display};">
+    			            {menu_content_tmpl}
+    			        </div>
+			
+    			    </td>
+    			    </tmpl:form>
+			
+    			    <td style="vertical-align: top;">
+			
+    			        <div class="navigation view_left">
+    			        	<tmpl:form>
+    						<div id="mobile_menu_toggle" class="show-for-small-only" onclick="toggleMobileMenu();">
+    							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="#666666" d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 17h-12v-2h12v2zm0-4h-12v-2h12v2zm0-4h-12v-2h12v2z"/></svg>
+    						</div>
+    						</tmpl:form>
+						
+    						<div style="overflow: hidden;">
+    			            	{navigation}
+    			            </div>
+    			        </div>
+			        
+    			        <div style="clear: both;"></div>
+			
+    			        <div class="contentMain">
+    			            <a id="content"></a>
+    			            {msg}
+    			            {content}
+    			        </div>
+			
+    			    </td>
+    			</tr>
+    			</table>
+			
+    			<div class="bottom" style="clear: left;">
+			
+    			    <tmpl:rss_block>
+    			    <div class="fright">
+    			        <a href="{rss_link}">
+                            <img src="{client_href}images/icons/rss_feed_color.svg" title="RSS"
+                                width="16" height="16" alt="rss" />
+    			        </a>
+    			    </div>
+    			    </tmpl:rss_block>
+			
+    			    <div class="copyright" style="text-align: left;">
+    			        {copyright_info}
+    			    </div>
+                    
+    			</div>
+                                
+            </div> <!--  in_content  -->
+            
+         </div>
+         
+        <div id="custom_footer">
+            {custom_footer}
+        </div>
+         
+    	{kbp_debug_info}
+         
+    </div>
+</div>
+
+{other_blocks}

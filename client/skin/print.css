@@ -1,0 +1,9 @@
+body { margin: 0px; height: 100%; }
+body, TD, DIV { 
+/*    font-family : Times; */
+	color: #000000;
+/*    font-size : 100%;*/
+}
+
+.textBlock { line-height : 150%; }
+.serviceBlock { font-size : 0.9em; }

@@ -1,0 +1,109 @@
+<link rel="stylesheet" href="../client/skin/jquery/colpick.css?v={pvhash}">
+<script src="../client/jscript/jquery/colpick.js?v={pvhash}"></script>
+<script>
+
+    $(document).ready(function() {
+        var options = {
+            layout: 'rgbhex',
+            onSubmit: function(hsb, hex, rgb, el) {
+                $(el).val('#' + hex);
+                $(el).parent().next().css('background-color', '#' + hex);
+        		$(el).colpickHide();
+	        },
+            onBeforeShow: function() {
+                $(this).colpickSetColor(this.value);
+            }
+        }
+        
+        $('#color').colpick(options);
+        
+        // and stick it to the box
+        options['onSubmit'] = function(hsb, hex, rgb, el) {
+            var input = $(el).prev().find('input');
+            input.val('#' + hex);
+            $(el).css('background-color', '#' + hex);
+    		$(el).colpickHide();
+        }
+        
+        options['onBeforeShow'] = function() {
+            var value = $(this).prev().find('input').val();
+            $(this).colpickSetColor(value);
+        }
+        
+        $('div.color_picker').colpick(options);
+    });
+</script>
+
+<b>{group_title}</b><br><br>
+
+{error_msg}
+
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" id="aContentForm" onSubmit="LeaveScreenMsg.skipCheck(); return Validate(this);">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{title_msg}:</td>
+    <td><input type="text" name="title" value="{title}" class="longText" style="width: 500px;"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{description_msg}:</td>
+    <td><textarea cols="80" rows="3" name="description" style="width: 500px;">{description}</textarea></td>
+<tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{color_msg}:</td>
+    <td>
+        <div style="float: left;">
+            <input name="custom_1" id="color" type="text" value="{color}" style="width: 150px;" />
+        </div>
+        
+        <div style="background-color: {color};" class="color_picker"></div>
+    </td>
+</tr>
+
+<tmpl:status_active>
+<tr class="trLighter">
+    <td class="tdFormCaption">{list_entry_status_msg}:</td>
+    <td><input type="checkbox" name="custom_3" value="1" {custom_3_checked}> {yes_msg}</td>
+</tr>
+</tmpl:status_active>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{sort_order_msg}:</td>
+    <td><input type="text" name="sort_order" value="{sort_order}" size="5"></td>
+</tr>
+
+<tmpl:status_default>
+<tr class="trLighter">
+    <td class="tdFormCaption">{list_default_status_msg}:</td>
+    <td><input type="checkbox" name="custom_4" value="1" {custom_4_checked} {custom_4_readonly}> {yes_msg}</td>
+</tr>
+</tmpl:status_default>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_msg}:</td>
+    <td>{status_checkbox}</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit" value="{save_msg}" class="button"
+                onClick="validateForm();return false;" />
+                
+            <input type="button" value="{cancel_msg}" 
+                onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+        </div>
+    </td>
+</tr>
+</table>
+
+</form>

@@ -1,0 +1,82 @@
+Options -Indexes
+DirectoryIndex index.php
+
+# uncoment below line to allow kbp catch 404 error, replace [kbp_dir] to relative path to kb from document root
+# ErrorDocument 404 /[kbp_dir]/index.php?View=404
+
+
+<FilesMatch "\.(ini|sql)$">
+    order deny,allow
+    deny from all
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+
+    # <IfModule mod_env.c>
+    # SetEnv KBP_REWRITE 1
+    # </IfModule>
+
+    RewriteEngine on
+    #RewriteBase /kb
+    Options +FollowSymlinks -Multiviews
+
+    #RewriteCond %{SERVER_PORT} !443
+    #RewriteRule (.*) https://secure.your-domain.com/ [R]
+
+    #To redirect all images to a static location, so that there's no overhead
+    #If the image location is the same as the original URL, use a hyphen as the second argument.
+    RewriteRule ^.*\.(jpg|gif|png|svg|css|js)$ - [L,PT]
+
+    # KNOWLEDGE -------------------
+
+    # other
+    RewriteRule ^(404)\.html$ index.php?View=$1 [QSA,L]
+    RewriteRule ^(afile)/([0-9]+)/([0-9]+)(/([0-9]+))?/?$ index.php?View=$1&EntryID=$2&AttachID=$3&f=$5 [QSA,L]
+    RewriteRule ^(file)/([0-9]+)(/([0-9]+))?/?$ index.php?View=$1&EntryID=$2&f=$4 [QSA,L]
+    RewriteRule ^(map|files)/([a-zA-Z]+)/?$ index.php?View=$1&Page=$2 [QSA,L]
+
+    # news
+    RewriteRule ^(news)/c([0-9]+)/?$ index.php?View=$1&CategoryID=$2 [QSA,L]
+
+    # category
+    RewriteRule ^(([a-zA-Z_-]+)/)?([a-zA-Z0-9_,.!?'/()\+\-]+)-([0-9]+)/?$ index.php?View=$2&CategoryID=$4&CategoryTitle=$3 [QSA,L]
+    RewriteRule ^([0-9]+)/?(/([a-zA-Z_]+))?/?$ index.php?CategoryID=$1&Msg=$3 [QSA,L]
+    RewriteRule ^(index|files|print-cat|pdf-cat|featured|entry_add)/([0-9]+)/?(/([a-zA-Z_]+))?/?$ index.php?View=$1&CategoryID=$2&Msg=$4 [QSA,L]
+
+    # entry
+    RewriteRule ^([a-zA-Z_-]+)/([a-zA-Z0-9_,.!?'/()\+\-]+)_([0-9]+)\.html$ index.php?View=$1&EntryID=$3&EntryTitle=$2 [QSA,L]
+    RewriteRule ^([a-zA-Z0-9_,.!?'/()\+\-]+)_([0-9]+)\.html$ index.php?View=entry&EntryID=$2&EntryTitle=$1 [QSA,L]
+    RewriteRule ^([a-zA-Z0-9_,.!?'()\+\-]+)_([0-9]+)\.pdf$ index.php?View=pdf&EntryID=$2&EntryTitle=$1 [QSA,L]
+    RewriteRule ^([a-zA-Z_-]+)(/([0-9]+))?(/([a-zA-Z_]+))?/?$ index.php?View=$1&EntryID=$3&Msg=$5 [QSA,L]
+
+    # /KNOWLEDGE -------------------
+
+</IfModule>
+
+#php_value session.use_trans_sid 0
+#php_value session.use_only_cookies 1
+#php_value session.auto_start 0
+
+#php_value arg_separator.output &
+#php_value arg_separator.input &
+
+#php_flag zlib.output_compression On
+#php_value zlib.output_compression_level 5
+
+# It should be set to 1 to overload the mail() function. 2 for string functions, 4 for regular expression functions.
+# For example, if is set for 7, mail, strings and regular expression functions should be overloaded.
+#php_value mbstring.func_overload 2
+
+#The maximum size of an uploaded file.
+#default 2M
+# php_value upload_max_filesize "50M"
+
+#Sets max size of post data allowed. This setting also affects file upload.
+#To upload large files, this value must be larger than upload_max_filesize.
+#default 8M
+# php_value post_max_size "50M"
+
+#If memory limit is enabled by your configure script,
+#also affects file uploading. Generally speaking, memory_limit should be larger than post_max_size.
+#default 8M
+#php_value memory_limit "32M"

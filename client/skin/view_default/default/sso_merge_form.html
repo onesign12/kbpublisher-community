@@ -1,0 +1,55 @@
+<div class="boxMsgDiv hint">
+    {hint_msg}
+</div>
+{error_msg}
+<br />
+
+<div class="niceForm">
+
+<form action="{action_link}" method="post" id="aContentForm">
+
+<div class="table login2">
+    <div class="formTopDelim"></div>
+    
+    <div class="grid-x">
+        <div class="small-12 cell">
+            <div>
+                <input type="password" name="password" id="password" value="" class="longText"
+                    placeholder="* {password_msg}" {disabled} />
+            </div>
+        </div>
+    </div>
+    
+    {captcha_block}
+    
+    <!-- <div class="grid-x skip">
+        <div class="small-6 cell">
+            <tmpl:remember_me>
+            <input type="checkbox" name="remember" id="remember" value="1" {remember_ch} />
+            <label for="remember" class="smallerText"
+                style="margin-left: 5px;">{stay_signedin_msg}</label>
+            </tmpl:remember_me>
+        </div>
+    </div> -->
+
+    <div class="buttons">
+        <button type="submit" name="submit" id="submit" class="button primary" 
+            onClick="validateForm();return false;">
+            {merge_account_btn_msg}
+        </button>
+            
+        <input type="button" value="{cancel_msg}"  class="button"
+            onclick="location.href='{cancel_link}'" />
+    </div>
+    
+    <tmpl:forgot_password>
+    <br/><br/>
+    <a href="{forgot_password_link}" class="smallerText nocolor" style="float:right;">{forgot_password_msg}</a>
+    </tmpl:forgot_password>
+    
+    
+</div>
+
+</form>
+
+</div>

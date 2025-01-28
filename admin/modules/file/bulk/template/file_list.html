@@ -1,0 +1,49 @@
+<script>
+var filter_ids = ['q'];
+LeaveScreenMsg.setFilterFields(filter_ids);
+</script>
+
+<div style="margin-bottom: 10px;">
+    <input type="text" value="" name="q" id="q" style="width: 240px;" 
+        placeholder="{filter_msg}" autocomplete="off" />
+</div>
+   
+<div id="eList" style="width: 100%;">
+
+<div class="main">
+    <div id="file_caption" class="trMoreDarker" style="padding: 3px;">
+        <span align="center" style="margin: 0px 10px;">
+            <input type="checkbox" id="files_all" name="files_all" value="1" onclick="checkFiles(this.checked);">
+        </span>
+        <span class="trMoreDarker">{filename_msg}</span>
+    </div>
+
+    <tmpl:row>
+    <div id="file_{id}" class="trDarker" style="padding: 2px; color: {color};">
+        <div>
+            <span style="margin: 0px 10px;">
+                <input type="checkbox" name="files[{id}]" value="{filename}" id="f_{id}" 
+                    class="filesch" {disabled_str} {checked}>
+                
+                <!-- for Amason s3 -->
+                <input type="hidden" name="foptions[{id}][region]" value="{region}">
+                <input type="hidden" name="foptions[{id}][md5hash]" value="{md5hash}">
+                <input type="hidden" name="foptions[{id}][filesize]" value="{filesize}">
+            </span>
+            <span class="searchable"><label for="f_{id}">{filename_short}</label></span>
+            
+            <tmpl:entry_link>
+            <span style="float: right;">
+                <b>{id_msg} {entry_id}:</b>
+                <a href="{entry_link}">{date_formatted}</a>
+            </span>
+            </tmpl:entry_link>
+        </div>
+        <div style="height: 1px;background: white;overflow: hidden;" class="delim"></div>
+    </div>
+    </tmpl:row>
+
+
+</div>
+
+</div>

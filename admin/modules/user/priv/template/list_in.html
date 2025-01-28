@@ -1,0 +1,29 @@
+<script>
+    function initSort() {
+        $('#sortable_views').sortable({
+            placeholder: 'view_placeholder',
+            items: 'li:not(.not_sortable)',
+            stop: function(event, ui) {
+                var ids = $('#sortable_views').sortable('toArray');
+                
+                var index = 2;
+                for (var i in ids) {
+                    $('#' + ids[i] + ' span.new_priv_level').html(index);
+                    index ++;
+                }
+                
+                LeaveScreenMsg.changes = true;
+            }
+        });
+        $('#sortable_views').disableSelection();
+        
+        LeaveScreenMsg.setDoCheck(1);
+        LeaveScreenMsg.check();
+    }
+</script>
+
+<div id="priv_list">
+    
+    {content}
+
+</div>

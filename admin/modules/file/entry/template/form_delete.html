@@ -1,0 +1,59 @@
+{menu_block}
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" id="aContentForm">
+{hidden_fields}
+
+
+<table class="default">
+<tr> 
+    <td colspan="2" class="tdTitle" style="padding: 1px;"></td>
+</tr>
+
+<tr class="trLighter">
+    <td width="100">{id_msg}:</td>
+    <td>{id}</td>
+</tr>
+<tr class="trLighter">
+    <td>{file_msg}:</td>
+    <td>{filename}</td>
+</tr>
+
+<tmpl:posted>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{date_msg}:</td>
+    <td>{date_formatted} {formatted_user}</td>
+</tr>
+</tmpl:posted>
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+        
+        <input type="button" value="{detail_msg}" id="detail_btn" class="button primary" 
+            onclick="window.top.location.href = '{detail_link}';">
+        
+        <tmpl:update_button>
+        <input type="button" value="{update_msg}" class="button" 
+            onclick="window.top.location.href = '{update_link}';">
+        </tmpl:update_button>
+
+        <tmpl:delete_button>
+        <input type="submit" name="submit_no" id="submit_no" value="{delete_msg}" 
+            onclick="return confirmForm('{sure_delete_msg}', 'submit_no');" 
+            class="button secondary">
+        </tmpl:delete_button>
+        
+        <span style="margin-left: 25px;">
+            <input type="button" value="{cancel_msg}" 
+                onClick="location.href='{cancel_link}'" class="button">
+        </span>
+    </td>
+</tr>
+</table>
+</form>
+
+<script>
+ document.getElementById('detail_btn').focus();
+</script>

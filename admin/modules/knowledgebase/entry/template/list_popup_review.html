@@ -1,0 +1,41 @@
+<script>
+$(document).ready(function() {    
+    PopupManager.setTitle("{review_msg}");
+});
+
+function confirmNotPublishedEntry(msg, link) {
+    confirm2(msg, function() {
+        document.location.href = link;
+    });
+}
+</script>
+
+{header}
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+    
+    {list_title}
+    
+    <td style="width: 1px;" class="tdTitle">&nbsp;</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}">
+
+    {list_row}
+
+    <td class="action">
+        {options_img}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{close_msg}" class="button" onclick="PopupManager.close();" />
+</div>
+
+<tmpl:bulk></tmpl:bulk>
+<tmpl:attach></tmpl:attach>

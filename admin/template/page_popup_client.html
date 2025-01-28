@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset={meta_charset}"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="none">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{meta_title}</title>
+    <link rel="stylesheet" href="{base_href}admin/css/style.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/box.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/common_table.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/jquery-ui/smoothness/jquery-ui.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}admin/css/jquery/smoothness/custom.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/jquery/jquery.growl.css?v={pvhash}">
+    
+    <!--[if IE]>
+    <link rel="stylesheet" href="{base_href}admin/css/style_ie.css?v={pvhash}">
+    <![endif]-->
+    
+    <script src="{base_href}admin/jscript/common.js?v={pvhash}"></script>
+    <script src="{base_href}admin/jscript/popup.js?v={pvhash}"></script>    
+    <script src="{base_href}client/jscript/PopupManager.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/FormCollector.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/ErrorHighlighter.js?v={pvhash}"></script>
+    
+    <script src="{base_href}client/jscript/jquery/jquery.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/jquery-ui.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/jquery.growl.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/tooltipster.bundle.min.js?v={pvhash}" ></script>
+    <script src="{base_href}client/jscript/jquery/jquery.serialize-object.min.js?v={pvhash}"></script>
+    
+    <script>        
+        $(document).ready(function() {
+            setDebug({debug});
+            
+            window.top.$('#loadingMessage').remove();
+            
+            showGrowl("{growl_show}", "{growl_title}", "{growl_body}");
+            
+            PopupManager = window.top.PopupManager;
+            $('body').bind('keydown', function(e) {
+                PopupManager.checkForEscapeKey(e);
+            });
+            
+            if ($('#bottom_button').length) {
+                setButtonsPopup();
+            }
+        });
+    </script>
+</head>
+<body> 
+
+<div id="spinner" style="margin: 7px 0px 0px 7px; display: none; position: absolute;">
+    <img src="{base_href}admin/images/ajax/indicator.gif" alt="Loading" />
+</div>
+
+<div id="loadingMessagePage" class="loading_spinner" style="display: none;">
+    <img src="{base_href}admin/images/ajax/indicator_verybig.gif" alt="Loading" />
+    <!-- <span>Saving</span>... -->
+</div>
+
+    
+<div style="padding: 0px 15px;">
+
+    <br/>
+    {module_msg}
+    {info_msg}
+    {content}
+
+</div>
+
+{xajax_js}
+
+</body>
+</html>

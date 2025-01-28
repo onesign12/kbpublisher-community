@@ -1,0 +1,226 @@
+<div>
+
+    <script>
+
+        $(document).ready(function(){
+            populateCategoryPrivateContent();
+        });
+
+
+        function populateCategoryPrivateContent() {
+            if($('#category_private_content') && $('#category_private_content2')) {
+                var block = $('#category_private_content').clone();
+                $(block).find('#category_toggle_title').attr('onclick', "toggleBlock('category2');");
+                $(block).find('#category_toggle_title').removeClass('formToggleUnfolded');
+                $(block).find('#category_toggle_title').attr('id', 'category2_toggle_title');
+                $(block).find('#category_toggle_block').attr('id', 'category2_toggle_block').hide();
+
+                $('#category_private_content2').html(block.html());
+
+                if ($('#private:checked').length == 0 && $('#private_write:checked').length == 0) {
+                    $('#category_private_content2').hide();
+                }
+            }
+        }
+
+
+        function _ShowHideRoles(id, div) {
+            var obj = document.getElementById(id);
+            if(obj) {
+                var val = (obj.checked == true);
+                ShowHideDiv(div, val, true);
+
+                // block with private info
+                if($('#category_private_content2')) {
+                    var id2 = (id == 'private') ? 'private_write' : 'private';
+                    var val2 = (document.getElementById(id2).checked == true);
+                    var hs = (val || val2);
+                    ShowHideDiv('category_private_content2', hs, true);
+                }
+            }
+
+            return val;
+        }
+
+        function ShowHideRoles() {
+            ShowHideRolesById('private');
+            ShowHideRolesById('private_write');
+        }
+
+        // separete roles
+        function ShowHideRolesById(id) {
+            if(id == 'private') {
+                _ShowHideRoles('private', 'roles_div');
+                selectAll(false, 'role_read',  null);
+            } else {
+                _ShowHideRoles('private_write', 'roles_write_div');
+                selectAll(false, 'role_write',  null);
+            }
+        }
+
+        function copyRoles(from, to, checkbox) {
+            $('#' + from).find('option').each(function() {
+               if (!$('#' + to).find('option[value=' + this.value + ']').length) {
+                   $('#' + to).append($('<option></option>').attr('value', this.value).text(this.text));
+               }
+            });
+
+            if ($('input:not(:checked)[id="' + checkbox + '"]').length) {
+                $('#' + checkbox).click();
+            }
+        }
+
+        function selHandlerDeletePrivate(msg, do_confirm, type) {
+            var id = 'role_' + type;
+            handler = (type == 'read') ? selRoleHandler : selRoleWriteHandler;
+
+            if(document.getElementById(id).selectedIndex != -1) {
+                if(do_confirm) {
+                    confirm2(msg, function() {
+                        handler.deleteOption();
+                    });
+
+                } else {
+                    handler.deleteOption();
+                }
+            }
+        }
+
+        window.selRoleHandler = new CategoriesSelectHandler('role_read');
+        window.selRoleWriteHandler = new CategoriesSelectHandler('role_write');
+
+        $(document).ready(function(){
+            ShowHideRoles();
+            selRoleHandler.setSelectWidth('role_read');
+            selRoleWriteHandler.setSelectWidth('role_write');
+        });
+
+    </script>
+
+
+    <table class="sTable">
+        <tr>
+            <td>
+
+                <tmpl:category_add_from_parent_btn>
+                <div style="margin-bottom: 15px;">
+                    <a href="javascript:xajax_addParentRoles(document.getElementById('parent_id').value, 'read'); void(0);"
+                        title="{copy_from_parent_category_msg}">
+                        <img src="images/icons/assign.svg" width="16" height="16" alt="{copy_from_parent_category_msg}" >
+                    </a>
+                </div>
+                </tmpl:category_add_from_parent_btn>
+
+
+                <!-- NOT LISTED -->
+                <tmpl:private_list>
+                <div style="margin-right: 5px;">
+                    <input type="checkbox" name="private[]" id="private_list" value="l"
+                        {private_list_options}>
+                        <label for="private_list">{private2_list_msg}</label>
+                </div>
+                </tmpl:private_list>
+
+                <!-- READ -->
+                <div style="margin-right: 5px;">
+                    <input type="checkbox" name="private[]" id="private" value="r"
+                        onClick="ShowHideRolesById('private');" {private_options}>
+                        <label for="private">{private2_read_msg}</label>
+                </div>
+
+                <div id="roles_div" style="display: none;">
+                    <div style="padding-left: 25px;">
+                        <div style="padding: 8px 0px;">{role_access2_msg} ({registered_access2_msg}):</div>
+
+                        <table class="sTable" style="width:700px;">
+                        <tr>
+                            <td>
+                                <div class="selectScrollDiv" style="width: 682px;">
+                                    <select name="role_read[]" id="role_read" size="3" style="border: 0px; height: 60px;"
+                                        onDblClick="selHandlerDeletePrivate('{sure_delete_msg}', {confirm}, 'read');" multiple>
+                                        {role_select}
+                                    </select>
+                                </div>
+                            </td>
+                            <td style="width: 50px; padding: 0px 7px; text-align: center; vertical-align: top;">
+                                <input type="button" value="+"
+                                    class="button2 button2_add"
+                                    onclick="selRoleHandler.callPopUp('{popup_link}');" />
+
+                                <div style="padding-top: 3px;">
+                                    <input type="button" value="-"
+                                        class="button2 button2_add"
+                                        onclick="selRoleHandler.deleteOptionConfirm('{sure_delete_msg}');" />
+                                </div>
+
+                                <div style="padding-top: 3px;">
+                                    <input type="button" value="&#x2193;"
+                                        class="button2 button2_add"
+                                        title="{copy_roles_msg}"
+                                        onclick="copyRoles('role_read', 'role_write', 'private_write');" />
+                                </div>
+                            </td>
+                        </tr>
+                        </table>
+                    </div>
+                    <br />
+                </div>
+
+
+                <!-- WRITE -->
+                <span>
+                    <input type="checkbox" name="private[]" id="private_write" value="w"
+                        onClick="ShowHideRolesById('private_write');" {private_write_options}>
+                    <label for="private_write">{private2_write_msg}</label>
+                </span>
+
+                <div id="roles_write_div" style="display: none;">
+
+                    <div style="padding-left: 25px;">
+                        <div style="padding: 8px 0px;">{role_access2_msg}:</div>
+
+                        <table class="sTable" style="width:700px;">
+                        <tr>
+                            <td>
+                                <div class="selectScrollDiv" style="width: 682px;">
+                                    <select name="role_write[]" id="role_write" size="3" style="border: 0px; height: 60px;"
+                                        onDblClick="selHandlerDeletePrivate('{sure_delete_msg}', {confirm}, 'write');" multiple>
+                                        {role_write_select}
+                                    </select>
+                                </div>
+                            </td>
+                            <td style="width: 50px; padding: 0px 7px; text-align: center; vertical-align: top;">
+                                <input type="button" value="+"
+                                    class="button2 button2_add"
+                                    onclick="selRoleWriteHandler.callPopUp('{popup_link}');" />
+
+                                <div style="padding-top: 3px;">
+                                    <input type="button" value="-"
+                                        class="button2 button2_add"
+                                        onclick="selRoleWriteHandler.deleteOptionConfirm('{sure_delete_msg}');" />
+                                </div>
+
+                                <div style="padding-top: 3px;">
+                                    <input type="button" value="&#x2191;"
+                                        class="button2 button2_add"
+                                        title="{copy_roles_msg}"
+                                        onclick="copyRoles('role_write', 'role_read', 'private');" />
+                                </div>
+                            </td>
+                        </tr>
+                        </table>
+                    </div>
+                </div>
+
+
+            </td>
+            <td style="width: 1px; vertical-align: top;">
+                <span class="tooltip">{private_tip_msg}</span>
+            </td>
+        </tr>
+    </table>
+
+    <div id="category_private_content2" style="padding-top: 5px;">
+    </div>
+
+</div>

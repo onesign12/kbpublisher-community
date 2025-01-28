@@ -1,0 +1,67 @@
+<div class="tdTitle" style="margin-bottom: 10px; padding-right: 10px;">
+    <div style="float: right; padding-right: 5px; margin-bottom: 2px;">
+    	<img src="{base_href}client/images/icons/printer.svg" alt="print" style="width: 14px;height: 14px;vertical-align: bottom;" />
+        &nbsp;<a href="{print_link}" class="smallerText2" style="font-weight: normal;">{print_msg}</a>
+    </div>
+
+    <div class="fleft">{menu_glossary_msg}</div>&nbsp;
+    <div style="clear: both;"></div>
+</div>
+
+<div>
+    <form action="{form_search_action}">
+        {hidden_search}
+        
+        <div class="search_header">
+            <div class="container">
+                <button type="submit" name="sb"  class="button2_grey"
+                    style="float: right;">
+                    <img src="{base_href}client/images/icons/magnifier.svg" width="15" height="15" alt="{search_msg}"
+                        style="vertical-align: middle;" />
+                </button>
+                
+                <div style="overflow: hidden; padding-right: 20px;">
+                    <input type="text" name="qf" value="{qf}" placeholder="{search_msg}" autocomplete="off" style="width: 100%;"
+                        class="normalText" />
+                </div>
+    		
+    		    <div style="clear: both;"></div>
+    		</div>
+		</div>
+    </form>
+</div>
+
+
+<tmpl:letters>
+<div class="grid-x">
+    <tmpl:letter>
+    <div class="small-2 medium-auto cell trDarker" style="text-align: center;border: 1px solid white; {letter_active}">
+        <a href="{letter_link}"><div style="cursor: pointer;width: 100%;">{letter}</div></a>
+    </div>
+    </tmpl:letter>
+    <div class="small-2 medium-auto cell trDarker" style="text-align: center;border: 1px solid white;">
+        <a href="{all_letter_link}"><div style="cursor: pointer;width: 100%;">{all_msg}</div></a>
+    </div>
+</div>
+<br />
+</tmpl:letters>
+
+
+<div style="padding: 5px; text-align: left;">
+
+    <ul style="padding-left: 12px;">
+    <tmpl:row>
+        <li>
+            <b>{phrase}</b>
+            <div class="textBlock" style="padding: 2px 0px 12px 0px;">{definition}</div>
+        </li>
+    </tmpl:row>
+    </ul>
+
+</div>
+<br />
+
+<tmpl:by_page_bottom>
+<div style="padding-left: 20px;">{page_by_page_bottom}</div>
+<br />
+</tmpl:by_page_bottom>

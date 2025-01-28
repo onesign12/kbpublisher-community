@@ -1,0 +1,15 @@
+<script>
+    function redirect() {
+        document.location.replace('{go_url}');
+    }
+
+    $(document).ready(function(){
+        setTimeout("redirect();", {time});
+    });
+</script>
+
+{msg}
+
+
+<b><- </b><a href="{back_link}"><b>{back_msg}</b></a>
+<br /><br />

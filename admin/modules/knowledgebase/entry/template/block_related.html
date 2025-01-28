@@ -1,0 +1,30 @@
+<li id="readroot" class="popUpDivForm " style="cursor: move; display: none;">
+    <div style="float: left;">
+        <input type="hidden" name="attachment[]" value="" id=""><span>1</span>
+    </div>
+    <div style="text-align: right;">
+        <a id="" href="" style="margin: 0px 7px;"
+            onClick="insertLink('file', this.id); return false;"><img src="images/icons/link.svg" height="10" alt="anchor" title="{insert_as_link_msg}"></a>
+                        
+        <a href="" onClick="removeHtml(this, '{sure_common_msg}'); return false;">
+            <img src="images/icons/delete.svg" alt="delete" title="{delete_msg}">
+        </a>
+    </div>
+</li>
+
+<li id="readroot_article" class="popUpDivForm " style="cursor: move; display: none;">
+    <div style="float: left;">
+        <input type="hidden" name="related[]" value=""><span>1</span>
+    </div>
+    <div style="text-align: right;">
+    	<input type="checkbox" name="related_ref[]" value="{article_id}"
+			title="{related_crossref_msg}">
+
+		<a id="" href="" style="margin: 0px 7px;"
+			onClick="insertLink('article', this.id); return false;"><img src="images/icons/link.svg" height="10" alt="anchor" title="{insert_as_link_msg}"></a>
+        
+		<a href="" onClick="removeHtml(this, '{sure_common_msg}'); return false;">
+		    <img src="images/icons/delete.svg" alt="delete" title="{delete_msg}">
+		</a>
+    </div>
+</li>

@@ -1,0 +1,124 @@
+<script src="{path}jscript/livesearch/quicksilver.js?v={pvhash}"></script>
+<script src="{path}jscript/livesearch/select.js?v={pvhash}"></script>
+<script src="{path}jscript/livesearch/addons/select_all_entries.js?v={pvhash}"></script>
+<script src="{path}jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script>
+    var categories = [{categories}];
+    var disabled = [{disabled}];
+    
+    window.handler = new CategoriesSelectHandler('livesearch', 'second', 'category');
+    $(document).ready(function() {
+        handler.init();
+        
+        
+        // Check hotkey
+        $('#livesearch').bind('keydown', function(event) {
+            if ((event.shiftKey) && ((event.keyCode == 0xA) || (event.keyCode == 0xD))) {
+                
+                // Block hotkey reaction in Gecko and Opera browsers
+                if(event.preventDefault) event.preventDefault();
+                
+                // Block hotkey reaction in IE
+                event.returnValue = false;
+
+                handler.insertOptionByHotkey(event);            
+            }
+        });
+        
+        
+        // Call live search
+        $('#filter').liveUpdate('livesearch', categories, 'counter').focus();
+        
+        // Set disabled options after rebuild
+        $('#filter').bind('keyup', function() {
+                handler.rebuildDisabled(disabled);
+            } 
+        );
+        
+        handler.setDisabled(disabled);
+    });
+</script>
+
+{user_note_msg}
+{header}
+
+{error_msg}
+
+
+<!-- <form action="{action_link}" name="subsc" method="post" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();"> -->
+<form action="{action_link}" name="subsc" method="post">
+
+<table class="formTable">
+<tr>
+    <td class="tdTitle"><b>{new_subscription_msg}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td>
+        <input type="text" name="filter" id="filter" class="longText" value="top:" autocomplete="off" />
+        <span style="padding-left: 5px;">{found_categories_msg}: <span id="counter"></span></span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td>
+        
+        <table width="100%" class="sTable">
+        <tr>
+            <td style="width: 100%;" id="livetd">
+                <select id="livesearch" size="8" style="width: 100%;" 
+                    onDblClick="handler.insertOption(this.value, this.selectedIndex, categories);" data-role="none">
+                </select>
+            </td>
+            <td valign="top" align="center" style="width: 50px;padding: 0px 7px;">
+                <input type="button" value="+" 
+                    class="button2 button2_add"
+                    onclick="handler.insertOptionByButton(categories);" data-role="none" />
+            </td>
+        </tr>
+        </table>
+        
+        <div style="padding-top: 3px;" id="category_info"></div>
+
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td>
+
+        <div style="padding-bottom: 5px;">
+            <strong>{selected_subscription_msg}</strong>
+        </div>
+
+        <table class="sTable">
+        <tr>
+            <td style="width: 100%;">
+                <select id="second" name="subscriptions[]" multiple size="5" style="width: 100%;"
+                     onDblClick="handler.deleteOption();" data-role="none">
+                </select>
+            </td>
+            <td style="width: 50px; padding: 0px 7px; text-align: center; vertical-align: top;">
+                <input type="button" value="-" title="{remove_from_list_msg}" 
+                    class="button2 button2_add"
+                    onclick="handler.deleteOption();" data-role="none" />
+            </td>
+        </tr>
+        </table>    
+        
+    </td>
+</tr>
+
+</table>
+
+<br /><br />
+<div style="margin:0 auto; text-align: center;">
+    <div id="bottom_button">
+        <input type="submit" class="button" value="{save_msg}" 
+            onClick="handler.selectAll(); document.subsc.submit();" data-mini="true" />
+            
+        <input type="button" class="button" value="{cancel_msg}" 
+            onClick="location.href='{cancel_link}'" data-mini="true" />
+    </div>
+</div>
+
+</form>

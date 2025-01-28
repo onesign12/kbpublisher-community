@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="{base_href}client/skin/jquery/magnific-popup.css?v={pvhash}" />
+<script src="{base_href}client/jscript/SearchBar.js?v={pvhash}"></script>
+<script src="{base_href}client/jscript/jquery/jquery.magnific-popup.min.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function() {
+        $('.help_link').magnificPopup({
+            type: 'inline'
+        });
+    
+        <tmpl:search_suggest>
+        SearchBar2.init('{suggest_link}', 'searchq2', 'left bottom', 'searchq2');
+        </tmpl:search_suggest>
+        
+        // make special search green
+        <tmpl:is_special_search>
+        $('#searchq2').css('color', 'green');
+        </tmpl:is_special_search>
+    });
+
+    function validateQuickSearch2(advanced) {
+        if(advanced) {
+            return true;
+        } else {
+            return validateQuickSearch("{alert_empty_search}", "searchq2");
+        }
+    }
+</script>
+
+<form action="{action_link}" id="search_form2"
+    onsubmit="return validateQuickSearch2({advanced_search});">
+<input type="hidden" name="s" value="1" />
+{hidden}
+
+<div class="search_header">
+    <div class="grid-x container">
+    	<div class="small-12 medium-11">
+    	    <button type="submit" name="sb"  class="button2_grey" style="float: right;">
+                <img src="{base_href}client/images/icons/magnifier.svg" width="15" height="15" alt="{search_msg}"
+                    style="vertical-align: middle;" />
+            </button>
+            
+            <div style="overflow: hidden; padding-right: 20px;">
+                <input type="text" id="searchq2" name="q" value="{q}" placeholder="{placeholder}" autocomplete="off" 
+                    style="width: 100%;" class="normalText" />
+            </div>
+        
+            <div style="clear: both;"></div>
+        </div>
+    
+    	<div class="small-12 medium-1 left-for-small" style="text-align: right;">
+    		<a class="help_link show-for-small-only smallerText" href="#search_help_block">
+    			{search_help_msg}
+        	</a>
+            <a href="#search_help_block" id="search_help_link" class="help_link hide-for-small-only" style="line-height: 35px;">
+                <img src="{base_href}client/images/icons/help.svg" width="20" height="20" alt="{search_help_msg}"
+                    style="vertical-align: middle;" />
+            </a>
+        </div>
+    </div>
+</div>
+
+<div id="search_help_block" class="help_block mfp-hide">
+    <h2>{search_help_msg}</h2>
+    <div>{search_help_block}</div>
+</div>
+
+{close_from_tag}

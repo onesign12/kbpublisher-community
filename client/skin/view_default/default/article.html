@@ -1,0 +1,74 @@
+<div class="articleContainer">
+    
+    <div id="top" class="tdArticleTitle" style="overflow: hidden;"
+        <tmpl:update_title_inplace>
+        title="{update_title_inplace_desc_msg}" onmousedown="updateTitleInPlace();" onmouseup="denyTitleUpdate();"
+        </tmpl:update_title_inplace> >
+        
+        <tmpl:admin_block_menu>
+        <div style="float: right;margin: 5px 5px 0 0;width: 50px;text-align: right;">
+            <a href="#tools" title="{admin_tools_msg}">
+                <img src="{base_href}client/images/icons/menu_dot.svg" width="14" height="14" alt="edit"
+                    data-jq-dropdown="#action_menu" />
+            </a>
+
+            <div id="action_menu" class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right {dropdown_extra_class}">
+                {action_menu}
+            </div>
+        </div>
+        </tmpl:admin_block_menu>
+
+        <div style="overflow: hidden;position: relative;">
+            <h1 id="title_text" class="articleTitle {title_extra_class}">{title}</h1>
+            
+            <tmpl:update_title_inplace>
+            <textarea id="title_input" onkeyup="checkForSpecialKey(event, this);">{title}</textarea>
+            </tmpl:update_title_inplace>
+        </div>
+
+        <div style="clear: both"></div>
+    </div>
+    
+    <tmpl:entry_block_top>
+    <div class="smallerText" style="padding: 10px 5px; border-bottom: 1px dotted;">
+        <div style="padding-bottom: 3px;">{entry_id_msg}: {id}</div>
+        <div>{last_updated_msg}: {date_updated_formatted}</div>
+    </div>
+    </tmpl:entry_block_top>
+
+    <div style="position: relative;">
+        
+        {right_panel}
+        
+        <div class="hide-for-small-only {article_padding}" 
+            style="padding: 20px 0px 5px 25px; float: right;">
+            {article_block}
+        </div>
+
+        <div id="kbp_article_body" class="textBlock {article_padding}" style="{min_height}">    
+
+            {toc_tmpl}
+
+            {custom_tmpl_top}
+
+            {body}
+
+            {custom_tmpl_bottom}
+
+        </div>
+
+    </div>
+
+	<div>
+		{rating_block}
+	</div>
+
+    <div style="clear: both;"></div>
+    
+    <div class="abbBlock show-for-small-only">
+        {article_block2}
+    </div>
+
+</div>
+
+{mustread_block}

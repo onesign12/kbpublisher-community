@@ -1,0 +1,96 @@
+<script src="{client_href}jscript/jquery/jquery.placeholder.min.js?v={pvhash}"></script>
+
+<div id="list_option_block" class="abbLine" style="display: none;">
+
+<div class="grid-x">
+    
+    <div class="medium-5 small-12 cell">
+
+		<form action="{form_search_action}" class="sb_wrapper" style="width: 170px;"
+			onsubmit="return validateQuickSearch('{alert_empty_search}', 'searchq3')">
+			
+            <input type="hidden" name="s" value="1" />
+            <input type="hidden" name="in[]" value="{search_in}" />
+            <input type="hidden" name="cp" value="1" />
+            {hidden_search}
+        
+            <div class="search_container2" style="white-space:nowrap;">
+                <input type="search" name="q" id="searchq3" value="{q}" 
+                    placeholder="{search_category_msg}" 
+                    style="margin-right:3px; width: 200px;" />
+                    
+                <button type="submit" name="sb" title="{search_button_msg}"
+                    style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#666"><path d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/></svg>
+                </button>
+            </div>
+        
+	        <tmpl:form>
+	            <input type="hidden" name="c[0]" value="{category_id}" />
+	        </tmpl:form>
+    
+		</form>
+
+    </div>
+
+    <div class="medium-7 small-12 cell" id="op_list_action">
+        
+        <tmpl:view_update>
+        <span class="smallerText">
+            <img src="{base_href}client/images/icons/edit.svg" alt="edit" style="width: 15px;height: 15px;" />&nbsp;
+            <a href="{update_link}" class="abLink" rel="nofollow">{update_msg}</a>
+        </span>
+        </tmpl:view_update>
+        
+        <tmpl:view_print>
+        <span class="smallerText">
+            <img src="{base_href}client/images/icons/printer.svg" alt="print" style="width: 14px;height: 14px;" />&nbsp;
+            <a href="{print_link}" class="abLink" rel="nofollow">{print_msg}</a>
+        </span>
+        </tmpl:view_print>
+        
+        <tmpl:view_rss>
+        <span class="smallerText">
+            <img src="{base_href}client/images/icons/rss-feed.svg" alt="rss" style="width: 14px;height: 14px;" />&nbsp;
+            <a href="{rss_link}" class="abLink" title="{rss_title_msg}">{rss_title_msg}</a>
+        </span>
+        </tmpl:view_rss>
+        
+        <tmpl:view_subscribe_parent>
+        <span class="smallerText">
+            <img src="{base_href}client/images/icons/email.svg" alt="email" style="width: 15px;height: 15px;" />&nbsp;
+            <a href="{susbscription_link}" class="abLink" rel="nofollow">{unsubscribe_msg}</a>
+        </span>
+        </tmpl:view_subscribe_parent>
+        
+        <tmpl:view_subscribe>
+        <span class="smallerText">
+            <span id="spinner2" style="display: none;">
+                <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+            </span>
+            
+            <img src="{base_href}client/images/icons/email.svg" alt="email" style="width: 15px;height: 15px;" />&nbsp;
+            
+            <span id="div_subscribe_yes" style="display: {subscribe_yes_display};">
+                <a href="#1{id}" onclick="xajax_doSubscribe(1, 'spinner2'); return false;" 
+                    class="abLink" rel="nofollow">{subscribe_msg}</a>
+            </span>
+            <span id="div_subscribe_no" style="display: {subscribe_no_display};">
+                <a href="#0{id}" onclick="xajax_doSubscribe(0, 'spinner2'); return false;" 
+                    class="abLink" rel="nofollow">{unsubscribe_msg}</a>
+            </span>
+        </span>
+        </tmpl:view_subscribe>
+        
+        <tmpl:view_pdf>
+        <span class="smallerText">
+            <img src="{base_href}client/images/icons/pdf.svg" alt="pdf" style="width: 15px;height: 15px;" />&nbsp;
+            <a href="{pdf_link}" class="abLink" title="{category_pdf_desc_msg}" 
+                onclick="showLoading();" rel="nofollow">{category_pdf_msg}</a>
+         </span>
+        </tmpl:view_pdf>
+
+    </div>
+
+</div>   
+</div> 

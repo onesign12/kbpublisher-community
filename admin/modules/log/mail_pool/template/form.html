@@ -1,0 +1,83 @@
+{error_msg}
+
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<table class="default">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{detail_msg}:</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{date_created_msg}:</td>
+    <td><b>{date_created_interval}</b> ({date_created_formatted})</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{date_executed_msg}:</td>
+    <td>{date_sent_formatted}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{type_msg}:</td>
+    <td>{letter_type_str}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{num_tries_msg}:</td>
+    <td>{num_tries}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{mail_sent_msg}:</td>
+    <td>{is_sent}</td>
+</tr>
+
+<tmpl:failed_message>
+<tr class="trLighter">
+    <td class="tdFormCaption">{failed_message_msg}:</td>
+    <td>{failed_message}</td>
+</tr>
+</tmpl:failed_message>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{mail_object_msg}:</td>
+    <td>
+        <textarea name="message" rows="12" style="width: 99%;">{mail_object}</textarea>
+    </td>
+</tr>
+</table>
+
+<br />
+<table class="default">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{email_msg}:</b></td>
+</tr>
+<tr class="trLighter">
+    <td colspan="2" style="padding: 10px;">
+        {message_email}
+    </td>
+</tr>
+</table>
+
+<br /><br />
+<div style="margin-left: 220px;">
+    <div id="bottom_button">
+        <input type="button" value="{back_msg}" onClick="location.href='{cancel_link}'" class="button">
+        <tmpl:not_sent>
+            <input type="button" value="{mark_as_failed2_msg}" 
+                onClick="location.href='{status_link}'" class="button">
+        </tmpl:not_sent>
+		
+		<!-- <span style="margin-left: 25px;">
+			<input type="button" value="&larr; {prev_msg}" onClick="location.href='{prev_link}'" class="button">
+			<input type="button" value="{next_msg}  &rarr;" onClick="location.href='{next_link}'" class="button">
+		</span> -->
+    </div>
+    
+</div>
+
+
+</form>

@@ -1,0 +1,134 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+});
+</script>
+
+{error_msg}
+
+<form action="{action_link}" method="post" enctype="multipart/form-data" id="aContentForm2" onsubmit="LeaveScreenMsg.skipCheck();">
+    
+    <tmpl:form>
+    
+    <tmpl:pspell>
+    <div style="margin-bottom: 20px;">
+        <div class="trMoreDarker" style="padding: 5px 3px;">
+            <b>{active_dictionary_msg}</b>
+        </div>
+        
+        <div class="trLighter" style="padding: 5px;">
+            {dictionary_select}
+        </div>
+    </div>
+    </tmpl:pspell>
+    
+    <tmpl:bing>
+    <div style="margin-bottom: 20px;">
+        <div class="trMoreDarker" style="padding: 5px 3px;">
+            <b>{bing_spell_check_key_msg}</b>
+        </div>
+        
+        <div class="trLighter" style="padding: 5px;">
+            <input type="text" name="bing_spell_check_key" value="{search_spell_bing_spell_check_key}" 
+                style="width: 300px;" />
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 20px;">
+        <div class="trMoreDarker" style="padding: 5px 3px;">
+            <b>{bing_spell_check_url_msg}</b>
+        </div>
+        
+        <div class="trLighter" style="padding: 5px;">
+            <input type="text" name="bing_spell_check_url" value="{search_spell_bing_spell_check_url}" 
+                style="width: 97%;" />
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 20px;">
+        <div class="trMoreDarker" style="padding: 5px 3px;">
+            <b>{bing_autosuggest_key_msg}</b>
+        </div>
+        
+        <div class="trLighter" style="padding: 5px;">
+            <input type="text" name="bing_autosuggest_key" value="{search_spell_bing_autosuggest_key}" 
+                style="width: 300px;" />
+        </div>        
+    </div>
+    
+    <div style="margin-bottom: 20px;">
+        <div class="trMoreDarker" style="padding: 5px 3px;">
+            <b>{bing_autosuggest_url_msg}</b>
+        </div>
+        
+        <div class="trLighter" style="padding: 5px;">
+            <input type="text" name="bing_autosuggest_url" value="{search_spell_bing_autosuggest_url}" 
+                style="width: 97%;" />
+        </div>        
+    </div>
+    </tmpl:bing>
+    
+    <tmpl:enchant>
+    <script src="../client/jscript/jquery/jquery_select.js?v={pvhash}"></script>
+    <script>
+        var myOptions = {{myOptionsJson}};
+                
+        $(document).ready(function() {
+            populateSelect(myOptions, $('#provider').val());
+        });    
+        
+        function populateSelect(vars, range_val) {
+            document.getElementById('dictionary').options.length = 0;
+            for(var i = 0; i < vars[range_val].length; i ++) {
+                $("#dictionary").addOption(vars[range_val][i].val, vars[range_val][i].val, vars[range_val][i].s);
+            }
+        }
+        
+        
+    </script>
+    <div style="margin-bottom: 20px;">
+        <div class="trMoreDarker" style="padding: 5px 3px;">
+            <b>{active_dictionary_msg}</b>
+        </div>
+        
+        <div class="trLighter" style="padding: 5px;">
+            <select name="provider" id="provider" style="width: 250px;" 
+                onchange="populateSelect(myOptions, this.value)">
+                {provider_select}
+            </select>
+            -
+            <select name="dictionary" id="dictionary" style="width: 250px;">
+            </select>
+        </div>
+    </div>
+    </tmpl:enchant>
+    
+    <div style="margin-bottom: 20px;">
+        <div class="trMoreDarker" style="padding: 5px 3px;">
+            <b>{exclude_word_list_msg}</b> ({space_separated_msg}):
+        </div>
+        
+        <div class="trLighter" style="padding: 5px;">
+            <textarea name="custom_words" style="width: 97%;" rows="10">{custom_words}</textarea>
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 20px;">
+        <input type="checkbox" name="primary" id="enable_spell_check" value="1" {checked} />
+        <label for="enable_spell_check">
+            <b>{set_active_msg}</b>
+        </label>
+    </div>
+    </tmpl:form>
+    
+    
+    <div class="bottom_button bb_popup">
+        <tmpl:form>
+        <input type="submit" name="submit" value="{save_msg}" class="button">
+        </tmpl:form>
+        
+        <input type="button" name="cancel" value="{back_msg}" class="button"
+            onClick="location.href='{cancel_link}';">
+    </div>
+    
+</form>

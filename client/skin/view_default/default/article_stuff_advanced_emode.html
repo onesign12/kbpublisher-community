@@ -1,0 +1,29 @@
+<script>
+    $(document).ready(function() {
+        $('body').bind('kbpEditModeAdvancedFieldsTransferred', {}, function(e, params) {
+            var fields = ['meta_description', 'external_link', 'sort_values', 'private', 'schedule', 'role_read', 'role_write', 'active'];
+            for (var i in fields) {
+                $('#aContentForm').find('[name^=' + fields[i] + ']').remove();
+            }
+            
+            for (var i in params.values) {
+                var name = params.values[i]['name'];
+                var value = params.values[i]['value'];
+                
+                var hidden = $('<input type="hidden" />').attr('name', name).val(value);console.log(hidden);
+                $('#aContentForm').append(hidden);
+            }
+        });
+    });
+</script>
+
+{hidden_fields}
+
+<div style="background: #ffffcc;padding: 4px;margin: 7px 0;">
+    <b>{advanced_options_msg}</b>
+    <span id="spinner_advanced" style="display: none;">
+        <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+    </span>
+    - <a href="#" onclick="submitToPopup('{popup_link}'); return false;">{manage_msg}</a>
+</div>
+<br/>

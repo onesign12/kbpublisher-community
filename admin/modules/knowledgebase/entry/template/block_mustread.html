@@ -1,0 +1,295 @@
+<script src="jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script src="../client/jscript/DatePickerManager.js?v={pvhash}"></script>
+<script>
+    
+    window.selMustreadRoleHandler = new CategoriesSelectHandler('mustread_role');
+    
+    $(document).ready(function() {        
+        
+        var options = {
+            date_format: '{date_format}',
+            week_start: {week_start},
+            button: true
+        }
+
+        var dp = new DatePickerManager('mustread_date_valid', options, {date_formatted_1});
+        
+        var dvalid_checked = $("#mustread_date_valid_on").prop('checked');
+        var dvalid_color = (dvalid_checked) ? '' : '#BFBFBF';
+        $("#umustread_date_valid").prop('disabled', !dvalid_checked);
+        $("#umustread_date_valid").css('color', dvalid_color);
+        
+        $("#mustread_date_valid_on").click(function() {
+            $("#umustread_date_valid").prop('disabled', !this.checked);
+            $("#umustread_date_valid").css('color', (!this.checked) ? '#BFBFBF' : '');
+        });    
+        
+        
+        selectAll(false, 'mustread_role',  null);
+        selMustreadRoleHandler.setSelectWidth('mustread_role');
+        
+        // toogleDisabled({mustread_disabled}, false);
+        
+        var type = $('#div_mustread input:checkbox:checked:first').attr('data-type');
+        showTypeOption('fake', type, false);
+    });
+    
+    
+    function showTypeOption(div_id, type, is_toogle) {
+        
+        if(is_toogle) {
+            $('#' + div_id).toggle();
+        }
+        
+        var isChecked = $('#mustread_rule_' + type).prop('checked');
+        var setDisabled = (isChecked) ? true : false;
+        
+        if(type == 'all') {
+            $(".ch_mustread").prop("disabled", setDisabled);
+            $(".ch_mustread_all").prop("disabled", false);
+            
+            if(setDisabled) {
+                $(".ch_mustread").prop("checked", false);
+                $(".ch_mustread_all").prop("checked", true);
+                $(".mustread_items").css("display", "none");
+            }
+        }
+        
+        if(type == 'staff') {
+            $(".ch_mustread_priv").prop("disabled", setDisabled);
+            if(setDisabled) {
+                $(".ch_mustread_priv").prop("checked", false);
+                $("#div_mustread_items_priv").css("display", "none");
+            }
+        }
+    }
+    
+    
+    // $(element).on('click', DoPrevent); // Bind:
+    // $(element).off('click', DoPrevent); // UnBind:
+    function DoPrevent(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    
+    function openPopup(type, popup_link) {
+        PopupManager.create(popup_link, 'mustread[' + type + ']', 'mustread_rule_div_' + type);
+    }
+    
+</script>
+
+<tmpl:tpl_list>
+<style>
+    .listItemsBlock { padding-left: 20px; }
+    .mustreadRoleTable { width: 700px !important; margin-top: 5px; }
+    .mustreadRoleDiv { width: 682px; }
+    #mustread_note { width: 679px; }
+</style>
+</tmpl:tpl_list>
+
+<tmpl:tpl_bulk>
+<style>
+    .mustreadRoleTable { width: 420px; margin-top: 5px;  }
+    .mustreadRoleDiv { width: 410px; }
+    #mustread_note { width: 100%; }
+</style>
+
+<input type="hidden" name="mustread[on]" id="mustread_on" value="1" /> 
+<input type="hidden" name="mustread[reset]" id="mustread_reset" value="1">
+</tmpl:tpl_bulk>
+
+<!-- just to know status of previous mustread -->
+<input type="hidden" name="mustread[id]" id="mustread_id" value="{id}"/>
+<input type="hidden" name="mustread[active]" id="mustread_active" value="{active}"/> 
+<input type="hidden" name="mustread[date_created]" id="mustread_date_created" value="{date_created}"/>
+
+<div>
+    
+    <table class="sTable">
+        <tr>
+            <td>     
+                
+                <tmpl:tpl_list>
+                    
+                    <input type="checkbox" name="mustread[on]" id="mustread_on" value="1" 
+                        onclick="ShowHideDiv('div_mustread', this.checked, true)" {ch_mustread_on} {option_mustread_on}>
+                    <label for="mustread_on" style="margin-right: 8px;">{yes_msg}</label>
+                
+                    <tmpl:rewrite>
+                    <input type="checkbox" name="mustread[reset]" id="mustread_reset" value="1">
+                    <label for="mustread_reset">{mustread_reset_msg}</label>
+                    </tmpl:rewrite>
+                    
+                </tmpl:tpl_list>
+                
+                <div id="div_mustread" style="display: {div_mustread_display};">
+                    <div class="listItemsBlock" style="padding-top: 10px;">
+                        
+                        <tmpl:rule_row>
+                        
+                            <div id="mustread_rule_div_{type}"
+                                class="trDarker" style="padding: 5px; margin-bottom: 1px; width: 680px;">
+                                <input type="checkbox" name="mustread[rules][{type}]" value="{type_num}" 
+                                    data-type="{type}" id="mustread_rule_{type}" 
+                                    class="ch_mustread ch_mustread_{type}" style="margin-right: 5px;"
+                                    onclick="showTypeOption('div_mustread_items_{type}', '{type}', {is_toogle});" {checked} />
+                                <label for="mustread_rule_{type}">
+                                    {title}
+                                </label>
+                            </div>
+                            
+                            <div style="display: {display};  padding-left: 5px;" id="div_mustread_items_{type}"
+                                class="mustread_items">
+                                
+                                    <tmpl:rule_item_role>
+
+                                        <table class="sTable mustreadRoleTable">
+                                        <tr>
+                                            <td>
+                                                <div class="selectScrollDiv mustreadRoleDiv">
+                                                    <select name="mustread[role][]" id="mustread_role" size="3" 
+                                                        style="border: 0px;" multiple>
+                                                        {role_select}
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td style="width: 50px; padding: 0px 7px; text-align: center; vertical-align: top;">
+                                                <input type="button" value="+"
+                                                    class="button2 button2_add"
+                                                    onclick="selMustreadRoleHandler.callPopUp('{popup_link}');" />
+
+                                                <div style="padding-top: 3px;">
+                                                    <input type="button" value="-"
+                                                        class="button2 button2_add"
+                                                        onclick="selMustreadRoleHandler.deleteOptionConfirm('{sure_delete_msg}');" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </table><br/>
+                                        
+                                    </tmpl:rule_item_role>
+                                
+
+                                    <tmpl:rule_item_user>
+                                    
+                                        <tmpl:rule_item_user_row>
+                                        <div id="readroot_user" class="popUpDivFormSpan">
+                                            <div>
+                                                <input type="hidden" name="mustread[user][]" value="{value}">
+                                                <span>{title}</span>
+                                            </div>
+                                            <div>
+                                                <a href="" class="removeHtmlLink" 
+                                                    onClick="removeHtml(this, '{sure_common_msg}'); return false;">
+                                                    <img src="images/icons/delete.svg" alt="delete" title="{delete_msg}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        </tmpl:rule_item_user_row>
+                                    
+                                		<input type="button" value="+" title="{add_new_msg}" class="button2 button2_add" 
+                                            style="margin-top: 2px;"
+                                    		onclick="openPopup('{type}', '{popup_link}');" />
+                                            
+                                        <span id="writeroot_user"></span>                   
+                                        <div style="clear: both;"><br/></div>
+                                    
+                                    </tmpl:rule_item_user>
+                                
+                                
+                                    <tmpl:rule_item_priv>
+                                    
+                                        <tmpl:rule_item_priv_row>
+                                        <div id="readroot_priv" class="popUpDivFormSpan">
+                                            <div>
+                                                <input type="hidden" name="mustread[priv][]" value="{value}">
+                                                <span>{title}</span>
+                                            </div>
+                                            <div>
+                                                <a href="" class="removeHtmlLink"  
+                                                    onClick="removeHtml(this, '{sure_common_msg}'); return false;">
+                                                    <img src="images/icons/delete.svg" alt="delete" title="{delete_msg}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        </tmpl:rule_item_priv_row>
+                                    
+                                		<input type="button" value="+" title="{add_new_msg}" class="button2 button2_add" 
+                                            style="margin-top: 2px;"
+                                    		onclick="openPopup('{type}', '{popup_link}');" />
+                                            
+                                        <span id="writeroot_priv"></span>   
+                                        <div style="clear: both;"><br/></div>
+                                   
+                                    </tmpl:rule_item_priv>
+    
+                            </div>
+                        
+                        </tmpl:rule_row>
+                      
+                        <div style="padding: 10px 5px;">
+                            
+                            <input type="hidden" name="mustread[notify]" id="mustread_notify" value="1">
+                            <!-- <div style="padding-bottom: 3px;">
+                                <input type="checkbox" name="mustread[notify]" id="mustread_notify" value="1" {ch_notify}>
+                                <label for="mustread_notify">{notify_msg}</label>
+                            </div> -->
+    
+                            <div style="width: 100%;">
+                                <textarea cols="80" rows="3" name="mustread[note]" id="mustread_note"
+                                    placeholder="{note_msg}">{note}</textarea>
+                            </div>
+                            
+                            <div style="padding-top: 5px;">
+                                <input type="hidden" name="mustread[date_valid_on]" value="0">
+                                <input type="checkbox" name="mustread[date_valid_on]" 
+                                    id="mustread_date_valid_on" value="1" {ch_date_valid_on}>
+                                <label for="mustread_date_valid_on">{expires_msg}: </label>
+                                
+                                <input type="hidden" id="mustread_date_valid" name="mustread[date_valid]" />
+                                <span style="margin-left: 5px;">({date_format_formatted})</span>
+                            </div>
+                                                   
+                            <div style="padding-top: 5px;">
+                                <input type="checkbox" name="mustread[force_read]" 
+                                    id="mustread_force_read" value="1" {ch_force_read}>
+                                <label for="mustread_force_read">{mustread_force_read_msg}</label>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>                
+                
+            </td>
+            <td style="width: 1px; vertical-align: top;">
+                <span class="tooltip">{mustread_tip_msg}</span>
+            </td>
+        </tr>
+    </table>
+    
+</div>
+
+<div id="readroot_user" class="popUpDivFormSpan" style="display: none;">
+    <div>
+        <input type="hidden" name="mustread[user][]" value="" id="">
+        <span>1</span>
+    </div>
+    <div>
+        <a href="" class="removeHtmlLink" onClick="removeHtml(this, '{sure_common_msg}'); return false;">
+            <img src="images/icons/delete.svg" alt="delete" title="{delete_msg}">
+        </a>
+    </div>
+</div>
+
+<div id="readroot_priv" class="popUpDivFormSpan" style="display: none;">
+    <div>
+        <input type="hidden" name="mustread[priv][]" value="" id="">
+        <span>1</span>
+    </div>
+    <div>
+        <a href="" class="removeHtmlLink" onClick="removeHtml(this, '{sure_common_msg}'); return false;">
+            <img src="images/icons/delete.svg" alt="delete" title="{delete_msg}">
+        </a>
+    </div>
+</div>

@@ -1,0 +1,160 @@
+<link rel="stylesheet" href="../client/skin/common.css?v={pvhash}" />
+<style>
+    .badge_item.selected {
+        background: #cccccc !important;
+        border-color: #999999;
+        color: black !important;
+    }
+</style>
+<script src="../client/jscript/jquery/jquery.clearsearch.js?v={pvhash}"></script>
+<script>
+$(document).ready(function() {
+    window.top.$('#loadingMessage').remove();
+    
+    PopupManager = window.top.PopupManager;
+    $('body').bind('keydown', function(e) {
+        PopupManager.checkForEscapeKey(e);
+    });
+    
+    
+    PopupManager.setTitle("{tags_msg}");
+    
+    var current_popup = PopupManager.getCurrentPopup();
+    current_popup.dialog('option', 'beforeClose', function(event, ui) {
+        window.top.$('#tag_get_popular_button').show();
+    });
+    
+    
+    var tag_ids = [{tag_ids}];
+    var parent_window = PopupManager.getParentWindow();
+    for (var i in tag_ids) {
+        var id = tag_ids[i];
+        if (parent_window.$('#tag_{type}{num}' + id).length == 1) {
+            $('#tag_' + id).addClass('selected');
+        }
+    }
+    
+    $('#qf').clearSearch({
+        callback: function() {
+            $('div.search_header button').click();
+        }
+    });
+});
+
+
+function assignTag(id, title, trigger_form) {
+    
+    if(!trigger_form) { 
+        assignTagArticleForm(id, title);
+    } else {
+        assignTagTriggerForm(id, title);
+    }
+}
+
+
+function assignTagArticleForm(id, title) {
+    var parent_window = PopupManager.getParentWindow();
+    if (parent_window.$('#tag_' + id).length) {
+    	parent_window.tag_manager._deleteById(id);
+    	$('#tag_' + id).removeClass('selected');
+    	
+    } else {
+    	parent_window.tag_manager.create(id, title);
+    	$('#tag_' + id).addClass('selected');
+    	
+    	parent_window.$('body').trigger('kbpErrorResolved', [{field: 'tag'}]);
+    }
+}
+
+function assignTagTriggerForm(id, title) {
+    var parent_window = PopupManager.getParentWindow();
+    
+    // remove
+    if (parent_window.$('#tag_{type}{num}' + id).length) {
+        parent_window.$('#badge_item_id_{type}{num}' + id).remove();
+    	$('#tag_' + id).removeClass('selected');
+        
+    // add 
+    } else {
+    	createFromTriger(parent_window, id, title);
+    	$('#tag_' + id).addClass('selected');
+        // parent_window.$('body').trigger('kbpErrorResolved', [{field: 'tag'}]);
+    }
+}
+
+function createFromTriger(win, id, name) {
+    var record = document.createElement('li');
+    record.className = 'badge_item';
+    record.id = 'badge_item_id_{type}{num}' + id;
+        
+    var record_text = document.createElement('span');
+    record_text.innerHTML = name;
+    record.appendChild(record_text);
+    
+    var del = document.createElement('span');
+    del.className = 'delete_badge_item';
+    del.innerHTML = '×';
+    del.setAttribute('onclick', "$('#" + record.id + "').remove();");
+    record.appendChild(del);
+    
+    var hidden = document.createElement('input');
+    hidden.setAttribute('type', 'hidden');
+    hidden.setAttribute('name', '{type}[{num}][rule][]');
+    hidden.setAttribute('value', id);
+    hidden.setAttribute('id', 'tag_{type}{num}' + id);
+    record.appendChild(hidden);
+
+    var assigned_block = win.$('#tag_block_{type}{num}');
+
+    assigned_block.append(record);
+    assigned_block.show();
+}
+
+
+
+</script>
+
+<div>
+    <form action="{form_search_action}">
+        {hidden_search}
+        
+        <div class="search_header">
+            <div class="container">
+                <button type="submit" class="button2_grey"
+                    style="float: right;line-height: normal;">
+                    <img src="../client/images/icons/magnifier.svg" width="15" height="15" alt="{search_msg}"
+                        style="vertical-align: middle;" />
+                </button>
+                
+                <div style="overflow: hidden; padding-right: 20px;">
+                    <input type="text" id="qf" name="qf" value="{qf}" placeholder="{search_msg}" autocomplete="off"
+                        style="width: 100%;line-height: normal;padding: 6px;" class="normalText" />
+                </div>
+            
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+
+<tmpl:row>
+<div style="float: left;margin: 0 10px 10px 0;">
+    <a href="javascript:assignTag({id}, '{title}', {trigger_form});" id="tag_{id}"
+        class="tagTitle badge_item _tooltip" title="{description}">
+        {title}
+    </a>
+</div>
+</tmpl:row>
+
+<div style="clear: both;"></div>
+
+<tmpl:by_page>
+<div style="text-align: center;margin-top: 20px;font-size: 0.8em;">
+    {page_by_page}
+</div>
+</tmpl:by_page>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{done_msg}" class="button" onclick="PopupManager.close();" />
+</div>

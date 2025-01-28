@@ -1,0 +1,20 @@
+{header}
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+    <td>{title_msg}</td>
+    <td>{hostname_msg}</td>
+    <td align="center" width="1">{action_hidemsginui_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    <td>{title}</td>
+    <td>
+        <span style="cursor: help;" class="_tooltip" title="{tooltip_host}">{host}</span>
+    </td>
+    <td class="action" width="1">{options_img}</td>
+</tr>
+</tmpl:row>
+
+</table>

@@ -1,0 +1,108 @@
+<script src="jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script>
+<!--
+window.selHandler = new CategoriesSelectHandler('role');
+
+function changeRoleAction(value) {
+    if (value != 'remove') {
+        $('#bulk_role_select').show();
+    } else {
+        $('#bulk_role_select').hide();
+    }
+}
+
+function changeSubscriptionAction(value) {
+    if (value != 'remove') {
+        $('#bulk_subs_select').show();
+    } else {
+        $('#bulk_subs_select').hide();
+    }
+}
+
+function BulkOnSubmit() {
+    selHandler.selectAll();
+}
+
+function bulkValidate(action) {
+
+    if (action == 'role') {
+        var ra = $("#role_action").val();
+
+        if (ra == 'set' || ra == 'add') {
+            if (!$("#role").find('option').length) {
+                return "{no_bulk_values_msg}";
+            }
+        }
+
+    }
+
+    return true;
+}
+//-->
+</script>
+
+
+<div id="bulk_priv" style="display: none;">
+    <div style="margin-bottom: 15px;">{license_limit_user_msg}</div>
+    <select name="value[priv]" class="colorInput" {priv_select_option}>
+        {priv_select}
+    </select>
+</div>
+
+<div id="bulk_role" style="display: none;">
+    <select class="colorInput" style="width: 400px;" name="value[role_action]" id="role_action"
+        onchange="changeRoleAction(this.value);">
+        {role_action_select}
+    </select>
+
+    <div style="width: 450px;margin-top: 10px;display: none;" id="bulk_role_select">
+        <div style="padding-left: 5px; width: 45px; float: right;">
+            <input type="button" value="+"
+                class="button2 button2_bulk"
+                onclick="selHandler.callPopUp('users', 'user', 'role');" /><br />
+            <input type="button" value="-"
+                class="button2 button2_bulk" style="margin-top: 3px;"
+                onclick="selHandler.deleteOption();" />
+        </div>
+        <div style="width: 400px;">
+            <select name="value[role][]" id="role" size="6"
+                style="width: 100%;" class="colorInput" multiple>
+            </select>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+</div>
+
+<div id="bulk_comp" style="display: none;">
+    <select name="value[comp]" class="colorInput">
+        {company_select}
+    </select>
+</div>
+
+<div id="bulk_status" style="display: none;">
+    <select name="value[status]" class="colorInput">
+        {status_select}
+    </select>
+</div>
+
+<div id="bulk_subscription" style="display: none;">
+    <select class="colorInput" name="value[subscription_action]"
+        onchange="changeSubscriptionAction(this.value);">
+        {subscription_action_select}
+    </select>
+
+    <div style="display: none;" id="bulk_subs_select">
+        <div style="padding: 14px 0 5px 0;">
+            <a href="javascript:selectAll(true, 'subscription'); void(0);">{all_msg}</a> |
+            <a href="javascript:selectAll(false, 'subscription'); void(0);">{none_msg}</a>
+        </div>
+        <select name="value[subscription][]" id="subscription" size="3" multiple
+            class="colorInput" style="width: 100%;">
+            {subscription_select}
+        </select>
+    </div>
+</div>
+
+<div id="bulk_delete" style="display: none;"></div>
+
+    

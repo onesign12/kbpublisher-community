@@ -1,0 +1,234 @@
+<script src="{base_href}client/jscript/fuse.min.js?v={pvhash}"></script>
+<script src="{base_href}client/jscript/jquery/jquery.clearsearch.js?v={pvhash}"></script>
+<script>
+function expandAllCategories() {
+    $('span.map_show_all').hide();
+    $('div.children').children('div').show(300);
+}
+
+function collapseAllCategories() {
+    $('span.map_show_all').show();
+    $('div.children').children('div.unvisible').hide(300);
+}
+
+$(document).ready(function() {
+    var list = [
+        {list}
+    ];
+    
+    var options = {
+        shouldSort: true,
+        includeScore: true,
+        threshold: 0.1,
+        maxPatternLength: 32,
+        minMatchCharLength: 4,
+        tokenize: true,
+        matchAllTokens: true,
+        keys: [
+            'title'
+        ]
+    };
+    
+    var fuse = new Fuse(list, options);
+    
+    $('#map_filter').clearSearch({
+        callback: function() {
+            $('#map_filter').keyup();
+        } 
+    });
+    $('#map_filter').keyup(function(e) {
+        $('#filter_results_block').hide();
+        $('#filter_results').empty();
+        
+        var value = $.trim(this.value);
+        
+        if (value.length > 1) {
+            var result = fuse.search(value);
+            $('#filter_results_block').show();
+            if (result.length) {
+                for (var i in result) {
+                    var item = result[i]['item'];
+                    addSearchResultItem(item, value);
+                    console.log(result[i]);
+                }
+                
+            } else {
+                $('#filter_results').html("{no_cat_result_msg}");
+            }
+        }
+    });
+    
+    function addSearchResultItem(item, value, start) {
+        var div = $('<div class="sitem" />');
+        
+        var icon_div = $('<div style="float: left;" />');
+        icon_div.append('<img src="{base_href}client/images/icons/folder2.svg" style="vertical-align: middle;margin-right: 10px;">');
+        //div.append(icon_div);
+        
+        var content_div = $('<div style="overflow: hidden;" />');
+        
+        var title_div = $('<div class="stitle" />');
+        
+        var link = $('<a />');
+        link.attr('href', item['url']);
+        
+        link.append(item['title']);
+        title_div.append(link);
+        
+        var tree_icon = $('<span>[&darr;]</span>');
+        tree_icon.css('color', '#999999');
+        tree_icon.css('margin-left', '10px');
+        tree_icon.css('cursor', 'pointer');
+        tree_icon.attr('onclick', 'goToCategory(' + item['id'] + ');');
+        title_div.append(tree_icon);
+        
+        content_div.append(title_div);
+        
+        var desc_div = $('<div class="spath" />');
+        desc_div.html(item['path']);
+        content_div.append(desc_div);
+        
+        div.append(content_div);
+        
+        $('#filter_results').append(div);
+    }
+    
+    $('#sidebar2_filter').keyup();
+});
+
+function goToCategory(id) {
+    if (!$('#category_' + id).is(':visible')) { // this category is not displayed
+        $('#category_' + id).parent().find('.map_show_all').click();
+    }
+    
+    location.hash = 'category_' + id;
+}
+</script>
+<style>
+    .grid-x > div {
+        padding-bottom: 30px !important;
+    }
+    
+    #filter_bar img {
+        margin: 0 5px;
+    }
+    
+    #filter_bar a.switch_button {
+        color: #666666;
+        border: 1px solid #DADADA;
+        padding: 7px;
+        background: white;
+    }
+    
+    #link_{active_view} {
+        background: #DADADA !important;
+    }
+    
+    .sitem {
+        margin-bottom: 10px;
+    }
+    
+    .stitle {
+        padding: 0 3px;
+    }
+    
+    .spath {
+        padding: 3px;
+        font-size: 0.8em;
+        color: #999999
+    }
+    
+    :target {
+        background-color: #ffa;
+    }
+    
+    .category_anchor {
+        display: block;
+        padding-top: 60px;
+        margin-top: -60px;
+    }
+</style>
+
+<!--<div class="tdTitle" style="margin-bottom: 12px;">
+    <div>{list_title}</div>
+</div>-->
+
+{msg}
+
+<div class="grid-x" id="filter_bar" style="background: #F4F4F4;align-items: baseline;">
+    <div class="small-12 medium-8 cell niceForm" style="padding: 20px 20px;">
+        <input type="search" id="map_filter" value="" class="colorInput fixed-for-medium" placeholder="{filter_msg}" style="width: 100%;max-width: 100%;padding: 7px;" results>
+    </div>
+    
+    <div class="small-6 medium-2 cell center-for-small" style="text-align: right;">
+        <div style="white-space: nowrap;">
+            <a href="#" class="switch_button" id="link_column" onclick="xajax_setCategoryView('column');" title="{column_view_msg}" style="border-top-left-radius: 3px;border-bottom-left-radius: 3px;">
+                <img src="{base_href}client/images/icons/column_view.svg" /></a><a 
+                href="#" id="link_tree" class="switch_button" onclick="xajax_setCategoryView('tree');" title="{tree_view_msg}" style="border-top-right-radius: 3px;border-bottom-right-radius: 3px;"><img
+                src="{base_href}client/images/icons/tree_view.svg" />
+            </a>
+        </div>
+    </div>
+    
+    <div class="small-6 medium-2 cell center-for-small" style="text-align: right;">
+        <span style="white-space: nowrap;">
+            <a href="#" class="switch_button" onclick="expandAllCategories();" title="{expand_all_msg}" style="border-top-left-radius: 3px;border-bottom-left-radius: 3px;">
+                <i class="fa fa-chevron-down" aria-hidden="true" style="color: #999;"></i></a><a 
+                 class="switch_button" href="#" onclick="collapseAllCategories();" title="{collapse_all_msg}" style="border-top-right-radius: 3px;border-bottom-right-radius: 3px;"><i 
+                class="fa fa-chevron-up" aria-hidden="true" style="color: #999;"></i></a>
+        </span>
+    </div>
+</div>
+
+<div id="filter_results_block" style="margin: 20px 10px 30px 10px;padding-bottom: 15px;display: none;">
+    <div class="tdTitle"><b>{search_result_msg}:</b></div>
+    <div id="filter_results"class="abbLine" style="padding: 20px;"></div>
+</div>
+
+<br /><br />
+
+<div id="map">
+
+<tmpl:row_tr>
+<div class="grid-x">
+
+    <tmpl:row_td>
+    <div class="small-12 medium-{grid_num} cell">
+        <a name="category_{id}" class="category_anchor"></a>
+        <div id="category_{id}" style="padding: 5px 3px {top_category_padding}px 3px;border-bottom: 1px solid #cfcfcf;margin-bottom: 10px;">
+            <div style="float: left;margin: 0 10px;">{item_img}</div>
+            <div style="overflow: hidden;">
+                <a href="{link}" style="color: #121212;text-decoration: none;">{name}</a>
+            </div>
+        </div>
+            
+        <div class="children" style="padding-left: 15px;">
+            <tmpl:child_category>
+            <a name="category_{id}" class="category_anchor"></a>
+            <div id="category_{id}" style="display: {display};padding: 7px;" class="{class}">
+                <div style="float: left;margin: 0 5px;">
+                    <img src="{base_href}client/images/icons/folder2.svg" style="height: 10px;margin: 0 5px;padding-left: {padding}px;" />
+                </div>
+                <div style="overflow: hidden;">
+                    <a href="{link}" style="color: #121212;">{name}</a>
+                </div>
+            </div>
+            </tmpl:child_category>
+            
+            <tmpl:show_all_children>
+            <span title="{show_all_msg}" style="padding: 5px 0 0 30px;" class="map_show_all cpointer" onclick="$(this).hide();$(this).parent().children('div').show(300);">
+                ...
+            </span>
+            </tmpl:show_all_children>
+        </div>
+    </div>
+    </tmpl:row_td>
+    
+    <tmpl:row_empty_td>
+    </tmpl:row_empty_td>
+
+</div>
+</tmpl:row_tr>
+
+</div>
+<br />

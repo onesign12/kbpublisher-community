@@ -1,0 +1,11 @@
+{dear_msg} [first_name] [last_name],
+
+{welcome_msg}
+[filename]
+
+{link_msg}:
+[link]
+
+
+--
+[support_name]

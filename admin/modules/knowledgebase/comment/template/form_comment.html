@@ -1,0 +1,48 @@
+<script>
+    function addComment() {
+        var comment = $.trim($('#comment').val());
+        
+        emptyGrowls();
+        
+        if (comment == '') {
+            $.growl.error({title: "", message: "{empty_comment_msg}", fixed: true});
+            return false;
+        }
+        
+        var status = 0;
+        if ($('#active').is(':checked')) {
+            status = 1;
+        }
+        
+        xajax_addComment(comment, status);
+    }
+</script>
+<br/><br/>
+<div id="comment_form" style="display: none;margin-bottom: 20px;">
+    <table class="formTable">
+    <tr class="tdTitle" style="height: 1px;">
+        <td colspan="2" style="padding: 1px;"></td>
+    </tr>
+    <tr class="trLighter">
+        <td class="tdFormCaption tdCaptionTop required">{comment_msg}:</td>
+        <td width="100%" style="padding-right: 14px;">
+            <textarea style="width: 100%;padding: 3px;" rows="5" id="comment" name="comment">{comment}</textarea>
+        </td>
+    </tr>
+    
+    <tr class="trLighter">
+        <td class="tdFormCaption">{status_published_msg}:</td>
+        <td>{status_checkbox}</td>
+    </tr>
+    
+    <tr>
+        <td></td>
+        <td><div><br></div>
+            <input type="button" value="{ok_msg}" class="button primary" 
+                onclick="addComment();" />
+            <input type="button" value="{cancel_msg}" class="button"
+                onClick="$('#comment_form').hide();">
+        </td>
+    </tr>
+    </table>
+</div>

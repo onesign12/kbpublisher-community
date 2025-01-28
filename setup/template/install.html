@@ -1,0 +1,19 @@
+<script>
+    function goNextPageCustom(page) {
+        showLoadingMsg(function() {
+            f = document.getElementById('setup_form');
+            f.action = page;
+            f.submit(true);
+        });
+    }
+</script>
+
+{user_msg}
+{user_do_msg}
+<br/>
+{phrase_msg}
+<br><br>
+
+<textarea name="install_info" id="install_info" class="dataTextarea">{install_info}</textarea>
+
+

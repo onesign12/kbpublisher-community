@@ -1,0 +1,7 @@
+Witaj [first_name],
+
+Powiadomienie to ma na celu poinformowanie Cię, że urządzenie zostało dodane do zaufanych, aby pominąć uwierzytelnianie na Twoim koncie w "[kb_name]" ([username]).
+Żądanie pochodziło z następującego adresu IP: [ip].
+Urządzenie nie będzie wymagało podawania nazwy użytkownika ani hasła przez [days] dni.
+
+Jeśli to nie Ty dokonywałeś/aś tego działania, zalecamy zalogowanie się i natychmiastową zmianę hasła lub skontaktowanie się z administratorem KB, wysyłając wiadomość na adres [support_email].

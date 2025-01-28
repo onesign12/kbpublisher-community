@@ -1,0 +1,46 @@
+<script>
+    function subForm() {
+        LeaveScreenMsg.skipCheck();
+        selHandler.selectAll();       
+    }
+</script> 
+
+{msg}
+
+{error_msg}
+
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}
+
+<table class="default">
+<tr> 
+    <td colspan="2" class="tdTitle" style="padding: 1px;"></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td width="150">{id_msg}:</td>
+    <td>{entry_id}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{type_msg}:</td>
+    <td>{type}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{date_deleted_msg}:</td>
+    <td>{date_formatted}</td>
+</tr>
+
+{incomplete_block_tmpl}
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+
+        <input type="submit" name="submit" value="{ok_msg}" class="button" />      
+        
+        <input type="button" value="{cancel_msg}" 
+            onClick="location.href='{cancel_link}'" class="button">
+    </td>
+</tr>
+</table>
+</form>

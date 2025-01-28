@@ -1,0 +1,116 @@
+<link rel="stylesheet" href="{base_href}client/skin/search2.css?v={pvhash}" />
+<link rel="stylesheet" href="{base_href}client/skin/jquery/magnific-popup.css?v={pvhash}" />
+<script src="{base_href}client/jscript/jquery/jquery.magnific-popup.min.js?v={pvhash}"></script>
+<script>
+<!--
+$(document).ready(function() {
+    $('#bbcode_help_link').magnificPopup({
+        type: 'inline'
+    });
+});
+//-->
+</script>
+
+<style>
+    .table > .grid-x:not(.skip) > div:first-child {
+        text-align: left;
+/*        padding: 12px 12px;*/
+    }
+    
+</style>
+
+
+{user_msg}
+
+{title} 
+
+<div class="niceForm niceForm100">
+
+<form action="{action_link}" method="post" id="aContentForm">
+<input type="hidden" name="id" value="{id}">
+<input type="hidden" name="user_id" value="{user_id}">
+<input type="hidden" name="entry_id" value="{entry_id}">
+<input type="hidden" name="date_posted" value="{date_posted}">
+<!-- <input type="hidden" id="internal" name="internal" value="0"> -->
+{hidden_fields}
+
+<span style="display: none;">
+    <input type="text" name="captcha2" id="captcha2" value="" class="longText" />
+</span>
+
+
+<div class="table">
+
+    <tmpl:not_registered>
+    <div class="grid-x">
+        <div class="small-12 cell">
+            <input type="text" name="name" id="name" value="{name}" class="longText"
+                 placeholder="{name_msg}" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="small-12 cell">
+            <input type="text" name="email" id="email" value="{email}" class="longText" 
+                placeholder="{email_msg}" />
+        </div>
+    </div>
+    </tmpl:not_registered>
+    
+    <div class="grid-x">
+        <div class="small-12 cell">
+            <!-- {comment_type_block}           -->
+            
+            <div style="position:relative">
+                <textarea rows="7" name="comment" id="comment" style="width: 100%;"
+                    placeholder="* {comment_msg}">{comment}</textarea>
+                
+                <a id="bbcode_help_link" href="#bbcode_help_block"
+                    style="position:absolute; right: 10px; top: 10px;"
+                    class="help_link _tooltip" title="{use_bbcode_msg_hide}">
+                    <img src="{base_href}client/images/icons/help.svg" width="20" height="20" />
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    
+    {captcha_block}
+    
+    <div class="grid-x donotshow">
+        <div class="small-12 cell">
+            <input type="text" name="s_company" value="{s_company}" class="longText" />
+            <input type="checkbox" name="s_company_set" value="{s_company_set}" />            
+        </div>
+    </div>
+    
+    <tmpl:subscribe>
+    <div class="grid-x skip" style="margin-top: 15px;">
+        <div class="small-12 cell">
+            <input type="checkbox" name="subscribe" id="subscribe" value="1" style="margin-right: 5px;" {ch_subscribe} />
+            <label for="subscribe">{subscribe_comment_desc_msg}</label>
+        </div>
+    </div>
+    </tmpl:subscribe>
+    
+    <div class="grid-x skip">
+        <div class="small-12 cell" style="text-align:center;">
+            <div><br /></div>
+            <button type="submit" name="submit" id="submit" class="button primary"
+                onClick="validateForm();return false;">
+                {send_msg}
+            </button>
+    
+            <input type="button" value="{cancel_msg}" 
+                onclick="closeCommentPanel();" class="button" />
+        </div>  
+    </div>
+</div>
+
+</form>
+</div>
+
+<div id="bbcode_help_block" class="help_block mfp-hide">
+    <h2>{bbcode_how_msg}</h2>
+    <div>{bbcode_help_block}</div>
+</div>

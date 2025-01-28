@@ -1,0 +1,4 @@
+Il file "[file.filename]" non è stato aggiornato da sei mesi.
+Potrebbe essere necessario rivederlo.
+
+[file.link]

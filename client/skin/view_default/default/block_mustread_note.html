@@ -1,0 +1,18 @@
+<script>
+    $(document).ready(function() {
+        DialogBox.ok_msg = "{mustread_read_now_msg}";
+        DialogBox.cancel_msg = "{mustread_read_later_msg}";
+    
+        <tmpl:forced>
+        alert("{msg}");
+        </tmpl:forced>
+    
+        <tmpl:no_forced>
+        confirm2("{msg}");
+        </tmpl:no_forced>
+        
+        $('#ok_button').click(function() {
+            window.location.href="{redirect_link}";
+        });
+    });
+</script>

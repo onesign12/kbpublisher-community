@@ -1,0 +1,9 @@
+Bonjour [first_name],
+
+L'adresse e-mail de votre compte [kb_name] a été modifiée récemment.
+Si vous avez effectué ce changement, aucune action n'est nécessaire de votre part.
+
+Nouvelle adresse électronique : [email]
+
+Si vous n'avez pas modifié votre adresse e-mail, veuillez nous prévenir immédiatement à l'adresse [support_email]
+Il est important de le signaler car cela nous permettra d'empêcher les fraudeurs de voler vos informations.

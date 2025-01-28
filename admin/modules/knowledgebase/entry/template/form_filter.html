@@ -1,0 +1,67 @@
+<script src="jscript/CategoriesInputHandler.js?v={pvhash}"></script>
+<script src="jscript/common_filter_form.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function() {
+        var categories = [{categories}];
+        CategoriesInputHandler.init(categories);
+    });
+</script>
+
+
+<form style="margin: 0px;">
+{hidden_fields}
+
+<table id="filter_tbl">
+<tr>
+
+    <tmpl:advance_button>
+    <td>
+        <input type="button" value="{as_btn_value}" id="advanced_show_btn" title="{search_extra_msg}"
+            class="button2 button2_filter" onclick="ToogleAdvancedSearch();">
+    </td>
+    </tmpl:advance_button>
+
+    <td>
+        <div>{category_msg}:</div>
+        <input type="text" id="filter" value="{category_name}" title="{category_name}" class="longText colorInput" />
+        <input type="hidden" name="filter[c]" id="filterCategoryId" value="{category_id}" />
+    </td>
+
+    <td>
+        <input type="hidden" name="filter[ch]" value="0">
+        <input type="checkbox" name="filter[ch]" value="1" class="colorInput _tooltip" {ch_checked}
+            title="{search_child_help_msg}">
+    </td>
+    <td></td>
+
+    <td>
+        <div>{entry_status_msg}:</div>
+        <select name="filter[s]" class="colorInput" style="width: 120px;">
+        {status_select}
+        </select>
+    </td>
+
+    <td>
+        <div>{entry_type_msg}:</div>
+        <select name="filter[et]" class="colorInput" style="width: 120px;">
+        {type_select}
+        </select>
+    </td>
+
+    <td>
+        <div>{search_str_msg}:{search_help}</div>
+        <input type="text" name="filter[q]" value="{q}" class="colorInput middleText" style="width: 150px;">
+    </td>
+
+    <td>
+        <button type="submit" name="do_search" value="1" 
+            class="button2 button2_filter">&rarr;</button>
+    </td>
+</tr>
+</table>
+
+<div id="advanced_search" style="display: {as_display};">
+    {custom_field_tmpl}
+</div>
+
+</form>

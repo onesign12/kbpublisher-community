@@ -1,0 +1,50 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{logo_msg}");
+    
+    <tmpl:set_status>
+    window.top.$('#{key}').prop('checked', {header_logo_status});
+    </tmpl:set_status>
+    
+    <tmpl:close_window>
+    PopupManager.close();
+    </tmpl:close_window>
+});
+</script>
+
+{error_msg}
+
+<form action="{action_link}" method="post" enctype="multipart/form-data" id="aContentForm2" onsubmit="LeaveScreenMsg.skipCheck();">
+    
+    <tmpl:current_logo>
+    <div style="margin-bottom: 3px;">
+        <div style="background-color: #EFEFEF;padding: 4px 6px;border-bottom: 1px solid #D4D4D4;margin-bottom: 20px;">
+            <b>{current_logo_msg}</b>
+        </div>
+        <img src="{image_data}" alt="" />
+    </div>
+    <div align="center">
+        <input type="submit" name="submit_delete" id="submit_delete" value="{delete_msg}" class="button"
+            onClick="confirmForm('{sure_common_msg}', 'submit_delete');return false;">
+    </div>
+    </tmpl:current_logo>
+    
+    <div>
+        <div style="background-color: #EFEFEF;padding: 4px 6px;border-bottom: 1px solid #D4D4D4;margin-top: 20px;margin-bottom: 20px;">
+            <b>{set_logo_msg}</b>
+            <div style="float: right">
+                {filesize_max_msg}: 48kb
+            </div>
+        </div>
+        <input type="file" name="logo_1" />
+    </div>
+    
+    <div align="center">
+        <input type="submit" name="submit" value="{upload_msg}" class="button">
+    </div>
+    
+    <div class="bottom_button bb_popup">
+    	<input type="button" name="cancel" value="{done_msg}" class="button" 
+            onClick="PopupManager.close();">
+    </div>
+</form>

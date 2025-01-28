@@ -1,0 +1,13 @@
+ユーザーは個人KBアカウントを終了しました。
+{request_from_ip_msg}: [ip]
+
+[link]で確認して復元できます。
+
+ユーザーノート:
+[message]
+
+{user_info_msg}:
+------------
+ID: [id]
+名前: [name]
+電子メール: [email]

@@ -1,0 +1,14 @@
+L'utente ha richiesto di chiudere il proprio account KB.
+{request_from_ip_msg}: [ip]
+
+L'utente potrebbe avere alcune attività correlate. Usa il link qui sotto per rivederle.
+[link]
+
+Note dell'utente:
+[message]
+
+{user_info_msg}:
+------------
+ID: [id]
+Nome: [name]
+Email: [email]

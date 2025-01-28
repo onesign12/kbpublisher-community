@@ -1,0 +1,92 @@
+<link rel="stylesheet" href="../client/skin/jquery/icheck/skins/square/blue.css?v={pvhash}" />
+<script src="../client/jscript/jquery/icheck.min.js?v={pvhash}"></script>
+<script>
+$(document).ready(function() {
+    $('#popup_export input[type="radio"]').iCheck({
+        radioClass: 'iradio_square-blue',
+    });
+    
+    $('input').on('ifChecked', function(event) {
+        $('div[id^=export_]').hide();
+        $('#' + this.id + '_form').show();
+    });
+});
+</script>
+
+
+<form method="post" action="{action}" name="export">
+
+<div style="margin: 20px;">
+    <tmpl:types>
+    <input type="radio" id="export_{type}" name="type" value="{type}" {type_checked} />
+    <label for="export_{type}" style="margin-right: 30px;">{type_title}</label>
+    </tmpl:types>
+</div>
+
+
+
+<div id="export_xml_form" style="margin-top: 55px;display: {xml_display};">
+</div>
+
+<div id="export_xls_form" style="margin-top: 55px;display: {xls_display};">
+</div>
+
+<div id="export_csv_form" style="display: {csv_display};">    
+    <div style="margin: 25px 10px 45px 10px;">
+        <strong style="margin-left: 10px;">{csv_options_msg}</strong>
+        <br/><br/>
+        <div style="padding: 1px;background-color : #7898C2;margin: 0 1px;"></div>
+        <table class="default">
+            <tr class="trLighter">
+                <td class="tdFormCaption2">{fields_terminated_msg}:</td>
+                <td>
+                    <input type="text" name="fields_terminated" class="shorttext" value=",">
+                </td>
+            </tr>
+            <tr class="trLighter">
+                <td class="tdFormCaption2">{optionally_enclosed_msg}:</td>
+                <td>
+                    <input type="text" name="optionally_enclosed" class="shorttext" value='"' readonly>
+                </td>
+            </tr>
+            <tr class="trLighter">
+                <td class="tdFormCaption2">{lines_terminated_msg}:</td>
+                <td>
+                    <input type="text" name="lines_terminated" class="shorttext" value="\n">
+                </td>
+            </tr>
+            <tr class="trLighter">
+                <td class="tdFormCaption2">{include_header_row}:</td>
+                <td>
+                    <input type="checkbox" name="header_row" checked />
+                </td>
+            </tr>
+            
+            <tmpl:total_row>
+            <tr class="trLighter">
+                <td class="tdFormCaption2">{include_total_row}:</td>
+                <td>
+                    <input type="checkbox" name="total_row" checked />
+                </td>
+            </tr>
+            </tmpl:total_row>
+        </table>
+    </div>
+</div>
+
+<div class="bottom_button_dialog">
+    <tmpl:customize_list>
+    <div style="float: left; margin: 6px 0 0 10px;">
+        <a href="#customize" onclick="PopupManager.create('{customize_link}', 'r', 'r', 1, 500);void(0);">{customize_list_msg}</a>
+    </div>
+    </tmpl:customize_list>
+    
+    <input type="submit" name="submit" id="submit" value="{export_msg}" class="button" 
+        onclick="$('#popup_export').dialog('close');" />
+        <!-- onclick="showSpinner('submit');" /> -->
+        
+    <input type="button" value="{close_msg}" class="button"
+        onclick="$('#popup_export').dialog('close');" />
+</div>
+
+</form>

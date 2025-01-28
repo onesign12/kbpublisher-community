@@ -1,0 +1,77 @@
+<script src="../client/jscript/DatePickerManager.js?v={pvhash}"></script>
+<script>
+$(function() {
+    var options = {
+        date_format: '{date_format}',
+        week_start: {week_start},
+        current_date: '{current_date}',
+        class_name: 'colorInput'
+    }
+
+    var dp_from = new DatePickerManager('date_from', options, {date_formatted_1});
+    var dp_to = new DatePickerManager('date_to', options, {date_formatted_2});
+    
+    dp_from.setMinDate('{min_date}');
+    
+    var min_date = new Date({date_formatted_1});
+    dp_to.setMinDate(min_date);
+    
+    dp_from.bindTo(dp_to);    
+});
+</script>
+
+<form style="margin: 0px;">
+{hidden_fields}
+
+<table id="filter_tbl">
+<tr>
+    <td>
+        <div>{type_msg}:</div>
+        <select name="filter[t]" class="colorInput" style="width: 120px;">
+        {type_select}
+        </select>
+    </td>
+    
+    <td>
+        <div>{is_error_msg}:</div>
+        <select name="filter[s]" class="colorInput" style="width: 120px;">
+        {status_select}
+        </select>
+    </td>
+    
+    <td>
+        <div>{period_msg}:</div>
+        <select name="filter[p]" class="colorInput" style="width: 120px;" 
+            onchange="ShowHideCustomDate(this.value)">
+        {period_select}
+        </select>
+    </td>
+    
+    <td>
+        <div>{search_str_msg}:{search_help}</div>
+        <input type="text" name="filter[q]" value="{q}" class="colorInput middleText" style="width: 150px;">
+    </td>    
+      
+    <td>
+        <button type="submit" name="do_search" value="1" 
+            class="button2 button2_filter">&rarr;</button>
+    </td>
+</tr>
+<tr>
+</table>
+
+<div id="custom_period" style="display: {custom_display};">
+    <div style="padding: 5px;">
+        <span style="padding-right: 3px;">{date_from_msg}:</span>
+        <span style="padding-right: 10px;">
+            <input type="hidden" id="date_from" name="filter[date_from]" />
+        </span>
+        
+        <span style="padding-right: 3px;">{date_to_msg}:</span>
+        <span>
+            <input type="hidden" id="date_to" name="filter[date_to]" />
+        </span>
+    </div>
+</div>
+
+</form>

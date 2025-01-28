@@ -1,0 +1,88 @@
+<script>
+<!--
+$(document).ready(function() {
+    PopupManager.setTitle("{users_msg}");
+
+    var parent_window = PopupManager.getParentWindow();
+
+    s = new getMoreHtml();
+    s.readroot = parent_window.document.getElementById('readroot_priv');
+    s.writeroot = parent_window.document.getElementById('writeroot_priv');
+    s.max_allowed = false;
+    s.confirm_use = false;
+    s.confirm_msg = '';
+
+    var selector = 'input[name="{field_name}[]"]';
+    parent_window.$(selector).each(function() {
+        $('#action_' + this.value).attr('data-attach', 0);
+        $('#action_' + this.value).find('img').attr('src', 'images/icons/check.svg');
+    });
+
+    // parent_window.$('body').trigger('kbpUserPopupOpened');
+});
+
+function attachEntry(id, title, link) {
+    var flag = $('#action_' + id).attr('data-attach');
+    var selector = 'input[name="{field_name}[]"][value=' + id + ']';
+
+    if (flag == 1) {
+        if (window.top.$(selector).length == 0) {
+            s.get(id, title);
+
+            //disableLink(link);
+            $('#action_' + id).attr('data-attach', 0);
+            $('#action_' + id).find('img').attr('src', 'images/icons/check.svg');
+
+            window.top.LeaveScreenMsg.changes = true;
+
+            // if({close_on_action}) {
+                // PopupManager.close();
+            // }
+        }
+    } else {
+        window.top.$(selector).parent().parent().remove();
+        $('#action_' + id).attr('data-attach', 1);
+        $('#action_' + id).find('img').attr('src', 'images/icons/attach.svg');
+    }
+
+    // window.top.$('body').trigger('kbpUserSelected', [{id: id, title: title, flag: flag}]);
+}
+//-->
+
+</script>
+
+{header}
+
+<div id="afterActionMessage" style="display: none;">
+    {after_action_message_block}
+</div>
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+    
+    {list_title}
+    
+    <td style="width: 1px;" class="tdTitle">&nbsp;</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}">
+    
+    {list_row}
+
+    <td class="action">
+        <a href="" id="action_{id}" title="{assign_msg}"
+			onClick="attachEntry('{id}', '{escaped_name}', this); return false;" data-attach="1">
+            <img src="images/icons/attach.svg" width="14" height="14" alt="{assign_msg}" />
+        </a>
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{done_msg}" class="button" onclick="PopupManager.close();" />
+</div>
+
+<tmpl:bulk></tmpl:bulk>

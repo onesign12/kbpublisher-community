@@ -1,0 +1,112 @@
+<tmpl:js>
+<script>
+    var link_all_names = ['{expand_all_msg}', '{collapse_all_msg}'];
+    
+    function showRow(id) {
+        if ($('#c_' + id).css('display') == 'none') {
+            $('#c_' + id).slideToggle('slow');
+            // $('#l_' + id).css('font-weight', 'bold');
+            $('#l_' + id).removeClass("faqArticleTitleList").addClass("faqArticleTitle");
+        } else {
+            $('#c_' + id).slideToggle('slow');
+            // $('#l_' + id).css('font-weight', 'normal');
+            $('#l_' + id).removeClass("faqArticleTitle").addClass("faqArticleTitleList");
+        }
+    }
+    
+    $(document).ready(function() {
+        
+        var mode = '{mode}';
+        
+        switch (mode) {
+            case 'id':
+                if (location.hash) {
+                    var anchor = location.hash.substr(2);
+                    showRow(anchor);            
+                }
+                break;
+                
+            case 'title':
+                var url = document.location.href;
+                var id = $('a[href="' + url + '"]').attr('id');
+                
+                if (id) {
+                    showRow(id.substr(2));
+                }
+                break;
+        }
+        
+        $('#featured_button').add('#article_button').html(link_all_names[0]);        
+    });
+    
+    
+    function toggleList(type) {
+            
+        if ($('#' + type + '_button').html() == link_all_names[0]) {
+            $('#' + type + '_button').html(link_all_names[1]);
+            
+            $('#' + type + '_list div[id^=c_]').each(function() {
+                this.style.display = 'block';
+                // $('#' + type + '_list a[id^=l_]').css('font-weight', 'bold');
+                $('#' + type + '_list a[id^=l_]').removeClass("faqArticleTitleList").addClass("faqArticleTitle");	
+            });
+            
+        } else {
+            $('#' + type + '_button').html(link_all_names[0]);
+            
+            $('#' + type + '_list div[id^=c_]').each(function() {
+                this.style.display = 'none';
+                // $('#' + type + '_list a[id^=l_]').css('font-weight', 'normal');
+				$('#' + type + '_list a[id^=l_]').removeClass("faqArticleTitle").addClass("faqArticleTitleList");
+            });
+        }
+        
+   }
+</script>
+</tmpl:js>
+
+<a name="top{category_id}" id="top{category_id}"></a>
+
+<div class="tdTitle" style="margin-bottom: 2px;">
+    
+    <tmpl:list_option_button>
+    <div class="fright menuItemOption">
+        <a href="#show" onclick="$('#list_option_block').toggle(); return false;">
+            {list_option_msg}
+        </a>
+    </div>
+    </tmpl:list_option_button>
+    
+    <div class="fright menuItemOption" style="padding-right: 0px;">
+		<a href="#" id="{block_id}_button" onclick="toggleList('{block_id}'); return false;"></a>
+    </div>
+  
+    <div class="fleft">{list_title}</div>
+    <div style="clear: both;"></div>
+</div>
+
+{block_list_option_tmpl}
+<div>&nbsp;</div>
+
+<div style="margin-left: 10px;">
+<div id="{block_id}_list">
+    <tmpl:row>
+    <div style="padding-left: 5px; float: left;">{item_img}</div>
+    <div style="padding-left: 6px; float: left;">
+        <a id="l_{id}" href="{entry_link}" class="faqArticleTitleList" onclick="showRow('{id}');">
+            <skip-glossary>{title}</skip-glossary>
+        </a>
+    </div>
+    <div style="clear: both; height: 7px;"></div>
+    
+    <div id="c_{id}" style="display: none; padding-left: 24px;">
+        <div style="margin: 1px 0px 20px 0px;" class="textBlock">
+            <tmpl:row_body>{body}</tmpl:row_body>
+            <div class="smallerText" style="padding-top: 5px;">
+                <a href="{entry_full_link}" rel="nofollow">{article_full_view_msg}</a>
+            </div>
+        </div>
+    </div>
+    </tmpl:row>
+</div>
+</div>

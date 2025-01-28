@@ -1,0 +1,32 @@
+<table id="submenu2" class="sTable">
+<tr>
+<td class="submenuBorderRight"><img src="images/s.gif" width="3" height="1"></td>
+
+<tmpl:row>
+    
+    <tmpl:spacer>
+    <td class="submenuBorderRight">&nbsp;</td>
+    </tmpl:spacer>        
+    
+    <tmpl:active>
+    <td class="submenuActive"  align="center" nowrap style="{td_style}" {td_extra}>
+        <a href="{menu_link}" class="subMenu" target="{target}" style="{a_style}" {a_extra}>
+            <b>{menu_item}</b>
+        </a>
+    </td>
+    </tmpl:active>    
+    
+    <tmpl:nonactive>
+    <td class="submenuNotActive" align="center" nowrap style="{td_style}" {td_extra}>
+        <a href="{menu_link}" class="subMenu" target="{target}" style="{a_style}" {a_extra}>
+            {menu_item}
+        </a>
+    </td>
+    </tmpl:nonactive>
+    
+</tmpl:row>
+    
+    <td width="100%" class="submenuBetween">&nbsp;</td>
+    
+</tr>
+</table>

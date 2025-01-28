@@ -1,0 +1,26 @@
+<script>
+    function goNextPage(page) {
+        goNextPageLink(page);
+    }
+</script>
+
+{user_msg}
+
+<table class="sTable tableCp6">
+<tr class="tdTitle">
+    <td width="40%">{library_msg}</td>
+    <td width="20%">{recommended_msg}</td>
+    <td width="20%">{current_msg}</td>
+    <td width="20%" align="center">{passed_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr>
+    <td class="border">{title}</td>
+    <td class="border">{recommended}</td>
+    <td class="border">{current}</td>
+    <td class="border" align="center">{passed}</td>
+</tr>
+</tmpl:row>
+
+</table>

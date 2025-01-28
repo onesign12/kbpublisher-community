@@ -1,0 +1,5 @@
+[articles.num] twoich artykułów nie było aktualizowanych od pół roku.
+Ich status został zmieniony na "Przestarzałe".
+
+Artykuły znajdują się pod tym linkiem:
+[articles.link.filtered.outdated]

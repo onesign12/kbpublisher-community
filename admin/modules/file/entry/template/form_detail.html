@@ -1,0 +1,179 @@
+<script src="jscript/common_entry_form.js?v={pvhash}"></script>
+<script>
+    function deleteDraft(msg, link) {
+        confirm2(msg, function() {
+            location.href = link;
+        });
+    }
+</script>
+
+{menu_block}
+{error_msg}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle">{detail_msg}</td>
+</tr>
+
+<tmpl:entry_id>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{id_msg}:</td>
+    <td><strong>{id}</strong></td>
+</tr>
+</tmpl:entry_id>
+
+<tmpl:entry_id2>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{entry_id_msg}:</td>
+    <td><strong>{id2}</strong></td>
+</tr>
+</tmpl:entry_id2>
+
+<tmpl:posted>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{date_msg}:</td>
+    <td>{date_formatted} {formatted_user}</td>
+</tr>
+</tmpl:posted>
+
+<tmpl:entry_view>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{last_downloaded_msg}:</td>
+    <td>{last_viewed_formatted}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{download_num_msg}:</td>
+    <td>{downloads}</td>
+</tr>
+
+<tmpl:draft>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{associated_draft_msg}:</td>
+    <td><a href="{draft_link}">{view_msg}</a></td>
+</tr>
+</tmpl:draft>
+</tmpl:entry_view>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{file_msg}:</td>
+    <td>
+        
+        <table>
+        <tr>
+            <td>
+                <a href="{open_link}">{open_msg}</a>
+            </td>
+            
+            <tmpl:entry_view>
+            <td>
+                <span class="clipboard-group" style="margin-left: 10px;">
+                    <input id="public_open_link" value="{public_open_link}">
+                    <button class="clipboard button" title="{copy_clipboard_msg}" data-clipboard-target="#public_open_link">
+                        <img src="../client/images/icons/clipboard.svg" alt="Copy to clipboard">
+                    </button>
+                </span>
+            </td>
+            </tmpl:entry_view>
+        
+        </tr>        
+        <tr>
+        
+            <td>
+                <a href="{download_link}">{download_msg}</a>
+            </td>
+            
+            <tmpl:entry_view>
+            <td>
+                <span class="clipboard-group" style="margin-left: 10px;">
+                    <input id="public_download_link" value="{public_download_link}">
+                    <button class="clipboard button" title="{copy_clipboard_msg}" data-clipboard-target="#public_download_link">
+                        <img src="../client/images/icons/clipboard.svg" alt="Copy to clipboard">
+                    </button>
+                </span>
+            </td>
+            </tmpl:entry_view>
+        
+        </tr>
+        
+        </table>
+        
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{filename_msg}:</td>
+    <td>{filename} ({file_addtype})</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{filesize_msg}:</td>
+    <td>{filesize_str}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{file_msg}:</td>
+    <td>{file_path}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{category_msg}:</td>
+    <td>{category}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{title_msg}:</td>
+    <td>{title}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{description_msg}:</td>
+    <td>{description}</td>
+</tr>
+
+<tmpl:entry_view>
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{attached_num_msg}:</td>
+    <td><a href="{attached_to_link}">{attached_to_num}</a></td>
+</tr>
+</tmpl:entry_view>
+
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{meta_keywords_msg} / {tags_msg}:</td>
+    <td>{tags}</td>
+</tr>
+
+
+<tmpl:block_private>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>        
+        {private1_msg}
+        {roles}
+    </td>
+</tr>
+</tmpl:block_private>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{schedule_msg}:</td>
+    <td>
+        {schedule}
+    </td>
+</tr>
+
+<tmpl:custom_row>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{title}:</td>
+    <td>{value}</td>
+</tr>
+</tmpl:custom_row>
+
+<tmpl:status>
+<tr class="trLighter">
+    <td class="tdFormCaption">{entry_status_msg}:</td>
+    <td>{status}</td>
+</tr>
+</tmpl:status>
+
+</table>

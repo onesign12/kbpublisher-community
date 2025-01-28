@@ -1,0 +1,14 @@
+Der Benutzer hat beantragt, sein KB-Konto zu kündigen.
+{request_from_ip_msg}: [ip]
+
+Der Benutzer hat möglicherweise einige damit verbundene Aktivitäten. Verwenden Sie den unten stehenden Link, um diese zu überprüfen.
+[link]
+
+Benutzerkommentare:
+[message]
+
+{user_info_msg}:
+------------
+ID: [id]
+Name: [name]
+E-Mail: [email]

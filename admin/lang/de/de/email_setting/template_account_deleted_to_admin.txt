@@ -1,0 +1,14 @@
+Der Benutzer hat sein KB-Konto gekündigt.
+{request_from_ip_msg}: [ip]
+
+Sie können es überprüfen und wiederherstellen unter
+[link]
+
+Benutzerkommentare:
+[message]
+
+{user_info_msg}:
+------------
+ID: [id]
+Name: [name]
+E-Mail: [email]

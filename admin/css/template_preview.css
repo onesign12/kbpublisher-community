@@ -1,0 +1,22 @@
+body
+{
+	background-color: #ffffff;
+	padding: 0px;
+	margin: 0px;
+}
+
+body, td
+{
+	font-family : Tahoma, Verdana, Arial, Helvetica, sans-serif; 
+	font-size : 11px;
+}
+
+a[href].btnLink {
+	color: #2B5070 !important;    
+}
+
+a[href]
+{
+	color: white !important;
+	text-decoration: none;
+}

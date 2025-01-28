@@ -1,0 +1,129 @@
+/* LEFT MENU -> SIDEBAR */
+
+#sidebar_toggle {
+    /*float: right;
+    margin-right: 20px;*/
+}
+
+#sidebar {
+    position: absolute;
+    left: 0px;
+    width: 300px;
+    height: 547px;
+    background: #F5F5F5;
+    /*overflow: auto;*/
+    /*overflow-x: hidden;*/
+    border-right: 1px solid #DDD;
+}
+
+#divider {
+    position: absolute;
+    width: 9px;
+    overflow: hidden;
+    z-index: 3;
+}
+
+#divider div {
+    /*opacity: 0.5;*/
+    top: 48%;
+    height: 50px;
+    left: 0;
+    position: absolute;
+    cursor: pointer;
+}
+
+#divider div:hover {
+    opacity: 1;
+}
+
+#divider div.sidebar_shown {
+    background-image: url('../images/icons/hide_sidebar.svg');
+}
+
+#divider div.sidebar_hidden {
+    background-image: url('../images/icons/show_sidebar.svg');
+}
+
+
+/* LEFT MENU -> menu */
+#tree_menu {
+    /* padding-left: 7px; */
+    padding: 10px 7px;
+}
+
+.tree_title {
+    /* padding: 10px; */
+    /* margin-bottom: 10px; */
+}
+
+.menu_item_selected {
+    font-weight: bold
+}
+
+.tree_item {
+     vertical-align: middle;
+     margin-bottom: 2px;
+     font-size: 1.0em;
+}
+
+.tree_icon {
+    float: left;
+    margin: 0 5px 5px 0;
+}
+
+.tree_link {
+    float: left; 
+    width: 85%;
+}
+
+.tree_all_dots {/* ... */
+    float: left;
+    margin-right: 15px;
+    cursor: pointer;
+    color: #777777;
+    font-weight: bold;
+}
+
+.tree_parent_dots {/* ... */
+    float: left;
+    cursor: pointer;
+    font-size: 0.9em;    
+}
+
+.tree_message {
+    float: left;
+    color: #aaaaaa;
+    font-size: 1.0em;
+}
+
+.node {
+    color: #4C4C4C;
+    text-decoration: none;
+    word-wrap: break-word;
+    padding: 1px 2px;
+}
+
+.node:hover {
+	background: #ececec;
+}
+
+.menuItem3 {
+	background: #ececec;
+	font-size : 1.0em;
+	font-weight: bold;
+	padding: 6px 10px;
+	border-bottom: 1px solid #DADADA;
+}
+
+.menuItem3 a {
+	color: #000033;
+	text-decoration: none;	
+}
+
+/* add some styles to menu_content */
+/* this defined in /skin/view_left/common_view.css */
+#menu_content {
+    /* background: #F4F4F4; /* this 2 styles for new left menu */ 
+    /* background: #F9F9F9; /* this 2 styles for new left menu */ 
+    /* border: 1px solid #DADADA; */
+}

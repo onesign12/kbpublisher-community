@@ -1,0 +1,9 @@
+Hallo [first_name],
+
+Uw account in "[kb_name]" is onlangs beëindigd.
+Als u deze wijziging heeft aangebracht, hoeft u niets meer te doen.
+
+Het verzoek kwam van het volgende IP-adres: [ip].
+
+Als u het account niet heeft verwijderd, laat het ons dan meteen weten via [support_email]
+Het melden ervan is belangrijk omdat het ons helpt te voorkomen dat fraudeurs uw gegevens stelen.

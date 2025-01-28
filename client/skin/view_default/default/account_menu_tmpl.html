@@ -1,0 +1,21 @@
+<ul class="tabs" data-tabs style="padding: 0;border: 1px solid #dcdcdc;">
+	<tmpl:row>
+		<tmpl:active>
+		<li class="tabs-title is-active">
+			<a href="{menu_link}" aria-selected="true" 
+                style="padding: 10px;color: black; font-size: 1.0em;">
+                {menu_item}
+            </a>
+		</li>
+		</tmpl:active>
+		
+		<tmpl:nonactive>
+		<li class="tabs-title">
+			<a data-tabs-target="panel2" href="{menu_link}" 
+                style="padding: 10px;color: black; font-size: 1.0em;">
+                {menu_item}
+            </a>
+		</li>
+		</tmpl:nonactive>
+	</tmpl:row>
+</ul>

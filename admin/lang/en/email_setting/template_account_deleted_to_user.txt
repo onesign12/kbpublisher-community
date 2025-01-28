@@ -1,0 +1,9 @@
+Hi [first_name], 
+
+Your account in "[kb_name]" was recently terminated. 
+If you made this change, you don't need to do anything more. 
+
+The request came from the following IP address: [ip].
+
+If you didn't delete your account, let us know right away at [support_email]
+Reporting it is important because it helps us prevent fraudsters from stealing your information.

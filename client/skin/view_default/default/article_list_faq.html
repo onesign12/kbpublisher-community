@@ -1,0 +1,60 @@
+<tmpl:js>
+</tmpl:js>
+    
+<a name="top{category_id}" id="top{category_id}"></a>
+
+<div class="tdTitle" style="margin-bottom: 2px;">
+		
+    <tmpl:list_option_button>
+    <div class="fright menuItemOption">
+        <a href="#show" onclick="$('#list_option_block').toggle(); return false;">
+            {list_option_msg}
+        </a>
+    </div>
+    </tmpl:list_option_button>
+    
+    <div class="fleft">{list_title}</div>
+    <div style="clear: both;"></div>
+</div>
+
+{block_list_option_tmpl}
+<div>&nbsp;</div>
+
+<div style="margin-left: 10px;">
+	<div style="margin-bottom: 30px;">
+	<tmpl:row_title>
+	    <div style="padding-left: 5px;float: left;">{item_img}</div>
+	    <div style="padding-left: 6px;float: left;width: 90%;">
+	        <a href="{entry_link}" class="faqArticleTitleList">{title}</a>
+	    </div>
+	    <div style="clear: both;height: 6px;"></div>
+	</tmpl:row_title>
+	</div>
+
+	<tmpl:row>
+	<div style="margin-bottom: 40px;">
+	    <div style="padding-left: 5px;float: left;">{item_img}</div>
+	    <div style="padding-left: 6px;float: left;">
+	        <a name="{anchor}" id="{anchor}"></a>
+	        <div class="faqArticleTitle">
+                <skip-glossary>{title}</skip-glossary>
+            </div>        
+	    </div>
+	    <div style="clear: both;"></div>
+	    <div style="margin-top: 8px; padding-left: 20px;" class="textBlock">{body}</div>
+    	
+    	<div class="grid-x" style="padding-top: 5px;">
+    		<div class="small-12 medium-6 columns">
+    			<div class="smallerText" style="padding-left: 20px;">
+			        <a href="{entry_full_link}" rel="nofollow">{article_full_view_msg}</a>
+			    </div>
+    		</div>
+    		<div class="small-12 medium-6 columns left-for-small" style="text-align: right;">
+    			<div class="smallerText" style="padding-left: 20px;">
+			        <a href="{top_link}">{back_to_faqlist_msg}</a>
+			    </div>
+    		</div>
+    	</div>
+	</div>
+	</tmpl:row>
+</div>

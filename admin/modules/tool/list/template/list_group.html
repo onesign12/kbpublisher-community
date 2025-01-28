@@ -1,0 +1,17 @@
+<div class="tdTitle" style="padding: 1px;"></div>
+    
+<tmpl:row>
+    
+<div class="{class}" style="{style} padding: 8px; margin-bottom: 1px;"
+                    onMouseOver="OverColor(this, 'trOver', 'trHighlight')"
+                    onMouseOut="OverColor(this, '{class}', 'trHighlight')"
+                    onDblClick="RecordToDo('{load_link}')">
+    <div>
+        <b><a href="{load_link}">{title}</a></b>
+    </div>
+    <div style="padding-top:3px;">
+        {description}
+    </div>
+</div>
+        
+</tmpl:row>

@@ -1,0 +1,47 @@
+<script src="jscript/common_filter_form.js?v={pvhash}"></script>
+
+<form style="margin: 0px;">
+{hidden_fields}
+
+<table id="filter_tbl">
+<tr>
+    
+    <tmpl:advance_button>
+    <td>
+        <input type="button" value="{as_btn_value}" id="advanced_show_btn" title="{search_extra_msg}" 
+            class="button2 button2_filter" onclick="ToogleAdvancedSearch();">
+    </td>
+    </tmpl:advance_button>    
+    
+    <td>
+        <div>{subject_msg}:</div>
+        <select name="filter[c]" class="colorInput" style="width: 150px;">
+        {subject_select}
+        </select>
+    </td>
+    
+    <td>
+        <div>{entry_status_msg}:</div>
+        <select name="filter[s]" class="colorInput" style="width: 150px;">
+        {status_select}
+        </select>
+    </td>    
+    
+    <td>
+        <div>{search_str_msg}:{search_help}</div>
+        <input type="text" name="filter[q]" value="{q}" class="colorInput middleText" style="width: 200px;">
+    </td>    
+    
+    <td>
+        <button type="submit" name="do_search" value="1" 
+            class="button2 button2_filter">&rarr;</button>
+    </td>
+</tr>
+</table>
+
+<div id="advanced_search" style="display: {as_display};">
+    {custom_field_tmpl}    
+</div>
+
+
+</form>

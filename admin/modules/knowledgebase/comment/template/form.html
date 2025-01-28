@@ -1,0 +1,85 @@
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+<input type="hidden" name="title" value="{title}">
+<input type="hidden" name="username" value="{username}">
+<input type="hidden" name="r_email" value="{r_email}">
+
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trDarker">
+    <td nowrap>{entry_msg}:</td>
+    <td>
+        <div style="float: right;">
+            <a href="{entry_link}">{entry_public_link_msg}</a> | 
+            <a href="{entry_link_update}">{update_entry_msg}</a>            
+        </div>
+        {title}
+    </td>
+</tr>
+
+
+<tmpl:if_registered>
+
+    <tr class="trDarker">
+        <td nowrap>{username_msg}:</td>
+        <td>
+            <a href="mailto:{r_email}">{username}</a> 
+            <input type="hidden" name="r_email" value="{r_email}">
+            <input type="hidden" name="userame" value="{userame}">
+        </td>
+    </tr>
+
+</tmpl:if_registered>
+
+
+<tmpl:else_registered>
+
+    <tr class="trLighter">
+        <td class="tdFormCaption">{name_msg}:</td>
+        <td><input type="text" name="name" value="{name}" class="longText"></td>
+    </tr>
+    
+    <tr class="trLighter">
+        <td class="tdFormCaption">{email_msg}:</td>
+        <td><input type="text" name="email" value="{email}" class="longText"></td>
+    </tr>
+
+</tmpl:else_registered>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop required">{comment_msg}:</td>
+    <td width="90%"><textarea cols="80" rows="8" name="comment">{comment}</textarea></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_msg}:</td>
+    <td>{status_checkbox}</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <input type="submit" name="submit" value="{save_msg}" class="button"
+            onClick="validateForm();return false;" />
+            
+        <input type="button" value="{cancel_msg}" 
+            onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+        
+        <tmpl:update>
+            <span style="padding-left: 50px;">
+            <input type="button" value="{delete_msg}" 
+                onClick="LeaveScreenMsg.skipCheck(); confirmFormActionLink('{delete_link}', '{sure_delete_msg}')" class="button">
+            </span>
+        </tmpl:update>
+    </td>
+</tr>
+</table>
+</form>
+

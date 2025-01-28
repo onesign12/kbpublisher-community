@@ -1,0 +1,23 @@
+{msg}
+
+<div class="info">
+<div style="float: right;">
+    <a href="#" onclick="closeQuickResponce();" title="{close_msg}" style="text-decoration: none;">
+    	<img src="{base_href}client/images/icons/x-mark.svg" width="10" height="10" alt="{close_msg}" title="{close_msg}">
+    </a>
+</div>
+<table class="formTable">
+<tmpl:row>
+<tr style="vertical-align: top;">
+    <td style="padding-left: 5px;">{item_img}</td>
+    <td style="width: 100%;padding-left: 5px;">
+        <a href="{entry_link}" class="articleLink" target="_blank">{entry_id}{title}</a>
+        <div style="margin-top: {article_description_padding}px;" class="articleDecription">{body}</div>
+        <!-- <div style="padding-top: 5px;"><a href="{category_link}" target="_blank">{full_category}</a></div> -->
+    </td>
+</tr>
+<tr><td colspan="2" style="padding: 5px;"></td></tr>
+</tmpl:row>
+
+</table>
+</div>

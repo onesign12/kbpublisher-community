@@ -1,0 +1,107 @@
+<script src="jscript/comment.js?v={pvhash}"></script>
+<script src="../client/jscript/jquery/jquery.jeditable.mini.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function() {
+        <tmpl:update>
+        makeCommentsEditable("{ok_msg}", "{cancel_msg}", "{empty_comment_msg}");
+        </tmpl:update>
+        
+        initBulkHandlers();
+    });
+    
+    function insertUpdatedComment(id, formatted_message, raw_message) {
+        $('#comment_' + id).find('div.formatted_comment').html(formatted_message);
+        $('#comment_' + id).find('div.raw_comment').html(raw_message);
+    }
+    
+    function updateCommentStatus(id, status) {
+        confirm2("{sure_status_msg}", function() {
+            xajax_updateCommentStatus(id, status);
+        });
+    }
+    
+    function deleteComment(id) {
+        confirm2("{sure_common_msg}", function() {
+            xajax_deleteComment(id);
+        });
+    }
+</script>
+    
+<tmpl:comment_id_css>
+<style>
+    .commentBlock { opacity: 0.5; }
+    #comment_{comment_id} { opacity: 1; }
+</style>
+</tmpl:comment_id_css>
+
+{header}
+
+<div id="listTable">
+<div id="commentsBlock" style="margin-top: 20px;">
+    <tmpl:row>
+    <tmpl:bulk>
+    <div id="template_{id}" class="commentBulkCheckbox">
+        <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" 
+            style="margin: 0px;" {bulk_ids_ch_option} />
+    </div>    
+    </tmpl:bulk>
+    
+    <div class="commentBlock {extra_class}" id="comment_{id}">
+        <span id="acomment_{id}"></span>
+        <div class="commentTitle">
+            <tmpl:filter_link>
+            <div style="float: right">
+                <a href="{filter_link}" style="{style}" title="{title}" class="_tooltip">
+                    {short_title}
+                </a>  [{num_comment}]
+            </div>
+            </tmpl:filter_link>
+            
+            <div><strong>{date_formatted}</strong></div>
+            <div class="commentUser">{username}</div>
+        </div>
+        <div class="commentText textBlock">
+            <div class="formatted_comment">{comment}</div>
+            <div class="raw_comment" style="display: none;">{raw_comment}</div>
+            
+            <div class="commentLine"></div>
+            
+            <div style="float: right;">
+                <tmpl:colorbox>
+                <div id="status_box_{id}" class="status help" style="width: 15px;float: left;margin-right: 10px;">
+                    <div title="{status}" style="background: {color};">&nbsp;&nbsp;</div>
+                </div>
+                </tmpl:colorbox>
+                
+                <div id="status_text_{id}" style="float: left;font-size: 0.9em;margin-right: 15px;">
+                    {status}
+                </div>
+                
+                <div style="float: right;">
+                    {options_img}
+                </div>
+            </div>
+    
+            <div style="font-size: 0.9em;">
+                {posted_msg}: {date_interval}
+            </div>
+        </div>
+    </div>
+    </tmpl:row>
+</div>
+
+<tmpl:bulk>
+<div style="margin: 20px 1px;">
+    <input type="checkbox" name="id_check" id="id_check" value="1" style="margin: 0px;" />
+    <label for="id_check" style="margin-left: 10px; font-weight:bold;">
+        {check_all_msg}
+    </label>
+</div>
+</tmpl:bulk>
+
+<div style="text-align: center;">
+    {page_by_page_bottom}
+</div>
+</div>
+
+{footer}

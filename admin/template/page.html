@@ -1,0 +1,277 @@
+<!DOCTYPE HTML>
+<html lang="{meta_content}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset={meta_charset}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="none">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{meta_title}</title>
+    <link rel="stylesheet" href="css/style.css?v={pvhash}">
+    <link rel="stylesheet" href="css/filter.css?v={pvhash}">
+    <link rel="stylesheet" href="css/style_print.css?v={pvhash}" media="print">
+    <link rel="stylesheet" href="../client/skin/common_table.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/box.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery-ui/smoothness/jquery-ui.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery/jquery.dropdown.css?v={pvhash}">
+    <link rel="stylesheet" href="css/jquery/dropdown_custom.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery/tooltipster/tooltipster.bundle.min.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp_menu.css?v={pvhash}">
+    <link rel="stylesheet" href="css/jquery/smoothness/custom.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery/jquery.growl.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery/ezmodal.css?v={pvhash}">
+    <!--[if IE]>
+    <link rel="stylesheet" href="css/style_ie.css?v={pvhash}">
+    <![endif]-->
+    <style>
+        {style_setting}
+    </style>
+    
+    <script src="jscript/common.js?v={pvhash}"></script>
+    <script src="jscript/popup.js?v={pvhash}"></script>
+    <script src="jscript/form_validate.js?v={pvhash}"></script>
+    <script src="jscript/LeaveScreenMsg.js?v={pvhash}"></script>
+    <script src="jscript/TableListHandler.js?v={pvhash}"></script>
+    <script src="jscript/Spotlight.js?v={pvhash}"></script>
+    <script src="jscript/RecordManager2.js?v={pvhash}"></script>
+    
+    <script src="../client/jscript/PopupManager.js?v={pvhash}"></script>
+    <script src="../client/jscript/FormCollector.js?v={pvhash}"></script>
+    <script src="../client/jscript/ErrorHighlighter.js?v={pvhash}"></script>
+    <script src="../client/jscript/DialogBox.js?v={pvhash}"></script>
+
+    <script src="../client/jscript/jquery/jquery.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/jquery-ui.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/jquery.dropdown.min.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/jquery.growl.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/tooltipster.bundle.min.js?v={pvhash}"></script>      
+    <script src="../client/jscript/jquery/jquery.placeholder.min.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/ezmodal.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/jquery.isonscreen.js?v={pvhash}"></script>    
+    <script src="../client/jscript/jquery/ui/i18n/jquery.ui.datepicker-{datepicker_lang}.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/jquery.serialize-object.min.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/mousetrap.min.js?v={pvhash}"></script>
+    <script src="../client/jscript/clipboard/dist/clipboard.min.js?v={pvhash}"></script>
+    
+    <script src="jscript/AdminLayout.js?v={pvhash}"></script>
+    <script src="jscript/page_init.js?v={pvhash}"></script>
+    <script>
+        
+        $(document).ready(function() {
+            setDebug({debug});
+            LeaveScreenMsg.setMsg("{sure_leave_msg}");
+            
+            DialogBox.ok_msg = "{ok_msg}";
+            DialogBox.cancel_msg = "{cancel_msg}";
+            
+            showGrowl("{growl_show}", "{growl_title}", "{growl_body}", "{growl_style}", "{growl_fxed}");
+            
+            var top_obj = document;
+            $("td.menuActive", top_obj).removeClass().addClass("menuNormal");
+            $("td#td_topmenu_{module_key}", top_obj).addClass("menuActive");
+            
+            <tmpl:search_block>
+            Spotlight.url = '{suggest_link}';
+            Spotlight.section_title_msg = "{show_all_msg}";
+            Spotlight.init();
+            </tmpl:search_block>
+            
+            if ($('#bottom_button').length) {
+                $('<div id="bottom_break"></div>').insertAfter('#bottom_button');
+            }
+            
+            $('#bottom_button').addClass('bottom_button');
+            $('input, textarea').placeholder();
+            
+            // make special search green
+            <tmpl:is_special_search>
+            $('input[name="filter[q]"]').css('color', 'green');
+            </tmpl:is_special_search>
+            
+            var parent_window = PopupManager.getParentWindow();
+            if (parent_window != window) { // loaded in popup
+                var src = parent_window.$('iframe.popup').attr('src');
+                parent_window.location.href = src;
+            }
+            
+            AdminLayout.menu_tooltip = $('._menu_tooltip:not([title=""])').tooltipster({
+                contentAsHTML: true,
+                theme: ['tooltipster-kbp_menu'],
+                interactive: true,
+                maxWidth: 400,
+                side: ['right'],
+                distance: 0
+            });
+            
+            AdminLayout.init();
+            
+            <tmpl:hide_menu_tooltip>
+            AdminLayout.menu_tooltip.tooltipster('disable');
+            </tmpl:hide_menu_tooltip>
+        });
+    </script>
+    
+</head>
+<body class="bodyBgr" style="height: 100%;overflow-x: hidden;">
+
+<div id="header" class="nonPrintable">
+    
+    <div style="background: #446d99;">
+    <table class="sTable">
+    <tr>
+        <td style="padding: 10px 8px; width: 100%;">
+            <a href="{index_link}" style="color:#ffffff; font-size: 1.6em;" class="noformat">
+                {header_title}
+            </a>
+        </td>
+        
+        <!-- Search -->
+        <tmpl:search_block2>
+        <td style="padding-right: 20px;">
+            <span>
+                <a href="#" onclick="$('#search_block').slideToggle(400, function() {$('#search_field').focus();$('#search_field').autocomplete('search');});" title="{search_menu}">
+                    <img id="search_toggle" src="images/icons/m_search.svg" height="18" width="18" alt="Search" />
+                </a>
+            </span>
+        </td>
+        </tmpl:search_block2>
+        
+        <!-- Notifications -->
+        <tmpl:notification_block>
+        <td style="white-space:nowrap; padding-right: 20px;">
+            <a href="#" id="notification_block" data-jq-dropdown="#notifications">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24">
+                <path fill="white" d="M15 21c0 1.598-1.392 3-2.971 3s-3.029-1.402-3.029-3h6zm.137-17.055c-.644-.374-1.042-1.07-1.041-1.82v-.003c.001-1.172-.938-2.122-2.096-2.122s-2.097.95-2.097 2.122v.003c.001.751-.396 1.446-1.041 1.82-4.668 2.709-1.985 11.715-6.862 13.306v1.749h20v-1.749c-4.877-1.591-2.193-10.598-6.863-13.306zm-3.137-2.945c.552 0 1 .449 1 1 0 .552-.448 1-1 1s-1-.448-1-1c0-.551.448-1 1-1zm-6.451 16c1.189-1.667 1.605-3.891 1.964-5.815.447-2.39.869-4.648 2.354-5.509 1.38-.801 2.956-.76 4.267 0 1.485.861 1.907 3.119 2.354 5.509.359 1.924.775 4.148 1.964 5.815h-12.903z"/>
+            </svg><span class="badge" data-badge="" style="display: none;">&nbsp;</span></a>
+            {notification_block}
+        </td>
+        </tmpl:notification_block>
+        
+        <!-- Add menu -->
+        <tmpl:shortcut_menu>
+        <td style="padding-right: 20px;">
+            <span data-jq-dropdown="#shortcuts">
+                <a href="#" class="menu" title="{add_menu}">
+                    <img src="images/icons/m_add.svg" width="18" height="18" alt="Add"></a>
+            </span>
+            
+            <div id="shortcuts" class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right fix_top">
+                <ul class="jq-dropdown-menu">
+                    {shortcut_menu_items}
+                </ul>
+            </div>
+        </td>
+        </tmpl:shortcut_menu>
+        
+        <!-- User -->
+        <td style="white-space:nowrap;">
+            
+            <a href="#" style="color:#ffffff; text-decoration: none;" title="{account_msg}" 
+                data-jq-dropdown="#user_menu">
+                    <img src="images/icons/tm_user.svg" width="18" height="18" alt="user"></a>
+            
+            <div id="user_menu" class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right fix_top">
+                <ul class="jq-dropdown-menu">
+                    
+                    <li>
+                        <div style="color: black; padding: 6px 8px 10px 8px; margin-bottom: 1px;">
+                            <img src="images/icons/user.svg" alt="user" 
+                                style="width: 14px; height: 14px; vertical-align: middle;" />&nbsp;&nbsp;
+                            <strong>{username}</strong>
+                        </div>
+                    </li>
+                    <li class="jq-dropdown-divider"></li>
+                    <li class="jq-dropdown-divider"></li>
+                    
+                    <li><a href="{account_link}">{account_msg}</a></li>
+                    <li class="jq-dropdown-divider"></li>
+                    
+                    <tmpl:logout>
+                    <li><a href="logout.php?full=1">{logout_msg}</a></li>
+                    <li class="jq-dropdown-divider"></li>
+                    </tmpl:logout>
+                    
+                </ul>
+            </div>
+            
+        </td>
+        
+        <!-- Go to Public -->
+        <td style="padding: 0 15px 0 40px; white-space:nowrap;">
+            <a href="{client_view_link}" id="public_area_link" title="{public_area_msg}">
+                <img src="images/icons/tm_public.svg" width="18" height="18" alt="public"></a>
+        </td>
+    </tr>
+    </table>
+    </div>
+
+</div>
+
+<div id="container">
+    
+    <div id="sidebar" class="{sidebar_class}" style="width: {sidebar_width}px;">
+        {top_menu}
+    </div>
+
+    <div id="sidebar2" class="{sidebar2_class}" style="left: {sidebar2_left}px;">
+        <div id="sidebar2_container">
+            {module_left_block}
+        </div>
+        <div id="sidebar2_toggle" onClick="AdminLayout.toggleSidebar2('{module_name}');"></div>
+    </div>
+
+    <div id="content" style="left: {content_left}px;">
+
+        <div id="spinner" style="display: none;" class="loading_spinner">
+            <img src="images/ajax/indicator_verybig.gif" alt="Loading" />Loading...
+        </div>
+        
+        <div id="loadingMessagePage" class="loading_spinner" style="display: none;">
+            <img src="images/ajax/indicator_verybig.gif" alt="Loading" />
+            <span>Saving</span>...
+        </div>
+        
+        <tmpl:search_block3>
+        <div id="search_block" style="top: 0;right: 0;width: 300px;border-bottom: 1px solid #e7e7e7;">
+            <input type="text" id="search_field" placeholder="{search_menu}" />
+            <span id="search_spinner" style="display: none;margin-left: 10px;">
+                <img src="images/ajax/dotted_bar.svg" alt="Loading" 
+                    style="vertical-align: middle; width: 16px; height: 16px; position: absolute; right: 25px; top: 12px;" />
+            </span>&nbsp;
+        </div>
+        </tmpl:search_block3>
+                
+        <!-- main scrollable content -->
+        <div style="margin-top: 0;flex: 1;">
+        
+            <div class="nonPrintable titleCell">
+                <div class="title">
+                    <a href="{topmenu_link}">{topmenu_title}</a>
+                </div>
+                <div class="menu">{menu}</div>
+            </div>
+    
+            <!-- <div class="mainCell2" style="padding: 25px 35px;"> -->
+            <div class="mainCell">
+                <div class="nonPrintable">{submenu}</div>
+                <div style="padding: 2px;"></div>
+                {module_msg}
+                {info_msg}
+                {action_msg}
+                {content}
+            </div>
+    
+        </div>
+        
+        <div id="copyright" class="copyright nonPrintable">
+            <a href="{product_www}">{product_name} {product_version}</a>
+        </div>
+        
+        {kbp_debug_info}
+    </div>
+</div>
+
+{xajax_js}
+
+</body>
+</html>

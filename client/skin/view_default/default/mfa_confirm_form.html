@@ -1,0 +1,29 @@
+{error_msg}
+
+{note}
+
+<tmpl:login_form>
+<div class="niceForm">
+
+<form action="{action_link}" method="post" id="aContentForm">
+{hidden_fields}
+
+<div class="table login2">
+    
+    <div class="formTopDelim"></div>
+    
+    <div class="grid-x">
+        <div class="small-12 cell">            
+            <div style="margin-bottom: 10px;">
+                <input type="text" name="code" id="code" value="" class="longText"
+                    placeholder="* {confirmation_code_msg}" autocomplete="off" autofocus />
+            </div>
+        </div>
+    </div>
+    
+    <input type="submit" name="submit" id="submit" value="{login_msg}" 
+      class="button login2 normal" style="margin-top: 20px;" />
+
+</div>
+
+</form>

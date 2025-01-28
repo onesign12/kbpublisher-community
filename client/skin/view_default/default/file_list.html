@@ -1,0 +1,103 @@
+<tmpl:dynamic_entries_scroll_loader>
+<script src="{client_href}jscript/jquery/jquery.waypoints.min.js?v={pvhash}"></script>
+<script src="{client_href}jscript/DynamicEntriesScrollLoader.js?v={pvhash}"></script>
+<script>    
+    $(document).ready(function() {
+        DynamicEntriesScrollLoader.init({dynamic_limit}, {dynamic_offset}, '{context}');
+        
+        <tmpl:loader>
+        DynamicEntriesScrollLoader.setLoader();
+        </tmpl:loader>
+    });
+</script>
+</tmpl:dynamic_entries_scroll_loader>
+
+<tmpl:title>
+<div class="tdTitle" style="margin-bottom: 10px;">
+    <div>{list_title}</div>
+</div>
+</tmpl:title>
+
+{msg}
+
+<div style="padding-left: 7px;" class="articleList">
+
+    <tmpl:row>
+    <div style="vertical-align: top;" class="tdImage">
+    	{item_img}
+        <a href="{entry_link}" class="articleLink" target="{target}">{filename}</a>
+
+    	<a href="{download_link}" style="padding-left:10px;" title="{download_msg}">
+    		<img src="{base_href}client/images/icons/download.svg" width="16" height="16" 
+    			style="vertical-align:middle;" alt="Download" />
+    	</a>
+
+        <div style="padding-top: {padding_value}px;">
+            <div>{title}</div>
+            <div class="articleDecription">{description}</div>
+        </div>
+    </div>
+
+    <div style="padding: 3px 2px;">
+
+        <span class="articleStaff2">{updated_date}</span>
+        <span class="articleStaff2">{filesize}</span>
+
+        <tmpl:show_hits>
+        <span class="articleStaff">{downloads_num_msg}: {downloads}</span>
+        </tmpl:show_hits>
+
+        <div class="articleStaff" style="padding-top: 3px;">
+
+            <tmpl:subscribe>
+            <span id="spinner2_{sid}" style="display: none;">
+                <img src="{base_href}client/images/ajax/indicator.svg" alt="Loading" />
+            </span>
+
+            <span id="div_subscribe_yes_{sid}" style="display: {subscribe_yes_display};">
+                <a href="#1{id}" onclick="xajax_doSubscribe(1, {id}, '_{sid}', 'spinner2_{sid}'); return false;"
+                    class="abbLink_remove _tooltip" title="{save_to_list_msg}" rel="nofollow">{save_to_list_short_msg}</a>
+            </span>
+            <span id="div_subscribe_no_{sid}" style="display: {subscribe_no_display};">
+                <a href="#0{id}" onclick="xajax_doSubscribe(0, {id}, '_{sid}', 'spinner2_{sid}'); return false;"
+                    class="abbLink_remove" rel="nofollow">{remove_from_list_msg}</a>
+            </span>
+            </tmpl:subscribe>
+
+            <tmpl:admin_block_menu>
+            <span style="margin-left: 7px;">
+                <a href="{detail_link}" class="abbLink" rel="nofollow">{update_msg}</a>
+            </span>
+            </tmpl:admin_block_menu>
+
+        </div>
+
+    </div>
+    <div style="padding: 5px;"></div>
+    </tmpl:row>
+
+</div>
+
+<div class="articleListBottomLine"></div>
+<br />
+
+<tmpl:load_button>
+<div style="padding-left: 7px;">
+    <a href="#more" onclick="xajax_loadNextEntries(DynamicEntriesScrollLoader.offset, 'spinner_more');"><b>{more_msg}...</b>
+    </a>
+    
+    <span id="spinner_more" style="margin-left: 5px; display: none;">
+        <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+    </span>
+</div>
+</tmpl:load_button>
+
+<tmpl:more_link>
+<div style="padding-left: 12px;">{more_link}</div>
+<br />
+</tmpl:more_link>
+
+<tmpl:by_page_bottom>
+<div style="padding-left: 12px;">{page_by_page_bottom}</div>
+<br />
+</tmpl:by_page_bottom>

@@ -1,0 +1,180 @@
+<script src="jscript/FileInput.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function() {
+        s = new getMoreHtml();
+        s.readroot = document.getElementById('readroot');
+        s.writeroot = document.getElementById('writeroot');
+        
+        sf = new getMoreHtmlFiles();
+        sf.confirm_remove = false;
+        sf.max_allowed = 3;
+        sf.allowed_extension = false;
+        sf.denied_extension = false;
+    });
+    
+    $('body').bind('kbpFileSelected', {}, function(e, params) {
+        s.get(params.id, params.name);
+    });
+    
+    $('body').bind('kbpFilePopupOpened', {}, function(e, params) {
+        var popup_frame = PopupManager.getCurrentPopupFrame();
+        var popup = PopupManager.getCurrentPopup();
+        
+        var skip_ids = [];
+        
+        $('div.popUpDivForm input[name="answer_attachment[]"]').each(function(){
+            skip_ids.push($(this).val());
+        });
+        
+        for (var i in skip_ids) {
+            var id = skip_ids[i];
+            popup.find('iframe').get(0).contentWindow.disableLink(popup_frame.find('#attach_link_' + id));
+            
+            popup_frame.find('#attach_link_' + id).parent().parent().attr('class', 'trHighlight');
+            popup_frame.find('#insert_img_' + id).hide();
+            popup_frame.find('#inserted_img_' + id).show();
+        }
+    });
+</script>
+
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="aContentForm" id="aContentForm" enctype="multipart/form-data" onsubmit="LeaveScreenMsg.skipCheck();">
+<input type="hidden" name="first_name" value="{first_name}">
+<input type="hidden" name="last_name" value="{last_name}">
+<input type="hidden" name="username" value="{username}">
+<input type="hidden" name="subject" value="{subject}">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{detail_msg}</b></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{date_posted_msg}:</td>
+    <td>{date_formatted}</a></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{name_msg}:</td>
+    <td>{show_name}</a></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{email_msg}:</td>
+    <td><a href="mailto:{email}">{email}</a></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{subject_msg}:</td>
+    <td>{subject}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{title_msg}:</td>
+    <td>{title}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo tdCaptionTop">{message_msg}:</td>
+    <td>{question}</td>
+</tr>
+
+<tmpl:custom_row>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo tdCaptionTop">{title}:</td>
+    <td>{value}</td>
+</tr>
+</tmpl:custom_row>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{attachment_msg}:</td>
+    <td>
+        <tmpl:file>
+        <a href="{open_link}" target="_blank">{filename}</a>
+        <a href="{download_link}"><img src="../client/images/icons/download.svg" class="download_icon"></a>
+        </tmpl:file>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="2"></td>
+</tr>
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop required">{answer_msg}:</td>
+    <td><textarea cols="80" rows="18" name="answer" style="width: 100%">{answer}</textarea></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{attachment_msg}:</td>
+    <td>    
+        <div class="file_error" style="margin-top: 10px;float: left;">
+            <input type="file" name="attachment_1" onchange="sf.onFileSelected(this);" />
+            <div id="writeroot_file"></div>
+        </div>
+        
+        <div style="float: right;margin: 10px;">
+            <span id="file_add" style="display: none;margin-right: 10px;">
+                <span style="margin-top: 5px; margin-left: 3px;">
+                    <a href="javascript:void(0);" onclick="sf.get(); return false;">
+                        {add_new_msg}
+                    </a>
+                </span>
+            </span>
+            
+            <a href="#" style="float: right;" onclick="PopupManager.create('{popup_link}', 'r', 'r', 'text');">
+                {choose_from_files_msg}
+            </a>
+        </div>
+        
+        <div style="clear: both;height: 10px;"></div>
+        
+        <span id="writeroot"></span>
+    </td>
+</tr>
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <tmpl:send_button>
+            <input type="submit" name="submit" value="{send_msg}" class="button"
+                onClick="validateForm();return false;" />
+            </tmpl:send_button>
+            
+            <input type="button" value="{create_article_msg}" 
+                onClick="location.href='{place_link}'" class="button">
+            
+            <span style="margin-left: {cancel_button_margin}px;">
+                <input type="button" value="{cancel_msg}" 
+                    onClick="location.href='{cancel_link}'" class="button">
+            </span>
+        </div>
+    </td>
+</tr>
+</table>
+</form>
+
+<div id="readroot" class="popUpDivForm" style="display: none;">
+    <div style="float: left;">
+        <input type="hidden" name="answer_attachment[]" value="" id=""><span>1</span>
+    </div>
+    <div align="right">
+        <a href="" onClick="removeHtml(this, '{sure_common_msg}'); return false;"><img src="images/icons/delete.svg" alt="delete" title="{delete_msg}"></a>
+    </div>
+</div>
+
+<div id="readroot_file" style="display: none;">
+    <input type="file" name="" class="file_input" onchange="sf.onFileSelected(this);">
+    <span class="file_delete" style="color: red; cursor: pointer; margin-left: 5px;"
+        onClick="sf.remove(this); return false;">
+        <b>×</b>
+    </span>
+    <span class="file_error_msg" style="color: red; margin-left: 10px;"></span>
+</div>

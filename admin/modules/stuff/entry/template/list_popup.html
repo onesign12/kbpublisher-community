@@ -1,0 +1,67 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{files_msg}");
+});
+
+var opener_id = '{opener_id}';
+
+function attachFile(id, title, filename) {
+    
+    // check extension
+    var allowedExt    = '.(jpg|jpeg|png|bmp|gif)$';
+    var allowedRegexp    = new RegExp(allowedExt, 'i');
+    if (!allowedRegexp.exec(filename)) {
+        alert('This is not image');
+        return false;
+    } 
+    
+    window.top.document.getElementById(opener_id).innerHTML = title + ' (' + filename + ')';
+    window.top.document.getElementById(opener_id + '_hidden').value = id;
+    window.top.document.getElementById(opener_id + '_delete').style.display = 'inline';
+    
+    PopupManager.close();
+    
+    return false;
+}
+</script>
+
+{header}
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+
+    <td width="1">{id_msg}</td>
+
+    <td class="tdTitle">{title_msg}</td>
+    <td>{filename_msg}</td>    
+    <td width="1">{filesize_msg}</td>
+    
+    <td width="1">{entry_status_msg}</td>
+    <td width="1">{action_hidemsginui_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}">
+    
+    <td width="1" align="right"><b>{id}</b></td>
+    
+    <td>{title}</td>
+    <td><a href="{file_link}" title="{title}" style="{style}">{filename}</a></td>
+    <td style="text-align: right;">{filesize}</td>
+    
+    <td style="text-align: center;">{active_img}</td>
+    <td class="action">
+        <a href="" title="{insert_as_attachment_title_msg}"
+            onClick="attachFile('{id}', '{title}', '{escaped_filename}'); return false;">
+            {insert_as_attachment_msg}
+        </a>
+    </td>
+    
+</tr>
+</tmpl:row>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{close_msg}" class="button" onclick="PopupManager.close();" />
+</div>

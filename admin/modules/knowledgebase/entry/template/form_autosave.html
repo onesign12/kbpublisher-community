@@ -1,0 +1,54 @@
+<script>
+    $(document).ready(function() {
+        $('#open_button').focus();
+    });
+</script>
+
+{msg}
+
+{error_msg}
+
+<!-- onSubmit="return validate_employee_form({is_admin});" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<table class="default">
+<tr> 
+    <td colspan="2" class="tdTitle" style="padding: 1px;"></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td width="150">{id_msg}:</td>
+    <td>{id}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{title_msg}:</td>
+    <td>{title}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{entry_saved_date_msg}:</td>
+    <td>{article_date_period} ({article_date_formatted})</td>
+</tr>
+<tr class="trDarker">
+    <td>{autosave_saved_date_msg}:</td>
+    <td>{autosave_date_period} ({autosave_date_formatted})</td>
+</tr>
+
+<tr> 
+    <td colspan="2" align="center"><div><br></div>
+
+        <input type="button" value="{autosave_open_msg}" id="open_button" class="button primary"
+            onClick="{open_link}">
+            
+        <input type="submit" name="submit" id="submit" value="{autosave_ignore_msg}" class="button secondary"
+            onClick="return confirmForm('{sure_common_msg}', 'submit');">
+        
+        <span style="margin-left: 25px;">
+            <input type="button" value="{cancel_msg}" 
+                onClick="{cancel_link}" class="button">
+        </span>
+    
+    </td>
+</tr>
+</table>
+</form>

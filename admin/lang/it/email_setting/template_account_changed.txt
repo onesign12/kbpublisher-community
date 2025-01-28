@@ -1,0 +1,10 @@
+Ciao [nome_nome],
+
+I dati del tuo account in "[kb_name]" sono stati recentemente modificati.
+Se hai effettuato questa modifica, non devi fare altro.
+
+La richiesta proviene dal seguente indirizzo IP: [ip].
+Nuovo indirizzo e-mail: [email]
+
+Se non hai modificato il tuo account, comunicacelo subito inviando un'e-mail all'indirizzo [support_email].
+Segnalarlo è importante perché ci aiuta a evitare che i truffatori rubino le tue informazioni.

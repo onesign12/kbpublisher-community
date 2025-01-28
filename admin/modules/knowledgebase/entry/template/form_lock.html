@@ -1,0 +1,54 @@
+{msg}
+
+{error_msg}
+
+<!-- onSubmit="return validate_employee_form({is_admin});" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<table class="default">
+<tr> 
+    <td colspan="2" class="tdTitle" style="padding: 1px;"></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td width="150">{id_msg}:</td>
+    <td>{id}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{title_msg}:</td>
+    <td>{title}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{lock_opened_msg}:</td>
+    <td>{date_period}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{lock_opened_by_msg}:</td>
+    <td>
+        {user_name} | <a href="mailto:{email}">{email}</a> | {phone}
+    </td>
+</tr>
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+
+        <input type="button" value="{lock_try_msg}" id="try_button" 
+            onClick="{update_link}" class="button">
+
+        <tmpl:ignore>
+        <input type="submit" name="submit" id="submit" value="{lock_ignore_msg}" class="button"
+            onClick="return confirmForm('{sure_common_msg}', 'submit');">
+        </tmpl:ignore>        
+        
+        <input type="button" value="{cancel_msg}" 
+            onClick="{cancel_link}" class="button">
+    </td>
+</tr>
+</table>
+</form>
+
+<script>
+ document.getElementById('try_button').focus();
+</script>

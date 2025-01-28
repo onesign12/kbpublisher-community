@@ -1,0 +1,69 @@
+<script>  
+$(document).ready(function() {
+    <tmpl:js>
+    var options = {
+        records: [{tags}],
+        creation_allowed: {creation_allowed},
+        assigned_block: $('#tag_block'),
+        input_field: $('#tag_input'),
+        container: $('#tag_container'),
+        suggest_block: $('#tag_suggest_block'),
+        suggest_link: '{tag_suggest_link}',
+        press_enter_hint_msg1: "{enter_tag_msg}",
+        press_enter_hint_msg2: "{enter_tag2_msg}",
+        no_tags_msg: "{no_tags_msg}",
+        no_matches_msg: "{no_matches_msg}",
+        confirm_delete_msg: "{sure_common_msg}",
+        is_public: {is_public},
+        name: '{name}'
+    };
+
+    tag_manager = new RecordManager(options);
+    </tmpl:js>
+});
+
+function createList(tags) {
+    tag_manager.createList(tags);
+}
+</script>
+
+<style>
+    .ui-autocomplete {
+        border-radius: 0;
+        z-index: 1001;
+    }
+</style>
+
+<div id="tag_block_container" style="float: left;margin-right: 4px;width: {width}px;">
+    <div id="tag_container" class="badge_container {container_class}">
+        <ul id="tag_block">
+            <tmpl:tag_row>
+            <li id="tag_{tag_id}" class="badge_item">
+                <span>{tag_title}</span> 
+                
+                <span title="{delete_msg}" id="tag_delete_{tag_id}" 
+                    onclick="tag_manager.deleteById('tag_delete_{tag_id}', true);" 
+                    class="delete_badge_item">×</span>
+                <input type="hidden" name="{name}[]" value="{tag_id}" />
+            </li>
+            </tmpl:tag_row>
+        </ul>
+        <div>
+            <input type="text" id="tag_input" 
+                style="width: 95%;margin-left: 5px;display: none; background: none; border: 0px;" autocomplete="off" />
+        </div>
+    </div>
+</div>
+
+<div style="float: left;height: 24px;line-height: 24px;margin-left: 5px;">
+    <input type="button" value="+" title="{choose_tags_msg}" class="button2 button2_add"
+        onmousedown="PopupManager.create('{tag_popup_link}', 'r', 'r');" />
+</div>
+
+<tmpl:tag_tip>
+<div style="float: right;margin: 5px 5px 0 15px;">
+    {tag_tip_msg}
+</div>
+</tmpl:tag_tip>
+
+<div style="clear: both;"></div>

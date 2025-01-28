@@ -1,0 +1,14 @@
+The user requested to terminate their KB account.
+{request_from_ip_msg}: [ip]
+
+The user may have some related activities. Use the link below to review them.
+[link]
+
+User notes:
+[message]
+
+{user_info_msg}:
+------------
+ID: [id] 
+Name: [name]
+Email: [email]

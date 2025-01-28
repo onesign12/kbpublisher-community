@@ -1,0 +1,15 @@
+Gebruiker heeft het KB account beëindigd.
+{request_from_ip_msg}: [ip]
+
+U kunt het bekijken en herstellen op
+[link]
+
+Gebruikersnotities:
+[message]
+
+{user_info_msg}:
+
+------------
+ID: [id]
+Naam: [name]
+E-mail: [email]

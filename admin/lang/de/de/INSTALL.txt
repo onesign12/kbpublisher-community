@@ -1,0 +1,6 @@
+1. Unpack package
+2. Copy it to the directory /kbp_directory/admin/lang/
+3. Update config file /kbp_directory/admin/config.inc.php
+   Set $conf['lang'] = '[language_dir_name]';
+   If you renamed directory to ge for example then 
+   $conf['lang'] = 'de';

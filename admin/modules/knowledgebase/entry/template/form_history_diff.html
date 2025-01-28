@@ -1,0 +1,138 @@
+<link rel="stylesheet" href="css/split_button.css?v={pvhash}" />
+
+{menu_block}
+
+<strong>{nav}</strong>
+<br /><br />
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle" style="padding: 1px;"></td>
+</tr>
+
+<tmpl:entry_id>
+<tr class="trMoreDarker">
+    <td>{entry_id_msg}:</td>
+    <td>
+        <strong>{entry_id}</strong>
+        <tmpl:entry_link>
+        | <a href="{entry_link}">{entry_public_link_msg}</a>
+        </tmpl:entry_link>
+    </td>
+</tr>
+</tmpl:entry_id>
+
+<tmpl:posted>
+<tr class="trMoreDarker">
+    <td>{date_msg}:</td>
+    <td>{date_formatted} {formatted_user}</td>
+</tr>
+</tmpl:posted>
+
+
+<br />
+<table class="sTable tableCp5 tableCs2">
+    <tr style="vertical-align: top;">
+        <td class="trDarker">
+            <div>
+                <form>
+                    {left_hidden_fields}
+                    <select name="vnum" onchange="this.form.submit();">
+                        {left_select}
+                    </select>
+                </form>
+            </div>
+            
+            <div style="clear: both;height: 10px;"></div>
+            <div style="padding: 5px 7px;">
+                <div style="padding-bottom: 3px;">
+                    {updated_msg}: {left_updated_by} 
+                </div>
+                <tmpl:filename>
+                <div style="padding-bottom: 3px;">
+                    {filename_msg}: 
+                    <a href="{left_open_link}" target="_blank">{left_filename}</a>
+                    <a href="{left_download_link}">
+                        <img src="{base_href}/client/images/icons/download.svg" class="download_icon">
+                    </a>
+                </div>
+                </tmpl:filename>
+
+                {comment_msg}: {left_comment}
+            </div>
+        </td>
+        
+        <td style="padding: 1px;"></td>
+        
+        <td class="trDarker">
+            <div  style="float: left;">
+                <form>
+                    {right_hidden_fields}
+                    <select name="vnum2" onchange="this.form.submit();">
+                        {right_select}
+                    </select>
+                </form>
+            </div>
+            
+            <tmpl:delete>
+            <div style="float: right;">
+            <input type="submit" name="submit" value="{delete_msg}" class="button primary"
+                onClick="confirmFormActionLink('{delete_link}', '{sure_delete_msg}')"">
+            </div>
+            </tmpl:delete>
+            <div style="clear: both;height: 10px;"></div>
+            
+            <div style="padding: 5px 7px;">
+                <div style="padding-bottom: 3px;">
+                    {updated_msg}: {right_updated_by} 
+                </div>
+                
+                <tmpl:filename>
+                <div style="padding-bottom: 3px;">
+                    {filename_msg}: 
+                    <a href="{right_open_link}" target="_blank">{right_filename}</a>
+                    <a href="{right_download_link}">
+                        <img src="{base_href}/client/images/icons/download.svg" class="download_icon">
+                    </a>
+                </div>
+                </tmpl:filename>
+            
+                {comment_msg}: {right_comment}
+            </div>
+        </td>
+    </tr>
+    
+    <tmpl:diff>
+    <tr><td colspan="2"></td></tr>
+    <tr>
+        <td style="width: 50%; vertical-align: top;">{diff_body_left}</td>
+        <td class="trDarker" style="padding: 1px;"></td>
+        <td style="width: 50%; vertical-align: top;">{diff_body_right}</td>
+    </tr>
+    </tmpl:diff>
+</table>
+
+<!-- <hr /> -->
+<br />
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<div style="text-align:center;">
+<div id="bottom_button">
+    {split_button}
+
+    <tmpl:download>
+    <span style="margin-right: 25px;">    
+        <input type="button" value="{download_msg}" class="button" title="{download_compare_msg}"
+            onClick="location.href='{download_link}';">
+    </span>
+    </tmpl:download>
+
+    <input type="button" value="{back_msg}" class="button" 
+        onClick="location.href='{cancel_link}';">
+</div>
+</div>
+
+</form>

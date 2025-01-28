@@ -1,0 +1,14 @@
+Użytkownik usunął swoje konto KB.
+{request_from_ip_msg}: [ip]
+
+Możesz przejrzeć i je przywrócić korzystając z
+[link]
+
+Notatki użytkownika:
+[message]
+
+{user_info_msg}:
+------------
+ID: [id]
+Imię: [name]
+Email: [email]

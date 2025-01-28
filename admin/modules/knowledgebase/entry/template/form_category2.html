@@ -1,0 +1,146 @@
+<link rel="stylesheet" href="css/jquery/smoothness/custom.css?v={pvhash}">
+<style>
+    #filter {
+        width: 95% !important;
+        background: #F9F9F9;
+        
+		box-shadow: 0px 0px 0px 3px #f2f5f7;
+        height: 33px;
+		padding: 0 10px 0 10px;
+		color: #7F7F7F;
+        border: 1px solid #bec2c4;
+		font-size: 12px;
+    }
+</style>
+<script>
+<!--
+$(document).ready(function() {
+    PopupManager.setTitle("{assign_category_msg}");
+    
+    var parent_window = PopupManager.getParentWindow();
+    
+    if (parent_window.main_category_id) {
+        disableCategory(parent_window.main_category_id);
+        
+        <tmpl:also_listed>
+        parent_window.$('div:visible[id^=category_row_]').each(function() {
+            var id = $(this).attr('id').substring(13);
+            //var text = $(this).find('a').text();
+            
+            //addCategory(id, text);
+            disableCategory(id);
+        });
+        </tmpl:also_listed>
+    }
+    
+    <tmpl:main_category>
+    main_category_mode = true;
+    addCategory({category_id}, '{category_name}');
+    </tmpl:main_category>
+    
+    <tmpl:set_new_category>
+    var parent_window = PopupManager.getParentWindow();
+    parent_window.addCategory({new_category}, '{new_category_name}');
+    PopupManager.close();
+    </tmpl:set_new_category>
+});
+
+var assigned_categories = [];
+function assignCategory() {
+    var parent_window = PopupManager.getParentWindow();
+    if (parent_window.main_category_id) {
+        
+        if (window.main_category_mode) {
+            parent_window.$('body').trigger(
+                'kbpEditModeDefaultCategoryChanged',
+                [{id: assigned_categories[0]['value'], name: assigned_categories[0]['text']}]);
+            
+        } else {
+            //parent_window.$('div[id^=category_row_]').remove();
+    
+            var block_html = window.top.$('#readroot_category').html();
+            var ids = [];
+            
+            for (var key in assigned_categories) {
+                var block = $(block_html);
+                
+                block.attr('id', 'category_row_' + assigned_categories[key]['value']);
+                block.find('a.articleLinkOther').html(assigned_categories[key]['text']);
+                block.find('span.delete_tag').attr('onclick', 'deleteEntryProperty(' + assigned_categories[key]['value'] + ', \'category\', \'{sure_common_msg}\');');
+                        
+                window.top.$(block).insertBefore('#writeroot_category');
+                window.top.$('#empty_category_block').hide();
+                
+                ids.push(assigned_categories[key]['value']);
+            }
+                
+            parent_window.$('body').trigger('kbpEditModeCategoriesTransferred', [{ids: ids}]);
+        }
+        
+    } else {
+        var category_link = '{category_link}';
+        var category_id = assigned_categories[0]['value'];
+        parent_window.location.href = category_link.replace('0', category_id);
+    }
+    
+    PopupManager.close();
+}
+
+function disableCategory(id) {
+    for (var i in categories) {
+        if (categories[i]['value'] == id) {
+            delete categories[i];
+            categories.splice(i, 1);
+        }
+    }
+}
+//-->
+</script>
+  
+<div>
+    {category_block_search_tmpl}
+</div>
+
+<br/><br/> 
+
+<div id="category_row" style="display: none1;">    
+    
+    <!-- <div class="trMoreDarker" style="padding: 5px;">
+        <strong>{caption}</strong>
+    </div> -->
+    
+    <div>
+        <div id="category">
+            <div></div>
+        </div>    
+    </div>
+    
+    <div id="category_toggle_title" class="formToggleBlockTitle"
+        style="display: none; margin-top: 8px; font-weight: normal;" 
+        onclick="toggleBlock('category');">
+        <span>{private_block_msg}</span>
+    </div>
+
+    <div id="category_toggle_block" class="formToggleBlockBody" style="display: none;">
+        <div id="category_private_div">
+            <span id="writeroot_private"></span>
+        </div>
+    </div>
+
+</div>
+
+
+<br /><br /><br />
+
+<div class="bottom_button bb_popup">    
+    <!-- <input type="button" id="submit_button" value="{ok_msg}"
+        onclick="assignCategory();"
+        class="button buttonDisabled" disabled />
+
+    <input type="button" value="{cancel_msg}" class="button"
+        onclick="PopupManager.close();" /> -->
+        
+    <input type="button" id="submit_button" value="{done_msg}"
+        onclick="assignCategory();"
+        class="button buttonDisabled" disabled />
+</div>

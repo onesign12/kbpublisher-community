@@ -1,0 +1,10 @@
+.jq-dropdown .jq-dropdown-menu,
+.jq-dropdown .jq-dropdown-panel {
+	max-width: 360px;
+    font-weight: normal;
+}
+
+.jq-dropdown .jq-dropdown-menu LI > A:hover,
+.jq-dropdown .jq-dropdown-menu LABEL:hover {
+	background-color: #E0E8F1;
+}

@@ -1,0 +1,7 @@
+Dear [first_name] [last_name],
+
+Your application to join the knowledgebase has been received. Once we have
+reviewed your profile we will email you with your login information. This
+should take 2-3 business days.
+
+Thank you so much for participating.

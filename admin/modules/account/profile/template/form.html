@@ -1,0 +1,117 @@
+
+<link rel="stylesheet" href="{client_href}skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp_title.css?v={pvhash}">
+
+<script>
+function init() {
+    if (window.selRoleHandler) {
+        selRoleHandler.setSelectWidth('role');
+    }
+}
+
+function subForm() {
+    LeaveScreenMsg.skipCheck();
+    selRoleHandler.selectAll();
+}
+
+window.onload = init;
+</script>
+
+{error_msg}
+
+<div class="account_title">
+    {update_profile_msg}
+</div>
+
+<form action="{action_link}" method="post" id="aContentForm"  onsubmit="subForm();">
+<input type="hidden" name="id" id="id" value="{id}" />
+<input type="hidden" name="date_registered" id="date_registered" value="{date_registered}" />
+<input type="hidden" name="lastauth" id="lastauth" value="{lastauth}" />
+<input type="hidden" name="grantor_id" id="grantor_id" value="{grantor_id}" />
+
+{hidden_fields}
+
+<div class="niceForm table">
+    <div class="formTopDelim"></div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="first_name" class="required">{first_name_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input name="first_name" type="text" class="longText" id="first_name" value="{first_name}" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="last_name" class="required">{last_name_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input name="last_name" id="last_name" type="text" class="longText" value="{last_name}" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="middle_name">{middle_name_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input name="middle_name" id="middle_name" type="text" class="longText" value="{middle_name}" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="phone">{phone_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input name="phone" id="phone" type="text" value="{phone}" class="longText" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="email" class="required">{email_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input name="email" id="email" type="text" value="{email}" class="longText" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="username" class="required">{username_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input name="username" id="username" type="text" value="{username}" class="longText" />
+        </div>
+    </div>
+    
+    <tmpl:role_box>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="role">{role_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <span class="tooltip">{role_tip_msg}</span>
+            {role_block_tmpl}
+        </div>
+    </div>
+    </tmpl:role_box>
+    
+    
+    <div class="grid-x skip" style="margin-top: 20px;">
+        <div class="medium-3 small-12 cell"></div>
+        <div class="medium-9 small-12 cell">
+            <button type="submit" name="submit" id="submit" class="button primary"
+                onClick="validateForm();return false;">
+                {save_msg}
+            </button>
+            
+            <input type="button" value="{cancel_msg}" class="button" 
+                onclick="location.href='{cancel_link}'" />
+        </div>
+    </div>
+</div>
+
+</form>

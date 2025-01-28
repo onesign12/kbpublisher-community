@@ -1,0 +1,243 @@
+<script src="jscript/livesearch/quicksilver.js?v={pvhash}"></script>
+<script src="jscript/livesearch/select.js?v={pvhash}"></script>
+
+<tmpl:all_entries_addon>
+<script src="jscript/livesearch/addons/select_all_entries.js?v={pvhash}"></script>
+</tmpl:all_entries_addon>
+
+<script src="jscript/livesearch/addons/non_active_category_warning.js?v={pvhash}"></script>
+
+<script src="jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script>
+    var categories = [{categories}];
+    var non_active_categories = [{non_active_categories}];
+
+    window.handler = new CategoriesSelectHandler('livesearch', 'second', 'category');
+    handler.setParentHandler('{handler_name}');
+    handler.nonActiveCategoryMsg = "{non_active_category_warning}";
+    
+    
+    handler.getCategories = function() { // overrides
+        var parent_window = PopupManager.getParentWindow();
+        var objFirst = document.getElementById(this.idFirst);
+        var _this = this;
+        parent_window.$('div[id^=category_row_]').each(function() {
+            var id = $(this).attr('id').substring(13);
+            var text = $(this).find('a').text();
+            $('#' + _this.idSecond).append(new Option(text, id));
+            
+            objFirst.options[_this.indexByValue(id, _this.idFirst)].disabled = true;
+        });
+        
+        objFirst.options[this.indexByValue(parent_window.main_category_id, this.idFirst)].disabled = true;
+    }
+    
+    
+    handler.addParentSelect = function() { // overrides
+        var parent_window = PopupManager.getParentWindow();
+        parent_window.$('div[id^=category_row_]').remove();
+        
+        var popupCategories = [];
+        var ids = [];
+        
+        $('#' + this.idSecond).children('option').each(function() {
+            popupCategories.push({
+                value: this.value,
+                text: this.text
+            });
+        });
+        
+        var block_html = window.top.$('#readroot_category').html();
+        
+        for (var key in popupCategories) {
+            var block = $(block_html);
+            
+            block.attr('id', 'category_row_' + popupCategories[key]['value']);
+            block.find('a.articleLinkOther').html(popupCategories[key]['text']);
+            block.find('span.delete_tag').attr('onclick', 'deleteEntryProperty(' + popupCategories[key]['value'] + ', \'category\', \'{sure_common_msg}\');');
+                    
+            window.top.$(block).insertBefore('#writeroot_category');
+            window.top.$('#empty_category_block').hide();
+            
+            ids.push(popupCategories[key]['value']);
+        }
+        
+        parent_window.$('body').trigger('kbpEditModeCategoriesTransferred', [{ids: ids}]);
+        PopupManager.close();
+    }
+    
+    <tmpl:export_non_active_category>
+    handler.deleteNonActive = true;
+    </tmpl:export_non_active_category>
+
+    $(document).ready(function() {
+        PopupManager.setTitle("{assign_category_msg}");
+        
+        handler.init();
+
+        if(window.top.$('#writeroot_private'))  {
+            var priv = window.top.$('#writeroot_private').html();
+            $('#writeroot_private').html(priv);
+        }
+
+        handler.setSelectWidth('livesearch');
+        handler.setSelectWidth('second');
+
+        // Check hotkey
+        $('#livesearch').bind('keydown', function(event) {
+            if ((event.shiftKey) && ((event.keyCode == 0xA) || (event.keyCode == 0xD))) {
+
+                // Block hotkey reaction in Gecko and Opera browsers
+                if(event.preventDefault) event.preventDefault();
+
+                // Block hotkey reaction in IE
+                event.returnValue = false;
+
+                handler.insertOptionByHotkey(event);
+                displayPriv();
+
+            }
+        });
+
+
+        // Call live search
+        $('#filter').liveUpdate('livesearch', categories, 'counter').focus();
+
+        // Set disabled options after rebuild
+        $('#filter').bind('keyup', function() {
+                handler.rebuildDisabled([window.top.main_category_id]);
+            }
+        );
+
+        handler.getCategories();
+        
+        <tmpl:set_new_category>
+        $('#livesearch').val({new_category});
+        $('#livesearch option[value="{new_category}"]').dblclick();
+        </tmpl:set_new_category>
+        
+        <tmpl:autosubmit>
+        handler.addParentSelect();
+        </tmpl:autosubmit>
+        
+        var tab_flag = false;
+        
+        $('body').keyup(function(e) {
+            var code = e.keyCode || e.which;
+            if (!tab_flag && code == '9') {
+                $('#livesearch').val($('#livesearch option:first').val());
+                tab_flag = true;
+            }
+        });
+        
+        $('#filter').focus(function(e) {
+            tab_flag = false;
+        });
+        
+        $('#livesearch').keyup(function(e) {
+            var code = e.keyCode || e.which;
+            if (code == '13') {
+                var val = $('#livesearch').val();
+                if (val) {
+                    $('#livesearch option[value="' + val + '"]').dblclick();
+                }
+            }
+        });
+
+        displayPriv();
+    });
+
+
+    function displayPriv() {
+        document.getElementById('writeroot_private').innerHTML = '';
+        $('#second').children('option').each(function(){
+            xajax_getCategoryPrivateInfo(this.value, this.text);
+        });
+    }
+
+</script>
+
+<div align="right">{header}</div>
+<br />
+<table class="listTable">
+<tr>
+    <!-- <td class="tdTitle"><b>{assign_category_msg}</b></td> -->
+    <td class="trMoreDarker" style="padding: 1px;"></td>
+</tr>
+
+<tr class="trLighter">
+    <td>
+        <input type="text" value="" name="filter" id="filter" class="longText" 
+            autocomplete="off" placeholder="{filter_msg}" />
+        <span style="padding-left: 5px;">{found_categories_msg}:</span> <span id="counter"></span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td>
+
+        <table class="sTable">
+        <tr>
+            <td style="width: 100%;" id="livetd">
+                <div class="selectScrollDiv" style="width: 800px;">
+                    <select id="livesearch" size="7" style="border: 0px;"
+                        onDblClick="handler.insertOption(this.value, this.selectedIndex, categories);displayPriv();" >
+                    </select>
+                </div>
+            </td>
+            <td valign="top" align="center" style="width: 50px;padding: 0px 7px;">
+                <input type="button" value="+" 
+                    class="button2 button2_add"
+                    onclick="handler.insertOptionByButton(categories);displayPriv();" />
+            </td>
+        </tr>
+        </table>
+
+        <div style="padding-top: 3px;" id="category_info"></div>
+
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td>
+
+        <div style="padding-bottom: 5px;">
+            <strong>{assigned_category_msg}</strong>
+        </div>
+
+        <table class="sTable">
+        <tr>
+            <td style="width: 100%;">
+                <div class="selectScrollDiv" style="width: 800px;">
+                    <select multiple id="second" size="3" style="border: 0px;" onDblClick="handler.deleteOption();displayPriv();">
+                    </select>
+                </div>
+            </td>
+            <td style="width: 50px; padding: 0px 7px; text-align: center; vertical-align: top;">
+                <input type="button" value="-" title="{remove_from_list_msg}" 
+                    class="button2 button2_add"
+                    onclick="handler.deleteOption();displayPriv();" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br/>
+                <div id="writeroot_private"
+                    style="width:100%; height:80px; background: #ffffff; overflow:scroll; margin-right: 100px;">
+                </div>
+            </td>
+            <td></td>
+        </tr>
+        </table>
+
+    </td>
+</tr>
+
+</table>
+
+<br />
+
+<div class="bottom_button bb_popup">
+    <input type="submit" class="button" value="{ok_msg}" onclick="handler.addParentSelect();" />
+    <input type="button" class="button" value="{cancel_msg}" onclick="PopupManager.close();" />
+</div>

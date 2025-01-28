@@ -1,0 +1,8 @@
+Ciao [first_name],
+
+Questa è una notifica per informarti che un dispositivo è stato autorizzato a saltare l'autenticazione sul tuo account "[kb_name]" ([username]).
+La richiesta proviene dal seguente indirizzo IP: [ip].
+
+Al dispositivo non verrà richiesto un nome utente o una password per [days] giorni.
+
+Se questa azione non proviene dall'utente, si consiglia di accedere e cambiare immediatamente la password o di contattare l'amministratore della KB inviando un'e-mail all'indirizzo [support_email].

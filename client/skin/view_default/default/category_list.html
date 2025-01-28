@@ -1,0 +1,40 @@
+<tmpl:title>
+<div class="tdTitle" style="margin-bottom: 2px;">
+    
+    <tmpl:list_option_button>
+    <div class="fright menuItemOption">
+        <a href="#show" onclick="$('#list_option_block').toggle(); return false;">
+            {list_option_msg}
+        </a>
+    </div>
+    </tmpl:list_option_button>
+    
+    <div style="overflow: hidden;">{list_title}</div>
+    <div style="clear: both;"></div>
+</div>
+</tmpl:title>
+
+{block_list_option_tmpl}
+<div style="margin: 5px 8px;">
+    
+    <tmpl:row_tr>
+    <div class="grid-x">
+
+        <tmpl:row_td>
+        <div class="medium-{grid_num} small-12 cell" style="padding-left:0px;">
+            <div>
+                <div style="float:left; margin-right: 6px; padding-top: 3px;">{item_img}</div> 
+                <div style="overflow: hidden;">
+                    <a class="catLink" href="{category_link}">{name}</a>
+                    <div class="catDescription" style="padding-top: 2px;">{description}</div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        </tmpl:row_td>
+
+    </div>
+    </tmpl:row_tr>
+
+</div>
+<br />

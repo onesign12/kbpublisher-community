@@ -1,0 +1,124 @@
+<script>
+<!--
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+    
+    var parent_window = PopupManager.getParentWindow();
+    
+    <tmpl:upload_and_attach>
+    parent_window.$('body').trigger('kbpFileSelected', [{id: '{attach_id}', name: '{attach_escaped_filename}', size: {attach_size}}]);
+    PopupManager.close();
+    </tmpl:upload_and_attach>
+    
+    parent_window.$('body').trigger('kbpFilePopupOpened');
+});
+
+function copyUrl(el, filename) {
+    var temp = $('<input>');
+    $('body').append(temp);
+    temp.val(el.find('input').val()).select();
+    document.execCommand('copy');
+    temp.remove();
+    
+    el.find('.copy_block').hide();
+    el.find('.copied_block').show();
+    
+    el.find('input').select();
+    
+    setTimeout(function() {
+        el.find('.copied_block').hide();
+        el.find('.copy_block').show();
+        
+        confirm2('{inline_link_confirm_msg}', function() {
+            var parent_window = PopupManager.getParentWindow();
+            
+            parent_window.CKEDITOR.dialog.getCurrent().hide();
+            
+            var extension = filename.split('.').pop();
+                
+            var image_extensions = ['jpg', 'png', 'gif', 'svg'];
+            var video_extensions = ['mp4', 'avi', 'mov'];
+            
+            if ($.inArray(extension, image_extensions) != -1) {
+                parent_window.oEditor.execCommand('image');
+                
+            } else if ($.inArray(extension, video_extensions) != -1) {
+                parent_window.oEditor.execCommand('Video');
+                
+            } else {
+                parent_window.oEditor.execCommand('iframe');
+            }
+        });
+    }, 1000);
+}
+
+
+function attachEntry(id, name, size, link) {
+    var parent_window = PopupManager.getParentWindow();
+    var options = {
+        id: id,
+        name: name,
+        size: size,
+        mode: '{event_mode}',
+        command_name: '{command_name}'
+    }
+    
+    parent_window.$('body').trigger('kbpFileSelected', [options]);
+    
+    <tmpl:replace>
+    parent_window.$('#{replace_id} a.dz-remove')[0].click();
+    PopupManager.close();
+    </tmpl:replace>
+    
+    disableLink(link);
+    
+    $('#insert_img_' + id).hide();
+    $('#inserted_img_' + id).show();
+}
+//-->
+</script>
+
+{header}
+
+<div id="afterActionMessage" style="display: none;">
+    {after_action_message_block}
+</div>
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+
+    {list_title}
+    
+    <td style="width: 1px;" class="tdTitle">&nbsp;</td>
+    <td style="width: 1px;" class="tdTitle">&nbsp;</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}">
+
+    {list_row}
+    
+    <td width="120" style="padding: 4px 8px;">
+        <input type="text" value="[link:inline_file|{id}]" readonly="true" />
+    </td>
+    
+    <td width="40" style="padding: 4px 8px;" class="action">
+        <img src="images/icons/copy.svg" title="{copy_msg}" alt="{copy_msg}" class="copy_block" style="cursor: pointer;"
+            onclick="copyUrl($(this).parent(), '{escaped_filename}');" />
+        <span class="copied_block smallerText" 
+            style="display: none; margin-left: 5px;">{copied_msg}</span>
+    </td>
+    
+</tr>
+</tmpl:row>
+
+</table>
+
+<tmpl:close_button>
+<div class="bottom_button bb_popup">
+    <input type="button" value="{done_msg}" class="button" onclick="PopupManager.close();" />
+</div>
+</tmpl:close_button>
+
+<tmpl:bulk></tmpl:bulk>
+<tmpl:attach></tmpl:attach>

@@ -1,0 +1,5 @@
+[files.num] de vos fichiers n'a pas été mis à jour depuis six mois.
+Leur statut a été défini sur "Obsolète".
+
+Suivez ce lien pour les vérifier:
+[files.link.filtered.outdated]

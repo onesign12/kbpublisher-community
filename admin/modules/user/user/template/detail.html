@@ -1,0 +1,153 @@
+<!-- thim template used when see user's details 
+and in account when called from admin -->
+
+<script>
+    $(document).ready(function() {        
+        PopupManager.setTitle("{form_title}");
+    });
+</script>
+
+{menu_block}
+
+<table id="user_detail_table" class="default table sTable tableCp5 tableCs1">
+
+<tr>
+    <td colspan="2" class="tdTitle"><b>{form_title}</b> &nbsp;</td>
+</tr>
+
+<tmpl:not_account>
+<tr class="trMoreDarker">
+    <td>{id_msg}:</td>
+    <td>{id}  
+        <tmpl:login_as_user>
+            - <a href="{login_user_link}">{login_as_user_msg}</a>
+        </tmpl:login_as_user>
+    </td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{signing_date_msg}:</td>
+    <td>{date_formatted_full} &nbsp;&nbsp;({date_full_interval})</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{last_logged_msg}:</td>
+    <td>{date_lastauth_formatted_full} &nbsp;&nbsp;{date_lastauth_full_interval}</td>
+</tr>
+
+<tr class="trMoreDarker" valign="top">
+    <td>{activities_msg}:</td>
+    <td style="line-height : 140%;">
+        <ul style="margin: 0;padding-left: 20px;">
+            {activity_block}
+        </ul>
+    </td>
+</tr>
+</tmpl:not_account>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{first_name_msg}:</td>
+    <td>{first_name}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{last_name_msg}:</td>
+    <td>{last_name}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{middle_name_msg}:</td>
+    <td>{middle_name}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{phone_msg}:</td>
+    <td>{phone}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{email_msg}:</td>
+    <td>{email}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{username_msg}:</td>
+    <td>{username}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{company_msg}:</td>
+    <td>{company}</td>
+</tr>
+
+<tmpl:role>
+<tr class="trLighter">
+    <td class="tdFormCaption" style="vertical-align:top;">{role_msg}:</td>
+    <td valign="top">{role}</td>
+</tr>
+</tmpl:role>
+
+<tmpl:priv>
+<tr class="trLighter">
+    <td class="tdFormCaption">{priv_msg}:</td>
+    <td valign="top">{priv}</td>
+</tr>
+</tmpl:priv>
+
+<tmpl:api>
+<tr class="trLighter">
+    <td class="tdFormCaption">{api_access_msg}:</td>
+    <td>{api_access_value}</td>
+</tr>
+</tmpl:api>
+
+<tmpl:mfa>
+<tr class="trLighter">
+    <td class="tdFormCaption">{mfa_msg}:</td>
+    <td>{mfa_value}</td>
+</tr>
+</tmpl:mfa>
+
+<tr class="trLighter">
+    <td class="tdFormCaption" style="vertical-align:top;">{sso_accounts_msg}:</td>
+    <td>
+         <tmpl:row_sso>
+         <div style="padding-bottom: 3px;">{sso_provider}: {sso_user_id}</div>
+         </tmpl:row_sso> 
+    </td>
+</tr>
+
+<tmpl:not_account>
+<tr class="trLighter">
+    <td class="tdFormCaption">{subscription_msg}:</td>
+    <td>{subsc_msg}</td>
+</tr>
+
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{user_comment_msg}:</td>
+    <td>{user_comment}</td>
+</tr>
+
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{admin_comment_msg}:</td>
+    <td>{admin_comment}</td>
+</tr>
+</tmpl:not_account>
+
+<tmpl:status>
+<tr class="trLighter">
+    <td class="tdFormCaption">{entry_status_msg}:</td>
+    <td>{status}</td>
+</tr>
+</tmpl:status>
+
+</table>
+
+<br/>
+<div style="text-align:center;">
+    <tmpl:account_update>
+    <input type="button" value="{update_profile_msg}" class="button btn btn-default" 
+        onclick="location.href='{update_link}';" />
+    </tmpl:account_update>
+
+    <tmpl:api_update>
+    <input type="button" value="{api_update_msg}" class="button btn btn-default" 
+        onclick="location.href='{update_api_link}';" />
+    </tmpl:api_update>
+</div>

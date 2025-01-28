@@ -1,0 +1,123 @@
+<script src="jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script src="jscript/SortShowMore.js?v={pvhash}"></script>
+<script src="jscript/common_entry_form.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function() {
+        PopupManager.setTitle("{advanced_options_msg}");
+        $.data($('#active').get(0), 'current', $('#active').val());
+        published_status_ids = [{published_status_ids}];
+    });
+    
+    function init(){
+        SortShowMore.up_msg = "{show_more_up_msg}";
+        SortShowMore.down_msg = "{show_more_down_msg}";
+        SortShowMore.loading_msg = "{show_more_loading_msg}";
+        SortShowMore.init();
+    }
+
+    function saveAdvancedFields() {
+        optionalHandlersSelectAll();
+        
+        var values = $('#aContentForm').serializeArray();
+        
+        window.top.$('body').trigger(
+            'kbpEditModeAdvancedFieldsTransferred',
+            [{values: values, published_status_ids: published_status_ids}]);
+        
+        PopupManager.close();
+    }
+    
+    function checkStatus(value) {
+        if ($.inArray(parseInt(value), published_status_ids) == -1) {
+            var options = {
+                cancel_callback: function() {
+                    $('#active').val($.data($('#active').get(0), 'current'));
+                }
+            }
+            confirm2("{non_active_status_msg}", false, options);
+            
+        } else {
+            $.data($('#active').get(0), 'current', $('#active').val());
+        }
+    }
+
+    window.onload = init;
+
+</script>
+
+<div class="tdTitle">
+    <b>{advanced_options_msg}</b>
+</div>
+    
+<form id="aContentForm">
+<table class="formTable">
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{meta_description_msg}:</td>
+    <td>
+        <textarea cols="80" rows="2" name="meta_description" style="width: 100%;">{meta_description}</textarea>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{external_links_msg}:</td>
+    <td>
+        <span class="hasTooltip" style="width: 95%;">
+            <textarea cols="80" rows="3" name="external_link" style="width: 100%;">{external_link}</textarea>
+        </span>
+       <span class="tooltip" style="width: 5%;text-align: right;">{external_link_tip_msg}</span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{sort_order_msg}:</td>
+    <td>
+        <div id="sort_order_toggle_title" class="formToggleBlockTitle" onclick="toggleBlock('sort_order');">
+            <span>{sort_order_msg}</span>
+        </div>
+        
+        <div id="sort_order_toggle_block" class="formToggleBlockBody" style="display: none;">
+            <div id="sort_order_div">
+                <span id="writeroot_sort">
+                    <tmpl:sort_order_row>
+                        {sort_order_select}
+                    </tmpl:sort_order_row>
+                </span>
+            </div>
+        </div>
+        
+    </td>
+</tr>
+
+<tmpl:block_private>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>
+        {block_private_tmpl}
+    </td>
+</tr>
+</tmpl:block_private>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{schedule_msg}:</td>
+    <td>
+        {block_schedule_tmpl}
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{entry_status_msg}:</td>
+    <td>
+        <select name="active" id="active" style="width: 300px" onchange="checkStatus(this.value);">
+            {status_select}
+        </select>
+    </td>
+</tr>
+
+</table>
+</form>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{save_msg}" class="button" onClick="saveAdvancedFields();" />
+    <input type="button" value="{cancel_msg}" class="button" onClick="PopupManager.close();" />
+</div>

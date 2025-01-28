@@ -1,0 +1,7 @@
+[message]
+
+[entry_title]
+[link]
+
+--
+[support_mailer]

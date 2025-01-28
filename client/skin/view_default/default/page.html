@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="{meta_content_lang}">
+<head>
+    <title>{meta_title}</title>
+    <meta http-equiv="content-type" content="text/html; charset={meta_charset}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords"  content="{meta_keywords}" />
+    <meta name="description"  content="{meta_description}" />
+    <meta name="robots"  content="{meta_robots}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="true" name="HandheldFriendly" />
+    <meta content="width" name="MobileOptimized" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    
+    <!--[if IE]>
+    <link rel="stylesheet" href="{common_ie_css}" />
+    <![endif]-->
+    <link rel="stylesheet" href="{common_css}" />
+    <link rel="stylesheet" href="{common_table_css}" />
+    <link rel="stylesheet" href="{common_view_css}" />
+    {style_css_links}
+    
+    <link rel="stylesheet" href="{base_href}client/skin/box.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/form.css?v={pvhash}">
+    
+    <link rel="stylesheet" href="{base_href}client/skin/jquery/tooltipster/tooltipster.bundle.min.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp_text.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp_error.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-light.min.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/jquery/jquery.growl.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/jquery-ui/smoothness/jquery-ui.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/jquery-ui/smoothness/custom.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/jquery/jquery.dropdown.css?v={pvhash}">
+    <link rel="stylesheet" href="{base_href}client/skin/jquery/ezmodal.css?v={pvhash}">
+    
+    <link rel="stylesheet" href="{base_href}client/skin/foundation.css?v={pvhash}" />
+    <link rel="stylesheet" href="{base_href}client/skin/foundation_custom.css?v={pvhash}" />
+        
+    <script src="{base_href}client/jscript/common.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/DialogBox.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/jquery.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/jquery-ui.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/jquery.dropdown.min.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/tooltipster.bundle.min.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/jquery.growl.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/ezmodal.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/jquery.serialize-object.min.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/jquery.isonscreen.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/jquery.toc.min.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/FormCollector.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/ErrorHighlighter.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/ErrorTooltipster.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/what-input.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/foundation.min.js?v={pvhash}"></script>
+    
+    <script src="{base_href}client/jscript/fontfaceobserver.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/ModalManager.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/PopupManager.js?v={pvhash}"></script>
+    <script src="{base_href}/client/jscript/clipboard/dist/clipboard.min.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/page_init.js?v={pvhash}"></script>
+    
+    <script>
+        $(document).ready(function() {
+            DialogBox.ok_msg = "{ok_msg}";
+            DialogBox.cancel_msg = "{cancel_msg}";
+            
+            setDebug({debug});
+            showGrowl("{growl_show}", "{growl_title}", "{growl_body}", "{growl_style}", "{growl_fxed}");
+            setFdownloadLinks("{open_new_window_msg}", "{download_msg}", "{or_msg}");
+        });
+        
+    </script>
+
+    
+    
+    {rss_head_links}
+    {custom_template_head}
+</head>
+<body>
+    
+    {content}
+    
+</body>
+</html>

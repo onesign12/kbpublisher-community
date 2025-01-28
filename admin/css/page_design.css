@@ -1,0 +1,148 @@
+.grid-stack-item-content {
+    background: #F8F8F3;
+    color: #2c3e50;
+    border: 1px solid #B9B9B9;
+    text-align: center;
+    text-align: left;
+    padding: 10px;
+}
+
+.grid-stack-item-content span {
+    font-size: 15px !important;
+}
+
+.grid-stack-item:not(.ui-draggable-disabled) {
+    cursor: move;
+}
+
+/*#page_header .grid-stack-item-content {
+    color: white;
+    background: #4584C1;
+}*/
+   
+#grid_area {
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+#page_header, #menu {
+    opacity: 0.75 !important;
+}
+
+#page_header {
+    margin: 0 5px 10px 10px;
+}
+
+#page_header .grid-stack-item-content {
+    height: 40px;
+}
+
+#page_content {
+    display: table;
+    width: 100%;
+}
+
+#page_content > div {
+    display: table-cell;
+}
+
+#menu {
+    margin: 0 5px 0 10px;
+    height: 100%;
+}
+
+#menu .grid-stack-item-content {
+    height: 100%;
+    padding: 0;
+}
+
+#menu_cell {
+    width: 20%;
+    vertical-align: top;
+    height: 100%; /* safari needs fixed height */
+}
+
+#customizePopup {
+    padding: 0;
+}
+
+#customizePopup > div:not(.bottom_button_dialog) {
+    margin: 10px 20px;
+    font-size: 12px;
+}
+
+#customizePopup div.block {
+    background: #F8F8F3;
+    color: #2c3e50;
+    border: 1px solid #B9B9B9;
+    padding: 7px;
+    cursor: pointer;
+    width: 180px;
+    display: inline-block;
+    margin: 5px;
+}
+
+span.editable:hover {
+    background: #ffffcc;
+    cursor: text;
+}
+
+._editable input {
+    font-size: 15px;
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    background: #F8F8F3;
+    border: 0;
+    outline: none;
+}
+
+._editable button {
+    margin-left: 5px;
+    min-width: 50px;
+}
+
+#customizePopup div.disabled {
+    opacity: .50 !important;
+    cursor: auto;
+}
+
+.block_num {
+    margin-left: 5px;
+    font-size: 0.9em !important;
+}
+
+#custom_block_list > div {
+    cursor: auto !important;
+}
+
+#custom_block_list > div > div:first-child {
+    float: left;
+    cursor: pointer;
+}
+
+.widget_actions {
+    position: absolute;
+    padding: 5px;
+    /*background: #F8F8F3;*/
+    top: 0;
+    right: 0;
+    opacity: 0.9;
+}
+
+.remove_block_icon {
+    width: 10px;
+    height: 10px;
+    float: right;
+    margin: 2px 0 0 10px;
+    cursor: pointer;
+}
+
+.block_settings_icon {
+    width: 13px;
+    height: 13px;
+    float: right;
+    cursor: pointer;
+}
+
+.grid_error {
+	background: #ffcccc;
+}

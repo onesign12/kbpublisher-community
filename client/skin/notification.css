@@ -1,0 +1,115 @@
+#notification_block {
+/*    position: relative;*/
+/*    margin-right: 30px;*/
+/*    cursor: pointer;*/
+    text-decoration: none;
+}
+
+#notification_block img {
+/*     vertical-align: middle;*/
+}
+
+/*#notification_block .badge {*/
+.badge {
+   position:relative;
+}
+
+/*#notification_block .badge[data-badge]:after {*/
+.badge[data-badge]:after {
+   content:attr(data-badge);
+   position:absolute;
+   top:-13px;
+   right:0px;
+   font-size: 10px;
+/*   font-weight: bold;*/
+   background:#ce1a0e;
+   color:white;
+   width: 16px;
+   height: 16px;
+   line-height: 16px;
+   text-align:center;
+/*   border: white 1px solid;*/
+   border-radius:50%;
+   box-shadow:0 0 1px #333;
+}
+
+/* client */
+.login .badge[data-badge]:after {
+    top:-6px;
+}
+
+#notifications, #notifications2 {
+    margin-top: 10px;
+    width: 360px;
+}
+
+#notifications div, #notifications2 div {
+    color: #278cc5;
+    padding: 0px;
+}
+
+#notifications a, #notifications2 a {
+    padding-right: 5px;
+    color: #666666
+}
+
+#notifications li, #notifications2 li {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+#notifications li:not(#notification_list), #notifications2 li:not(#notification_list) {
+    padding: 12px 10px;
+    background: white;
+}
+
+#notifications li:not(#notification_list):hover, #notifications2 li:not(#notification_list):hover {
+    background: #f6f6f6;
+}
+
+#notifications li:not(#notification_list) span, #notifications2 li:not(#notification_list) span {
+    display: inline-block;
+    width: 56px;
+    background-color: #e6e6e6;
+    margin-right: 8px;
+    border-radius: 14px;
+    text-align: center;
+    height: 24px;
+    line-height: 24px;
+}
+
+#notifications div, #notifications2 div {
+    color: #333333;
+}
+
+#notifications li div div {
+    margin-top: 10px;
+}
+
+#notifications img, #notifications2 img {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+#notification_list {
+   padding: 15px 0;
+   background: #f6f6f6;
+   height: 20px;
+   box-sizing: content-box;
+}
+
+#notification_list span:first-child {
+    font-weight: bold;
+    color: #333333;
+    font-size: 12px;
+    margin-left: 15px;
+}
+
+#notification_empty {
+    padding: 15px !important;
+}
+
+#notification_spinner {
+    display: none;
+    margin-left: 10px;
+    vertical-align: middle;
+}

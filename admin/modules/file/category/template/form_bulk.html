@@ -1,0 +1,93 @@
+<script>
+    function ShowExtraDiv(action) {
+        HideDiv('apply_child');
+        if(action != 'none' && action != 'admin') {
+            ShowDiv('apply_child');
+            $('#apply_child').appendTo('#bulk_' + action);
+        }
+    }
+
+    function BulkOnSubmit(){
+        optionalHandlersSelectAll();
+    }
+    
+    function bulkValidate(action) {
+        if(action == 'admin') {
+            return validateAdminUser("{no_bulk_values_msg}");
+        }
+
+        return true;
+    }
+</script>
+
+
+<div id="apply_child" style="display: none;">
+    <div style="padding-top: 5px;">
+        <input type="checkbox" name="value[apply_child]" id="apply_child_ch" value="1" checked>
+        <label for="apply_child_ch">{apply_child_category_msg}</label>
+    </div>
+</div>
+
+<tmpl:private>
+<div id="bulk_private" style="display: none;">
+    {block_private_tmpl}
+</div>
+<div id="bulk_public" style="display: none;"></div>
+</tmpl:private>
+
+<!-- supervisors -->
+<div id="bulk_admin" style="display: none;">
+    
+    <select name="value[admin_action]" id="admin_action" class="colorInput"
+        onchange="toggleBulkActionBlock(this.value, 'admin_user_form');">
+        {admin_action_select}
+    </select>
+    
+    <br /><br />
+    
+    <div id="admin_user_form">
+        <table class="default">
+        <tr class="trLighter" valign="top">
+            <td class="tdFormCaption" style="text-align: left;">{category_admin_msg}:</td>
+            <td class="tdFormCaption">
+                <input type="button" value="+" class="button2 button2_add"
+                    onclick="PopupManager.create('{user_popup_link}', 'r', 'r');">
+            </td>
+        </tr>
+        <tr>
+            <td id="tdAdmin" class="nowrap" colspan="2">
+    
+                <span id="writeroot"></span>
+    
+            </td>
+        </tr>
+        </table>
+    </div>
+
+</div>
+
+<div id="bulk_attachable" style="display: none;">
+    <select name="value[attachable]" class="colorInput">
+        {attachable_select}
+    </select>
+</div>
+
+<div id="bulk_status" style="display: none;">
+    <select name="value[status]" class="colorInput">
+        {status_select}
+    </select>
+</div>
+
+<div id="bulk_delete" style="display: none;"></div>    
+
+
+<div id="readroot" class="popUpDiv" style="display: none;">
+    <div style="float: left;">
+        <input type="hidden" name="value[admin_user][]" value="0" id=""><span>1</span>
+    </div>
+    <div style="padding-right: 5px;float: right;">
+        <a href="" onClick="removeHtml(this); return false;">
+            <img src="images/icons/delete.svg" alt="Delete" title="{delete_msg}">
+        </a>
+    </div>
+</div>

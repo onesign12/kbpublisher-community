@@ -1,0 +1,32 @@
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" id="aContentForm" onSubmit="LeaveScreenMsg.skipCheck(); return Validate(this);">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{title_msg}:</td>
+    <td><input type="text" name="title" value="{title}" class="longText" style="width: 500px;"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{description_msg}:</td>
+    <td><textarea cols="80" rows="3" name="description" style="width: 500px;">{description}</textarea></td>
+<tr>
+</tr>
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit" value="{save_msg}" class="button">
+            <input type="button" value="{cancel_msg}" 
+                onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+        </div>
+    </td>
+</tr>
+</table>
+
+</form>

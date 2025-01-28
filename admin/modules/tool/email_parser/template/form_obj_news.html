@@ -1,0 +1,144 @@
+<script src="jscript/TagManager.js?v={pvhash}"></script>
+<script src="jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script src="../client/jscript/jquery/jquery.insertAtCaret.js?v={pvhash}"></script>
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+    
+    CKEDITOR.on('instanceReady', function(evt) {
+        LeaveScreenMsg.setEditor(evt.editor);
+        oEditor = evt.editor;
+        LeaveScreenMsg.setFckDefaultValue();              
+    });
+    
+    focused_element = false;
+    $('#date_posted, #title').focus(function() {
+        focused_element = this;
+    })
+    
+    <tmpl:close_window>
+    var parent_window = PopupManager.getParentWindow();
+    parent_window.$('input[data-num="{action_num}"]').css('font-weight', 'bold');
+    
+    PopupManager.close();
+    </tmpl:close_window>
+});
+
+function subForm() {
+    LeaveScreenMsg.skipCheck();    
+    optionalHandlersSelectAll();
+}
+
+function insertPlaceholder(placeholder) {
+    if (oEditor.focusManager.hasFocus) {
+        oEditor.insertHtml(placeholder);
+        
+    } else {
+        var field = (focused_element) ? focused_element : '#title';
+        $(field).insertAtCaret(placeholder);
+    }
+}
+</script>
+
+<div style="position: fixed; top: 10px; width: 900px;z-index: 99999;">
+    {msg}
+</div>
+
+<form action="{action_link}" method="post" name="aContentForm" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}    
+    
+<table class="sTable tableCp5 tableCs1" style="margin-top: 70px;">
+<tr>
+    <td colspan="2" class="tdTitle" style="padding: 1px;"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{date_msg}:</td>
+    <td>
+        <input type="text" name="date_posted" value="{date_posted}" id="date_posted" style="width: 100%;" />
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{title_msg}:</td>
+    <td><input type="text" name="title" value="{title}" id="title" style="width: 100%;"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop required">{body_msg}:</td>
+    <td>{ckeditor}</td>
+</tr>
+
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{tags_msg}:</td>
+    <td>
+        {block_tag_tmpl}
+    </td>
+</tr>
+
+
+<tmpl:block_private>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>
+        {block_private_tmpl}
+    </td>
+</tr>
+</tmpl:block_private>
+
+{custom_field_block_bottom}
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_msg}:</td>
+    <td>{status_checkbox}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop required">{author_msg}:</td>
+    <td id="tdAdmin">
+        
+        <tmpl:author>
+        <div class="popUpDiv" id="more_html_default" style="float: left;background: #F8F8F3;">
+            <div>
+                <input type="hidden" name="author_id" value="{author_id}"><span>{name}</span>
+            </div>
+        </div>
+        </tmpl:author>
+        
+        <div style="padding-bottom: 3px;float: right;" id="test">
+            <input type="button" value="+" class="button2 button2_add"
+                onclick="PopupManager.create('{user_popup_link}', 'r', 'r');">
+        </div>
+        
+        <span id="writeroot"></span>
+        
+        <div style="clear: both;"></div>
+        
+        <div style="margin: 5px;">
+            <input type="checkbox" id="email_sender" name="email_sender" value="1" {email_sender_checked} />
+            <label for="email_sender">{email_sender_desc_msg}</label>
+        </div>
+    </td>
+</tr>
+</table>
+
+<br /><br />
+<div class="bottom_button" align="center">
+    <input type="submit" name="submit" value="{save_msg}" class="button"
+        onClick="validateForm();return false;" />
+            
+    <input type="button" name="cancel" value="{close_msg}" class="button" 
+        onClick="PopupManager.close();">
+</div>
+
+</form>
+
+
+<div id="readroot" class="popUpDiv" style="display: none;float: left;background: #F8F8F3;">
+    <div>
+        <input type="hidden" name="author_id" value="" id=""><span>1</span>
+    </div>
+</div>
+
+<tmpl:auto_save></tmpl:auto_save>

@@ -1,0 +1,69 @@
+<link rel="stylesheet" href="{base_href}client/skin/jquery/icheck/skins/square/blue.css?v={pvhash}" />
+<link rel="stylesheet" href="{base_href}client/skin/search_block_top.css?v={pvhash}" />
+<script src="{base_href}client/jscript/jquery/icheck.min.js?v={pvhash}"></script>
+<script src="{base_href}client/jscript/SearchBar.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function() {
+        $('#search_bar2 input[type=radio]').iCheck({
+            radioClass: 'iradio_square-blue'
+        });
+        
+        <tmpl:search_suggest>
+        SearchBar.suggestions_msg = '{search_suggestions_msg}';
+        SearchBar.init('{suggest_link}', 'search_field', 'left-75 top+5', 'search_menu');
+        </tmpl:search_suggest>
+    });
+    
+    function selectSearchOption(key) {
+        $('#search_bar input[type="checkbox"]').not('#' + key).prop('checked', false);
+        $('#search_bar input[type="checkbox"]').iCheck('update');
+    }
+</script>
+
+<div id="search_bar2" style="display: none;">
+    <div id="search_bar_container2">
+        <form action="{form_search_action}" id="search_form"
+            onsubmit="return validateQuickSearch('{alert_empty_search}', 'search_field');">
+            {hidden_search}
+            <input type="hidden" name="s" value="1" />
+            
+            <div id="search_bar_container">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="login" viewBox="0 0 24 24"
+                    style="cursor: pointer; width: 15px; height: 15px;"
+                    onclick="$('#search_form').submit();">
+                    <path fill="#666" d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/>
+                </svg>
+                
+                <input type="text" id="search_field" name="q" placeholder="{search_msg}" />
+            </div>
+        
+            <aside id="search_menu">
+                <section style="padding-bottom: 26px;">
+                <h3 style="color: #888;padding: 10px 0 0 7px;font-weight: normal;">{search_in_msg}</h3>
+                <ul style="list-style: none;">
+                    <tmpl:filter_row>
+                    <li class="{class}" style="padding-bottom: 7px;">
+                        <input type="radio" id="{filter_id}" name="in[]" value="{filter_key}" {filter_options} 
+                            onclick="selectSearchOption('{filter_key}');" />
+                        
+                        <label for="{filter_id}" 
+                            style="display: inline;text-align: left;padding-left: 12px;cursor: pointer;" 
+                            onclick="selectSearchOption('{filter_key}');">
+                            {filter_title}
+                        </label>
+                    </li>
+                    </tmpl:filter_row>
+                </ul>
+                <div id="advanced_link">
+                    <img src="{base_href}client/images/icons/gear.gif" alt="gear" 
+                        style="margin: 0 4px 0 5px; vertical-align: middle;" />
+                    <a href="{advanced_search_link}">{advanced_search_msg}</a>
+                </div>
+                <div style="clear: both;"></div>
+                </section>
+            </aside>
+        
+        </form>
+    </div>
+</div>

@@ -1,0 +1,168 @@
+<script src="{client_href}jscript/jquery/jquery.MetaData.js?v={pvhash}"></script>
+<script src="{client_href}jscript/jquery/jquery.rating.js?v={pvhash}"></script>
+<link rel="stylesheet" href="{client_href}skin/jquery/jquery.rating.css?v={pvhash}" />
+<script>
+    $(document).ready(function(){
+        $('.auto-submit-star').rating({
+            callback: function(value, link){
+                xajax_doRate(value, 'spinner_rate');
+            }
+        });
+    });
+    
+    
+    function slideToTextarea() {
+        $('html, body').animate({    
+            scrollTop: $('#rate_feedback').offset().top - 30
+        }, 500, 'swing', function() {
+            $('#rate_feedback').focus();
+        });
+    }
+    
+    
+    function toggleReportForm() {
+        if ($('#rateFeedbackForm:visible').length) {
+           $('#rateFeedbackForm').slideUp();
+           
+        } else {
+            $('#comment_rate_neg').hide();
+            $('#comment_rate_pos').hide();
+            $('#comment_report').show();
+            
+            $('#rateFeedbackForm').slideDown();
+            // slideToTextarea();
+            
+            var cl = $('#report_block').attr('class');
+            var float = (cl == 'fleft') ? 'left' : 'right';
+            
+            $('#rateFeedbackForm').css('float', float);
+            $('#rate_rating').val(0);
+        }
+    }
+    
+    
+    function showReportPanel() {
+        ModalManager.show('panel_report', 'middle');
+    }
+        
+
+    function closeReportPanel(do_empty) {
+        ModalManager.hide('panel_report');
+        if(do_empty) {
+            $('#rate_feedback2').val('');
+        }
+    }
+    
+</script>
+
+<div style="clear: both"></div>
+<div class="smallerText" style="padding: 8px 5px;  border-top: 1px solid #D4D4D4;margin-bottom: 20px;">
+    <div style="padding: 5px 3px;">    
+        <tmpl:show_rating_option>
+        
+            <span id="spinner_rate" style="margin-left: 5px;display: none;">
+                <img src="{base_href}client/images/ajax/indicator.svg" alt="" />
+            </span>
+        
+            <span id="rateQuery" style="float: left;">
+                <span style="float: left; margin-right: 5px;">{title}:&nbsp;&nbsp;</span>
+                <span style="float: left; margin-right: 20px;">
+                <tmpl:rating_row>
+                    <a href="#rate" onclick="xajax_doRate({rate_value}, 'spinner_rate'); return false;" 
+                        class="abbLink" rel="nofollow">{rate_item}</a>{delim}
+                </tmpl:rating_row>
+                <tmpl:rating_row2>
+                    <input type="radio" name="rate" value="{rate_value}" title="{rate_item}"
+                        class="auto-submit-star" />
+                </tmpl:rating_row2>
+                </span>
+            </span>     
+        
+            <span id="rateResponce" style="display: none;float: left;">
+                {thanks_rate2_msg}
+            </span>
+		
+    		<!-- <span id="currentRating" class="fright">
+                {current_rating}
+            </span> -->
+		
+        </tmpl:show_rating_option>
+        
+        <!-- report issue -->
+        <tmpl:show_rating_comment>
+        <div class="show-for-small-only" style="clear: both;padding-top: 10px;"></div>
+        <span id="report_block" class="{rating_comment_class}">
+            <span id="spinner_issue" style="margin-left: 5px;display: none;">
+                <img src="{base_href}client/images/ajax/indicator.svg" alt="" />
+            </span>
+            
+            <!-- <a href="#report" class="abbLink" onclick="toggleReportForm(); return false;" -->
+            <a href="#report" class="abbLink" onclick="showReportPanel(); return false;"
+                rel="nofollow">{report_issue_msg}</a>
+        </span>
+        <div class="show-for-small-only" style="clear: both;"></div>
+        </tmpl:show_rating_comment>
+    
+        <tmpl:show_rating>
+            <span>{thanks_rate2_msg}</span>
+        </tmpl:show_rating>
+	
+    </div>
+</div>
+
+<tmpl:show_rating_comment>
+<script>
+</script>
+<div style="clear: both;"></div>
+<div id="rateFeedbackForm" class="fixed-for-medium" style="display: none;padding-left: 8px;"><br/>
+    <div id="comment_rate_neg" style="display: none;">{comment_rate2_msg}</div>
+    <div id="comment_rate_pos" style="display: none;">{comment_rate3_msg}</div>
+    <!-- <div id="comment_report" style="display: none;">{comment_report_msg}</div> -->
+    
+    <div>
+        <input type="hidden" name="rate_atoken" value="{rate_atoken}" id="rate_atoken">
+        <input type="hidden" name="rate_rating" value="" id="rate_rating">
+        <textarea name="rate_feedback" id="rate_feedback" rows="7" 
+			class="colorInput fixed-for-medium" style="margin-top:5px;"></textarea>
+        <br />
+			
+        <div style="padding: 5px;">
+			
+	        <span id="spinner2" style="display: none;">
+	            <img src="{base_href}client/images/ajax/indicator.svg" alt="" />
+	        </span> 
+			
+            <input type="button" value="{send_msg}" class="button primary" style="width:80px;"
+                onclick="xajax_doRateFeedback($('#rate_feedback').val(), $('#rate_rating').val(), $('#rate_atoken').val(), 'spinner2');$('#rateQuery').removeClass('hide-for-small-only');$('#report_block').show();">
+            
+			<input type="button" value="{cancel_msg}" class="button" style="width:80px;"
+				onclick="HideDiv('rateFeedbackForm');$('#rateQuery').removeClass('hide-for-small-only');$('#report_block').show();">
+        </div>
+    </div>
+    
+    <br/>
+</div>
+<div style="clear: both"></div>
+
+<!--March 18, 2021 -->
+<div id="panel_report" style="display: none;">
+    <div style="margin-top: 20px;" class="niceForm niceForm100">
+        
+        <div id="comment_report" style="margin-bottom: 7px;">{comment_report_msg}</div>
+        <textarea rows="7" name="rate_feedback2" id="rate_feedback2" style="width: 100%;"></textarea>
+		
+        <div style="text-align:center; margin-top: 20px;">
+            <span id="spinner3" style="display: none;">
+                <img src="{base_href}client/images/ajax/indicator.svg" alt="" />
+            </span> 
+            
+            <input type="button" value="{send_msg}" class="button primary"
+                onclick="xajax_doRateFeedback($('#rate_feedback2').val(), $('#rate_rating').val(), $('#rate_atoken').val(), 'spinner3');">
+        
+    		<input type="button" value="{cancel_msg}" class="button"
+    			onclick="closeReportPanel();">   
+        </div> 
+        
+    </div>
+</div>
+</tmpl:show_rating_comment>

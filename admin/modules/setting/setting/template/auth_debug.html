@@ -1,0 +1,47 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{debug_msg}");
+    
+    var current_popup = PopupManager.getCurrentPopup();
+    current_popup.dialog('option', 'beforeClose', function(event, ui) {
+        window.top.$('#aContentForm').attr('target', '_self');
+        window.top.$('#aContentForm input[name=popup]').remove();
+        window.top.$('#aContentForm').attr('action', window.top.$('#aContentForm').attr('action').replace('&popup=ldap_debug', ''));
+    });
+});
+</script>
+
+<table class="formTable">
+    <tmpl:step>
+    <tr class="trLighter" valign="top">
+        <td class="tdFormCaption">
+            {action}
+        </td>
+        <td>
+            <tmpl:status_good>
+            <span style="color: green;">
+                <b>Ok</b>
+            </span>
+            </tmpl:status_good>
+        
+            <tmpl:status_bad>
+            <span style="color: red;">
+                <b>Error:</b> {error_msg}
+            </span>
+            </tmpl:status_bad>
+        
+            <tmpl:user>
+            <div style="margin-top: 10px;">
+                {user_message}:<br />
+                <textarea rows="10" style="width: 100%;">{user}</textarea>
+            </div>
+            </tmpl:user>
+        </td>
+    </tr>
+    </tmpl:step>
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{close_msg}" class="button" id="close_button"
+            onclick="PopupManager.close();">
+</div>

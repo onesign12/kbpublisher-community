@@ -1,0 +1,90 @@
+<script>
+function showScratchCodeCallback() {
+  // confirmForm('{scratch_descs2}<br /><b><b>{scratch_code2}</b>', 'submit_setup');
+  $('#setup_block').css('display', 'none');
+  $('#scratch_block').css('display', 'block');
+}
+
+
+</script>
+
+<style>
+  div.login2 ol {
+    margin: 0px;
+    padding: 20px;
+  }
+  
+  div.login2 li {
+    margin-bottom: 15px;
+  }
+</style>
+
+<form action="{action_link}" method="post" id="aContentForm">
+
+<div id="setup_block" class="niceForm">
+
+  {error_msg}
+
+  {note}
+
+    <input type="hidden" name="type" value="{type}">
+    <input type="hidden" name="secret" value="{secret}">
+    <input type="hidden" name="scratch" value="{scratch_code}">
+    {hidden_fields}
+
+    <div class="login2">
+
+      <div class="formTopDelim"></div>
+
+      <div class="grid-x trDarker">
+        <div class="medium-8 small-12 cell">
+          <ol>
+            <li value="1">{mfa_step1_msg}<br />
+              {mfa_step1_desc_msg}: Google Authenticator, Authy.
+            </li>
+            <li value="2">{mfa_step2_msg}</li>
+            <li value="3">{mfa_step3_msg}</li>
+          </ol>
+          <div>
+            <input type="text" name="code" id="code" value="" 
+                class="longText" placeholder="* code" tabindex="1" /><br />
+          </div>
+        </div>
+
+        <div class="medium-4 small-12 cell">
+          <div style="text-align: center;">
+            <img src="{qr_secret_src}">
+            <br /><br />
+            {mfa_code_msg}: <br />{qr_secret_letter}
+            <br /><br />
+          </div>
+        </div>
+
+      </div>
+
+      <button type="submit" name="submit_setup" id="submit_setup" 
+        onClick="validateForm('submit_setup', false, 'showScratchCodeCallback');return false;"
+        class="button login2 normal" style="margin-top: 20px;">
+        {mfa_pair_login_msg}
+      </button>
+      
+    </div>
+
+</div>
+    
+<div id="scratch_block" style="display: none;">
+    {scratch_desc}
+
+    <div style="margin-top: 30px; text-align: center;">
+        <b style="font-size: 2em;">{scratch_code}</b>
+        <br /><br /><br /><br />
+    
+        <button type="submit" name="submit_setup"
+          class="button login2 normal">
+          {ok_msg}
+        </button>
+    
+    </div>
+ </div>
+
+</form>

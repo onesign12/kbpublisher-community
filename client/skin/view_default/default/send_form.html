@@ -1,0 +1,86 @@
+{user_msg}
+
+<div class="niceForm">
+
+<form action="{action_link}" method="post" id="aContentForm">
+<input type="hidden" name="entry_title" id="entry_title" value="{entry_title}" />
+<input type="hidden" name="entry_link" id="entry_link" value="{entry_link}" />
+
+<div class="table">
+    <div class="grid-x skip">
+        <div class="small-12 cell tdSubTitle">
+            <b>{send_link_msg}</b>
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="name" class="required">{your_name_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input type="text" name="name" id="name" value="{name}" class="longText" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="your_email" class="required">{your_email_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input type="text" name="your_email" id="your_email" value="{your_email}" 
+                class="longText" {ye_readonly} />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="friend_email" class="required">{friend_emal_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input type="text" name="friend_email" id="friend_email" value="{friend_email}" class="longText" />
+            <span class="formComment" style="margin-left: 10px;">{multiple_email_note_msg}</span>
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="comment">{comment_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <textarea rows="5" name="comment" id="comment" class="fixed-for-medium">{comment}</textarea>
+        </div>
+    </div>
+    
+    <tmpl:attach_article>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="attach_article">{attach_article_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input type="checkbox" name="attach_article" id="attach_article" value="1" {ch_attach_article}>
+        </div>
+    </div>
+    </tmpl:attach_article>
+    
+    {captcha_block}
+    
+    <div class="grid-x skip">
+        <div class="medium-3 small-12 cell"></div>
+        <div class="medium-9 small-12 cell">
+            <div><br /></div>
+            <button type="submit" name="submit" id="submit" class="button"
+                onClick="validateForm();return false;">
+            {ok_msg}
+            </button>
+            
+            <input type="button" value="{cancel_msg}" 
+                onclick="location.href='{cancel_link}'" class="button" />
+        </div>
+    </div>
+</div>
+
+</form>
+
+</div>
+
+<br /><br />

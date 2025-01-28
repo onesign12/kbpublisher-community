@@ -1,0 +1,124 @@
+<script src="{client_href}jscript/PoolManager.js?v={pvhash}"></script>
+<script>
+    function toggleAll(checked) {
+        $('input[name="id[]"]').each(function() {
+            $(this).prop('checked', checked);
+        });
+    }
+
+    function checkButtons(id) {
+        var checked = $('input[name="id[]"]:checked').length;
+
+        if (checked) {
+            $('.actionBtn').attr('disabled', false).removeClass('buttonDisabled');
+
+        } else {
+            $('.actionBtn').attr('disabled', true).addClass('buttonDisabled');
+        }
+        
+        if(id) { 
+            if($('#'+id).prop("checked") == false){
+                $('#pool_all').prop('checked', false);
+            }
+        }
+    }
+
+    function performPoolAction(action) {
+        // var action = $('#pool_action').val();
+
+        if (action == 'delete') {
+            confirm2('{sure_msg}', function() {
+                var ids = []; // what's left
+                $('input[name="id[]"]:not(:checked)').each(function() {
+                    ids.push(parseInt($(this).val()));
+                });
+
+                if (ids.length) {
+                    PoolManager.replace(ids);
+
+                } else {
+                    PoolManager.empty();
+                }
+
+                location.reload();
+            });
+
+        } else if (action == 'pdf') {
+            $('input[name="View"]').val('pdf');
+            $('#pool_form').submit();
+
+        } else {
+            $('#pool_form').submit();
+        }
+    }
+
+    function emptyPool() {
+        confirm2('{sure_msg}', function() {
+            PoolManager.empty();
+            location.reload();
+        });
+    }
+
+    $(document).ready(function() {
+        {refresh_js}
+    });
+</script>
+<div class="tdTitle" style="margin-bottom: 2px;">
+    {list_title}
+</div>
+
+<div class="abbLine">
+    <div class="fleft">
+        <input type="checkbox" id="pool_all" onclick="toggleAll(this.checked);checkButtons();" />
+        <label for="pool_all" style="margin-left: 5px;">
+            {check_all_msg}
+        </label>
+    </div>
+
+    <div class="fright">
+        <a class="abLink" href="#" rel="nofollow" onclick="emptyPool(); return false;">
+            {empty_msg}
+        </a>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+<div style="margin-bottom: 10px;"></div>
+
+{msg}
+
+<form id="pool_form">
+<input type="hidden" name="View" value="print" />
+<table class="sTable tableCp2 tableCs1 articleList">
+
+<tmpl:row>
+<tr style="vertical-align: top;">
+    <td class="articleIcon">
+        <input type="checkbox" id="pin_{id}" name="id[]" value="{id}" onclick="checkButtons('pin_{id}');" />
+    </td>
+    <td style="width: 100%;padding-left: 5px;">
+        <a href="{entry_link}" class="articleLink">{entry_id}{title}</a>
+    </td>
+</tr>
+<tr>
+    <td></td>
+    <td style="padding: 3px 6px;">
+        <span class="articleStaff2">{updated_date}</span>
+    </td>
+</tr>
+<tr>
+    <td colspan="2" style="padding: 3px;"></td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding: 30px 30px;">
+    <tmpl:actions>
+    <button type="button" class="button buttonDisabled actionBtn" style="margin-bottom: 3px;"
+        onclick="performPoolAction('{action}');" disabled>
+        {title}
+    </button>
+    </tmpl:actions>
+</div>
+
+</form>

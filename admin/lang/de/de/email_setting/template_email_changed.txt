@@ -1,0 +1,9 @@
+Hallo [first_name],
+
+die E-Mail-Adresse für Ihr [kb_name]-Konto wurde kürzlich geändert.
+Falls Sie diese Änderung vorgenommen haben, müssen Sie nichts weiter unternehmen.
+
+Neue E-Mail-Adresse: [email]
+
+Falls Sie Ihr Passwort nicht geändert haben, geben Sie uns bitte sofort per E-Mail an [support_email] Bescheid.
+Es ist wichtig, dies zu melden, um Betrüger daran zu hindern, Ihre Daten zu stehlen.

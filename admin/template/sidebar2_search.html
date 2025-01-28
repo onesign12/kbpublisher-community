@@ -1,0 +1,257 @@
+<link rel="stylesheet" type="text/css" href="css/sidebar_search.css">
+<script src="../client/jscript/fuse.min.js?v={pvhash}"></script>
+<script src="../client/jscript/jquery/jquery.clearsearch.js?v={pvhash}"></script>
+<script>
+$(document).ready(function() {
+    var list = [
+        {list}
+    ];
+    
+    var options = {
+        shouldSort: true,
+        includeScore: true,
+        threshold: 0.1,
+        maxPatternLength: 32,
+        minMatchCharLength: 4,
+        tokenize: true,
+        matchAllTokens: true,
+        keys: [{
+            name: 'title',
+            weight: 1
+        }, {
+            name: 'hidden_keywords',
+            weight: 1
+        }, {
+            name: 'boost_keywords',
+            weight: 0.1
+        }]
+    };
+    
+    $('#sidebar2_filter').clearSearch({
+        callback: function() {
+            $('#sidebar2_filter').keyup();
+        } 
+    });
+    
+    var fuse = new Fuse(list, options);
+    
+    $('#sidebar2_filter').keyup(function(e) {
+        if (e.which == '38' || e.which == '40') { // up or down arrow
+            e.preventDefault();
+            
+            var direction = (e.which == '38') ? 'up' : 'down';
+            
+            if ($('#sidebar_filter_results').find('div.active').length) {
+                var selector = $('#sidebar_filter_results > div.active');
+                var method = (direction == 'down') ? 'next' : 'prev';
+                var start = selector[method]();
+                
+            } else {
+                var selector = $('#sidebar_filter_results > div');
+                var method = (direction == 'down') ? 'first' : 'last';
+                var start = selector[method]();
+            }
+            
+            $('#sidebar_filter_results > div').removeClass('active');
+            start.addClass('active');
+            return;
+            
+        } else if (e.which == '13') { // enter button
+            e.preventDefault();
+            
+            if ($('#sidebar_filter_results').find('div.active').length) {
+                $('#sidebar_filter_results').find('div.active a').get(0).click();
+                return;
+            }
+        } 
+        
+        var value = $.trim(this.value);
+        
+        $('#sidebar_filter_results').find('div').remove();
+        if (value.length < 2) {
+            
+            var recent_settings = getCookie('kb_recent_setting_');
+            recent_settings = (recent_settings) ? $.parseJSON(recent_settings) : [];
+            console.log(recent_settings);
+            
+            if (recent_settings.length) {
+                $('#sidebar_filter_caption span').html("{recent_settings_msg}");
+                $('#sidebar_filter_caption img').show();
+                
+                for (var i in recent_settings) {
+                    var parts = recent_settings[i].split('|');
+                    var key = parts[0];
+                    var group_id = parts[1];
+                    
+                    for (var i in list) {
+                        var keys = [key, 'anchor_' + key];
+                        if($.inArray(list[i]['key'], keys) !== -1) {
+                            if (!group_id || group_id == list[i]['group_id']) {
+                                var item = list[i];
+                            
+                                if (key == 'page_to_load' && item['group_id'] == 'kbc_setting') {
+                                    continue;
+                                }
+                                
+                                addSearchResultItem(item, value, true);
+                            }
+                        }
+                    }
+                }
+            }
+            
+        } else {
+            $('#sidebar_filter_caption img').hide();
+            
+            var result = fuse.search(value);
+            if (result.length) {
+                $('#sidebar_filter_caption span').html("{search_result_msg}");
+                
+            } else {
+                $('#sidebar_filter_caption span').html('{no_results_msg}');
+            }
+            
+            var groups = {};
+            var group_avg_score = {};
+            var group_max_score = {};
+            
+            var scores = {};
+            
+            for (var i in result) {
+                var item = result[i]['item'];
+                var group_id = item['group_id']; 
+                
+                if (!groups[group_id]) {
+                    groups[group_id] = [];
+                    scores[group_id] = [];
+                    
+                    group_avg_score[group_id] = 1;
+                    group_max_score[group_id] = 1;
+                }
+                
+                groups[group_id].push(result[i]);
+                scores[group_id].push(result[i]['score']);
+                
+                if (group_max_score[group_id] > result[i]['score']) {
+                    group_max_score[group_id] = result[i]['score'];
+                }
+            }
+            
+            for (var i in scores) {
+                group_avg_score[i] = scores[i].reduce((total, score) => total + score) / scores[i].length;
+            }
+            
+            console.log('Grouped results: ', groups);
+            console.log('Scores: ', scores);
+            console.log('Average score: ', group_avg_score);
+            console.log('Maximum score: ', group_max_score);
+            
+            // sorting by avg score
+            var sortable = [];
+            for (var i in group_avg_score) {
+                sortable.push([i, group_avg_score[i]]);
+            }
+            
+            sortable.sort(function(a, b) {
+                return a[1] - b[1];
+            });
+            
+            console.log('Sorted by avg score: ', sortable);
+            
+            for (var i in sortable) {
+                var group_id = sortable[i][0];
+                var items = groups[group_id];
+                
+                for (var i in items) {
+                    var item = items[i]['item'];
+                
+                    if (!item['group_title']) { // it's a group, boost it to the top
+                        var fromIndex = i;
+                        var toIndex = 0;
+                        
+                        var element = items[fromIndex];
+                        items.splice(fromIndex, 1);
+                        items.splice(toIndex, 0, element);
+                    }
+                }
+                
+                var num = 0;
+                for (var i in items) {
+                    var item = items[i]['item'];
+                    
+                    var start = (num == 0);
+                    num ++;
+                    
+                    addSearchResultItem(item, value, start);
+                }
+            }
+        }
+    });
+    
+    function addSearchResultItem(item, value, start) {
+        var div = $('<div class="sitem" />');
+        var link = $('<a />');
+        var url = item['url'] + '&filter[qs]=' + value;
+        
+        if (item['key']) {
+            url += '#' + item['key'];
+        }
+        
+        link.attr('href', url);
+        
+        var title_div = $('<div class="stitle" />');
+        title_div.html(item['title']);
+        link.append(title_div);
+        
+        var desc_div = $('<div class="spath" />');
+        var desc = item['page'];
+        if (item['sub_page']) {
+            desc = item['sub_page'] + ' -> ' + desc;
+        }
+        
+        if (item['group_title']) { // it's a setting
+            desc += ' -> ' + item['group_title'];
+        }
+        
+        if (start) {
+            div.addClass('group_start');
+        }
+        
+        desc_div.html(desc);
+        link.append(desc_div);
+        
+        div.append(link);
+        
+        $('#sidebar_filter_results').append(div);
+    }
+    
+    $('#sidebar2_filter').keyup();
+});
+
+function clearRecentSettings() {
+    $('#sidebar_filter_caption img').hide();
+    $('#sidebar_filter_caption span').empty();
+    $('#sidebar_filter_results').empty();
+    
+    createCookie('kb_recent_setting_', '[]', 7);
+}
+</script>
+
+<!-- <div class="sidebar_item">
+    <img src="images/sidebar/search.svg" alt="{menu_item}" />
+</div> -->
+
+<div class="sidebar2_search_input">
+    <input type="text" value="{filter}" name="qs" id="sidebar2_filter" class="colorInput" 
+        placeholder="{search_settings_msg}"/>    
+</div>
+    
+<div id="sidebar2_search" class="sidebar2_search">
+    <div id="sidebar_filter_caption" style="margin: 5px 5px 10px 5px;font-size: 1.0em;color: #a3a4a6;">
+        <span></span>
+        <img src="../client/images/icons/trash.svg" height="12" alt="{clear_all_msg}" title="{clear_all_msg}"
+            style="display: none;float: right;cursor: pointer;margin-top: 2px;" onclick="clearRecentSettings();" />
+    </div>
+    
+    <div id="sidebar_filter_results"></div>
+</div>

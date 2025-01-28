@@ -1,0 +1,135 @@
+<link rel="stylesheet" href="../client/skin/jquery/jquery-ui-timepicker-addon.css?v={pvhash}">
+<script src="../client/jscript/jquery/jquery-ui-timepicker-addon.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function() {
+        var options = {dateFormat: '{date_format}',
+                       timeFormat: 'HH:00',
+                       minDateTime: {min_date},
+                       
+                       onSelect: function() {
+                            var minDate = $(this).datepicker('getDate');
+                            $('#{datepicker_id_2}').datetimepicker('option', 'minDate', minDate);
+                        },
+                       
+                       showOn: 'button',
+                       currentText: '{tp_current_msg}',
+                       closeText: '{tp_close_msg}',
+                       timeText: '{tp_time_msg}',
+                       hourText: '{tp_hour_msg}',
+                       firstDay: {week_start}}
+                       
+        $('.schedule_date').datetimepicker(options);
+        
+        var changes = LeaveScreenMsg.formCheck();
+        
+        var date1 = new Date({date_formatted_1});
+        $('#{datepicker_id_1}').datetimepicker('setDate', date1);
+        
+        var date2 = new Date({date_formatted_2});
+        $('#{datepicker_id_2}').datetimepicker('setDate', date2);
+        
+        var currentDate = $('#{datepicker_id_1}').datetimepicker('getDate');
+        $('#{datepicker_id_2}').datetimepicker('option', 'minDate', currentDate);
+        
+        if (!changes) {
+            LeaveScreenMsg.changes = false;
+        }
+    });
+    
+    function showHideSchedule(div, val, show_second) {
+        ShowHideDiv(div, val, true);
+        if(!show_second) {
+            document.getElementById('schedule_on_2').checked = false;
+            HideDiv('div_schedule_2');
+        }
+    }
+</script>
+
+<style>
+/*    #div_schedule_1 td:first-child, #div_schedule_2 td:first-child {*/
+    #div_schedule_1 td:nth-child(odd), #div_schedule_2 td:nth-child(odd) {
+        width: 3px;
+        text-align:right;
+/*        overflow: hidden;*/
+/*        text-overflow: ellipsis;*/
+        white-space:nowrap;
+    }
+</style>
+
+<div>
+    <table class="sTable">
+    <tr>
+        <td>
+            <tmpl:tpl_show_schedule1>
+            <input type="checkbox" name="schedule_on[1]" id="schedule_on_1" value="1" 
+                onclick="showHideSchedule('div_schedule_1', this.checked, this.checked)" {ch_schedule_on_1}> 
+                <label for="schedule_on_1">{yes_msg}</label>
+            </tmpl:tpl_show_schedule1>
+            
+            <div id="div_schedule_1" style="display: {div_schedule_1_display};">
+                <div style="padding-left: 10px;">
+                    <table class="sTable tableCp1 tableCs4">
+                    <tr>
+                        <td>{on_the_date_msg}:</td>
+                        <td>
+                            {date_picker_1}
+                            <span style="margin-left: 5px;">({date_format_formatted})</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{change_status_to_msg}:</td>
+                        <td>
+                            <select name="schedule[1][st]" style="width: 150px;">
+                                {status_select_1}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">{note_msg}:</td>
+                        <td>
+                            <textarea name="schedule[1][note]" style="overflow: hidden; width: 270px;">{note_1}</textarea>
+                        </td>
+                    </tr>            
+                    </table>
+                </div>
+            
+                <input type="checkbox" name="schedule_on[2]"  id="schedule_on_2" value="1" {ch_schedule_on_2}
+                    onclick="showHideSchedule('div_schedule_2', this.checked, true)"> 
+                    <label for="schedule_on_2">{and_msg}</label>
+            </div>
+            
+            <div id="div_schedule_2" style="display: {div_schedule_2_display};">
+                <div style="padding-left: 10px;">
+                    <table class="sTable tableCp1 tableCs4">
+                    <tr>
+                        <td>{on_the_date_msg}:</td>
+                        <td>
+                            {date_picker_2}
+                            <span style="margin-left: 5px;">({date_format_formatted})</span>
+                        </td>
+                    </tr>
+                    <tr>            
+                        <td>{change_status_to_msg}:</td>
+                        <td>
+                            <select name="schedule[2][st]" style="width: 150px;">
+                                {status_select_2}
+                            </select>
+                        </td>    
+                    </tr>
+                    <tr>            
+                        <td style="vertical-align: top;">{note_msg}:</td>
+                        <td>
+                            <textarea name="schedule[2][note]" style="overflow: hidden; width: 270px;">{note_2}</textarea>
+                        </td>    
+                    </tr>
+                    </table>
+                </div>
+            </div>
+            
+        </td>
+        <td style="width: 1px; vertical-align: top;">
+            <span class="tooltip">{schedule_tip_msg}</span>
+        </td>
+    </tr>
+    </table>
+</div>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>{login_title_msg}</title>
+    <meta http-equiv="content-type" content="text/html; charset={meta_charset}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/login.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/box.css?v={pvhash}">
+    <script src="jscript/common.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/jquery.js?v={pvhash}"></script>
+    <script>
+    <!--
+    $(document).ready(function(){
+        $('#screen_width').val(screen.width);
+    });
+    //-->
+    </script>
+</head>
+<body onload="SetFocus('login_username')">
+
+    <div class="form-bg">
+
+        <div style="width: 360px;">{error_msg}</div><br />
+
+
+        <form method="post" id="aContentForm"> 
+        <input type="hidden" name="atoken" id="atoken" value="{atoken}" />
+        <input type="hidden" name="screen_width" id="screen_width" value="" />
+
+        <!-- <img src="images/logo/logo_small.gif" alt=""></td> -->
+        <h2>{login_title_msg}</h2>
+
+        <p>
+            <input type="text" name="login_username" id="login_username" 
+                value="{login_username}" size="31" placeholder="* {login_username_msg}" 
+                autocomplete="off" />
+        </p>
+
+        <p>
+            <input type="password" name="login_password" id="login_password" 
+                value="" size="31" placeholder="* {password_msg}" 
+                autocomplete="off" />
+        </p>
+         
+        {captcha_block}
+
+        <input type="submit" name="submit" id="submit" value="{login_msg}" class="myButton" />
+        <!-- <input type="submit" name="login" value="{login_msg}" class="myButton" /> -->
+             
+        <br /><br />
+        <tmpl:forgot_password>
+            <a href="{forgot_password_link}">{forgot_password_msg}</a> |
+        </tmpl:forgot_password>
+        <a href="{cancel_link}">{public_area_msg}</a>
+        
+        </form>     
+          
+        <tmpl:sso_link>
+        <br/>
+        <form method="post" id="loginFormSaml"> 
+        
+        <br/>
+        <input type="button" value="{login_via}" 
+            onclick="location.href='{sso_link}'; return false;"
+            class="myButton" />
+        
+        </form>     
+        </tmpl:sso_link>
+         
+        <div style="font-size: 0.9em; padding: 10px;">
+            <a href="{product_www}" target="_blank">{product_name} {product_version}</a>
+        </div>
+                       
+    </div>
+          
+    <tmpl:demo></tmpl:demo>
+
+</body>
+</html>

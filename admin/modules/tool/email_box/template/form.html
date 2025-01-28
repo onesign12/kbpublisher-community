@@ -1,0 +1,105 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{email_boxes_msg}");
+});
+</script>
+
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="role" onsubmit="LeaveScreenMsg.skipCheck();" id="aContentForm">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle">
+        <b>{action_title}</b>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{title_msg}:</td>
+    <td>
+        <input type="text" name="title" id="title" value="{title}" class="longText">        
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{hostname_msg}:</td>
+    <td>
+        <input type="text" name="host" id="host" value="{host}" class="longText">        
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{port_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+            <input type="text" name="port" id="port" value="{port}" class="longText" />
+        </span>
+        <span class="tooltip">{mailbox_port_tip_msg}</span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">SSL:</td>
+    <td>
+        <input type="checkbox" name="ssl" id="ssl" value="1" {ssl_checked} />
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{mailbox_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+            <input type="text" name="mailbox" id="mailbox" value="{mailbox}" class="longText" />
+        </span>
+        <span class="tooltip">{mailbox_name_tip_msg}</span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{user_msg}:</td>
+    <td>
+        <input type="text" name="user" id="user" value="{user}" class="longText">
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{password_msg}:</td>
+    <td>
+        <input type="password" name="password" id="password" value="{password}" class="longText">        
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{max_message_count_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+            <input type="text" name="max_count" id="max_count" value="{max_count}" class="longText" />
+        </span>
+        <span class="tooltip">{mailbox_max_count_tip_msg}</span>
+    </td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit" value="{save_msg}" class="button"
+                onClick="validateForm();return false;" />
+            
+            <tmpl:cancel_button>
+             <input type="button" value="{cancel_msg}" class="button"
+                 onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'">
+            </tmpl:cancel_button>
+            
+            <tmpl:close_button>
+            <input type="button" value="{close_msg}" class="button"
+                onclick="PopupManager.close();">
+            </tmpl:close_button>
+        </div>
+    </td>
+</tr>
+</table>
+</form>

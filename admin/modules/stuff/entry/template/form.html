@@ -1,0 +1,80 @@
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" enctype="multipart/form-data" id="aContentForm"
+    onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle">
+        <b>{action_title}: </b>{filesize_max_msg}: {file_size_max}
+    </td>
+</tr>
+
+<tmpl:entry_id>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{entry_id_msg}</td>
+    <td><strong>{id}</strong></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{filename_msg}:</td>
+    <td>
+        <a href="{file_link}" title="{title}">{filename}</a>
+    </td>
+</tr>
+</tmpl:entry_id>
+
+<tmpl:posted>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{date_msg}:</td>
+    <td>{date_formatted} {formatted_user}</td>
+</tr>
+</tmpl:posted>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{file_msg}:</td>
+    <td>
+        <div class="file_error">
+            <input type="file" name="file_1"> &nbsp;&nbsp;{file_help_msg}
+        </div>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{category_msg}:</td>
+    <td>
+        <select name="category_id">{category_select}</select>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{title_msg}:</td>
+    <td><input type="text" name="title" value="{title}" class="longText" style="width: 630px;"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{description_msg}:</td>
+    <td><textarea cols="100" rows="5" name="description">{description}</textarea>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_msg}:</td>
+    <td>
+        {status_checkbox}
+    </td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <input type="submit" name="submit" value="{save_msg}" class="button"
+            onClick="validateForm();return false;" />
+            
+        <input type="button" value="{cancel_msg}"
+            onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+    </td>
+</tr>
+</table>
+</form>

@@ -1,0 +1,14 @@
+L'utilisateur a résilié son compte KB.
+{request_from_ip_msg} : [ip]
+
+Vous pouvez consulter et restaurer le compte à l'adresse suivante
+[link]
+
+Notes de l'utilisateur :
+[message]
+
+{user_info_msg} :
+------------
+ID : [id]
+Nom : [name]
+Email : [email]

@@ -1,0 +1,261 @@
+<script>
+
+    function getChildCheckboxes(module_id) {
+        if(module_id) {
+            return $("#ch_apply_child_"+module_id+"");
+        } else {
+            return $("input[@type=checkbox][@id^=ch_apply_child_]");
+        }
+    }
+
+
+    function parsePrivCheckboxes(ref_module_id) {
+
+        apply_child_ch = getChildCheckboxes(ref_module_id);
+
+        for(i=0; apply_child_ch.length>i; i++) {
+            apply_child = apply_child_ch[i];
+            apply_child_id = apply_child_ch[i].id;
+            module_id = apply_child_id.replace('ch_apply_child_', '');
+
+            priv_top_ch = $("input[@type=checkbox][@id^=ch_0_"+module_id+"]");
+            priv_top_arr = new Array;
+            for(k=0; priv_top_ch.length>k; k++) {
+                if(priv_top_ch[k].checked == true) {
+                    priv_top_arr[k] = priv_top_ch[k].value;
+                }
+            }
+
+            priv_id_child_pref = 'ch_'+module_id;
+            priv_child_ch = $("input[@type=checkbox][@id^="+priv_id_child_pref+"]");
+            
+            for(j=0; priv_child_ch.length>j; j++) {
+
+                priv_child = priv_child_ch[j];
+
+                if(apply_child.checked == true) {
+                    found = false;
+                    priv_val = priv_child.value;
+                    for(m=0; priv_top_arr.length>m; m++) {
+                        if(priv_val == priv_top_arr[m]) {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if(found) {
+                        priv_child.checked = true;
+                        priv_child.disabled = true;
+                    } else if(ref_module_id) {
+                        priv_child.checked = false;
+                        priv_child.disabled = false;
+                    }
+                }
+            }
+        }
+
+        return apply_child_ch;
+    }
+
+
+    function parseCheckboxes() {
+
+    }
+
+    function SureDefault(msg, link) {
+        confirm2(msg, function() {
+            location.href = link;
+        });
+    }
+
+    $(document).ready(function() {
+        
+    });
+</script>
+
+{error_msg}
+
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{title_msg}:</td>
+    <td><input type="text" name="name" value="{name}" class="longText"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{description_msg}:</td>
+    <td><textarea cols="80" rows="2" name="description">{description}</textarea></td>
+<tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_msg}:</td>
+    <td>{status_checkbox}</td>
+</tr>
+</table>
+<br><br>
+
+
+<table class="listTable2">
+<tr class="tdTitle">
+    <td width="20%" class="tdTitle">{module_title_msg}</td>
+    <td width="80%">{priv_msg}</td>
+    <!-- <td></td> -->
+</tr>
+
+<tmpl:row>
+
+<tmpl:level_0>
+<tr><td colspan="10" class="tdTitle" style="padding: 1px;"></td></tr>
+</tmpl:level_0>
+
+<tr id="row_{id}" class="{class}" style="{style}">
+    <tmpl:level_0>
+    <td nowrap><b>{title}</b></td>
+    </tmpl:level_0>
+
+    <tmpl:other_level>
+    <td style="padding-left: {padding}px;" nowrap>
+        <img src="images/icons/join.gif" width="14" height="9"> {title}
+    </td>
+    </tmpl:other_level>
+
+
+    <td>
+
+        <table class="sTable tableCp4">
+        <tr>
+        <tmpl:if_row_priv>
+        <tmpl:row_priv>
+
+            <td valign="top" width="20%">
+                <tmpl:priv>
+                <input type="checkbox" id="ch_{ch_id}_{priv_value}"
+                    name="priv[{module_id}][what_priv][{num}]" value="{priv_value}"
+                    title="{module_id}" {checked}
+                    onclick="parseCheckboxes({module_id}, '{priv_value}');"> 
+                    <label for="ch_{ch_id}_{priv_value}">
+                        {priv_title_msg}
+                    </label>
+                </tmpl:priv>
+
+                <tmpl:self_priv>
+                <div style="margin-bottom: 3px;"></div>
+                <input type="checkbox" id="ch_{ch_id}_self_{priv_value}"
+                    name="priv[{module_id}][what_priv][{num}]" value="self_{priv_value}"
+                    title="{module_id}" {self_checked}
+                    onclick="parseCheckboxes({module_id}, '{priv_value}');">
+                    <label for="ch_{ch_id}_self_{priv_value}">
+                        {own_records_caption}
+                    </label>
+                </tmpl:self_priv>
+
+                <tmpl:optional_priv>
+                <div style="margin-bottom: 3px;"></div>
+                <input type="checkbox" id="ch_{ch_id}_{priv_value}_{optional_priv_value}"
+                    name="priv[{module_id}][optional_priv][{priv_value}][]" value="{optional_priv_value}"
+                    title="{module_id}" {optional_checked}
+                    onclick="parseCheckboxes({module_id}, '{optional_priv_value}');">
+                    <label for="ch_{ch_id}_{priv_value}_{optional_priv_value}">
+                        {optional_caption}
+                    </label>
+                </tmpl:optional_priv>
+
+                <tmpl:status_priv>
+                <div style="padding: 8px 0px 3px 0px;">{priv_status_msg}:</div>
+                <div id="status_{module_id}" style="display: block;" class="nowrap">
+                    <select name="priv[{module_id}][status_priv][{priv_value}][]" id="status_{module_id}"
+                        style="width: 120px;" size="3" multiple>
+                        {status_select}
+                    </select>
+                </div>
+                </tmpl:status_priv>
+            </td>
+
+        </tmpl:row_priv>
+        </tmpl:if_row_priv>
+        </tr>
+        </table>
+
+
+        <tmpl:if_row_priv_extra>
+        <hr>
+        <table class="sTable tableCp4">
+        <tr>
+
+        <tmpl:row_priv_extra>
+
+            <td>
+                <input type="checkbox" id="ch_{ch_id}_{priv_value}"
+                    name="priv[{module_id}][what_priv][{num}]" value="{priv_value}"
+                    title="{module_id}" {checked}
+                    onclick="parseCheckboxes({module_id}, '{priv_value}');"> 
+                    <label for="ch_{ch_id}_{priv_value}">
+                        {priv_title_msg}
+                    </label>
+
+                <tmpl:self_priv_extra>
+                <div style="margin-bottom: 3px;"></div>
+                <input type="checkbox" id="ch_{ch_id}_self_{priv_value}"
+                    name="priv[{module_id}][what_priv][{num}]" value="self_{priv_value}"
+                    title="{module_id}" {self_checked}
+                    onclick="parseCheckboxes({module_id}, '{priv_value}');">
+                    <label for="ch_{ch_id}_self_{priv_value}">
+                        {own_records_caption}
+                    </label>
+                </tmpl:self_priv_extra>
+
+                <tmpl:status_priv_extra>
+                <div style="padding: 8px 0px 3px 0px;">{priv_status_msg}:</div>
+                <div id="status_{module_id}" style="display: block;" class="nowrap">
+                    <select name="priv[{module_id}][status_priv][{priv_value}][]" id="status_{module_id}"
+                        style="width: 120px;" size="3" multiple>
+                        {status_select}
+                    </select>
+                </div>
+                </tmpl:status_priv_extra>
+            </td>
+
+        </tmpl:row_priv_extra>
+
+        </tr>
+        </table>
+        </tmpl:if_row_priv_extra>
+
+        <tmpl:apply_child>
+        <input type="hidden" name="priv[{module_id}][apply_to_child]" value="1">
+        </tmpl:apply_child>
+
+    </td>
+
+</tr>
+</tmpl:row>
+
+</table>
+
+<br><br>
+
+<div style="text-align:center;">
+    <div id="bottom_button">
+        <input type="submit" name="submit" value="{save_msg}" class="button"
+            onClick="validateForm();return false;" />
+        
+        <tmpl:default_btn>
+        <span style="margin-right: 25px;">    
+            <input type="button" value="{defaults_msg}" 
+                onClick="LeaveScreenMsg.skipCheck(); return SureDefault('{sure_default_msg}', '{default_link}')" class="button">  
+        </span>
+        </tmpl:default_btn>
+    
+        <input type="button" value="{cancel_msg}"  class="button"
+            onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'">
+    </div>
+</div>
+
+</form>

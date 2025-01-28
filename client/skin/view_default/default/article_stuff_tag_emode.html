@@ -1,0 +1,116 @@
+<style>
+	.badge_container.search div:after {
+    	background: #ffffff url('../admin/images/ajax/dotted_bar.svg') no-repeat 0 6px/16px !important;
+	}
+</style>
+<script>
+    $(document).ready(function() {
+        $('body').bind('kbpRecordAdded', {}, function(e, params) {
+            if (params.name == 'tag') {
+                $('#empty_tag_block').hide();
+                
+                var tag_block = $('<span />').attr('id', 'emode_tag_' + params.id).css('margin-right', '5px');
+                tag_block.html(params.title);
+                
+                var delete_icon = $('<span />').addClass('delete_tag');
+                delete_icon.attr('onclick', 'deleteTag(' + params.id + ');');
+                delete_icon.html('×');
+                
+                tag_block.append(delete_icon);
+                
+                $('#tag_list td').append(tag_block);
+                
+                var hidden = $('<input type="hidden" name="tag[]" />').val(params.id);
+                $('#aContentForm').append(hidden);
+            }
+        });
+    
+        $('body').bind('kbpRecordDeleted', {}, function(e, params) {
+            if (params.name == 'tag') {
+            	$('#emode_tag_' + params.id).remove();
+            	$('input[type="hidden"][name^="tag"][value="' + params.id + '"]').remove();
+            }
+        });
+        
+        $('body').bind('kbpRecordsDeleted', {}, function(e, params) {
+            if (params.name == 'tag') {
+                $('#empty_tag_block').show();
+            }
+        });
+    });
+    
+    function openTagDialog() {
+    	var options = {
+	        modal: true,
+	        width: 700,
+	        open: function() {
+	            $('.ui-dialog').css('box-shadow', '#555 2px 2px 2px');
+	            $('#tag_container').click();
+	            
+	            $(this).find('a').first().blur();
+	            $(this).parent().css('z-index', 999);
+	            $(this).parent().prev().css('z-index', 0);
+	        },
+	        position: {
+	            my: 'center top',
+	            at: 'center top+20%',
+	            of: window
+	        }
+	    }
+	    
+	    $('#tag_dialog').dialog(options);
+    }
+    
+    function deleteTag(id) {
+    	confirm2('{sure_common_msg}', function() {console.log(id);
+        	$('#emode_tag_' + id).remove();
+    		tag_manager._deleteById(id);
+	    });
+    }
+</script>
+
+{hidden_fields}
+
+<table class="sTable tableCp2 tableCs1">
+<tr class="tdSubTitle">
+    <td colspan="2" class="tdSubTitle">
+        <b>{title_msg}</b>
+        <span id="spinner_tag" style="display: none;">
+            <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+        </span>
+    </td>
+</tr>
+
+<tr id="tag_list">
+    <td style="width: 100%;padding: 7px;">
+        
+        <tmpl:row>
+        <span id="emode_tag_{id}" style="margin-right: 5px;">
+            <a href="{link}">{title}</a>
+            {title}<span class="delete_tag" onclick="deleteTag({id});">×</span>
+            <input type="hidden" name="tag[]" value="{id}" />
+        </span>
+        </tmpl:row>
+        
+        <div id="empty_tag_block" style="display: {empty_display};">--</div>
+    </td>
+</tr>
+
+</table>
+
+<div style="margin-left: 15px;margin-bottom: 15px;">
+    <a href="#" onclick="openTagDialog();return false;">
+        {manage_tag_msg}
+    </a>
+</div>
+
+<div id="tag_dialog" title="{manage_tag_msg}" style="display: none;">
+	<div style="padding: 20px 10px 60px 10px;">
+		{editable_block}
+	</div>
+	
+	<div class="bottom_button_dialog">
+	    <input type="button" value="{done_msg}" class="button" 
+	        onClick="$('#tag_dialog').dialog('close');" />
+	</div> 
+</div>

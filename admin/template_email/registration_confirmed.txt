@@ -1,0 +1,17 @@
+{dear_msg} [first_name] [last_name],
+
+{welcome_msg}
+
+------------------------------
+{login_details_msg}:
+------------------------------
+{login_msg}: [login]
+{password_msg}: {password_previous_msg}
+------------------------------
+
+{link_msg}:
+[link]
+
+
+--
+[support_name]

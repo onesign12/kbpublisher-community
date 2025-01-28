@@ -1,0 +1,57 @@
+<script>
+function ShowHideOldConfig(val) {    
+    var re = new RegExp("^20_.*");
+    if(re.test(val)) {
+        HideDiv('setup_config_div');
+    } else {
+        ShowDiv('setup_config_div', true);
+    }
+}
+</script>
+
+{user_msg}
+
+<div style="padding-bottom: 1px;">&nbsp;</div>
+<table class="sTable tableCp3 tableCs1">
+<tr>
+    <td width="1">
+        <input type="radio" name="setup_type" id="setup_type1" value="install" 
+            onclick="ShowHideDiv('setup_upgrade_div', false, true);" {ch_install}>
+    </td>
+    <td><label for="setup_type1">{setup_install_msg}</label></td>
+</tr>
+<tr><td colspan="2"><hr size="2"></td></tr>
+<tr style="vertical-align: top;">
+    <td>
+        <input type="radio" name="setup_type" id="setup_type2" value="upgrade" 
+            onclick="ShowHideDiv('setup_upgrade_div', (this.checked), true);" {ch_upgrade}>
+    </td>
+    <td>
+        <label for="setup_type2">{setup_upgrade_msg}</label>
+        
+        <div style="padding-top: 10px;">
+        <div id="setup_upgrade_div" style="display: {op_display};">
+        <select name="setup_upgrade" id="setup_upgrade" style="width: 300px; font-weight: bold; font-size: 1.2em;"
+            onchange="ShowHideOldConfig(this.value);">
+            {setup_upgrade_select}
+        </select>
+        
+          <div id="setup_config_div" style="padding-top: 15px; display: {config_display};">
+            <div>
+                <div style="padding-bottom: 4px;">{old_config_file_msg}</div>
+                <input type="text" name="old_config_file" 
+                    class="normalText {old_config_file_class}" style="width: 100%;" value="{old_config_file}">
+            </div>
+            <div style="padding-top: 7px;">
+                <input type="checkbox" name="old_config_file_skip" id="old_config_file_skip" value="1" {ch_skip_config}>
+                    &nbsp;&nbsp;<label for="old_config_file_skip">{old_config_file_skip_msg}</labe>
+            </div>
+        </div>
+        
+        </div>
+        </div>
+        
+    </td>
+</tr>
+</table>
+

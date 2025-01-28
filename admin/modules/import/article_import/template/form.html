@@ -1,0 +1,65 @@
+<script src="jscript/yahoo/build/utilities/utilities.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function() {
+        FormCollector.setExtraFieldCallback(function(values) {
+            values['generated'] = [];
+            
+            $('#ul2 input').each(function() {
+                values['generated'].push($(this).val());
+            });
+        });
+    });
+</script>
+
+<link rel="stylesheet" href="css/import.css?v={pvhash}">
+<style media="screen">
+ul.draglist { 
+    height:300px;
+}
+</style>
+
+{msg}
+
+{error_msg}
+
+<div class="boxMsgDiv hint hasTitle collapsed">
+    <div class="title">
+        {csvfile_example_msg}
+    </div>
+    Title 1,"article text with &lt;b&gt;html&lt;/b&gt;",2006-09-09 12:00:00<br>
+    Title 1,"a string containing a \", quote and comma",2006-09-09 12:00:00<br>
+    ........<br>
+    --------------<br>
+    {csv_test_note_msg}
+</div>
+
+<br>
+
+<!-- onSubmit="return validate_employee_form({is_admin});" -->
+<form action="{action_link}" method="post" enctype="multipart/form-data" name="aContentForm" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+
+<table class="default">
+<tr> 
+    <td colspan="2" class="tdTitle" style="padding:1px;"></td>
+</tr>
+
+{import_block_tmpl}
+
+<tmpl:more_fields>
+
+</tmpl:more_fields>
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit" id="doSubmit" value="{load_msg}" class="button"
+                onClick="validateForm();return false;" />
+        </div>
+    </td>
+</tr>
+</table>
+</form>
+
+<script src="jscript/DragAndDrop.js?v={pvhash}"></script>

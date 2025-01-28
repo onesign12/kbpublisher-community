@@ -1,0 +1,145 @@
+<!-- <link rel="stylesheet" href="{base_href}client/skin/search2.css?v={pvhash}" /> -->
+<link rel="stylesheet" href="{base_href}client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-borderless.min.css?v={pvhash}">
+<tmpl:sidebar>
+<link rel="stylesheet" href="{base_href}client/skin/ajax_tree.css?v={pvhash}" />
+</tmpl:sidebar>
+<script>
+<!--
+$(document).ready(function() {
+    
+   $('.filter_item').tooltipster({
+     content: $('<a href="#" onclick="$(\'#filter_form\').submit();" style="color:white;">{apply_msg}</a>'), 
+     position: 'right',
+     trigger: 'click',
+     // trigger: 'custom',
+     hideOnClick: true,
+     autoClose: false,
+     interactive: true, // ?
+     theme: 'tooltipster-borderless',
+     // theme: 'tooltipster-kbp_text',
+     contentCloning: true,
+     // functionPosition: function(instance, helper, position){
+     //     position.coord.top += 10;
+     //     position.coord.left += 10;
+     //     return position;
+     // },
+     // track: true
+     // functionReady: function(instance, helper) {
+     //     $(helper.tooltip).on('click', function() {
+     //         alert('aaa');
+     //     });
+     // }
+   });
+
+   // get filter elements, exluding in[]
+   function getOtherFilters() {
+      const ch = [];
+      $.each(['c[]', 'et[]', 'custom'], function( index, value ) {
+         $('#search_filter input[name*="' + value + '"]').each(function() {
+            ch.push(this)
+         });
+      });
+      
+      return ch;
+   }
+
+
+	$("#filter_form").submit(function() {
+           
+      var in_checked = false;
+      $('#search_filter input[name="in[]"]').each(function() {
+         if($(this).prop('checked') == true) {                
+             in_checked = true;
+         }
+      });
+
+      // set use defualt filters
+      // some other filters checked. then check default in 
+      if({filter_default} && '{filter_default_id}') {
+         if(!in_checked) {
+            $.each(getOtherFilters(), function(k, elem) {
+               if($(elem).prop('checked') == true) {                
+                  $('#search_filter #{filter_default_id}').prop('checked', true);
+                  return false;
+               }
+            });
+            
+            return;
+         }
+      }
+
+      // uncheck others if if no in[] checked
+      if(!in_checked) {
+            $.each(getOtherFilters(), function(k, elem) {
+               $(elem).prop('checked', false);
+            });
+      }
+
+      showLoading();
+   });
+    
+   $("#reset_form").click(function() {
+      $('#search_filter :checkbox:checked').each(function() {
+         $(this).prop('checked', false);
+      });
+      
+      $('#filter_form').submit();
+   });
+    
+});
+
+//-->
+</script>
+<style>    
+    .search_filter_tooltipster .tooltipster-content {
+        font-size: 0.9em;
+        color: white;
+    } 
+</style>
+
+<div class="categoryBlockTopCategory">
+    <div class="menuItem3" style="overflow: hidden;">
+        {search_filter_msg}
+        
+        <img src="{base_href}client/images/icons/x-mark.svg" class="show-for-small-only" 
+            width="10" height="10" title="{close_msg}" alt="{close_msg}"
+        	style="float: right;cursor: pointer;margin-top: 3px;" onclick="toggleMobileMenu();" />
+    </div>
+</div>
+
+<div id="search_filter">
+    <form action="{action_link}" method="get" id="filter_form">
+    {hidden}
+
+    <tmpl:row>
+        <div class="filter_title" class="_tooltip" title="{tooltip_title}">
+            {title}
+        </div>
+
+        <tmpl:row_in>
+        <div class="filter_item flex-parent">
+            <input type="checkbox" name="{search_in}[]" value="{value}" 
+                id="filter_{id_in}_{value}" class="custom-checkbox" {checked} />
+            <label for="filter_{id_in}_{value}" class="long-and-truncated _tooltip" 
+                title="{tooltip}">
+                {name}
+            </label> ({num})
+        </div>    
+        </tmpl:row_in>
+    </tmpl:row>
+
+    </form>
+
+</div>
+
+ <tmpl:apply>
+ <div id="search_filter_apply">
+   <input type="button" class="button" value="{apply_msg}" 
+         onclick="$('#filter_form').submit();">
+  
+         <a id="reset_form" href="#reset" style="margin-left: 20px;">{reset_form_msg}</a>
+  
+         <!-- <input type="button" class="button"  value="{reset_form_msg}"          
+         id="reset_form"> -->
+ </div>
+ </tmpl:apply>

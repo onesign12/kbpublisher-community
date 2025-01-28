@@ -1,0 +1,24 @@
+{header}
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+    <td width="1" class="tdTitle">{id_msg}</td>
+    <td width="30%">{title_msg}</td>
+    <td>{description_msg}</td>
+    <td width="1" align="center">{status_active_msg}</td>
+    <td width="1" width="1">{action_hidemsginui_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+                                    
+    <td>{id}</td>
+    <td>{title}</td>
+    <td>{description}</td>
+    
+    <td align="center">{active_img}</td>
+    <td class="action" width="1">{options_img}</td>
+</tr>
+</tmpl:row>
+
+</table>

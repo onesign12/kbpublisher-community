@@ -1,0 +1,43 @@
+.tooltipster-sidetip.tooltipster-kbp_title .tooltipster-box {
+    border: 2px solid #868686;
+	border-radius: 5px;
+	background: #fff;
+	box-shadow: 0px 0px 14px rgba(0,0,0,0.3);
+	color: #2c2c2c;
+}
+ 
+.tooltipster-sidetip.tooltipster-top.tooltipster-kbp_title .tooltipster-arrow-border {
+    border-top-color: #868686;
+}
+
+.tooltipster-sidetip.tooltipster-top.tooltipster-kbp_title .tooltipster-arrow-background {
+    border-top-color: white;
+}
+
+.tooltipster-sidetip.tooltipster-bottom.tooltipster-kbp_title .tooltipster-arrow-border {
+    border-bottom-color: #868686;
+}
+
+.tooltipster-sidetip.tooltipster-bottom.tooltipster-kbp_title .tooltipster-arrow-background {
+    border-bottom-color: #868686;
+}
+
+.tooltipster-sidetip.tooltipster-kbp_title .tooltipster-content {
+    line-height: 16px;
+    padding: 0;
+    color: #2c2c2c;
+}
+
+
+/* custom */
+.tooltipster-form_title {
+    padding: 5px;
+    color: white;
+    background: #868686;
+}
+
+#close_button {
+    float: right;
+    margin-top: 3px;
+    cursor: pointer;
+}

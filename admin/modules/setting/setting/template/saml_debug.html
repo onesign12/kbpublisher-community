@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" href="admin/css/style.css?v={pvhash}">
+    <link rel="stylesheet" href="client/skin/box.css?v={pvhash}">
+    <style>
+        body {
+            padding: 15px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    
+    {hint_msg}
+    {debug_info}
+    
+    <tmpl:info>
+    <table class="formTable">
+    <tr>
+        <td colspan="2" class="tdTitle">{saml_response_data}</td>
+    </tr>
+    
+    <tr class="trMoreDarker">
+        <td>{name_id_msg}</td>
+        <td>{name_id}</td>
+    </tr>
+    
+    <tr class="trMoreDarker">
+        <td colspan="2">{user_attributes_msg}</td>
+    </tr>
+    
+    <tmpl:saml_user_attribute>
+    <tr class="trLighter">
+        <td class="tdFormCaption">
+            <span style="padding-left: 20px;">{attr_name}</span>
+        </td>
+        <td>{attr_value}</td>
+    </tr>
+    </tmpl:saml_user_attribute>
+        
+    </table>
+    
+    <br />
+    
+    <table class="formTable">
+    <tr>
+        <td colspan="2" class="tdTitle">{kbp_user_data_msg}</td>
+    </tr>
+    
+    <tmpl:kbp_user_row>
+    <tr class="trLighter">
+        <td class="tdFormCaption">{attr_name}</td>
+        <td>{attr_value}</td>
+    </tr>
+    </tmpl:kbp_user_row>
+        
+    </table>
+    <br /><br />
+    </tmpl:info>
+    
+    <div class="bottom_button bb_popup">
+        <tmpl:slo_button>
+        <input type="button" value="{test_logout_msg}" class="button" onclick="location.href='{slo_url}';" />
+        </tmpl:slo_button>
+    
+        <input type="button" value="{close_msg}" class="button" onclick="window.close();" />
+    </div>
+</body>
+</html>

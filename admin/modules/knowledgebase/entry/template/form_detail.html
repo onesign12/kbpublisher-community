@@ -1,0 +1,236 @@
+<script src="jscript/common_entry_form.js?v={pvhash}"></script>
+<script>
+    function deleteDraft(msg, link) {
+        confirm2(msg, function() {
+            location.href = link;
+        });
+    }
+    
+</script>
+
+{menu_block}
+
+
+<tmpl:autosave_view>
+<div class="trLighter" style="padding: 5px;">
+    <strong>{nav}</strong>
+</div>
+<br />
+</tmpl:autosave_view>
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle">{detail_msg}</td>
+</tr>
+
+<tmpl:autosave_view>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{draft_date_saved_msg}:</td>
+    <td>{date_formatted}</td>
+</tr>
+</tmpl:autosave_view>
+
+<tmpl:entry_id>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{id_msg}:</td>
+    <td><strong>{id}</strong></td>
+</tr>
+</tmpl:entry_id>
+
+<tmpl:entry_id2>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{entry_id_msg}:</td>
+    <td><strong>{id2}</strong></td>
+</tr>
+</tmpl:entry_id2>
+
+<tmpl:posted>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{date_msg}:</td>
+    <td>{date_formatted} {formatted_user}</td>
+</tr>
+</tmpl:posted>
+
+<tmpl:entry_view>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{last_viewed_msg}:</td>
+    <td>{last_viewed_formatted}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{hits_num_msg}:</td>
+    <td>{hits}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{comment_num_msg}:</td>
+    <td>{comment_num}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{votes_num_msg}:</td>
+    <td>{votes}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{rating_msg}:</td>
+    <td>{rating_img}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{rating_comment_num_msg}:</td>
+    <td>{rating_comment_num}</td>
+</tr>
+
+<tmpl:draft>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{associated_draft_msg}:</td>
+    <td><a href="{draft_link}">{view_msg}</a></td>
+</tr>
+</tmpl:draft>
+</tmpl:entry_view>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{entry_title_msg}:</td>
+    <td>{title}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">
+        {entry_body_msg}:
+    </td>
+    <td>
+        <a href="{preview_link}">{preview_msg}</a>
+        
+        <tmpl:entry_view>
+        <tmpl:public_link>
+        <a href="{public_link}" target="_blank" style="margin-left: 5px;">{open_msg}</a>
+        </tmpl:public_link>
+
+        <span class="clipboard-group" style="margin-left: 10px;">
+            <input id="public_link" value="{public_link}">
+            <button class="clipboard button" title="{copy_clipboard_msg}" data-clipboard-target="#public_link">
+                <img src="../client/images/icons/clipboard.svg" alt="Copy to clipboard">
+            </button>
+        </span>
+        </tmpl:entry_view>
+        
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{entry_type_msg}:</td>
+    <td>{type}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{category_msg}:</td>
+    <td>{category}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{meta_description_msg}:</td>
+    <td>{meta_description}</td>
+</tr>
+
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{related_articles_msg}:</td>
+    <td>
+        <tmpl:related_row>
+        <div style="margin-bottom: 5px;">
+            <a href="{related_link}">{title}</a>
+        </div>
+        </tmpl:related_row>    
+    </td>
+</tr>
+
+<tmpl:entry_view>
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{related_to_articles_msg}:</td>
+    <td><a href="{related_to_link}">{related_to_num}</a></td>
+</tr>
+</tmpl:entry_view>
+
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{attachment_msg}:</td>
+    <td>
+        <tmpl:attachment_row>
+        <div style="margin-bottom: 5px;">
+            <a href="{attachment_link}">{filename}</a>
+        </div>
+        </tmpl:attachment_row>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{external_links_msg}:</td>
+    <td>{external_link}</td>
+</tr>
+
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{meta_keywords_msg} / {tags_msg}:</td>
+    <td>{tags}</td>
+</tr>
+
+
+<tmpl:block_private>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>        
+        {private1_msg}
+        {roles}
+    </td>
+</tr>
+</tmpl:block_private>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{schedule_msg}:</td>
+    <td>
+        {schedule}
+    </td>
+</tr>
+
+<tmpl:block_mustread>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{mustread_msg}:</td>
+    <td>{mustread}</td>
+</tr>
+</tmpl:block_mustread>
+
+<tmpl:custom_row>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{title}:</td>
+    <td>{value}</td>
+</tr>
+</tmpl:custom_row>
+
+<tmpl:status>
+<tr class="trLighter">
+    <td class="tdFormCaption">{entry_status_msg}:</td>
+    <td>{status}</td>
+</tr>
+</tmpl:status>
+
+</table>
+
+
+<div style="padding: 20px 0px 0px 170px;">
+
+    <tmpl:autosave_view>
+
+        <div id="bottom_button">
+        
+            <input type="button" value="{back_msg}" class="button" 
+                onClick="location.href='{draft_cancel_link}';">
+                
+            <input type="button" value="{draft_update_msg}" class="button" 
+                onClick="location.href='{draft_update_link}';">
+                
+            <input type="button" value="{delete_msg}" class="button" 
+                onClick="deleteDraft('{sure_delete_msg}', '{draft_delete_link}');">
+        </div>
+        
+    </tmpl:autosave_view>
+        
+</div>

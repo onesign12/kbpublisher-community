@@ -1,0 +1,13 @@
+{welcome_msg}
+
+{entry_type_msg}: [type]
+{id_msg}: [id]
+{title_msg}: [title]
+{admin_link_msg}: 
+[link]
+
+{note_msg}:
+[note]
+
+--
+[support_mailer]

@@ -1,0 +1,33 @@
+<div class="tdTitle" style="cursor: move; border: 1px solid #d3ddeb; padding: 6px 4px;">
+     <div style="float: right;">
+         <img src="images/icons/close.svg" alt="close" class="close"
+             onclick="togglePortlet($(this).parents().eq(2).attr('id'), false);" />
+     </div>
+     <div style="float: left;">{title_msg}</div>
+     <div style="clear: both"></div>
+</div>
+
+<div style="width: 100%;">
+
+    <table class="default">
+        <tmpl:row>
+        <tr class="trLighter">
+            <td style="width: 20px;">
+                <div class="status help" style="width: 15px;margin: 0 auto;">
+                    <div style="background: {color};">&nbsp;&nbsp;</div>
+                </div>
+            </td>
+            <td><a href="{status_link}">{status_title}</a></td>
+            <td style="text-align: right;padding-right: 5px;width: 30px;">{num}</td>
+        </tr>
+        </tmpl:row>
+        
+        <tmpl:empty>
+        <tr class="trLighter">
+            <td style="width: 20px;">
+            <td colspan="2" style="text-align: left; padding-left: 5px;">--</td>
+        </tr>
+        </tmpl:empty>
+    </table>
+
+</div>

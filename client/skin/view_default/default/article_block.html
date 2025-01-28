@@ -1,0 +1,148 @@
+<script>
+    $(document).ready(function() {
+        PoolManager.stick_msg = "{pin_msg}";
+        PoolManager.unstick_msg = "{unpin_msg}";
+    });
+</script>
+<script src="{client_href}jscript/PoolManager.js?v={pvhash}"></script>
+<table class="sTable abBorder" style="width: 165px;">
+<tr>
+    <td>
+        <table class="sTable">
+        
+        <tmpl:entry_block>
+        <tr>
+            <td class="abBgrDarker nowrap">
+                
+                <div class="space">
+                    {entry_id_msg}: {id}
+                </div>
+                    
+                <div class="space">
+                    {last_updated_msg}: <span class="date_updated">{date_updated_formatted}</span>
+                </div>
+            
+                <tmpl:revision>
+                <div class="space">
+                    {revision_msg}: {revision}
+                </div>
+                </tmpl:revision>
+                
+                <tmpl:private>
+                <div class="space">
+                    {access_msg}:
+                    <span class="_tooltip" title="{private_body}">
+                        {private_title}
+                    </span>
+                </div>
+                </tmpl:private>
+            
+            </td>
+        </tr>
+        </tmpl:entry_block>
+        
+        <tmpl:action_block>
+        <tr>
+            <td class="abBgrDarker itemImage action_block">
+                <tmpl:action_item>
+                <div class="space">
+                    <img src="{icon2}" alt="{title}" style="width: 14px;height: 14px;" />&nbsp;
+                    <a class="abLink" href="{link}" rel="nofollow">{title}</a>
+                </div>
+                </tmpl:action_item>
+                
+                <tmpl:save_item>
+                <div class="space">
+                    <img src="{base_href}client/images/icons/bookmark.svg" alt="" style="width: 14px;height: 14px;" />&nbsp;
+                    
+                    <div id="div_subscribe_yes" style="display: {subscribe_yes_display};">
+                        <a href="#1{id}" onclick="xajax_doSubscribe(1, 'spinner_subsc'); return false;" 
+                            class="abLink" rel="nofollow">{save_to_list_msg}</a>
+                    </div>
+                    <div id="div_subscribe_no" style="display: {subscribe_no_display};">
+                        <a href="#0{id}" onclick="xajax_doSubscribe(0, 'spinner_subsc'); return false;" 
+                            class="abLink" rel="nofollow">{remove_from_list_msg}</a>
+                    </div>
+                </div>
+                </tmpl:save_item>
+                
+                <tmpl:share_item>
+                <div class="space">
+                    <img src="{base_href}client/images/icons/share.svg" alt="" style="width: 14px;height: 14px;" />&nbsp;
+                    
+                    <a href="#" class="abLink" rel="nofollow" data-jq-dropdown="#share_menu" style="position: relative;">{share_link_msg}</a>
+                    <div id="share_menu" style="width: 300px;"
+                        class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative jq-has-icons">
+                        {share_block}
+                    </div>
+                </div>
+                </tmpl:share_item>
+                
+                <tmpl:stick_item>
+                <div class="space">
+                    <img src="{base_href}client/images/icons/pin.svg" alt="" style="width: 14px;height: 14px;" />&nbsp;
+
+                    <a class="pool_add_link abLink" href="#" rel="nofollow"
+                        onclick="PoolManager.add({id}); return false;" 
+                        style="display: {display_add_pool};">{pin_msg}</a>
+                
+                    <a class="pool_delete_link abLink" href="#" rel="nofollow"
+                        onclick="PoolManager.remove({id}); return false;" 
+                        style="display: {display_delete_pool};">{unpin_msg}</a>
+                </div>
+                </tmpl:stick_item>
+            </td>
+        </tr>    
+        </tmpl:action_block>
+                
+        <tmpl:data_block>
+        <tr>
+            <td class="abBgrDarker nowrap">
+                <tmpl:show_hits>
+                    <div class="less_space">{views_num_msg}: {hits}</div>
+                </tmpl:show_hits>
+                <tmpl:show_votes>
+                    <div class="less_space">{votes_num_msg}: {votes}</div>
+                </tmpl:show_votes>
+                <tmpl:show_comments>
+                    <div class="less_space">{comment_num_msg}: {comment_num}</div>
+                </tmpl:show_comments>
+            </td>
+        </tr>
+        </tmpl:data_block>
+        
+        <tmpl:author_block>
+         <tr>
+            <td class="abBgrDarker nowrap">
+            
+                <div class="space">
+                    {posted_msg}: {date_posted_formatted} <br />
+                    {by_user_msg} {author}
+                </div>    
+                <div>
+                    {updated_msg}: <span class="date_updated">{date_updated_formatted}</span> <br />
+                    {by_user_msg} <span id="updater">{updater}</span>
+                </div>
+            
+            </td>
+        </tr>
+        </tmpl:author_block>
+        
+        <tmpl:admin_block_menu>
+        <tr>
+            <td class="abBgrDarker nowrap">
+                <img src="{base_href}client/images/icons/menu_dot.svg" alt="edit" 
+                    style="width: 14px;height: 14px;" /><a class="abLink" href="" rel="nofollow" data-jq-dropdown="#action_menu2" style="margin-left: 6px;position: relative;">{admin_tools_msg}</a>    
+            
+                <div id="action_menu2" class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative">
+                    {action_menu}
+                </div>
+            
+            </td>
+        </tr> 
+        </tmpl:admin_block_menu>
+                
+        </table>
+    </td>
+</tr>
+</table>

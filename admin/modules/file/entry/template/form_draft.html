@@ -1,0 +1,48 @@
+{msg}
+
+{error_msg}
+
+<!-- onSubmit="return validate_employee_form({is_admin});" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<table class="default">
+<tr> 
+    <td colspan="2" class="tdTitle" style="padding: 1px;"></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td width="100">{id_msg}:</td>
+    <td>{id}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{filename_msg}:</td>
+    <td>{filename}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td>{drafts_num_msg}:</td>
+    <td>{drafts_num}</td>
+</tr>
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+        <input type="button" value="{view_drafts_msg}" id="view_button" class="button" 
+            onClick="location.href='{drafts_link}'" />
+            
+        <input type="submit" name="submit_delete" value="{draft_ignore_msg}" class="button"
+            onClick="return confirm('{sure_common_msg}')" />
+            
+        <!--<input type="submit" name="submit" value="{draft_ignore2_msg}" class="button" 
+            onClick="return confirm('{sure_common_msg}')" />-->        
+        
+        <input type="button" value="{cancel_msg}" class="button"
+            onClick="location.href='{cancel_link}'" />
+    </td>
+</tr>
+</table>
+</form>
+
+<script>
+ document.getElementById('view_button').focus();
+</script>

@@ -1,0 +1,38 @@
+<script>
+    function gotopage(page) {
+        top.location.href=page; 
+    }
+</script>
+
+<form style="margin: 0px;">
+{hidden_fields}
+
+<div  id="filter_tbl" class="table">
+    
+    <div class="grid-x skip">    
+        <div class="medium-4 small-12 cell">
+            <div>{type_msg}:</div>
+            <select name="filter[e]" class="colorInput" style="width: 185px;">
+            {type_select}
+            </select>
+        </div>
+        
+        <div class="medium-4 small-12 cell">
+            <div>{email_subscribed_msg}:</div>
+            <select name="filter[s]" class="colorInput" style="width: 185px;">
+            {email_select}
+            </select>
+        </div>
+        
+        <div class="medium-4 small-12 cell">
+            <div>{search_str_msg}:{search_help}</div>
+            <input type="text" name="filter[q]" value="{q}" class="colorInput middleText" style="width: 150px;">
+            
+            <button type="submit" name="do_search" value="1" 
+                class="button2 button2_filter">&rarr;</button>
+        </div>
+    </div>
+    
+</div>
+
+</form>

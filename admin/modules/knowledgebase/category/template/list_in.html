@@ -1,0 +1,31 @@
+<script>
+    <tmpl:supervisor_highlight>
+    $(document).ready(function() {
+        var highlighted_ids = [{highlighted_ids}];
+        for (var i in highlighted_ids) {
+            $('#row_' + highlighted_ids[i]).mouseover();
+            $('#row_' + highlighted_ids[i] + ' td:first').click();
+        }
+    });
+    </tmpl:supervisor_highlight>
+    
+    function initSort() {
+        $('#sortable_views').sortable({
+            placeholder: 'view_placeholder',
+            items: 'li:not(.not_sortable)',
+            stop: function(event, ui) {                
+                LeaveScreenMsg.changes = true;
+            }
+        });
+        $('#sortable_views').disableSelection();
+        
+        LeaveScreenMsg.setDoCheck(1);
+        LeaveScreenMsg.check();
+    }
+</script>
+
+<div id="trigger_list">
+
+    {content}
+
+</div>

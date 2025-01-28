@@ -1,0 +1,133 @@
+<script src="jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script>  
+  
+    window.selRoleHandler = new CategoriesSelectHandler('role_read');       
+    window.selRoleWriteHandler = new CategoriesSelectHandler('role_write');       
+    
+    function ShowBulkRolesDiv(private_rule, is_roles) {
+        
+        if(private_rule == 'read') {
+            if(is_roles) {
+                $('#private').prop('checked', true);
+                ShowDiv('roles_div');   
+            }       
+        } else {
+            $('#private_write').prop('checked', is_roles);
+            ShowHideDiv('roles_write_div', is_roles);
+        }
+    }
+    
+    function copyRoles(from, to, checkbox) {
+        $('#' + from).find('option').each(function() {
+           if (!$('#' + to).find('option[value=' + this.value + ']').length) {
+               $('#' + to).append($('<option></option>').attr('value', this.value).text(this.text));
+           }
+        });
+
+        if ($('input:not(:checked)[id="' + checkbox + '"]').length) {
+            $('#' + checkbox).click();
+        }
+    }
+    
+</script>
+
+<div style="width:250px;"></div>
+
+<!-- not listed -->
+<tmpl:private_list>
+<div style="margin-bottom: 0px; margin-right: 5px;">
+    <input type="checkbox" name="value[private][]" id="private_list" value="l">
+    <label for="private_list">{private2_list_msg}</label>
+</div>
+</tmpl:private_list>
+
+<!-- read -->
+<div style="margin-bottom: 0px; margin-right: 5px;">
+    <input type="checkbox" name="value[private][]" id="private" value="r" 
+        onclick="$('#roles_div').toggle();">
+    <label for="private">{private2_read_msg}</label>
+</div>
+
+<div id="roles_div" style="display: none;">
+    <div style="padding: 5px 0px;">{role_access2_msg} <br />({registered_access2_msg}):</div>
+    
+    <table class="sTable">
+    <tr>
+        <td style="width: 100%;">
+            <div style="width: 410px;">
+                <select name="value[role_read][]" id="role_read" size="3" multiple 
+                    class="colorInput" style="width: 410px; height: 60px;">
+                </select>
+            </div>
+        </td>
+        <td style="width: 50px; padding: 0px 7px; text-align: center; vertical-align: top;">
+            <input type="button" value="+" 
+                class="button2 button2_bulk"
+                onclick="selRoleHandler.callPopUp('{module}', '{page}', 'role');" />
+        
+            <div style="padding-top: 1px;">
+                <input type="button" value="-" 
+                    class="button2 button2_bulk"
+                    onclick="selRoleHandler.deleteOption();" />
+            </div>
+            
+            <div style="padding-top: 1px;">
+                <input type="button" value="&#x2193;"
+                    class="button2 button2_bulk"
+                    title="{copy_roles_msg}"
+                    onclick="copyRoles('role_read', 'role_write', 'private_write');" />
+            </div>
+        </td>
+    </tr>
+    </table>
+    <br />
+    
+</div>
+
+<!-- write -->
+<div style="margin-bottom: 0px;">
+    <input type="checkbox" name="value[private][]" id="private_write" value="w"
+        onclick="$('#roles_write_div').toggle();">
+    <label for="private_write">{private2_write_msg}</label>
+</div>
+
+<div id="roles_write_div" style="display: none;">
+    <div style="padding: 5px 0px;">{role_access2_msg}:</div>
+
+    <table class="sTable">
+    <tr>
+        <td style="width: 100%;">
+            <div style="width: 410px;">
+                <select name="value[role_write][]" id="role_write" size="3" multiple 
+                    class="colorInput" style="width: 410px; height: 60px;">
+                </select>
+            </div>
+        </td>
+        <td style="width: 50px; padding: 0px 7px; text-align: center; vertical-align: top;">
+            <input type="button" value="+" 
+                class="button2 button2_bulk"
+                onclick="selRoleWriteHandler.callPopUp('{module}', '{page}', 'role');" />
+    
+            <div style="padding-top: 1px;">
+                <input type="button" value="-" 
+                    class="button2 button2_bulk"
+                    onclick="selRoleWriteHandler.deleteOption();" />
+            </div>
+            
+            <div style="padding-top: 1px;">
+                <input type="button" value="&#x2191;"
+                    class="button2 button2_bulk"
+                    title="{copy_roles_msg}"
+                    onclick="copyRoles('role_write', 'role_read', 'private');" />
+            </div>
+        </td>
+    </tr>
+    </table>
+
+</div>
+
+<div style="margin: 10px 0;">
+    <a href="#" title="{load_roles_hint_msg}" onclick="loadRoles('{no_checked_msg}');return false;">
+        {load_roles_msg}
+    </a>
+</div>

@@ -1,0 +1,53 @@
+<script>
+    function hideCookieConsent() {
+        createCookie('kb_cookieconsent_', 1, 365);
+        HideDiv('cookieconsent');
+    }
+</script>
+<style>
+    #cookieconsent {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 12px 30px;
+        background: #E6E6E6;
+        color: #666;
+        font-size: 1.1em;
+    }
+    
+    #cookieconsent .cc-compliance {
+/*        text-align: right;*/
+    }
+        
+    #cookieconsent .cc-btn {
+        border: 1px #b3b3b3 solid;
+        border-radius: 3px;
+        background: #CCC;
+        padding: 3px 30px;
+        cursor: pointer;
+        color: #4c4c4c;
+    }
+        
+    #cookieconsent a:link, #cookieconsent a:visited {
+        color: #666;
+    }
+    
+</style>
+
+<br/>
+<div id="cookieconsent" class="cc-banner">
+    <div class="grid-x">
+        <div class="medium-10 small-12 cell">
+            <span class="cc-message">{cookie_consent_note_msg} 
+                <a tabindex="0" href="{cc_link}" rel="noopener noreferrer nofollow" target="_blank">
+                    {cookie_consent_learn_msg}
+                </a>
+            </span>
+        </div>
+        <div class="medium-2 small-12 cell cc-compliance">
+            <a tabindex="0" class="cc-btn " onclick="hideCookieConsent();">
+                {cookie_consent_got_it_msg}
+            </a>
+        </div>
+    </div>
+</div>

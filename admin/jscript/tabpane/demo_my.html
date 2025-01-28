@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<title>Tab Pane Demo (WebFX)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script src="local/webfxlayout.js"></script>
+
+<script src="js/tabpane.js"></script>
+<link rel="stylesheet" href="css/tab.webfx.css" />
+
+<style>
+
+.dynamic-tab-pane-control .tab-page {
+    height:    500px;
+    width:        558px;
+    overflow:    auto;
+}
+
+.dynamic-tab-pane-control .tab-page .dynamic-tab-pane-control .tab-page {
+    height:  100px;
+}
+
+
+/* over ride styles from webfxlayout */
+
+.dynamic-tab-pane-control.tab-pane {
+    margin:    10px;
+    width:    580px;
+}
+
+.dynamic-tab-pane-control a:hover {
+    background: transparent;
+}
+
+.dynamic-tab-pane-control .tab-page h2 {
+    text-align:    left;
+}
+
+
+</style>
+
+</head>
+<body>
+
+<div class="tab-pane" id="tab-pane-1">
+
+   <div class="tab-page">
+
+      This is text of tab 1. This is text of tab 1.
+      This is text of tab 1. This is text of tab 1.
+      
+      <span class="tab">General</span>
+
+   </div>
+
+   <div class="tab-page">
+      <span class="tab">General</span>
+
+      This is text of tab 2. This is text of tab 2.
+      This is text of tab 2. This is text of tab 2.
+
+   </div>
+</div>
+
+
+<script>
+setupAllTabs();
+</script>
+
+</body>
+</html>

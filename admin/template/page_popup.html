@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html lang="{meta_content}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset={meta_charset}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="none">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{meta_title}</title>
+    <link rel="stylesheet" href="css/style.css?v={pvhash}">
+    <link rel="stylesheet" href="css/filter.css?v={pvhash}">
+    <link rel="stylesheet" href="css/style_print.css?v={pvhash}" media="print">
+    <link rel="stylesheet" href="../client/skin/common_table.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/box.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery-ui/smoothness/jquery-ui.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery/jquery.dropdown.css?v={pvhash}">
+    <link rel="stylesheet" href="css/jquery/dropdown_custom.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery/tooltipster/tooltipster.bundle.min.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp_menu.css?v={pvhash}">
+    <link rel="stylesheet" href="css/jquery/smoothness/custom.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery/jquery.growl.css?v={pvhash}">
+    <link rel="stylesheet" href="../client/skin/jquery/ezmodal.css?v={pvhash}">
+    <!--[if IE]>
+    <link rel="stylesheet" href="css/style_ie.css?v={pvhash}">
+    <![endif]-->
+    <style>
+        {style_setting}
+    </style>
+    
+    <script src="jscript/common.js?v={pvhash}"></script>
+    <script src="jscript/popup.js?v={pvhash}"></script>
+    <script src="jscript/form_validate.js?v={pvhash}"></script>
+    <script src="jscript/LeaveScreenMsg.js?v={pvhash}"></script>
+    <script src="jscript/TableListHandler.js?v={pvhash}"></script>
+    <script src="jscript/Spotlight.js?v={pvhash}"></script>
+    <script src="jscript/RecordManager2.js?v={pvhash}"></script>
+    
+    <script src="../client/jscript/PopupManager.js?v={pvhash}"></script>
+    <script src="../client/jscript/FormCollector.js?v={pvhash}"></script>
+    <script src="../client/jscript/ErrorHighlighter.js?v={pvhash}"></script>
+    <script src="../client/jscript/DialogBox.js?v={pvhash}"></script>
+
+    <script src="../client/jscript/jquery/jquery.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/jquery-ui.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/jquery.dropdown.min.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/jquery.growl.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/tooltipster.bundle.min.js?v={pvhash}"></script>      
+    <script src="../client/jscript/jquery/jquery.placeholder.min.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/ezmodal.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/jquery.isonscreen.js?v={pvhash}"></script>    
+    <script src="../client/jscript/jquery/ui/i18n/jquery.ui.datepicker-{datepicker_lang}.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/jquery.serialize-object.min.js?v={pvhash}"></script>
+    <script src="../client/jscript/jquery/mousetrap.min.js?v={pvhash}"></script>
+    <script src="../client/jscript/clipboard/dist/clipboard.min.js?v={pvhash}"></script>
+    
+    <script src="jscript/AdminLayout.js?v={pvhash}"></script>
+    <script src="jscript/page_init.js?v={pvhash}"></script>
+    <script>
+        
+        $(document).ready(function() {
+            setDebug({debug});
+            LeaveScreenMsg.setMsg("{sure_leave_msg}");
+            
+            DialogBox.ok_msg = "{ok_msg}";
+            DialogBox.cancel_msg = "{cancel_msg}";
+            
+            window.top.$('#loadingMessage').remove();
+            
+            showGrowl("{growl_show}", "{growl_title}", "{growl_body}");
+            
+            // make special search green
+            <tmpl:is_special_search>
+            $('input[name="filter[q]"]').css('color', 'green');
+            </tmpl:is_special_search>
+            
+            PopupManager = window.top.PopupManager;
+            $('body').bind('keydown', function(e) {
+                PopupManager.checkForEscapeKey(e);
+            });
+            
+            if ($('#bottom_button').length) {
+                setButtonsPopup();
+            }
+        });
+    </script>
+</head>
+<body> 
+
+<div id="spinner" style="display: none;" class="loading_spinner">
+    <img src="images/ajax/indicator_verybig.gif" alt="Loading" />Loading...
+</div>
+        
+<div id="loadingMessagePage" class="loading_spinner" style="display: none;">
+    <img src="images/ajax/indicator_verybig.gif" alt="Loading" />
+    <span>Saving</span>...
+</div>
+    
+<div style="padding: 0px 15px 40px 15px;">
+
+    <br/>
+    {module_msg}
+    {info_msg}
+    {content}
+    {kbp_debug_info}
+
+</div>
+
+{xajax_js}
+
+</body>
+</html>

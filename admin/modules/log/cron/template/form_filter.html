@@ -1,0 +1,32 @@
+<form style="margin: 0px;">
+{hidden_fields}
+
+<table id="filter_tbl">
+<tr>
+    <td>
+        <div>{range_msg}:</div>
+        <select name="filter[s]" class="colorInput" style="width: 150px;">
+        {status_select}
+        </select>
+    </td>    
+    
+    <td>
+        <div>{is_error_msg}:</div>
+        <select name="filter[e]" class="colorInput" style="width: 120px;">
+        {exitstatus_select}
+        </select>
+    </td>
+    
+    <td>
+        <div>{search_str_msg}:{search_help}</div>
+        <input type="text" name="filter[q]" value="{q}" class="colorInput middleText" style="width: 150px;">
+    </td>
+    
+    <td>
+        <button type="submit" name="do_search" value="1" 
+            class="button2 button2_filter">&rarr;</button>
+    </td>    
+</tr>
+</table>
+
+</form>

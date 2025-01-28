@@ -1,0 +1,19 @@
+/* HEADER & CONTENT */	
+
+/* LOGIN */	
+div.login { 
+	font-size : 0.9em; 
+	font-weight: normal;  
+	text-align: right; 
+	padding-right: 5px;  
+	color: #FFFFFF; 
+	float: right; 
+}
+
+a.login, #login_button {  color: #FFFFFF; }
+
+div.bottom {
+	margin-top: 10px;
+	padding: 8px 5px;
+	border-top: 1px solid #DADADA;
+}

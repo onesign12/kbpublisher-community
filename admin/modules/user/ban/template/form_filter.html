@@ -1,0 +1,39 @@
+<form style="margin: 0px;">
+{hidden_fields}
+
+<table id="filter_tbl">
+<tr>
+    <td>
+        <div>{ban_type_msg}:</div>
+        <select name="filter[t]" class="colorInput" style="width: 150px;">
+        {type_select}
+        </select>
+    </td>
+    
+    <td>
+        <div>{ban_rule_msg}:</div>
+        <select name="filter[r]" class="colorInput" style="width: 150px;">
+        {rule_select}
+        </select>
+    </td>
+    
+    <td>
+        <div>{entry_status_msg}:</div>
+        <select name="filter[s]" class="colorInput" style="width: 150px;">
+        {status_select}
+        </select>
+    </td>
+    
+    <td>
+        <div>{search_msg}:</div>
+        <input type="text" name="filter[q]" value="{q}" class="colorInput" style="width: 130px;">
+    </td>
+    
+    <td>
+        <button type="submit" name="do_search" value="1" 
+            class="button2 button2_filter">&rarr;</button>
+    </td>    
+</tr>
+</table>
+
+</form>

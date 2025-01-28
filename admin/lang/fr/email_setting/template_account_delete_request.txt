@@ -1,0 +1,14 @@
+L'utilisateur a demandé à résilier son compte KB.
+{request_from_ip_msg} : [ip]
+
+L'utilisateur peut avoir des activités connexes. Utilisez le lien ci-dessous pour les consulter.
+[lien]
+
+Notes de l'utilisateur :
+[message]
+
+{user_info_msg} :
+------------
+ID : [id]
+Nom : [name]
+Email : [email]

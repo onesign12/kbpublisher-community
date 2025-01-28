@@ -1,0 +1,19 @@
+<h2>{title}</h2>
+        
+<div class="textBlock">
+    {custom_tmpl_top}
+    {body}
+    {custom_tmpl_bottom}
+    {custom_tmpl_bottom_block}
+</div>
+
+<br /><hr />
+<div class="serviceBlock">
+    {entry_id_msg}: {id}<br />
+    {last_updated_msg}: {formated_date}<br />
+    <tmpl:revision>
+    {revision_msg}: {revision}<br />
+    </tmpl:revision>
+    {category_title_full} -> {title}<br />
+    <a href="{entry_link}">{entry_link}</a><br /><br />
+</div>

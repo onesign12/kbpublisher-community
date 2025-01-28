@@ -1,0 +1,19 @@
+{welcome_msg}:
+[link]
+
+{article_msg}: [title]
+[entry_link]
+
+{rating_msg}: [rating]
+
+[message]
+
+
+{user_info_msg}
+--------------------------
+{user_name_msg}:  [name]
+{user_email_msg}: [email]
+{user_username_msg}: [username]
+
+--
+[support_mailer]

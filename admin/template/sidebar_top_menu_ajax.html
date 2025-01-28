@@ -1,0 +1,39 @@
+<script>
+    function js_showSidebarSubMenu (html) {
+        $('#dropdown_submenu_div').html(html);
+        $('#dropdown_submenu').jqDropdown('show');
+        // $('#dropdown_submenu_a').jqDropdown('show');
+    }
+</script>
+    
+
+<div id="sidebar_container">
+    <tmpl:row>
+        <tmpl:active>
+        <div id="td_topmenu_{menu_key}" style="border-bottom: 1px solid #dadada;{td_style}">
+            <a href="#{menu_key}" target="{target}" id="dropdown_submenu_a"
+                data-jq-dropdown="#dropdown_submenu" data-horizontal-offset="15"
+                onclick="xajax_showSidebarSubMenu('{menu_key}');"
+                class="_menu_tooltip sidebar_item_active" style="{a_style}" {a_extra} title="{menu_item}">
+                <img src="images/sidebar/{menu_key}.svg" alt="{menu_item}" />
+                <span class="menu_text" style="display: {menu_text_display};">{menu_item}</span>
+            </a>
+        </div>
+        </tmpl:active>
+    
+        <tmpl:nonactive>
+        <div id="td_topmenu_{menu_key}" style="border-bottom: 1px solid #dadada;{td_style}">
+            <a href="#{menu_key}" target="{target}" 
+                data-jq-dropdown="#dropdown_submenu" data-horizontal-offset="15"
+                onclick="xajax_showSidebarSubMenu('{menu_key}');"
+                class="_menu_tooltip sidebar_item" style="{a_style}" {a_extra} title="{menu_item}">
+                <img src="images/sidebar/{menu_key}.svg" alt="{menu_item}" />
+                <span class="menu_text" style="display: {menu_text_display};">{menu_item}</span>
+            </a>
+        </div>
+        </tmpl:nonactive>
+    </tmpl:row>
+</div>
+
+<div id="menu_toggle" onClick="AdminLayout.toggleSidebar();"></div>
+<div id="dropdown_submenu_div"></div>

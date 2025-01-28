@@ -1,0 +1,44 @@
+<tmpl:default>
+<div class="grid-x">
+    <div class="medium-3 small-12 cell">
+        <label for="captcha" class="required">{captcha_msg}:</label>
+    </div>
+    <div class="medium-9 small-12 cell">
+        <input type="text" name="captcha" id="captcha" value="" class="longText" autocomplete="off" /> 
+        <div class="formComment" style="margin-top: 3px;">{captcha_comment2_msg}</div>
+        <br />
+        <img src="{captcha_src}" alt="{captcha_img_alt_msg}" id="captcha_img" />
+    </div>
+</div>
+</tmpl:default>
+
+<tmpl:placeholder>
+<div class="grid-x">
+    <div class="large-12 cell">
+        <input type="text" name="captcha" id="captcha" value="" placeholder="* {captcha_comment2_msg}" 
+            class="longText" autocomplete="off" /> 
+        <img src="{captcha_src}" alt="{captcha_img_alt_msg}" id="captcha_img" style="margin-top: 10px;"/>
+    </div>
+</div>
+</tmpl:placeholder>
+
+<tmpl:line>
+<div class="grid-x">
+    <div class="large-12 cell">
+        <label for="captcha" class="required">{captcha_msg}:</label>
+    </div>
+    <div class="large-12 cell">
+        <input type="text" name="captcha" id="captcha" value="" class="longText" autocomplete="off" /> 
+        <div class="formComment" style="margin: 3px 0 10px 0;">{captcha_comment2_msg}</div>
+        <img src="{captcha_src}" alt="{captcha_img_alt_msg}" id="captcha_img" />
+    </div>
+</div>
+</tmpl:line>
+
+<tmpl:admin>
+<div style="margin-top:30px; margin-bottom:20px;">
+    <input type="text" name="captcha" id="captcha" value="" placeholder="* {captcha_comment2_msg}" 
+        class="longText" autocomplete="off" /> 
+    <img src="{captcha_src}" alt="{captcha_img_alt_msg}" id="captcha_img" style="margin-top: 10px;"/>
+</div>
+</tmpl:admin>

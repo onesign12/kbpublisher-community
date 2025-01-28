@@ -1,0 +1,5 @@
+[articles.num] Ihrer Artikel wurden im letzten halben Jahr nicht aktualisiert.
+Ihr Status wurde auf "Veraltet" gesetzt.
+
+Folgen Sie diesem Link, um sie zu überprüfen:
+[articles.link.filtered.outdated]

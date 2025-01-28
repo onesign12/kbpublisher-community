@@ -1,0 +1,10 @@
+{welcome_msg}:
+[link]
+
+{user_info_msg}:
+-------------------
+[user_details]
+
+
+--
+[support_mailer]

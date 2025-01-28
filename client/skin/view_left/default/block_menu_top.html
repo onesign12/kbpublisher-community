@@ -1,0 +1,45 @@
+<div class="menuBlock hide-for-small-only">
+    <table class="sTable" style="margin: 0; padding: 0;">
+        <tr>
+            <td>
+                <tmpl:row>
+                <div class="{class}" style="display: inline-block;">
+                    <a href="{item_link}" target="{target}" {options}>
+						<div class="menuItemSpace" style="display: inline-block;">{item_menu}</div>
+					</a>
+                </div>
+                </tmpl:row>
+
+                <tmpl:more_button>
+                <div class="menuItem" style="display: inline-block;" data-jq-dropdown="#more_menu">
+                    <a href="#">
+						<div class="menuItemSpace" style="display: inline-block;">...</div>
+					</a>
+                </div>
+
+                <div id="more_menu" class="jq-dropdown jq-dropdown-tip">
+                    <ul class="jq-dropdown-menu">
+                        <tmpl:more_row>
+                        <li>
+                            <a href="{item_link}" target="{target}" {options}>
+                                {item_menu}
+                            </a>
+                        </li>
+                        <li class="jq-dropdown-divider"></li>
+                        </tmpl:more_row>
+                    </ul>
+                </div>
+                </tmpl:more_button>
+            </td>
+
+            <td style="padding-right: 5px;text-align: right;">
+                <tmpl:form>
+                <div id="left_menu_toggle" style="cursor: pointer;display: inline;" title="{action_title}"
+					data-title="{next_action_title}" onclick="toggleLeftMenu();">
+                    	<img src="{base_href}client/images/icons/toggle_menu.svg" alt="toggle" />
+                </div>
+                </tmpl:form>
+            </td>
+        </tr>
+    </table>
+</div>

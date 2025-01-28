@@ -1,0 +1,33 @@
+<div class="newsContainer">
+    <div>
+        <div class="tdArticleTitle" id="top">
+            <h1 class="articleTitle">{title}</h1>
+        </div>
+    </div>
+    
+    <div style="position: relative;">
+
+        {right_panel}
+            
+        <div id="kbp_article_body" class="textBlock {article_padding}" style="{min_height}">    
+            
+            <div class="newsDate"><b>{date_formatted}</b></div>
+
+            {custom_tmpl_top}
+
+            {body}
+
+            {custom_tmpl_bottom}
+
+        </div>
+        
+    </div>    
+
+    <div style="clear: both;"></div>
+    <div class="abbBlock">
+        {news_block}
+    </div>
+
+</div>
+
+{mustread_block}

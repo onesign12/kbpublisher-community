@@ -1,0 +1,10 @@
+Hallo  [first_name]
+
+Uw accountgegevens in "[kb_name]" zijn onlangs gewijzigd.
+Als u deze wijziging heeft aangebracht, hoeft u niets meer te doen.
+
+Het verzoek kwam van het volgende IP-adres: [ip].
+Nieuw e-mailadres: [e-mail]
+
+Als u uw account niet heeft gewijzigd, kunt u ons dit meteen laten weten via [support_email]
+Het melden ervan is belangrijk omdat het ons helpt te voorkomen dat fraudeurs uw gegevens stelen.

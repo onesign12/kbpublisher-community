@@ -1,0 +1,25 @@
+<!--[if IE]>
+<link rel="stylesheet" href="{kb_path}client/skin/common_ie.css?v={pvhash}" />
+<![endif]-->
+<link rel="stylesheet" href="{kb_path}client/skin/common.css?v={pvhash}">
+<script>
+    $(document).ready(function() {        
+        PopupManager.setTitle("{preview_msg}");
+        
+        var phrase = window.top.$('#phrase').val();
+        $('#phrase').html(phrase);
+        
+        var body = window.top.oEditor.getData();
+        xajax_parseBody(body);
+    });
+</script>
+
+<ul style="padding-left: 12px;">
+    <li><b id="phrase"></b></li>
+    <div style="padding: 2px 0px 12px;" class="textBlock" id="definition"></div>
+</ul>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{close_msg}" class="button" id="close_button"
+        onclick="PopupManager.close();">
+</div>

@@ -1,0 +1,22 @@
+<script>
+    function showAllTree(mode) {
+        id = document.getElementById('show_all_load').parentNode.getAttribute('id');
+        var img_id = 'id' + id.substring(2);
+        $('#' + img_id).css('display', 'none');
+        $('#' + img_id).attr('src', $('#show_img').attr('src'));
+        $('#' + img_id).css('display', 'inline');
+        
+        xajax_getAllTreeEntries(mode, img_id);
+    }
+</script>
+<div class="leftBlock categoryBlock">
+    <link rel="stylesheet" href="{client_href}skin/dtree.css?v={pvhash}" />
+    <script src="{client_href}jscript/dtree/dtree.js?v={pvhash}"></script>
+    <script>
+    <!--
+    {js_tree}
+    //-->
+    </script>
+
+    <div id="dtree_content"></div>
+</div>

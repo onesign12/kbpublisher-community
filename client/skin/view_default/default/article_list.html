@@ -1,0 +1,91 @@
+<tmpl:dynamic_entries_scroll_loader>
+<script src="{client_href}jscript/jquery/jquery.waypoints.min.js?v={pvhash}"></script>
+<script src="{client_href}jscript/DynamicEntriesScrollLoader.js?v={pvhash}"></script>
+<script>    
+    $(document).ready(function() {
+        DynamicEntriesScrollLoader.init({dynamic_limit}, {dynamic_offset}, '{context}');
+        
+        <tmpl:loader>
+        DynamicEntriesScrollLoader.setLoader();
+        </tmpl:loader>
+    });
+</script>
+</tmpl:dynamic_entries_scroll_loader>
+
+<tmpl:title>
+<div class="tdTitle" style="margin-bottom: 2px;">
+    
+    <tmpl:list_option_button>
+    <div class="fright menuItemOption">
+        <a href="#show" onclick="$('#list_option_block').toggle(); return false;">
+            {list_option_msg}
+        </a>
+    </div>
+    </tmpl:list_option_button>
+    
+    <div style="overflow: hidden;">{list_title}</div>
+    <div style="clear: both;"></div>
+</div>
+</tmpl:title>
+
+{block_list_option_tmpl}
+<div style="margin-bottom: 10px;"></div>
+
+{msg}
+
+<div style="padding-left: 7px;" class="articleList">
+
+    <tmpl:row>
+    <div style="vertical-align: top;" class="tdImage">
+    	{item_img} 
+        <a href="{entry_link}" class="articleLink">{entry_id}{title}</a>
+        <div style="margin-top: {article_description_padding}px;" class="articleDecription">{body}</div>
+    </div>
+
+    <div style="padding: {article_staff_padding}px 2px;">
+
+        <tmpl:show_rate>
+        <span class="articleStaff2">{rating}</span>
+        </tmpl:show_rate>
+
+        <tmpl:show_date>
+        <span class="articleStaff2">{updated_date}</span>
+        </tmpl:show_date>
+
+        <tmpl:show_hits>
+        <span class="articleStaff2">{views_num_msg}: {hits}</span>
+        </tmpl:show_hits>
+
+        <tmpl:show_comments>
+        <span class="articleStaff">{comment_num_msg}: {comment_num}</span>
+        </tmpl:show_comments>
+
+    </div>
+    <div style="padding: 5px;"></div>
+    </tmpl:row>
+
+</div>
+                
+<div class="articleListBottomLine"></div>
+<br />
+
+<tmpl:load_button>
+<div style="padding-left: 7px;">
+    <a href="#more" onclick="xajax_loadNextEntries(DynamicEntriesScrollLoader.offset, 'spinner_more');"><b>{more_msg}...</b>
+    </a>
+    
+    <span id="spinner_more" style="margin-left: 5px; display: none;">
+        <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+    </span>
+</div>
+</tmpl:load_button>
+
+<tmpl:more_link>
+<div style="padding-left: 12px;">{more_link}</div>
+<br />
+</tmpl:more_link>
+
+<tmpl:by_page_bottom>
+<div style="padding-left: 12px;">{page_by_page_bottom}</div>
+<br />
+</tmpl:by_page_bottom>

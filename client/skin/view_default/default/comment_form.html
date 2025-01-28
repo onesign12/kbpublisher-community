@@ -1,0 +1,159 @@
+<link rel="stylesheet" href="{base_href}client/skin/search2.css?v={pvhash}" />
+<link rel="stylesheet" href="{base_href}client/skin/jquery/magnific-popup.css?v={pvhash}" />
+<script src="{base_href}client/jscript/jquery/jquery.magnific-popup.min.js?v={pvhash}"></script>
+<script>
+<!--
+$(document).ready(function() {
+    $('#bbcode_help_link').magnificPopup({
+        type: 'inline'
+    });
+});
+
+function commentToggle(toggle) {
+    if(toggle) {console.log('toggle');
+        $('#comment_form').toggle();
+    }
+}
+
+
+function slideToCommentForm() {
+    if($('#panel_more').is(":visible")) {
+        ModalManager.hide('panel_more');
+    }
+    
+    $('#comment_form').show();
+
+    $('{context}').animate({
+        scrollTop: $('#comment_form').offset().top - 20
+    }, 500, 'swing', function() {
+        $('#comment').focus();
+    });
+}
+
+
+//-->
+</script>
+
+{user_msg}
+
+<div class="tdSubTitle">
+    <div>
+        <tmpl:add_js>
+        <a class="noformat" href="#" onclick="commentToggle({toggle_form});return false;" rel="nofollow">
+            <b>{comment_title}</b>
+        </a>
+        </tmpl:add_js>
+        <tmpl:add_login>
+        <a class="noformat" href="{login_link}" rel="nofollow">
+            <b>{comment_title}</b>
+        </a>
+        </tmpl:add_login>
+    </div>
+</div>
+
+<div id="comment_form" class="niceForm" style="display: {display_form};">
+
+<form action="{action_link}" method="post" id="aContentForm">
+<input type="hidden" name="id" value="{id}">
+<input type="hidden" name="user_id" value="{user_id}">
+<input type="hidden" name="entry_id" value="{entry_id}">
+<input type="hidden" name="date_posted" value="{date_posted}">
+<!-- <input type="hidden" id="internal" name="internal" value="0"> -->
+{hidden_fields}
+
+<span style="display: none;">
+    <input type="text" name="captcha2" id="captcha2" value="" class="longText" />
+</span>
+
+
+<div class="table">
+
+    <tmpl:not_registered>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="name">{name_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input type="text" name="name" id="name" value="{name}" class="longText" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="email">{email_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input type="text" name="email" id="email" value="{email}" class="longText" />
+        </div>
+    </div>
+    </tmpl:not_registered>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="comment" class="required">{comment_msg}:</label>
+            <br /><span class="formComment nowrap">({use_bbcode_msg})</span>
+            <br /><br />
+            <span>
+            <a id="bbcode_help_link" class="help_link" href="#bbcode_help_block">
+                <img src="{base_href}client/images/icons/help.svg" width="20" height="20" />
+            </a>
+            </span>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <!-- {comment_type_block}             -->
+            <textarea rows="7" name="comment" id="comment" style="width: 100%;">{comment}</textarea>
+        </div>
+    </div>
+    
+    {captcha_block}
+    
+    <div class="grid-x donotshow">
+        <div class="medium-3 small-12 cell">
+            <label for="company" class="required">{company_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input type="text" name="s_company" value="{s_company}" class="longText" />
+            <input type="checkbox" name="s_company_set" value="{s_company_set}" />            
+        </div>
+    </div>
+    
+    <tmpl:subscribe>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="subscribe">{subscribe_comment_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input type="checkbox" name="subscribe" id="subscribe" value="1" style="margin-right: 5px;" {ch_subscribe} />
+            <label for="subscribe">{subscribe_comment_desc_msg}</label>
+        </div>
+    </div>
+    </tmpl:subscribe>
+    
+    <div class="grid-x skip">
+        <div class="medium-3 small-12 cell"></div>
+        <div class="medium-9 small-12 cell">
+            <div><br /></div>
+            <button type="submit" name="submit" id="submit" class="button primary"
+                onClick="validateForm();return false;">
+                {send_msg}
+            </button>
+    
+            <tmpl:cancel_btn>
+            <input type="button" value="{cancel_msg}" onclick="location.href='{cancel_link}'" class="button" />
+            </tmpl:cancel_btn>
+        </div>
+    </div>
+</div>
+
+</form>
+
+<br />
+
+<div id="bbcode_help_block" class="help_block mfp-hide">
+    <h2>{bbcode_how_msg}</h2>
+    <div>{bbcode_help_block}</div>
+</div>
+
+</div>
+
+<br />

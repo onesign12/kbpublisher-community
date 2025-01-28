@@ -1,0 +1,59 @@
+div.niceForm input[type=text], div.niceForm input[type=password], div.niceForm input[type=search], div.niceForm textarea {
+    max-width: 490px;
+    width: 490px;
+    background: #fff;
+    padding: 4px;
+    border-radius: 3px;
+    border: 1px solid #DADADA;
+    height: 30px;
+}
+
+div.niceForm100 input[type=text], div.niceForm100 input[type=password], div.niceForm100 input[type=search], div.niceForm100 textarea {
+    max-width: 100%;
+    width: 100%;
+}
+
+div.niceForm textarea {
+    height: 100px;
+}
+
+div.niceForm select {
+/*    max-width: 450px;*/
+/*    width: 450px !important;*/
+    background: #fff;
+/*    padding: 3px 5px;*/
+	height: 25px;
+	
+/*	-webkit-appearance: menulist-button;*/
+/*	-moz-appearance: menulist-button;*/
+/*	-appearance: menulist-button;*/
+	
+    border-radius: 3px;
+    border: 1px solid #DADADA;
+}
+
+div.niceForm input[type=checkbox] {
+    margin-bottom: 3px;
+}
+
+/* role select */
+div.niceForm .sTableNoPadding {
+    max-width: 540px;
+    width: 540px !important;    
+}
+
+div.niceForm .selectScrollDiv {
+    overflow-x: scroll;
+    overflow: -moz-scrollbars-horizontal;
+    border: 1px solid #DADADA;
+    border-radius: 3px;
+}
+
+div.niceForm .selectScrollDiv select {
+    height: 55px;
+}
+
+div.niceForm .tooltip {
+    float: right;
+    margin-right: 5px; 
+}

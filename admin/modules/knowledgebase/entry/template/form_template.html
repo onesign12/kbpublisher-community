@@ -1,0 +1,146 @@
+<script src="jscript/livesearch/quicksilver.js?v={pvhash}"></script>
+<script src="jscript/livesearch/select.js?v={pvhash}"></script>
+<script src="jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script>
+    var categories = [{categories}];
+    
+    var tmpl_action = 'insert';  
+    
+    window.handler = new CategoriesSelectHandler('livesearch', 'second', 'category');
+    handler.setParentHandler('{handler_name}');
+    
+    $(document).ready(function() {
+        
+        handler.init();
+        
+        handler.setSelectWidth('livesearch');
+        handler.setSelectWidth('second');        
+        
+        // Check hotkey
+        $('#livesearch').bind('keydown', function(event) {
+            if ((event.shiftKey) && ((event.keyCode == 0xA) || (event.keyCode == 0xD))) {
+                
+                // Block hotkey reaction in Gecko and Opera browsers
+                if(event.preventDefault) event.preventDefault();
+                
+                // Block hotkey reaction in IE
+                event.returnValue = false;
+
+                handler.insertOptionByHotkey(event);
+            }
+        });
+    
+    
+        // Call live search
+        $('#filter').liveUpdate('livesearch', categories, 'counter').focus();
+        
+        // Set disabled options after rebuild
+        $('#filter').bind('keyup', function() {
+                handler.rebuildDisabled();
+            } 
+        ); 
+               
+    });
+
+</script>
+
+{header}
+
+<form onSubmit="handler.addParentSelect(tmpl_action);">
+
+<table class="listTable">
+<tr>
+    <td class="tdTitle"><b>{assign_template_msg}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td>
+        <input type="text" value="" name="filter" id="filter" class="longText"
+            placeholder="{filter_msg}" autocomplete="off" />
+        <span style="padding-left: 5px;">{found_categories_msg}:</span> <span id="counter"></span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td>
+
+        <table class="sTable">
+        <tr>
+            <td style="width: 100%;" id="livetd">
+                <div class="selectScrollDiv" style="width: 800px;">
+                    <select id="livesearch" size="8" style="border: 0px;" 
+                        onDblClick="handler.insertOption(this.value, this.selectedIndex, categories);" >
+                    </select>
+                </div>
+            </td>
+            <td valign="top" align="center" style="width: 50px;padding: 0px 7px;">
+                <input type="button" value="+" 
+                    class="button2 button2_add"
+                    onclick="handler.insertOptionByButton(categories);" />
+            </td>
+        </tr>
+        </table>
+        
+        <div style="padding-top: 3px;" id="category_info"></div>
+
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td>
+
+        <div style="padding-bottom: 5px;">
+            <strong>{assign_template_msg}</strong>
+        </div>
+
+        <table class="sTable">
+        <tr>
+            <td style="width: 100%;">
+                <div class="selectScrollDiv" style="width: 800px;">
+                    <select id="second" size="4" style="border: 0px;" onDblClick="handler.deleteOption();">
+                    </select>
+                </div>
+            </td>
+            <td style="width: 50px; padding: 0px 7px; text-align: center; vertical-align: top;">
+                <input type="button" value="-" title="{remove_from_list_msg}" 
+                    class="button2 button2_add"
+                    onclick="handler.deleteOption();" />
+                
+                <div style="padding-top: 3px;">
+                    <input type="button" value="&uarr;" title="{set_default_msg}" 
+                        class="button2 button2_add"
+                        onclick="handler.onTop();" />        
+                </div>
+                
+                <!--<div style="padding-top: 3px;">
+                     <input type="button" value="Up" title="" 
+                        class="button2 button2_add"
+                        onclick="handler.moveUp();" />
+                 </div>-->
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br/>
+                <div id="writeroot_private" 
+                    style="width:100%; height:80px; background: #ffffff; overflow:scroll; margin-right: 100px;">
+                </div>
+            </td>
+            <td></td>
+        </tr>
+        </table>    
+        
+    </td>
+</tr>
+
+</table>
+
+<br />
+<div style="margin:0 auto; text-align: center;"> 
+    <input type="submit" class="button" value="{insert_template2_msg}" onclick="tmpl_action = 'insert';" />
+    <input type="submit" class="button" value="{replace_template2_msg}" onclick="tmpl_action = 'replace';" />
+    <input type="submit" class="button" value="{include_template2_msg}" onclick="tmpl_action = 'include';" />
+    <input type="button" class="button" value="{cancel_msg}" onclick="PopupManager.close();" />
+</div>
+
+</form>

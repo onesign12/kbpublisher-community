@@ -1,0 +1,117 @@
+<script>
+$(document).ready(function() {
+    {show_errors}
+    PopupManager.setTitle("{quick_start_wizard}");
+    LeaveScreenMsg.changes = false;
+});
+
+function finishWizard(link) {
+    var parent_window = PopupManager.getParentWindow();
+    // parent_window.hideGetStartedBlock(0);
+    parent_window.location.href=link;
+    PopupManager.close();
+}
+</script>
+<style>
+    .boxMsgDiv {
+        margin-bottom: 30px;
+    }
+    
+    input[type=text], input[type=password], textarea {
+        max-width: 470px;
+        width: 470px !important;
+        background: #fff;
+        height: 25px;
+        border-radius: 3px;
+        border: 1px solid #DADADA;
+    }
+    
+    select {
+        background: #fff;
+        height: 25px;
+        border-radius: 3px;
+        border: 1px solid #DADADA;
+    }
+    
+    #group_header {
+        color: #dddddd;
+    }
+    
+    #group_header div.line {
+        background: #dddddd;
+    }
+    
+    #group_header .active_group {
+        color: black;
+    }
+    
+    #group_header .active_group div.line {
+        background: #7898C2;
+    }
+    
+    .tdCaptionTop { height: 28px;}
+    .tdCaptionTop { vertical-align: middle;  }
+</style>
+
+{error_msg}
+    
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+
+<div style="padding: 15px 0;">
+    <table class="sTable" id="group_header">
+        <tr>
+            <tmpl:group_tab>
+            <td width="{width}" {active_class}>
+                <div style="text-align: center;">
+                    <b>{group_title}</b>
+                </div>
+                <div class="line" style="padding: 2px;margin-top: 15px;"></div>
+                <img src="images/icons/{icon}.svg" 
+                    style="position: relative;left: 50%;margin-left: -6px;top: -10px;" />
+            </td>
+            </tmpl:group_tab>
+        </tr>
+    </table>
+</div>
+
+<div class="boxMsgDiv info">
+    {group_desc}
+</div>
+
+{content}
+
+<br />
+
+<div id="buttons" style="margin-left: 230px; margin-top: 25px;">
+    <div id="bottom_button">
+    
+        <tmpl:next_button>
+        <a href="#/"
+            style="opacity: 0.7; line-height: 25px;margin: 0 30px;text-decoration: underline;"
+            onClick="$('.loading_spinner').show();LeaveScreenMsg.skipCheck();location.href = '{next_group_link}';">
+            {skip_step_msg}
+        </a>
+        </tmpl:next_button>
+    
+        <tmpl:prev_button>
+        <input type="button" value=" < {prev_msg}" class="button"
+            onClick="location.href = '{prev_group_link}';" />
+        </tmpl:prev_button>
+    
+        <tmpl:next_button>
+        <input type="submit" name="submit" value="{next_msg} > " class="button"
+            onClick="$('.loading_spinner').show();validateForm('submit', false, false, 'setting');return false;" />
+        </tmpl:next_button>
+    
+        <tmpl:done_button>
+        <input type="button" value="{done_msg}" class="button primary"
+            onclick="{done_action}">
+        </tmpl:done_button>
+        
+    </div>
+</div>
+
+</form>
+
+{js_error}

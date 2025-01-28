@@ -1,0 +1,110 @@
+<script>
+    $(document).ready(function(){
+        plusImg = new Image();
+        plusImg.src = 'images/icons/plus.gif';
+         
+        minusImg = new Image();
+        minusImg.src = 'images/icons/minus.gif';
+                
+    });
+    
+    function changeSign(id){
+    
+        var image = document.getElementById('img_' + id);
+        
+        if (document.getElementById(id).style.display == 'none') {
+            image.src = minusImg.src;
+            document.getElementById('status_' + id).value = 1;
+        }
+        else {
+            image.src = plusImg.src;
+            document.getElementById('status_' + id).value = 0;
+        }
+        
+    }
+    
+    function changeAll() {
+        var link = document.getElementById('all_link');
+
+        if (link.innerHTML == '{expand_msg}') {
+            $('[id^=block]').css('display', 'block');
+        
+            $('[id^=img_]').each(function() {
+                this.src = minusImg.src;    
+            });
+            
+            link.innerHTML =  '{collapse_msg}';   
+        } else {
+            $('[id^=block]').css('display', 'none');
+        
+            $('[id^=img_]').each(function() {
+                this.src = plusImg.src;    
+            });
+            
+            link.innerHTML =  '{expand_msg}';
+        }
+               
+    }
+</script>
+
+{custom_text}
+<div id="custom_text"></div>
+
+{error_msg}
+
+<form action="{action_link}" method="post" id="setting_form">
+{hidden_fields}
+<div style="width: 100%;text-align: right;margin-bottom: 5px;">
+    <span id="all_link" onclick="changeAll();" style="cursor: pointer;text-decoration: underline;">{status_msg}</span>
+</div>
+
+
+<div>
+
+<tmpl:block>
+
+    <tmpl:group_delim>
+    <div>&nbsp;</div>
+    </tmpl:group_delim>        
+    
+    
+    <tmpl:group>
+    <div class="trMoreDarker" style="cursor: pointer;padding-left: 4px;padding-top: 6px;padding-bottom: 6px;"
+     onclick="changeSign('{block_id}');$('#{block_id}').slideToggle('slow');">
+     <div style="float: right;padding-right: 6px;">
+         <img id="img_{block_id}" src="{image_path}" />
+     </div>
+     <div style="float: left;">
+         <b>{group_title_msg}:</b>
+     </div>
+     <div style="clear: both;"></div>
+     </div>
+    </tmpl:group>
+
+
+    <div id="{block_id}" style="display: {display_style};">
+        <input type="hidden" id="status_{block_id}" name="status_{block_id}" value="0" />
+        <table class="default">
+        <tmpl:row>
+            <tr class="trLighter" valign="top" >
+        <td  valign="top" style="width: 280px;" class="required" nowrap>{title_msg}:</td>
+        <td>{form_input}</td>
+        <td width="100%" style="padding-left: 5px;">{description_msg}</td>
+            </tr>
+        </tmpl:row>
+        </table>
+    </div>
+
+</tmpl:block>    
+
+    <table class="default">
+       <tr><td align="center"><div><br></div>
+           {submit_buittons}
+       </td></tr>
+    </table>
+
+</div>
+
+</form>
+
+{js_error}

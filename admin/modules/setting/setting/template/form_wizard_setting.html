@@ -1,0 +1,24 @@
+<div class="trMoreDarker" style="padding: 1px;"></div>
+<div>
+    <tmpl:row>
+    <div id="template_{id}">
+        <table class="default">
+            <tr class="trLighter">
+                <td class="settingTitle tdFormCaption tdCaptionTop {required_class}" 
+                    style="width: 220px; min-width: 220px; text-align: left; white-space: normal;">
+                    {title_msg}:
+                </td>
+                <td>
+                    {form_input}
+                    
+                    <tmpl:description>
+                    <img src="../client/images/icons/help.svg" 
+                        style="cursor: help;margin-left: 10px;width: 18px;height: 18px;vertical-align: middle;"
+                        class="_tooltip" title="{description_msg}" />
+                    </tmpl:description>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </tmpl:row>
+</div>

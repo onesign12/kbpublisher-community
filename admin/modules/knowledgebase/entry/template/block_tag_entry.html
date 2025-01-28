@@ -1,0 +1,97 @@
+<script>  
+    $(document).ready(function() {
+        <tmpl:js>
+        var options = {
+            tags: [{tags}],
+            creation_allowed: {creation_allowed},
+            assigned_block: $('#tag_assigned_block'),
+            tag_input: $('#tag_input'),
+            suggest_block: $('#tag_suggest_block'),
+            suggest_link: '{tag_suggest_link}',
+            press_enter_hint_msg1: "{enter_tag_msg}",
+            press_enter_hint_msg2: "{enter_tag2_msg}",
+            no_tags_msg: "{no_tags_msg}",
+            no_matches_msg: "{no_matches_msg}",
+            confirm_delete_msg: "{sure_common_msg}",
+            is_public: {is_public}
+        };
+        
+        TagManager.init(options);
+        </tmpl:js>
+    });
+    
+    
+    function showTagBlock() {
+        $('#add_tag_link').hide();
+        $('#tag_form').show();
+    }
+</script>
+
+
+<table class="sTable">
+<tr>
+    <td>
+        
+        <table class="sTable">
+            <tr>
+                <td id="tag_assigned_block">
+                    <tmpl:tag_row>
+                    <span id="tag_{tag_id}" class="tag_container">
+                        <tmpl:tag_span>
+                        <span class="tag">{tag_title}</span>
+                        </tmpl:tag_span>
+                        
+                        <tmpl:tag_link>
+                        <a href="{tag_link}" class="tag">{tag_title}</a>
+                        </tmpl:tag_link>
+                            
+                        <span id="tag_delete_{tag_id}" class="delete_tag" onclick="TagManager.deleteById('tag_delete_{tag_id}', true);">×</span>
+                        <input type="hidden" name="tag[]" value="{tag_id}" />
+                    </span>
+                    </tmpl:tag_row>
+                </td>
+            </tr>
+        </table>
+        
+        <div id="add_tag_link">
+			<tmpl:add_tag_msg>
+            	<a href="#" onclick="showTagBlock();return false;">{add_tag_msg}</a>
+			</tmpl:add_tag_msg>
+			
+			<tmpl:add_tag_btn>
+    			<!-- <input type="button" value="+" title="{add_tag_msg}" class="button2 button2_add"
+        			onclick="showTagBlock();return false;" /> -->
+				<a href="#" onclick="showTagBlock();return false;">{add_tag_msg}</a>	
+        	</tmpl:add_tag_btn>
+		</div>
+        
+        <div id="tag_form">
+            <input type="text" id="tag_input" />
+            <span class="delete_tag" onclick="$(this).parent().hide();$('#add_tag_link').show();">×</span>
+            <br />
+            <span style="color: #666666;white-space: normal;">{tag_hint}</span>
+            
+            <div style="margin: 8px 0px;">
+                <span class="tag_button" id="tag_get_popular_button" onclick="TagManager.getPopularTags('{tag_popup_link}');">{choose_tags_msg}</span>
+                                    
+                <span id="delete_tag_button" style="display: {delete_tag_button_display};">
+                    <span class="tag_button" onclick="TagManager.deleteAll();" style="display: none;">{remove_all_tag_msg}</span>
+                </span>
+            </div>
+            
+            <div id="tag_suggest_block">
+                <span id="tag_click_hint">{click_tag_msg}:</span>
+            </div>
+            
+            <div style="clear: both;"></div>
+            
+            <div id="tag_get_buttons">
+                <span class="tag_button" id="tag_get_more_button" 
+					onclick="TagManager.getMoreTags();">{get_more_tags_msg}</span>
+                <span class="tag_button" id="tag_get_all_button" 
+					onclick="TagManager.getAllTags();">{get_all_tags_msg}</span>
+            </div>
+        </div>
+    </td>
+</tr>
+</table>

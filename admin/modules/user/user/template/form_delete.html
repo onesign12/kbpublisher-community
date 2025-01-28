@@ -1,0 +1,103 @@
+{menu_block}
+
+{error_msg}
+
+<table class="default table sTable tableCp5 tableCs1">
+    
+<tr>
+    <td colspan="2" class="tdTitle"><b>{form_title}</b> &nbsp;</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption" width="200">{user_msg}:</td>
+    <td><a href="#detail" onclick="PopupManager.create('{detail_link}')">{first_name} {last_name} ({username})</a></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{signing_date_msg}:</td>
+    <td>{date_formatted_full} &nbsp;&nbsp;({date_full_interval})</td>
+</tr>
+</table>
+
+<br/><br/><br/>
+
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<tmpl:activities>
+<b>{activities_msg}:</b>
+<!-- <div class="tdTitle">{activities_msg}</div> -->
+<div class="tdTitle" style="padding: 1px; margin-top:5px;"></div>
+
+<div class="trLighter" style="padding: 6px;">
+<tmpl:row>
+        
+    <div>
+        <div style="float: left;">
+            {section_str}
+        </div>
+        
+        <tmpl:user_popup>
+        <div style="float: left;margin-left: 20px;">
+            <a href="javascript:PopupManager.create('{user_popup_link}', 'r', 'r');" 
+                title="{change_supervisor_msg}">
+                <strong>{change_supervisor_msg}</strong>
+            </a>
+        </div>
+        <div style="float: left;margin-left: 10px;">
+            <span id="writeroot"></span>
+        </div>
+        </tmpl:user_popup>
+    </div>
+    <div style="clear: both; padding-bottom: 6px;"></div>
+
+</tmpl:row>
+</div>
+<br/>
+</tmpl:activities>
+
+<!-- <div style="text-align: center;"> -->
+<div id="bottom_button">
+    
+    <tmpl:delete_button>
+    <span style="margin-right: 10px;">
+        <input type="checkbox" name="notify" id="notify" value="1" {notify_ch}>
+        <label for="notify">{notify_user_msg}</label>
+    </span>
+    
+    <input type="submit" name="submit" id="submit" value="{delete_account_msg} ({trash_msg})" class="button"
+        onClick="return confirmForm('{sure_common_msg}', 'submit');" />
+    
+    <input type="button" value="{cancel_msg}" class="button"
+        onClick="top.location.href='{cancel_link}'">
+    </tmpl:delete_button>
+    
+    <tmpl:back_button>
+    <input type="button" value="{back_msg}" class="button"
+        onClick="top.location.href='{cancel_link}'">
+    </tmpl:back_button>
+    
+</div>
+
+</form>
+
+<div id="readroot" style="display: none;">
+    <div style="float: left;">
+        <input type="hidden" name="supervisor_id" value="" id="">
+        - 
+        <span>1</span>
+    </div>
+    
+    <!--<div style="float: right;margin: 0 10px;">
+        <img src="images/icons/delete.svg" alt="Delete" title="{delete_msg}">
+    </div>-->
+</div>
+
+<div id="readroot2" style="display: none;">
+    <div style="float: left;">
+        <input type="hidden" name="author_id" value="" id="">
+        - 
+        <span>1</span>
+    </div>
+</div>

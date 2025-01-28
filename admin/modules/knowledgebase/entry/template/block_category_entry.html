@@ -1,0 +1,136 @@
+<script src="jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script>    
+    var default_categories = [
+        {default_categories}
+    ];
+    
+    window.selHandler = new CategoriesSelectHandler('category');
+    selHandler.addOnPopupCloseFunction('categoryAjaxHandler');
+
+    $(document).ready(function() {
+        selHandler.setSelectWidth('category');
+        
+        <tmpl:limited>
+        selHandler.setMaxAllowSelected(1);
+        </tmpl:limited>
+        
+        $('body').bind('kbpSelectedEntryTransferredToParentWindow', {}, function(e, params) {
+            if (params.handler.idParent == 'category') {
+                if (params.items.length) {
+                    $('body').trigger('kbpErrorResolved', [{field: 'category'}]);
+                    
+                } else {
+                    $('#category').addClass('validationError');
+                }
+            }
+        });
+    });
+
+    
+    function selHandlerDeleteCategory(msg, do_confirm) {
+        if(document.getElementById('category').selectedIndex != -1) {
+            if(do_confirm) {
+                confirm2(msg, function() {
+                    _selHandlerDeleteCategory();
+                });
+                
+            } else {
+                _selHandlerDeleteCategory();
+            }
+        }
+    }
+    
+    
+    function _selHandlerDeleteCategory() {
+        selHandler.deleteOption();
+                
+        $('#category_toggle_title').removeClass('formToggleUnfolded');
+        $('#category_toggle_block').hide();
+        categoryAjaxHandler();
+        
+        var categories = [];
+        $('#category').children('option').each(function() {
+            categories.push({value: this.value});
+        });
+        getCustomByCategory([categories]);
+    }
+    
+    
+    function setDefaultCategories(replace) {
+        if ($.isEmptyObject(default_categories)) {
+            alert("{no_default_category_msg}!");
+            return;
+        }
+        
+        var categories = $.merge([], default_categories);
+        
+        if (!replace) {
+            $('#category').children('option').each(function() {
+                categories.push({value: this.value, text: this.text});
+            });
+        }
+        
+        selHandler.createSelectCategories(categories);
+        categoryAjaxHandler();
+        
+        getCustomByCategory([categories]);
+        
+        $('body').trigger('kbpErrorResolved', [{field: 'category'}]);
+    }
+    
+</script>
+
+<table class="sTable" style="width:720px;">
+<tr>
+    <td>
+        <div class="selectScrollDiv" style="width: 709px;">
+            <select name="category[]" id="category" size="3"style="border: 0px; height: 60px;" 
+                onDblClick="selHandlerDeleteCategory('{sure_delete_msg}', {confirm});" multiple>
+                {category_select}
+            </select>
+        </div>
+    </td>
+    <td style="width: 50px; padding: 0px 7px; text-align: center; vertical-align: top;">
+        <input type="button" id="add_category_button" value="+" 
+            class="button2 button2_add"
+            onclick="selHandler.callPopUp('{module}', '{page}', false, {no_button}, {all_option}, '{popup_params}');" />
+        
+        <div style="padding-top: 3px;">
+            <input type="button" id="delete_category_button" value="-" 
+                class="button2 button2_add"
+                onclick="selHandlerDeleteCategory('{sure_delete_msg}', {confirm});" />
+        </div>
+        
+        <tmpl:default_category_btn>
+        <div style="padding-top: 3px;">
+            <input type="button" id="default_category_button" value="&#x2190;" 
+                class="button2 button2_add"
+                title="{default_button_title}"
+                onclick="setDefaultCategories(false);" />
+        </div>
+        </tmpl:default_category_btn>
+        
+    <!-- <input type="button" value="Up" onclick="selHandler.onTop();"/>         -->
+    </td>
+</tr>
+</table>
+
+<tmpl:private_info>
+<div id="category_private_content">
+    <div id="category_toggle_title" class="formToggleBlockTitle"
+        style="display: {category_private_display}; margin-top: 8px;" 
+        onclick="toggleBlock('category');">
+        <span>{private_block_msg}</span>
+    </div>
+
+    <div id="category_toggle_block" class="formToggleBlockBody" style="display: none;">
+        <div id="category_private_div">
+            <span id="writeroot_private">
+                <tmpl:category_private_row>
+                    {category_private_info}
+                </tmpl:category_private_row>
+            </span>
+        </div>
+    </div>
+</div>
+</tmpl:private_info>

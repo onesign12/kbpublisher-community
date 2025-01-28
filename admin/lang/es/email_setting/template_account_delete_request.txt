@@ -1,0 +1,14 @@
+El usuario solicitó cancelar su cuenta KB.
+{request_from_ip_msg}: [ip]
+
+El usuario puede tener algunas actividades relacionadas. Utilice el siguiente enlace para revisarlas.
+[link]
+
+Notas de usuario:
+[message]
+
+{user_info_msg}:
+------------
+ID: [id]
+Nombre: [name]
+Correo electrónico: [email]

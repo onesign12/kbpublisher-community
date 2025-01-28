@@ -1,0 +1,50 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{sp_metadata_msg}");
+});
+</script>
+
+<b>{entity_id_msg}:</b>
+<div style="background: #fafafa;padding: 10px;border: 1px solid #e5e5e5;margin: 10px 0 20px 0;">
+    {entity_id}
+</div>
+
+<b>{acs_url_msg}:</b>
+<div style="background: #fafafa;padding: 10px;border: 1px solid #e5e5e5;margin: 10px 0 20px 0;">
+    {acs_url}
+</div>
+
+<b>{sls_url_msg}:</b>
+<div style="background: #fafafa;padding: 10px;border: 1px solid #e5e5e5;margin: 10px 0 20px 0;">
+    {sls_url}
+</div>
+
+<b>{sso_slo_binding_msg}:</b>
+<div style="background: #fafafa;padding: 10px;border: 1px solid #e5e5e5;margin: 10px 0 20px 0;">
+    <table border="0" width="100%">
+        <tr>
+            <td width="50%">
+                <b>SSO</b>
+                <div style="margin: 10px 0 0 30px;">
+                    <b>{outbound_msg}:</b> HTTP-Redirect<br /><br />
+                    <b>{inbound_msg}:</b> HTTP-POST
+                </div>
+            </td>
+            <td width="50%">
+                <b>SLO</b>
+                <div style="margin: 10px 0 0 30px;">
+                    <b>{outbound_msg}:</b> HTTP-Redirect / HTTP-POST<br /><br />
+                    <b>{inbound_msg}:</b> HTTP-Redirect / HTTP-POST
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{download_metadata_msg}"
+        onClick="location.href='{metadata_link}'" class="button">
+        
+    <input type="button" value="{close_msg}" class="button"
+        onclick="PopupManager.close();">
+</div>

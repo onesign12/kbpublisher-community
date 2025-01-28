@@ -1,0 +1,147 @@
+<script src="jscript/comment.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function() {
+        initBulkHandlers();
+    });
+    
+    function updateStatus(id, status) {
+        confirm2("{sure_status_msg}", function() {
+            xajax_updateStatus(id, status);
+        });
+    }
+    
+    function deleteComment(id) {
+        confirm2("{sure_common_msg}", function() {
+            xajax_deleteComment(id);
+        });
+    }
+    
+    function showQuestion(id) {
+        $('#question_' + id).hide();
+        $('#question_full_' + id).show();
+        $('#show_' + id).hide();
+        $('#hide_' + id).show();
+        return false;
+    }
+    
+    function hideQuestion(id) {
+        $('#question_' + id).show();
+        $('#question_full_' + id).hide();
+        $('#show_' + id).show();
+        $('#hide_' + id).hide();
+        return false;
+    }
+</script>
+        
+
+{header}
+
+<div id="listTable">
+<div id="commentsBlock">
+    <tmpl:row>
+    
+    <div id="comment_{id}">
+        
+        <tmpl:bulk>
+        <div id="template_{id}" class="commentBulkCheckbox">
+            <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" 
+                style="margin: 0px;" {bulk_ids_ch_option} />
+        </div>    
+        </tmpl:bulk>
+        
+        <div class="commentBlock {extra_class}">
+            <div class="commentTitle">
+                <div style="float: right">{subject_msg}: {subject}</div>
+                <div><strong>{date_formatted}</strong></div>
+                <div class="commentUser">
+                    {username} - <a href="mailto:{email}">{email}</a>
+                </div>
+            </div>
+            <div class="commentText textBlock">
+                <div class="formatted_comment">
+                    <div style="font-size:1.1em; margin-bottom: 3px;">{title}</div>
+                    <div id="question_{id}" class="text">
+                        {question}
+                        
+                        <tmpl:question_more>
+                        <a id="show_{id}" href="#" style="margin-left: 10px;font-size: 0.9em;" 
+                            onclick="return showQuestion({id});">
+                            <b>[{show_all_msg}]</b>
+                        </a>
+                        </tmpl:question_more>
+                    </div>
+                    
+                    <tmpl:question_more>
+                    <div id="question_full_{id}" style="display: none; margin-bottom: 15px;">
+                        {full_question}
+                    </div>
+                    <a id="hide_{id}" href="#" style="display: none; font-size: 0.9em;" 
+                        onclick="return  hideQuestion({id});">
+                        <b>[{hide_msg}]</b>
+                    </a>
+                    <div style="clear: both;"></div>
+                    </tmpl:question_more>
+                    
+                    <tmpl:attachments>
+                    <div style="margin-top: 25px;">
+                        {attachment_num_msg}:
+                        <div style="margin: 7px;">
+                            <tmpl:file>
+                            <a href="{open_link}" target="_blank">{filename}</a>
+                            <a href="{download_link}"><img src="../client/images/icons/download.svg" class="download_icon"></a>
+                            <br />
+                            </tmpl:file>
+                        </div>
+                    </div>
+                    </tmpl:attachments>
+                </div>
+                
+                <div class="commentLine"></div>
+                
+                <div style="float: right;">
+                    <div style="margin-right: 15px; float: left;">
+                        <span id="status_text_yes_{id}" style="display: {status_yes_display};font-size: 0.9em;">
+                            <!--<a href="#" onclick="updateStatus({id}, 0); return false;">-->
+                                {answered_status_msg}
+                            <!--</a>-->
+                        </span>
+                        <span id="status_text_no_{id}" style="display: {status_no_display};font-size: 0.9em;">
+                            <!--<a href="#" onclick="updateStatus({id}, 1); return false;">-->
+                                {not_answered_status_msg}
+                            <!--</a>-->
+                        </span>
+                    </div>
+                    
+                    <div style="float: right;">
+                        {options_img}
+                    </div>
+                </div>
+        
+                <div style="font-size: 0.9em;">
+                    {posted_msg}: {date_interval}
+                </div>
+                
+                <div style="clear: both"></div>
+            </div>
+        </div>
+        
+        <div style="clear: both;"></div>
+    </div>
+    </tmpl:row>
+</div>
+
+<tmpl:bulk>
+<div style="margin: 20px 1px;">
+    <input type="checkbox" name="id_check" id="id_check" value="1" style="margin: 0px;" />
+    <label for="id_check" style="margin-left: 10px; font-weight:bold;">
+        {check_all_msg}
+    </label>
+</div>
+</tmpl:bulk>
+
+<div style="text-align: center;">
+    {page_by_page_bottom}
+ </div>
+</div>
+ 
+{footer}

@@ -1,0 +1,17 @@
+<table cellspacing="2" cellpadding="0" id="top_navigation">
+<tr>
+<tmpl:row>
+    <tmpl:active>
+    <td id="td_topmenu_{menu_key}" align="center" class="menuActive" nowrap style="{td_style}" {td_extra}>
+        <a href="{menu_link}" class="menu" target="{target}" style="{a_style}" {a_extra}>{menu_item}</a>
+    </td>
+    </tmpl:active>    
+    
+    <tmpl:nonactive>
+    <td id="td_topmenu_{menu_key}" align="center" nowrap class="menuNormal" style="{td_style}" {td_extra}>
+        <a href="{menu_link}" class="menu" target="{target}" style="{a_style}" {a_extra}>{menu_item}</a>
+    </td>
+    </tmpl:nonactive>
+</tmpl:row>
+</tr>
+</table>

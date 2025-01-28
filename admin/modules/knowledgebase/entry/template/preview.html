@@ -1,0 +1,80 @@
+<tmpl:css_js>
+<!--[if IE]>
+<link rel="stylesheet" href="{kb_path}client/skin/common_ie.css?v={pvhash}" />
+<![endif]-->
+<link rel="stylesheet" href="{kb_path}client/skin/common.css?v={pvhash}" />
+<link rel="stylesheet" href="{kb_path}client/skin/view_left/common_view.css?v={pvhash}" />
+<link rel="stylesheet" href="{kb_path}client/jscript/syntax_highlighter/styles/shCore.css?v={pvhash}" />
+<link rel="stylesheet" href="{kb_path}client/jscript/syntax_highlighter/styles/shThemeDefault.css?v={pvhash}" />
+
+<script src="{kb_path}client/jscript/common.js?v={pvhash}"></script>
+<script src="{kb_path}client/jscript/jquery/jquery.toc.min.js?v={pvhash}"></script>
+<script src="{kb_path}client/jscript/syntax_highlighter/scripts/shCore.js?v={pvhash}"></script>
+{codesnippet_files}
+<script>
+    $(document).ready(function() {        
+        PopupManager.setTitle("{preview_msg}");
+        
+        initUserTooltip();
+        
+        <tmpl:ajax_preview>
+        parseBody(true);
+        </tmpl:ajax_preview>
+    });
+    
+    
+    function parseBody(first_call) {
+        var title = window.top.$('#title').val();
+        $('#title').html(title);
+        
+        var body = window.top.oEditor.getData();
+        
+        // custom
+        var custom = FormCollector.getCustomFields(window.top);
+    
+        xajax_parseBody(body, custom, first_call);
+    }
+    
+    
+    function maximizePreview() {
+        var w = window.open('', '_blank');
+        $(w.document.body).html($('body').html());
+        $(w.document.body).find('.preview_buttons').remove();
+        
+        // may need to get embed pdf content it does not work now
+        // var icontent = $('.embedPdf').contents().find('body');
+        // $(w.document.body).find('.embedPdf').contents().find('body').append(icontent);
+        
+        PopupManager.close();
+    }
+</script>
+</tmpl:css_js>
+
+<div id="article" style="display: {article_display};">
+
+    <div class="tdArticleTitle">
+        <h1 class="articleTitle" id="title">{title}</h1>
+    </div>
+
+    <div style="padding: 10px 5px;">
+        <div class="textBlock" id="article_body">
+            {body}
+        </div>
+    </div>
+    
+    <div class="bottom_button bb_popup preview_buttons">
+        <tmpl:close>
+        <input type="button" value="{close_msg}" class="button" id="close_button"
+            onclick="PopupManager.close();">
+        </tmpl:close>
+        
+        <tmpl:detail>
+        <input type="button" value="{detail_msg}" class="button" id="detail_button"
+            onclick="window.top.location.href = '{detail_link}';PopupManager.close();">
+        </tmpl:detail>
+        
+        <input type="button" value="{open_new_window_msg}" class="button" 
+            onclick="maximizePreview();">
+    </div>
+
+</div>

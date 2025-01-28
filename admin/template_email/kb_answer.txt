@@ -1,0 +1,17 @@
+{welcome_msg}
+
+
+{question_msg}:
+-------------------
+ [question]
+-------------------
+
+{answer_msg}:
+-------------------
+[answer]
+-------------------
+
+
+--
+[support_name]
+mailto:[support_email]

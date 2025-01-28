@@ -1,0 +1,9 @@
+{dear_msg} [first_name] [last_name],
+
+{welcome_msg}
+
+{link_msg} [support_email]
+
+
+--
+[support_name]

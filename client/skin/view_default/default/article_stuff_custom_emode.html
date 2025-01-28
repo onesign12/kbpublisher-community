@@ -1,0 +1,34 @@
+<script>
+    $(document).ready(function() {
+        $('#custom_field_button,#custom_top,#custom_bottom,#custom_block').click(function() {
+        	submitToPopup('{popup_link}');
+        });
+        
+        $('body').bind('kbpEditModeCustomFieldsTransferred', {}, function(e, params) {
+            var highlight = 1;
+            xajax_getCustomBlocks(params.values, highlight, 'spinner_custom');
+            
+            $('#aContentForm input[name^="custom["]').remove();
+            for (var i in params.values) {
+                var name = params.values[i]['name'];
+                var value = params.values[i]['value'];
+                
+                var hidden = $('<input type="hidden" />').attr('name', name).val(value);
+                $('#aContentForm').append(hidden);
+            }
+            
+            $('#custom_field_bar').css('background', '#ffffcc');
+        });
+    });
+    
+</script>
+
+{hidden_fields}
+
+<div id="custom_field_bar" style="background: #ffffcc;padding: 4px;margin: 7px 0;">
+    <b>{custom_fields_title_msg}</b>
+    <span id="spinner_custom" style="display: none;">
+        <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+    </span>
+    - <a href="#" id="custom_field_button" onclick="return false;;">{manage_msg}</a>
+</div>

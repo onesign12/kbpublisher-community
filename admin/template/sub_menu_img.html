@@ -1,0 +1,35 @@
+<table class="sTable">
+<tr>
+<tmpl:row>
+
+    <tmpl:spacer>
+    <td background="images/sub_menu/midle.gif"><img src="images/s.gif" width="{menu_link}" height="1"></td>
+    </tmpl:spacer>
+
+    <tmpl:active>
+    <td style="height: 22px;line-height: 1px;"><img src="images/sub_menu/l_active.gif" width=2 height=22></td>
+    <td class="bgrSubMenuAct" width="{td_width}" align="center" nowrap>
+        <a href="{menu_link}" class="subMenu" target="{target}" style="{a_style}" {a_extra}>
+            <b>{menu_item}</b>
+        </a>
+    </td>
+    <td style="height: 22px;line-height: 1px;"><img src="images/sub_menu/r_active.gif" width=2 height=22></td>
+    </tmpl:active>    
+    
+    <tmpl:nonactive>
+    <td valign=bottom style="height: 22px;line-height: 1px;"><img src="images/sub_menu/l_nonactive.gif" width=2 height=22></td>
+    <td class="bgrSubMenuNonact" width="{td_width}" align="center" nowrap>
+        <a href="{menu_link}" class="subMenu" target="{target}" style="{a_style}" {a_extra}>
+            {menu_item}
+        </a>
+    </td>
+    <td style="height: 22px;line-height: 1px;"><img src="images/sub_menu/r_nonactive.gif" width=2 height=22></td>
+    </tmpl:nonactive>
+
+    <td style="height: 22px;line-height: 1px;"><img src="images/sub_menu/midle.gif" width=1 height=22></td>
+
+</tmpl:row>
+    
+    <td width="100%" background="images/sub_menu/midle.gif"><img src="images/s.gif" width="1" height="1"></td>
+</tr>
+</table>

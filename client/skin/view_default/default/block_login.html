@@ -1,0 +1,95 @@
+<span style="margin-right: 20px;">
+    <a href="#" onclick="SearchBar.show();" title="{search_msg}">
+        <svg xmlns="http://www.w3.org/2000/svg" class="login" viewBox="0 0 24 24"
+             style="cursor: pointer;display: inline;vertical-align: middle;margin-left: 10px;">
+            <path d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/>
+        </svg></a>
+</span>
+
+<tmpl:notification_block>
+<div style="display: inline;margin-right: 15px;">
+    <a href="#" id="notification_block" data-jq-dropdown="#notifications">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M15 21c0 1.598-1.392 3-2.971 3s-3.029-1.402-3.029-3h6zm.137-17.055c-.644-.374-1.042-1.07-1.041-1.82v-.003c.001-1.172-.938-2.122-2.096-2.122s-2.097.95-2.097 2.122v.003c.001.751-.396 1.446-1.041 1.82-4.668 2.709-1.985 11.715-6.862 13.306v1.749h20v-1.749c-4.877-1.591-2.193-10.598-6.863-13.306zm-3.137-2.945c.552 0 1 .449 1 1 0 .552-.448 1-1 1s-1-.448-1-1c0-.551.448-1 1-1zm-6.451 16c1.189-1.667 1.605-3.891 1.964-5.815.447-2.39.869-4.648 2.354-5.509 1.38-.801 2.956-.76 4.267 0 1.485.861 1.907 3.119 2.354 5.509.359 1.924.775 4.148 1.964 5.815h-12.903z"/>
+        </svg><span class="badge" data-badge="" style="display: none;">&nbsp;</span></a>
+    {notification_block}
+</div>
+</tmpl:notification_block>
+
+<tmpl:manage>
+<span id="manage_menu" style="margin-right: 20px;"
+    data-jq-dropdown="#drop_menu">
+	<a href="#" class="login" title="{menu_manage_msg}">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+		    <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/>
+		</svg></a>
+</span>
+
+<div id="drop_menu" class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right">
+    <ul class="jq-dropdown-menu">
+        {manage_menu}
+    </ul>
+</div>
+</tmpl:manage>
+
+<tmpl:pool_link>
+<a href="{pool_link}" class="pool_block login fixed _tooltip" 
+    style="display: {display_pool};text-decoration: none;position: fixed;bottom: 0;right: 0;padding-right: 35px;z-index: 1;" title="{pool_title}">
+    
+    <div class="round_icon"
+        style="background-color: #4584C1;background-image: url('{base_href}client/images/icons/article_panel/pool.svg');width: 35px;height: 35px;"></div>
+    <span class="pool_num badge" data-badge="{pool_num}" style="top: -32px;">&nbsp;</span>
+</a>
+</tmpl:pool_link>
+
+<tmpl:not_logged>
+<tmpl:login_link>
+<span style="margin-right: {user_icon_margin};">
+    <button id="login_button" onClick="location.href = '{login_link}';" 
+        class="button">
+        <span>{login_msg}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 20px;">
+            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.305c-.261-.586-.789-.991-1.871-1.241-2.293-.529-4.428-.993-3.393-2.945 3.145-5.942.833-9.119-2.489-9.119-3.388 0-5.644 3.299-2.489 9.119 1.066 1.964-1.148 2.427-3.393 2.945-1.084.25-1.608.658-1.867 1.246-1.405-1.723-2.251-3.919-2.251-6.31 0-5.514 4.486-10 10-10s10 4.486 10 10c0 2.389-.845 4.583-2.247 6.305z"/>
+        </svg>
+    </button>
+</span>
+</tmpl:login_link>
+
+<tmpl:register_link></tmpl:register_link>
+</tmpl:not_logged>
+
+<tmpl:logged>
+<span data-jq-dropdown="#user_menu" style="margin-right: {user_icon_margin};">
+    <a href="#" class="login" title="{my_account_msg}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.305c-.261-.586-.789-.991-1.871-1.241-2.293-.529-4.428-.993-3.393-2.945 3.145-5.942.833-9.119-2.489-9.119-3.388 0-5.644 3.299-2.489 9.119 1.066 1.964-1.148 2.427-3.393 2.945-1.084.25-1.608.658-1.867 1.246-1.405-1.723-2.251-3.919-2.251-6.31 0-5.514 4.486-10 10-10s10 4.486 10 10c0 2.389-.845 4.583-2.247 6.305z"/>
+        </svg></a>
+</span>
+
+<div id="user_menu" class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right">    
+    <ul class="jq-dropdown-menu">
+        <li>
+            <div style="color: black; padding: 8px 8px 11px 8px; margin-bottom: 1px;">
+				<img src="{base_href}client/images/icons/user.svg" alt="user" 
+					style="width: 18px; height: 18px; vertical-align: middle;" />&nbsp;&nbsp;
+                <span style="font-size: 1.4em;">{username}</span>
+            </div>
+        </li>
+        <li class="jq-dropdown-divider"></li>
+        
+        <tmpl:account>
+        <li><a href="{username_link}">{my_account_msg}</a></li>
+        <li class="jq-dropdown-divider"></li>
+        </tmpl:account>
+        
+        <li><a href="{logout_link}">{logout_msg}</a></li>
+    </ul>
+</div>
+</tmpl:logged>
+
+<tmpl:admin_view>
+<span  class="hide-for-small-only">
+    <a href="{admin_path}" class="login _tooltip" title="{admin_view_msg}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 6v12h-16v-12h16zm2-6h-20v20h20v-20zm-22 22v-19h-2v21h21v-2h-19z"/></svg></a>
+</span>
+</tmpl:admin_view>

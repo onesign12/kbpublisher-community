@@ -1,0 +1,28 @@
+<form method="post" onSubmit="LeaveScreenMsg.skipCheck();">
+    <div style="padding-bottom: 20px;">
+        <b>{manage_priv_levels_msg}</b>
+    </div>
+    
+    {hint}
+    
+    <ul id="sortable_views">
+        <li class="not_sortable" style="background: #e7e7e7;">
+            1. {admin_name}
+        </li>
+        
+        <tmpl:row>
+        <li id="id_{id}" class="trLighter" style="cursor: move;">
+            <span class="new_priv_level">{sort_order}</span><span>. {name}</span>
+            <input type="hidden" name="sort_id[]" value="{id}" />
+        </li>
+        </tmpl:row>
+    </ul>
+    
+    <br />
+    
+    <div style="text-align: center;">
+        <input type="submit" name="submit" value="{save_msg}" class="button" />
+        <input type="button" value="{cancel_msg}" 
+            onClick="LeaveScreenMsg.skipCheck();location.href='{cancel_link}'" class="button" />
+    </div>
+</form>

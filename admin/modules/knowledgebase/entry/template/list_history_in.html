@@ -1,0 +1,30 @@
+<script src="../client/jscript/jquery/jquery.expander.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function(){
+        $('.comment_exp').expander({
+            slicePoint: 60, 
+            widow: 2,
+            expandEffect: 'show', 
+            userCollapseText: '<b>[^]</b>',
+            expandText: '<b>{more_msg}</b>'
+        });
+    });  
+    
+    function confirmDelete(msg, link) {
+        confirm2(msg, function() {
+            document.location.href = link;
+        });
+    }
+</script>
+
+{menu_block}
+
+<tmpl:delete_entry_link>
+<div style="text-align: right;">    
+    <input type="button" value="{delete_entry_revision_msg}" 
+        class="button2 button2_add_new" style="margin: 0px;"
+        onclick="confirmDelete('{sure_delete_entry_revision_msg}', '{delete_entry_link}');" />
+</div>
+</tmpl:delete_entry_link>
+
+{content}

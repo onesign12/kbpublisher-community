@@ -1,0 +1,30 @@
+<script src="jscript/CategoriesInputHandler.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function(){
+        var categories = [{categories}];
+        CategoriesInputHandler.init(categories);  
+    });
+</script>
+
+<form style="margin: 0px;">
+{hidden_fields}
+
+<table id="filter_tbl">
+<tr>
+    <td>
+        <div>{displayed_on_msg}:</div>
+        <!--<select name="filter[t]" class="colorInput" style="width: 120px;">
+        {status_select}
+        </select>-->
+        <input type="text" id="filter" value="{category_name}" title="{category_name}" class="longText colorInput" />
+        <input type="hidden" name="filter[t]" id="filterCategoryId" value="{category_id}" />
+    </td>
+    
+    <td>
+        <button type="submit" name="do_search" value="1" 
+            class="button2 button2_filter">&rarr;</button>
+    </td>    
+</tr>
+</table>
+
+</form>

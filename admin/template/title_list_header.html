@@ -1,0 +1,17 @@
+<div style="margin-bottom: 15px;" id="filter_div">
+    <div style="float: right;">{add_link}</div>
+    <div class="account_title">{left_side}</div>
+    <div style="clear: both;"></div>
+</div>
+
+<tmpl:by_page>
+<div style="margin-bottom: 10px;">
+{by_page_tpl}
+</div>
+</tmpl:by_page>
+
+<tmpl:bulk_form>
+<form action="{bulk_form_action}" method="post" name="bulk_form" id="bulk_form" 
+    onsubmit="return BulkOnSubmit();">
+{hidden_fields}
+</tmpl:bulk_form>

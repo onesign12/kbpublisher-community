@@ -1,0 +1,159 @@
+<link rel="stylesheet" href="{base_href}client/skin/jquery/fSelect.css?v={pvhash}">
+<!-- <link rel="stylesheet" href="{base_href}admin/css/style.css?v={pvhash}"> -->
+<style>
+    :target + div > table td, :target + div p.trMoreDarker {
+        background-color: #ffa;
+    }
+</style>
+<script src="../client/jscript/jquery/fSelect.js?v={pvhash}"></script>
+<script src="jscript/livesearch/quicksilver.js?v={pvhash}"></script>
+<script src="jscript/livesearch/livesearch.js?v={pvhash}"></script>
+<script src="jscript/livesearch/setting.js?v={pvhash}"></script>
+<script>
+$(document).ready(function() {
+    $('#q').liveUpdate('eList');
+    $('#sidebar2_filter').focus();
+    
+    {show_errors}
+    
+    $('.fselect').fSelect({
+        showSearch: false,
+        placeholder: '__',
+        numDisplayed: 4,
+        overflowText: '{overflow_text}'
+    });
+    
+    // not to focus on load but does not work and field nor updatebale
+    // $("#ldap_debug_username, #aws_access_key").focus(function() {
+        // this.blur();
+    // });
+    
+    LeaveScreenMsg.changes = false;
+    
+    PopupManager.setTitle("{edit_setting_msg}");
+    
+    $('#eList').find('input, textarea, select').change(rememberSetting);
+    $('#eList').find('input[type=button]:not(.skip)').click(rememberSetting);
+    
+    <tmpl:close_window>
+    var parent_window = PopupManager.getParentWindow();
+    
+    // wizard
+    if (typeof retest === "function") { 
+        parent_window.retest('{test_key}');
+    }
+    
+    PopupManager.close();
+    </tmpl:close_window>
+});
+
+function showErrorBlock(id) {
+    $('#template_' + id).show();
+    $('#template_' + id).parent().find('div[id^=group]').show();
+}
+
+function submitToPopup(popup, no_window, no_frame, click_btn) {
+    var target = '_blank';
+    
+    // ldap auth
+    if (!no_window) {
+        PopupManager.create('{debug_link}', 'r', 'r', popup);
+        target = PopupManager.prefix + '1';
+
+    // this used in debug saml and social auth
+    } else if (no_frame) {
+        var link = '{debug_link}';
+        if (popup) {
+            link += '&popup=' + popup;
+        }
+
+        OpenWin(link, 'popup', 750, 500, 'yes', false, false);
+        target = 'popup';
+    }
+    
+    var action = $('#aContentForm').attr('action');
+    $('#aContentForm').attr('action', action + '&popup=' + popup);
+    $('#aContentForm').attr('target', target);
+   
+    if(click_btn) {
+        var btn = (click_btn === true) ? 'submit' : click_btn;
+        $("input[name="+btn+"], button[name="+btn+"]").attr("onClick", "").click();
+    } else {
+        $('#aContentForm').submit();
+    }
+    
+    $('#aContentForm').attr('target', '_self');
+    $('#aContentForm').attr('action', action);
+}
+
+function checkRelatedCbx(el, related_cbx) {
+    if (!$(el).is(':checked') && !$('#' + related_cbx).is(':checked')) {
+        $('#' + related_cbx).prop('checked', true);
+    }
+}
+
+function rememberSetting() {
+    var block = $(this).closest('div');
+    var id = block.attr('id');
+    var key = id.substring(9);
+    
+    var group_block = block.prevAll('[data-group_id]');
+    var group_id = "{group_name}" + group_block.attr('data-group_id');
+    
+    addRecentSettingToPool(key, group_id);
+}
+
+
+function toggleSettingsByElements(elements, show, display) {    
+    if (show) {
+        if(display) {
+           elements.css('display', 'block'); 
+        } else {
+            elements.slideDown();
+        }
+        
+    } else {
+        if(display) {
+           elements.css('display', 'none'); 
+        } else {
+            elements.slideUp();
+        }
+    }
+}
+
+var filter_ids = ['q'];
+LeaveScreenMsg.setFilterFields(filter_ids);
+</script>
+
+{custom_text}
+<div id="custom_text"></div>
+
+{error_msg}
+
+    
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+
+<tmpl:filter>
+<!-- <div>
+    <input type="text" value="{filter}" name="q" id="q" class="colorInput"
+        style="width: 240px; height: 18px;"
+        placeholder="{filter_msg}" autocomplete="off" />
+</div> -->
+</tmpl:filter>
+   
+<div id="eList" style="width: 100%;">
+
+{rows}
+
+</div>
+
+<div id="buttons" style="margin-left: 230px; margin-top: 25px;">
+    <div id="bottom_button">
+        {submit_buittons}
+    </div>
+</div>
+
+</form>
+
+{js_error}

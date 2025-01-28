@@ -1,0 +1,127 @@
+/*.button {
+	font-family : Verdana,  Arial, Helvetica, sans-serif; 
+	font-size: 11px;
+	color: #555555; background-color: #DADEEB;
+	/*color: ButtonText; background-color: ButtonFace;*/
+	border: #666666;
+	border-style: solid;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	cursor : hand;
+	width: 120px; 
+}*/
+ 
+.buttonover {
+	font-family : Verdana,  Arial, Helvetica, sans-serif; 
+	font-size: 11px;
+   color : #555555; background : #B0C4DE; 
+	/* color: ButtonText; background-color: ButtonHighlight;*/
+	border: #666666;
+	border-style: solid;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	cursor : hand;
+	width: 120px;
+}
+
+.smbutton{
+	font-family : Verdana,  Arial, Helvetica, sans-serif; 
+	font-size: 8pt;
+	color: #000000; background-color: #D4D0C8;
+	border: #666666;
+	border-style: solid;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	cursor : hand;
+}
+
+.help {
+	background-color: #F8F8F8;
+	color: #686868;
+	border: 1px;
+	border-style: solid;
+	border-color: #F8F8F8;
+	font: 12px  Verdana, sans-serif;
+	/*width: 100%;*/
+	padding : 2px;
+}
+
+/* for forms */
+select, .text { width : 250px; }
+.shorttext { width : 100px; }
+.txtarea  { width : 96%; }
+
+.shorttext, .txtarea, select, .text, .color {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 11.5px;
+/*	color: #222222;
+	border: 1px;
+	border-style: solid;
+	border-color: #9C9C9C;   
+	background-color: #EFD38F;   */
+	line-height : 14px;
+}
+
+.noMargin { margin : -3px;  }
+
+.file{
+	font-family : Verdana,  Arial, Helvetica, sans-serif; 
+	font-size: 11px;
+	color: #202020; background-color: #FFFFFF;
+	border: #666666;
+	border-style: solid;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+}
+
+.color{ background-color : #F5F4ED; }
+
+
+/*  for uploaded images  */
+.left_top { float : left; margin-right : 20px; margin-bottom : 15px; }
+.right_top { float : right; margin-left : 20px; margin-bottom : 15px; }
+
+.left_midle { float : left; margin-right : 20px; margin-bottom : 15px;  margin-top : 15px;   }
+.right_midle { float : right; margin-left : 20px; margin-bottom : 15px;  margin-top : 15px;   }
+
+
+/*  for record status, diff color for diff status , don't change name!!! */
+.on { background-color : #008A01; color : #FFFFFF; }
+.off { background-color : #C40000; color : #FFFFFF; }
+.wait { background-color : #FF9900; color : #000000; }
+
+
+/*  calendar  */
+.calToday { background-color : #CC0033; color : #ffffff; }
+.calCurrent { background-color : #CFD4E5; }
+.calNotCurrent { background-color : #F1F1F1; color : #6c6c6c; }
+.calNotWorkindDay { background-color : #E2E6ED; color : #6c6c6c; }
+.calEvent { background-color : #B0C4DE; }
+.calWeekDays{ background-color : #708090; color : #DADEEB; }
+
+
+/*.copyright { font-size : 7.5pt; }
+A.just  {text-decoration : none;  }
+A.just:HOVER { text-decoration : none; }
+.red { color : #800000; }
+.red1 { color : #143263; }*/
+
+
+
+.langNormal{ background : #DADEEB; }
+.langHover{ background : #B6BDD2; }
+.langActive{ background : #B20000; color : #FFFFFF; }
+
+.langNormal, .langHover, .langActive {
+	border: 1px solid #0A246A;
+	padding : 0px 8px;
+	font-size: 11px;
+}

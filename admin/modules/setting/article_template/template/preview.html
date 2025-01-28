@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="tools/ckeditor_custom/contents.css?v={pvhash}">
+<link rel="stylesheet" href="css/template_preview.css?v={pvhash}">
+<script>
+    $(document).ready(function() {
+        PopupManager.setTitle("{preview_msg}");
+    });
+
+    function setEntryTemplate(action) {
+        window.top.xajax_setEntryTemplate({id}, action);
+        window.top.PopupManager.closeAll();
+    }
+</script>
+
+<div style="margin: 15px 10px;">
+    {body}
+</div>
+
+<div class="bottom_button bb_popup">
+    <tmpl:action_buttons>
+    <button class="button" onClick="setEntryTemplate('insert'); return false;"
+        title="{insert_template_msg}">
+        <img src="images/icons/assign_blue.svg" width="10" height="10" alt="insert" style="margin-right: 5px;"> {insert_template2_msg}
+    </button>
+
+    <button class="button" onClick="setEntryTemplate('replace'); return false;"
+        title="{replace_template_msg}">
+        <img src="images/icons/assign_red.svg" width="10" height="10" alt="replace" style="margin-right: 5px;"> {replace_template2_msg}
+    </button>
+
+    <button class="button" onClick="setEntryTemplate('include'); return false;"
+        title="{include_template_msg}" style="margin-right: 20px;">
+        <img src="images/icons/assign_green.svg" width="10" height="10" alt="include" style="margin-right: 5px;"> {include_template2_msg}
+    </button>
+    </tmpl:action_buttons>
+
+    <input type="button" value="{close_msg}" class="button" onclick="PopupManager.close();" />
+</div>

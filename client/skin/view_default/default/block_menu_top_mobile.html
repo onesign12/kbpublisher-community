@@ -1,0 +1,39 @@
+    <!-- <div style="margin: 0px 0 20px 0; border-bottom: 1px solid #ccc;"></div> -->
+	
+	<ul style="list-style-type: none;margin: 0;padding: 0;">
+        
+	    <li onclick="SearchBar.show();" data-toggle="leftMenu">
+            <a href="#">
+                <span style="float: left;width: 30px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="login" viewBox="0 0 24 24" style="width: 15px;height: 15px;">
+                        <path fill="#555555" d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/>
+                    </svg>
+                </span>
+                {search_msg}
+            </a>
+            
+        </li>
+        
+        <li style="margin: 10px 0;"></li>
+        
+        <tmpl:row>
+        <li>
+            <a href="{item_link}" target="{target}" {options}>
+                {item_menu}
+            </a>
+        </li>
+        </tmpl:row>
+        
+        <tmpl:more_button>
+            <tmpl:more_row>
+            <li>
+                <a href="{item_link}" target="{target}" {options}>
+                    {item_menu}
+                </a>
+            </li>
+            </tmpl:more_row>
+        </tmpl:more_button>
+    </ul>
+<!-- </div> -->
+
+<tmpl:form></tmpl:form>

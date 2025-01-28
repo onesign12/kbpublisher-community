@@ -1,0 +1,109 @@
+<script>
+<!--
+function init() {
+    if (window.selRoleHandler) {
+        selRoleHandler.setSelectWidth('role');
+    }
+}
+
+function subForm() {
+    LeaveScreenMsg.skipCheck();
+    selRoleHandler.selectAll();
+}
+
+$(document).ready(function() {
+    sa = new getMoreHtml();
+    sa.readroot = document.getElementById('readroot');
+    sa.writeroot = document.getElementById('writeroot');
+    // sa.counter = counter;
+    sa.id_pref = 'email'
+    // sa.class_name = 'popUpDiv';
+});
+
+window.onload = init;
+//-->
+</script>
+
+{menu_block}
+{error_msg}
+
+<!-- onSubmit="return validate_employee_form({is_admin});" -->
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}
+
+<table class="default">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b> &nbsp;</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop required">{email_msg}:</td>
+    <td>
+        <input name="email[]" type="text" id="email" value="{email}" class="longText">
+        <input type="button" value="+" title="more" class="button2 button2_add" 
+            onclick="sa.clone();">
+            
+        <span id="writeroot"></span>
+    </td>
+</tr>
+
+<tmpl:role_box>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{role_msg}:</td>
+    <td>
+        <div>
+            <table class="sTableNoPadding">
+                <tr>
+                    <td>
+                        {role_block_tmpl}
+                    </td>
+                    <td style="width: 1px; vertical-align: top;">
+                        <span class="tooltip">{role_tip_msg}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </td>
+</tr>
+</tmpl:role_box>
+
+<tmpl:priv_box>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{priv_msg}</td>
+    <td valign="top">
+        <span class="hasTooltip">
+	    	{priv_select} &nbsp;&nbsp;{exceed_users_note}
+            <div id="priv_help" style="display: none;" class="nowrap"></div>
+            &nbsp;&nbsp;&nbsp;<span>{license_limit_user_msg}</span>
+		</span>
+        <span class="tooltip">{privilege_tip_msg}</span>
+    </td>
+</tr>
+</tmpl:priv_box>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+
+        <div id="bottom_button">
+
+            <input type="submit" name="submit" value="{save_msg}" class="button"
+                onClick="validateForm();return false;" />
+
+            <input type="button" value="{cancel_msg}"  class="button"
+                onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'">
+
+        </div>
+
+    </td>
+</tr>
+</table>
+</form>
+
+
+<div id="readroot"  style="display: none; margin-top: 3px;">
+    <input name="email[]" type="text" class="longText">
+    <a href="" class="removeClone" onClick="sa.removeClone(this); return false;">
+        <img src="images/icons/delete.svg" alt="{delete_msg}" title="{delete_msg}">
+    </a>
+</div>

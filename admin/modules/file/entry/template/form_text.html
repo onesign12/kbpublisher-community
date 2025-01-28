@@ -1,0 +1,44 @@
+{menu_block}
+
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{entry_id_msg}</td>
+    <td>{id}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{filename_msg}:</td>
+    <td>{filename}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{title_msg}:</td>
+    <td>{title}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{filetext_msg}:</td>
+    <td><textarea cols="60" rows="15" name="filetext" style="width: 100%;">{filetext}</textarea>
+</tr>
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit" value="{save_msg}" class="button">
+            <input type="button" value="{cancel_msg}" 
+                    onClick="location.href='{cancel_link}'" class="button">
+        </div>
+    </td>
+</tr>
+</table>
+</form>

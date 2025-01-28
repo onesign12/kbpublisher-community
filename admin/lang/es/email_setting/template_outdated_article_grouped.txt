@@ -1,0 +1,5 @@
+[articles.num] de sus artículos no se han actualizado desde hace medio año.
+Su condición se ha establecido como "Obsoletos".
+
+Siga este enlace para comprobarlos:
+[articles.link.filtered.outdated]

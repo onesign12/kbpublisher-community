@@ -1,0 +1,46 @@
+.tooltipster-sidetip.tooltipster-kbp_text .tooltipster-box {
+    border: 0px solid #868686;
+	border-radius: 5px;
+	/* background: #ede6e6; */
+	/* box-shadow: 0px 0px 14px rgba(0,0,0,0.3); */
+	color: #2d2d2d;
+}
+ /* 
+.tooltipster-sidetip.tooltipster-top.tooltipster-kbp_text_text .tooltipster-arrow-border {
+    border-top-color: #868686;
+}
+
+.tooltipster-sidetip.tooltipster-top.tooltipster-kbp_text .tooltipster-arrow-background {
+    border-top-color: white;
+}
+
+.tooltipster-sidetip.tooltipster-right.tooltipster-kbp_text .tooltipster-arrow-border {
+    border-right-color: #868686 !important;
+}
+
+.tooltipster-sidetip.tooltipster-right.tooltipster-kbp_text .tooltipster-arrow-background {
+    border-right-color: white !important;
+}
+
+.tooltipster-sidetip.tooltipster-bottom.tooltipster-kbp_text .tooltipster-arrow-border {
+    border-bottom-color: #868686;
+}
+
+.tooltipster-sidetip.tooltipster-bottom.tooltipster-kbp_text .tooltipster-arrow-background {
+    border-bottom-color: white;
+}
+
+.tooltipster-sidetip.tooltipster-left.tooltipster-kbp_text .tooltipster-arrow-border {
+    border-left-color: #868686 !important;
+}
+
+.tooltipster-sidetip.tooltipster-left.tooltipster-kbp_text .tooltipster-arrow-background {
+    border-left-color: white !important;
+} */
+
+.tooltipster-sidetip.tooltipster-kbp_text .tooltipster-content {
+	line-height: 16px;
+	padding: 4px 6px;
+    color: #2c2c2c;
+	background: #e4e3e3;
+}

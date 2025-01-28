@@ -1,0 +1,61 @@
+{error_msg}
+
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<table class="default">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{detail_msg}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{date_msg}:</td>
+    <td><b>{date_login_interval}</b> ({date_login_formatted})</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{entry_status_msg}:</td>
+    <td>{status}</td>
+</tr>
+
+<tmpl:user>
+<tr class="trLighter">
+    <td class="tdFormCaption">{user_id_msg}:</td>
+    <td>{user_id}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{username_msg}:</td>
+    <td><a href="{userlink}">{username}</a></td>
+</tr>
+</tmpl:user>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{type_msg}:</td>
+    <td>{login_type_message}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{user_ip_msg}:</td>
+    <td>{user_ip}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{detail_msg}:</td>
+    <td>
+        <textarea name="output" rows="12" style="width: 99%;">{output}</textarea>
+    </td>
+</tr>
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="button" value="{back_msg}" onClick="location.href='{cancel_link}'" class="button">
+        </div>
+    </td>
+</tr>
+
+</table>
+</form>

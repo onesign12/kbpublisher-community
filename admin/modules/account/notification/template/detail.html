@@ -1,0 +1,46 @@
+<script>
+    $(document).ready(function() {
+        PopupManager.setTitle("{popup_title}");
+        
+        var parent_window = PopupManager.getParentWindow();
+        parent_window.NotificationManager.remove({id}, {unseen_msg_num});
+        
+        <tmpl:blank>
+        $('#notification_message a').attr('target', '_blank');
+        </tmpl:blank>
+    });
+</script>
+
+<style>
+    .ntf_message { font-size: 1.2em; margin-bottom: 10px; white-space: pre-line; }
+    .ntf_message:empty { display: none; }
+    .ntf_link { font-size: 1.2em; }
+</style>
+
+<div style="margin: 10px 0 20px 0; border-bottom: 2px solid #D4D4D4;">
+    <div style="float: left;font-size: 1.4em;padding: 5px 0;">
+        {title}
+    </div>
+    <div style="float: right; margin-top: 10px;">
+        <b>{date_formatted}</b>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+
+<div id="notification_message">
+    {message}
+</div>
+
+<div class="bottom_button bb_popup preview_buttons">
+    <input type="button" value=" < {prev_msg}" class="{prev_btn_class}"
+        onClick="location.href = '{prev_link}';" {prev_btn_disabled} />
+    
+    <input type="button" value="{next_msg}  > " class="{next_btn_class}"
+        onClick="location.href='{next_link}'" {next_btn_disabled} />
+    
+    <span style="margin-left: 25px;">
+        <input type="button" value="{close_msg}" class="button" id="close_button"
+            onclick="{full_cancel_link}" />
+    </span>
+
+</div>

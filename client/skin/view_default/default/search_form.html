@@ -1,0 +1,390 @@
+<link rel="stylesheet" href="{base_href}client/skin/search2.css?v={pvhash}" />
+<link rel="stylesheet" href="{base_href}client/skin/jquery/icheck/skins/square/grey.css?v={pvhash}" />
+<link rel="stylesheet" href="{base_href}client/skin/jquery/icheck/skins/flat/grey.css?v={pvhash}" />
+<script src="{base_href}client/jscript/jquery/icheck.min.js?v={pvhash}"></script>
+<script src="{base_href}client/jscript/DatePickerManager.js?v={pvhash}"></script>
+<script>
+<!--
+$(document).ready(function() {
+    var period_value = $('input[name="period"]:checked').val() + '_period';
+    hideShowCustomPeriod(period_value);
+
+    var options = {
+        date_format: '{date_format}',
+        week_start: {week_start},
+        current_date: '{current_date}'
+    }
+
+    var dp_from = new DatePickerManager('date_from', options, {date_formatted_1});
+    var dp_to = new DatePickerManager('date_to', options, {date_formatted_2});
+
+    dp_from.bindTo(dp_to);
+
+    setDisabled('from', !$('#is_from:checked').length);
+    setDisabled('to', !$('#is_to:checked').length);
+
+    $('#main_fields input[type=radio]').iCheck({
+        radioClass: 'iradio_square-grey'
+    });
+
+    $('#main_fields input[name="in[]"]').on('ifChecked', function(event) {
+        resetForm(event.target.id);
+    });
+
+    $('#extra_fields input[name="c[]"], #extra_fields input[name="et[]"], #is_from, #is_to, #cp').iCheck({
+        checkboxClass: 'icheckbox_square-grey',
+    });
+
+    $('input[name="pv[]"]').iCheck({
+        radioClass: 'iradio_square-grey',
+    });
+
+    $('.custom_field_block input[type=checkbox]').iCheck({
+        checkboxClass: 'icheckbox_square-grey',
+    });
+
+    $('input[name="period"]').on('ifChecked', function(event) {
+        hideShowCustomPeriod(event.target.id);
+    });
+
+    // entry type
+    $('.et_dropdown_item').click(function(event) {
+        var value = $(this).attr('data-value');
+        var text = $(this).find('span').text();
+
+        var container_id = 'et_selected_' + value;
+
+        if ($('#' + container_id).length == 0) {
+            var container = $('<div class="search_item"></div>');
+            container.attr('id', container_id);
+
+            var checkbox = $('<input type="checkbox" name="et[]" checked />');
+            checkbox.attr('id', value + '_et');
+            checkbox.val(value);
+            container.append(checkbox);
+
+            var label = $('<label>' + text + '</label>');
+            label.attr('for',  value + '_et');
+            container.append(label);
+
+            $('#entry_type_block').append(container);
+
+            $(container).find('input').iCheck({
+                checkboxClass: 'icheckbox_square-grey',
+            });
+
+        } else {
+            $('#' + container_id).find('input').prop('checked', true);
+        }
+    });
+
+	// $("#search_submit").click(function() {
+	$("#search_form, #search_form2").submit(function( event ) {
+        showLoading();
+	});
+
+    $('input[type=radio], input[type=checkbox]').on('ifChecked', function(event) {
+        $(event.target).parent().next().addClass('icheck_selected');
+    });
+});
+
+function resetForm(val) {
+    $('#extra_fields').hide();
+    $('#extra_link').show();
+
+    $('div[id^=cat_selected_]').remove();
+    $('#cat_cbx').hide();
+    $('.custom_field_block').remove();
+
+    $('.search_extra_item').remove();
+
+    if (val == 'file_in') {  // files
+        $('#entry_type').empty();
+
+        $('#category_block').css('display', 'block');
+        $('#entry_type_block').css('display', 'none');
+
+        $('#category_block .dropdown_link').attr('data-url', '{file_cat_link}');
+
+        xajax_getExtraFields('file');
+        xajax_getCustomFields(2);
+
+    } else if (val == 'all_in') { // all
+        $('#extra_link').hide();
+
+        $('#category_block').css('display', 'none');
+        $('#entry_type_block').css('display', 'none');
+
+    } else if (val == 'news_in') { // news
+        $('#category_block').css('display', 'none');
+        $('#entry_type_block').css('display', 'none');
+
+        //xajax_getExtraFields('news');
+        xajax_getCustomFields(3);
+
+    } else if (val == 'article_in') { // article
+        $('#category_block .dropdown_link').attr('data-url', '{article_cat_link}');
+
+        //xajax_getExtraFields('article');
+        xajax_getCustomFields(1);
+
+        $('#category_block').css('display', 'block');
+        $('#entry_type_block').css('display', 'block');
+
+        $('#custom_field').css('display', 'block');
+    }
+}
+
+
+function setDisabledByCheckbox(pref) {
+    var ch = document.getElementById("is_"+pref);
+    for(var i=0; i<dates.length; i++) {
+        var r = (ch.checked) ? false : true;
+        SetDisabled(pref, r);
+    }
+}
+
+function setDisabled(pref, value) {
+    $('#date_' + pref).prop('disabled', value);
+    $('#udate_' + pref).prop('disabled', value);
+}
+
+function setDisabledByPeriod(value) {
+    if(value == 'custom') {
+        setDisabled('from', false);
+        setDisabled('to', false);
+    } else {
+        setDisabled('from', true);
+        setDisabled('to', true);
+    }
+}
+
+function hideShowCustomPeriod(value) {
+
+    var t = document.getElementById('table_custom_period');
+    var p = document.getElementById('period_val');
+
+    if(value != 'all_period') {
+        p.style.display = 'block';
+
+    } else{
+        p.style.display = 'none';
+    }
+
+    if(value == 'custom_period') {
+        t.style.display = 'block';
+        setDisabled('from', false);
+        setDisabled('to', false);
+
+    } else {
+        t.style.display = 'none';
+        setDisabled('from', true);
+        setDisabled('to', true);
+    }
+}
+
+function insertCustomField(column_id, data) {
+    $('#search_extra_column_' + column_id).append(data);
+
+    $('.custom_field_block input[type=checkbox], .custom_field_block input[type=radio]').iCheck({
+        checkboxClass: 'icheckbox_square-grey',
+        radioClass: 'iradio_square-grey',
+    });
+}
+
+//-->
+</script>
+
+{user_msg}
+
+{search_form_input}
+
+<tmpl:search_options>
+<div style="margin:0 0 35px 5px;">
+<a href="#show" class="smallerText" onclick="$('#search_form_div').toggle(); return false;">
+    {search_options_msg}
+</a>
+</div>
+<div id="search_form_div" style="display: none;">
+</tmpl:search_options>
+
+<div id="main_fields" class="grid-x">
+    <div id="search_column_1" class="medium-4 small-12 cell">
+        <div class="search_title">
+            {search_type_msg}
+        </div>
+
+        <tmpl:in_row>
+        <div class="search_item">
+            <input type="radio" name="in[]" id="{value}_in" value="{value}" {checked} />
+            <label for="{value}_in">
+                {name}
+            </label>
+        </div>
+        </tmpl:in_row>
+    </div>
+
+    <div id="search_column_2" class="medium-4 small-12 cell">
+        <div class="search_title">
+            {search_by_msg}
+        </div>
+
+        <tmpl:by_row>
+        <div class="{class}">
+            <input type="radio" name="by" id="{value}_by" value="{value}" {checked} />
+            <label for="{value}_by">
+                {name}
+            </label>
+        </div>
+        </tmpl:by_row>
+    </div>
+
+    <div id="search_column_3" class="medium-4 small-12 cell">
+        <div class="search_title">
+            {search_date_msg}
+        </div>
+
+        <tmpl:period_row>
+        <div class="search_item">
+            <input type="radio" name="period" id="{value}_period" value="{value}" {checked} />
+            <label for="{value}_period">
+                {name}
+            </label>
+        </div>
+        </tmpl:period_row>
+
+        <div id="period_val">
+            <input type="radio" name="pv" id="pv2" value="u"
+                onclick="myOptions.check(this)" {pvu_checked} />
+            <label for="pv2">
+                {period_updated_msg}
+            </label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <input type="radio" name="pv" id="pv" value="p"
+                onclick="myOptions.check(this)" {pvp_checked} />
+            <label for="pv">
+                {period_posted_msg}
+            </label>
+        </div>
+
+        <div id="table_custom_period">
+            <table class="sTable">
+            <tr>
+                <td>{date_from_msg}:</td>
+                <td style="white-space:nowrap;">
+                    <input type="hidden" id="date_from" name="date_from" />&nbsp;
+                    <input type="checkbox" name="is_from" id="is_from" value="1" {from_checked}
+                        onclick="setDisabled('from', (this.checked == false))" />
+                </td>
+            </tr>
+            <tr>
+                <td>{date_to_msg}:</td>
+                <td style="white-space:nowrap;">
+                    <input type="hidden" id="date_to" name="date_to" />&nbsp;
+                    <input type="checkbox" name="is_to" id="is_to" value="1" {to_checked}
+                        onclick="setDisabled('to', (this.checked == false))" />
+                </td>
+            </tr>
+            </table>
+        </div>
+    </div>
+
+    <div style="clear: both;"></div>
+</div>
+
+<div id="extra_link" style="display: {extra_link_display};"
+    onclick="$('#extra_fields').show();$('#extra_link').hide(); return false;">
+    <a href="#">{search_extra_msg}</a>
+</div>
+
+<div id="extra_fields" style="display: {extra_block_display};">
+<div class="grid-x">
+    <div id="search_extra_column_1" class="medium-4 small-12 cell">
+
+        <div id="category_block" style="display: {c_display};">
+            <div class="search_title">
+                <div style="float: left;">{category_msg}</div>
+                <div class="dropdown_link" onclick="PopupManager.create($(this).attr('data-url'), false, false, 1, false, false, '{search_category_msg}');return false;" data-url="{cat_link}">
+                    <img src="{base_href}client/images/icons/pencil.svg" width="14" height="14" style="vertical-align: middle;" />
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div style="clear: both;"></div>
+
+            <tmpl:cat_selected_row>
+            <div id="cat_selected_{value}" class="search_item">
+                <input type="checkbox" name="c[]" id="{value}_c" value="{value}" checked />
+                <label for="{value}_c">
+                    {name}
+                </label>
+            </div>
+            </tmpl:cat_selected_row>
+
+            <div id="cat_cbx" style="display: {cat_cbx_display};">
+                <input type="checkbox" name="cp" id="cp" value="1" {cp_checked} />
+                <label for="cp">{search_all_parent_msg}</label>
+            </div>
+
+            <div style="clear: both;"></div>
+        </div>
+
+        {custom_field_1}
+    </div>
+
+    <div id="search_extra_column_2" class="medium-4 small-12 cell">
+        <div id="entry_type_block" style="display: {et_display};">
+            <tmpl:article_type>
+            <div class="search_title">
+                <div style="float: left;">{entry_type_msg}</div>
+                <div class="dropdown_link" data-jq-dropdown="#et_dropdown">
+                    <img src="{base_href}client/images/icons/pencil.svg" width="14" height="14" style="vertical-align: middle;" />
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div id="et_dropdown" class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right {dropdown_extra_class}">
+                <div class="jq-dropdown-panel">
+                    <tmpl:et_row>
+                    <div class="et_dropdown_item" data-value="{value}">
+                        <span>{name}</span>
+                    </div>
+                    </tmpl:et_row>
+                </div>
+            </div>
+
+            <tmpl:et_selected_row>
+            <div id="et_selected_{value}" class="search_item">
+                <input type="checkbox" name="et[]" id="{value}_et" value="{value}" checked />
+                <label for="{value}_et">
+                    {name}
+                </label>
+            </div>
+            </tmpl:et_selected_row>
+
+            </tmpl:article_type>
+        </div>
+
+        {custom_field_2}
+    </div>
+
+    <div id="search_extra_column_3" class="medium-4 small-12 cell">
+        {custom_field_3}
+    </div>
+
+    <div style="clear: both;"></div>
+</div>
+</div>
+
+<br />
+
+<div style="text-align: center;">
+    <input type="submit" name="sb" value="{search_msg}" class="button" />
+</div>
+
+<br />
+</form>
+
+<tmpl:search_options>
+</div>
+</tmpl:search_options>

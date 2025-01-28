@@ -1,0 +1,4 @@
+L'articolo "[article.title]" non è stato aggiornato per sei mesi. 
+Potrebbe essere necessario dargli un'occhiata.
+
+[article.link]

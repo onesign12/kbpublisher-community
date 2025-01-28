@@ -1,0 +1,98 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{block_settings_msg}");
+    
+    parent_window = PopupManager.getParentWindow();
+    num_entries = parent_window.$('#{block_id}').attr('data-{setting_key}');
+    $('#counter').val(num_entries);
+    
+    title = parent_window.$('#{block_id}').attr('data-title');
+    if (title) {
+        $('#title').val(title);
+    }
+    
+    <tmpl:close_window>
+    PopupManager.close();
+    </tmpl:close_window>
+});
+
+function incrementCounter() {
+    num_entries ++;
+    $('#counter').val(num_entries);
+}
+    
+function decrementCounter() {
+    if (num_entries > 1) {
+        num_entries --;
+        $('#counter').val(num_entries);
+    }  
+}
+
+function saveSettings() {
+    
+    if($('#{block_id}').attr('data-{setting_key}')) {
+        parent_window.$('#{block_id}').attr('data-{setting_key}', num_entries);
+        parent_window.$('#{block_id} .block_num').html('(' + num_entries + ')');
+    }
+    
+    parent_window.$('#{block_id}').attr('data-title', $('#title').val());
+    parent_window.$('#{block_id} span.editable').html($('#title').val());
+    
+    parent_window.$('.grid-stack').trigger('change');
+    
+    PopupManager.close();
+}
+</script>
+<style>
+    select {
+        width: 200px !important;
+    }
+    
+    #increment_icon, #decrement_icon {
+        cursor: pointer;
+        padding: 2px 7px;
+    }
+</style>
+
+
+<div style="font-weight: bold; font-size: 1.1em; margin-bottom: 4px;">
+    {setting_title}
+</div>
+<div class="tdTitle" style="padding: 1px;"></div>
+
+
+<form action="{action_link}" method="post">
+    
+<table class="formTable">
+<tr class="trLighter">
+    <td class="tdFormCaption">{title_msg}:</td>
+    <td>
+        <input type="text" id="title" value="{title}" style="width: 300px;">
+    </td>
+</tr>
+
+<tmpl:row>
+<tr class="trLighter">
+    <td class="tdFormCaption">{title}:</td>
+    <td>
+        <img src="images/icons/dropdown_arrow_left.svg" id="increment_icon" 
+            onclick="decrementCounter();" />
+        <input type="text" value="" id="counter" readonly="true"
+            style="outline: none;width: 50px;text-align: center;font-size: 1.1em;">
+        <img src="images/icons/dropdown_arrow_right.svg" id="decrement_icon" 
+            onclick="incrementCounter();" />
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" name="submit" value="{save_msg}" class="button" 
+        onclick="saveSettings();" />
+    
+    <input type="button" value="{close_msg}" class="button" 
+        onClick="PopupManager.close();" />
+</div>
+
+</form>

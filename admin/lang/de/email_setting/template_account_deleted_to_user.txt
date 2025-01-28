@@ -1,0 +1,9 @@
+Hallo [first_name],
+
+Ihr Konto in "[kb_name]" wurde kürzlich gekündigt.
+Wenn Sie diese Änderung vorgenommen haben, brauchen Sie nichts weiter zu tun.
+
+Die Anfrage kam von der folgenden IP-Adresse: [ip].
+
+Wenn Sie Ihr Konto nicht gelöscht haben, informieren Sie uns bitte sofort unter [support_email]
+Die Meldung ist wichtig, denn sie hilft uns, Betrüger daran zu hindern, Ihre Daten zu stehlen.

@@ -1,0 +1,50 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+    
+    <tmpl:set_status>
+    window.top.$('#{setting_key}').prop('checked', {status});
+    </tmpl:set_status>
+    
+    <tmpl:set_cn>
+    window.top.$('#{setting_key}_text').text("{cn}");
+    </tmpl:set_cn>
+    
+    <tmpl:close_window>
+    PopupManager.close();
+    </tmpl:close_window>
+});
+</script>
+
+{hint_msg}
+
+{error_msg}
+
+<form action="{action_link}" method="post" id="aContentForm2" onsubmit="LeaveScreenMsg.skipCheck();">
+    
+    <tmpl:current_cert>
+    <div style="margin-bottom: 3px;">
+        <div style="background-color: #EFEFEF;padding: 4px 6px;border-bottom: 1px solid #D4D4D4;">
+            <b>{cert_info_msg}</b>
+        </div>
+        <div style="margin: 10px 0 20px 0;">
+            {cert_info}
+        </div>
+    </div>
+    </tmpl:current_cert>
+    
+    <div style="background-color: #EFEFEF;padding: 4px 6px;border-bottom: 1px solid #D4D4D4;">
+        <b>{popup_title}</b>
+    </div>
+    
+    <div class="trLighter" style="padding: 5px">
+        <textarea name="values[{setting_id}]" id="saml_certificate" style="width: 99%;" rows="20">{value}</textarea>
+    </div>
+    
+    <div class="bottom_button bb_popup">
+        <input type="submit" name="submit" value="{save_msg}" class="button">
+        <input type="button" name="cancel" value="{close_msg}" class="button" 
+            onClick="PopupManager.close();">
+    </div>
+    
+</form>

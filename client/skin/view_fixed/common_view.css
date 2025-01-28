@@ -1,0 +1,129 @@
+/* HEADER & CONTENT */	
+
+svg.header {
+     width: 18px;
+     height: 18px;
+     vertical-align: middle;
+}
+
+/* LOGIN */	
+div.login { 
+	font-weight: normal; 
+	text-align: right; 
+	padding-right: 5px;  
+	padding-bottom: 0px;  
+	padding-top: 4px;  
+	color: #FFFFFF;
+	float: right;
+}
+
+div.login svg {
+    vertical-align: baseline !important;
+}
+
+.badge[data-badge]::after {
+    top: -8px !important;
+}
+
+a.login, #login_button {
+    color: #FFFFFF;
+}
+
+#search_block svg, #login_button svg {
+    vertical-align: middle !important;
+}
+
+
+/* TABLES & TITLES*/
+.tdTitle     { 
+    background-color : transparent; 
+    font-size: 1.3em;
+    font-weight: normal;
+    padding-bottom: 3px !important;
+}
+
+/* LIST OPTIONS */
+.menuItemOption {
+	padding: 0px 8px;
+}
+
+.menuItemOption a {
+    font-weight: normal;
+	font-size: 0.7em;
+}
+
+.menuBlockHeader {
+	background: #F4F4F4;
+	border: 1px solid #DADADA;
+}
+
+div.bottom {
+	margin-top: 10px;
+	padding: 8px 5px;
+	border-top: 1px solid #DADADA;
+}
+
+div.navigation {
+	padding: 6px;
+/*  background: #F4F4F4;*/
+	border-bottom: 1px solid #DADADA;
+	margin-bottom: 10px;
+}
+
+.contentBlock {
+	border: 1px solid #DADADA;
+}
+
+.leftBlock {
+	padding: 5px 10px;
+	margin-bottom: 5px;
+	background: #ececec;
+	border: 1px solid #DADADA;
+}
+
+
+#content {
+    position: absolute;
+    height: 563px;
+    overflow: auto;
+    display: none;
+}
+
+#footer {
+    border-top: 1px solid #bebebe;
+    width: 100%;
+    background: #d8d8d8;
+    height: 34px;
+    clear: both;
+}
+
+.copyright {
+    text-align: left;
+    margin: 8px 0 0 10px;
+}
+
+#rss_block {
+    text-align: left;
+    margin: 8px 10px 0 0;
+}
+
+
+#header {
+    height: 70px;
+    padding: 0px;
+}
+
+
+#debug {
+    display: none;
+    padding: 15px;
+    font-size: 0.8em;
+}
+
+#mobile_menu_toggle {
+	float: left;
+	width: 38px;
+	height: 100%;
+	padding-left: 3px;
+	cursor: pointer;
+}

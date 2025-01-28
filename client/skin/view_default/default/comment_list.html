@@ -1,0 +1,61 @@
+<div class="tdTitle" style="margin-bottom: 10px;">
+    <div id="comment_title">
+        <span class="smallerText">{comment_title_msg}</span>
+        <tmpl:rss_link>
+        <a href="{comment_rss_link}" style="margin-left: 5px;">
+            <img src="{base_href}client/images/icons/rss_feed_color.svg" title="RSS" 
+                width="14" height="14" alt="rss" />
+        </a>
+        </tmpl:rss_link>
+    </div>
+</div>
+
+<tmpl:row>
+<div class="commentBlock" id="{anchor}">
+    <div class="commentTitle">
+        <span class="fright smallerText">
+            <a href="{anchor_link}">#{message_num}</a>&nbsp;
+            
+            <tmpl:share_block>
+            <img data-jq-dropdown="#share_dropdown_{id}" style="cursor: pointer;width: 10px;height: 10px;position: relative;"
+                src="{base_href}client/images/icons/share.svg" />
+
+            <div id="share_dropdown_{id}" class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-fixed jq-dropdown-relative">
+                {share_block}
+            </div>
+            </tmpl:share_block>
+        </span>
+
+        <span class="commentUser">{comment_name}</span> |
+        <span class="commentDate">{formated_date}</span>
+    </div>
+    <div class="commentText textBlock">
+        {comment}
+
+        <div class="commentLine"></div>
+
+        <tmpl:action>
+        <div class="commentAction fright">
+            <div>
+                <tmpl:update>
+                    <a href="{update_link}">{update_msg}</a>
+                </tmpl:update>
+                <tmpl:delete>
+                    &nbsp;&nbsp;<a href="{delete_link}" onclick="confirm2('{sure_common_msg}', '{delete_link}');return false;">{delete_msg}</a>
+                </tmpl:delete>
+            </div>
+        </div>
+        </tmpl:action>
+
+        <div class="commentDate">
+            {posted_msg}: {date_interval}
+        </div>
+    </div>
+</div>
+</tmpl:row>
+
+<tmpl:by_page_bottom>
+<br />
+<div style="padding-left: 10px;">{page_by_page_bottom}</div>
+<br /><br />
+</tmpl:by_page_bottom>

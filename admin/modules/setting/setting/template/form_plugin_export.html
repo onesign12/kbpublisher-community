@@ -1,0 +1,102 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{title}");
+    
+    <tmpl:set_status>
+    window.top.$('#{key}').prop('checked', {status});
+    </tmpl:set_status>
+    
+    if (window.top.$('#plugin_wkhtmltopdf_path').val() != 'off') {
+        $('#test_button').show();
+    }
+    
+    <tmpl:close_window>
+    PopupManager.close();
+    </tmpl:close_window>
+});
+
+function submitToPopup() {
+    PopupManager.create('{popup_link}', 'r', 'r', 2, false, false, '{test_msg}');
+    
+    window.top.$('#aContentForm').attr('action', window.top.$('#aContentForm').attr('action') + '&popup=plugin_export_test');
+    window.top.$('#aContentForm').attr('target', PopupManager.prefix + '2');
+    
+    // additional data
+    editor = CKEDITOR.instances.body;
+    var data = editor.getData();
+    
+    var input = $('<input />').attr('type', 'hidden').attr('name', '{key}').val(data);
+    window.top.$('#aContentForm').append($(input));
+    
+    if ($('input[name="margin"]').length) {
+        var margin = $('input[name="margin"]').val();
+        var input = $('<input />').attr('type', 'hidden').attr('name', '{margin_setting}').val(margin);
+        window.top.$('#aContentForm').append($(input));
+    }
+               
+    
+    window.top.$('#aContentForm').submit();
+    
+    
+    var current_popup = PopupManager.getCurrentPopup();
+    current_popup.dialog('option', 'beforeClose', function(event, ui) {
+        window.top.$('#aContentForm').attr('target', '_self');
+        window.top.$('#aContentForm input[name=popup]').remove();
+        window.top.$('#aContentForm').attr('action', window.top.$('#aContentForm').attr('action').replace('&popup=plugin_export_test', ''));
+        
+        window.top.$('input[name="{key}"]').remove();
+    });
+}
+</script>
+
+{error_msg}
+
+{hint_msg}
+
+<form action="{action_link}" method="post" id="aContentForm2" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+
+<tmpl:margin_setting>
+<div style="width: 100%;" id="group{group_id}" class="tes">
+    <p class="trMoreDarker" style="padding: 6px 0px; margin-bottom: 1px; width: 100%;">
+        <span style="padding-left: 5px;"><b>{settings_msg}</b>:</span>
+    </p>
+</div>
+
+<table class="default">
+    <tr class="trLighter" valign="top">
+        <td class="tdFormCaption tdCaptionTop" 
+            style="width: 220px; min-width: 220px; text-align: left; white-space: normal;">
+            {margin_title}:
+        </td>
+        <td style="width: 310px; min-width: 310px;">
+            <input type="text" name="margin" style="width: 298px;" value="{margin_value}" />
+        </td>
+        <td class="tdCaptionTop" style="padding-left: 5px;"></td>
+    </tr>
+</table>
+
+<br />
+</tmpl:margin_setting>
+
+<div class="trMoreDarker" style="padding: 6px 4px;">
+    <strong>{template_msg}:</strong>
+</div>
+
+<div class="trLighter" style="padding: 5px;margin-bottom: 30px;">
+    {ckeditor}
+</div>
+
+<br />
+
+<div class="bottom_button bb_popup">
+    <input type="submit" name="{button_value}" value="{save_msg}" class="button">
+    <input type="submit" name="{button2_value}" value="{button2_title}" class="button">
+    <input type="button" id="test_button" name="debug" value="{test_msg}" class="button" style="display: none;"
+        onClick="submitToPopup('plugin_export_test');" />
+    <span style="margin-left: 25px;">
+    <input type="button" name="cancel" value="{close_msg}" class="button" 
+        onClick="PopupManager.close();">
+</div>
+
+</form>

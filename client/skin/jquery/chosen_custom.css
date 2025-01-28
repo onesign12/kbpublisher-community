@@ -1,0 +1,12 @@
+.chosen-container {
+    font-size: 11px !important;
+}
+
+.chosen-container-single .chosen-single {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.chosen-container.chosen-with-drop .chosen-drop {
+    font-size: 11px !important;
+}

@@ -1,0 +1,224 @@
+<link rel="stylesheet" href="../client/skin/jquery/colpick.css?v={pvhash}">
+<script src="../client/jscript/jquery/colpick.js?v={pvhash}"></script>
+<script>
+
+    $(document).ready(function() {
+        
+        PopupManager.setTitle("{page_title}");
+        
+        var options = {
+            layout: 'rgbhex',
+            onSubmit: function(hsb, hex, rgb, el) {
+                $(el).val('#' + hex);
+                $(el).parent().next().css('background-color', '#' + hex);
+        		$(el).colpickHide();
+	        },
+            onBeforeShow: function() {
+                $(this).colpickSetColor(this.value);
+            }
+        }
+        
+        $('input[type=text]:not(input.not_color)').colpick(options);
+        
+        
+        // and stick it to the box
+        options['onSubmit'] = function(hsb, hex, rgb, el) {
+            var input = $(el).prev().find('input');
+            input.val('#' + hex);
+            $(el).css('background-color', '#' + hex);
+    		$(el).colpickHide();
+        }
+        
+        options['onBeforeShow'] = function() {
+            var value = $(this).prev().find('input').val();
+            $(this).colpickSetColor(value);
+        }
+        
+        $('div.color_picker').colpick(options);
+        
+        <tmpl:left_menu_slider>
+        $('#left_menu_slider').slider({
+            range: 'min',
+            value: {left_menu_width},
+            min: 230,
+            max: 600,
+            slide: function(event, ui) {
+                $('#left_menu_width').val(ui.value);
+            }
+        });
+        </tmpl:left_menu_slider>
+        
+        <tmpl:close_window>
+        window.top.$('#{parent_setting_name}').val('html');
+        //PopupManager.close();
+        </tmpl:close_window>
+        
+        $("#color_sheme > option").each(function() {
+            $(this).css('background-color', this.value)
+        });
+        
+    });
+
+    function addTmplExample() {
+        $('#head_code').val("<style>\n/*your styles*/\n</style>");
+        $('#page_header').val($('#header_example').html());
+        $('#footer').val($('#footer_example').html());
+    }
+    
+    function resetTmpl() {
+        $('#head_code').val('');
+        $('#page_header').val('');
+        $('#footer').val('');
+    }
+    
+    function checkColor(el) {
+        if (el.value == '') {
+           $(el).parent().next().css('background', '#F8F8F3'); 
+        }
+    }
+    
+    function setColorSheme(value) {
+        var shemes = {js_color_arr};
+        
+        if(value == 'default') {
+            $.each(shemes[Object.keys(shemes)[0]], function(key, value) {
+                $('#'+key).val('');
+                $('#'+key+'_example').css('background-color', '');
+            });
+            
+        } else {
+            $.each(shemes[value], function(key, value) {
+                $('#'+key).val(value);
+                $('#'+key+'_example').css('background-color', value);
+            });
+        }
+    }
+    
+</script>
+
+{error_msg}
+
+{hint} 
+
+<form action="{action_link}" method="post" id="aContentForm2" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+<!-- page_to_load -->
+<input type="hidden" name="values[{fid}]" value="{fid_value}">
+
+<div class="trMoreDarker" style="padding: 6px 4px;">
+    <span style="float: right;">
+        <a href="#example" onclick="addTmplExample()"; return false;>
+            {add_example_msg}
+        </a>
+    </span>
+    <strong>{title}:</strong>
+</div>
+
+<br />
+<div class="trDarker" style="padding: 5px 3px;">
+    {head_code_msg}:
+</div>
+<div class="trLighter" style="padding: 5px">
+    <textarea id="head_code" name="values[{fid2}][2]" 
+        style="width: 99%; height: 80px;">{head_code}</textarea>
+</div>
+
+<tmpl:header>
+<br />
+<div class="trDarker" style="padding: 5px 3px;">
+    {header_msg}:
+</div>
+<div class="trLighter" style="padding: 5px">
+    <textarea id="page_header" name="values[{fid2}][0]" 
+        style="width: 99%; height: 80px;">{header}</textarea>    
+</div>
+</tmpl:header>
+
+<tmpl:header_hidden>
+<input type="hidden" name="values[{fid2}][0]" value="" />
+</tmpl:header_hidden>
+
+<tmpl:footer>
+<br />
+<div class="trDarker" style="padding: 5px 3px;">
+    {footer_msg}:
+</div>
+<div class="trLighter" style="padding: 5px">
+    <textarea id="footer" name="values[{fid2}][1]" 
+        style="width: 99%; height: 80px;">{footer}</textarea>
+</div>
+</tmpl:footer>
+
+<tmpl:footer_hidden>
+<input type="hidden" name="values[{fid2}][1]" value="" />
+</tmpl:footer_hidden>
+
+<br />
+<div class="trMoreDarker" style="padding: 5px 3px;">
+    <b>{style_msg}:</b>
+</div>
+
+<div style="margin-bottom: 30px;">    
+    <table class="default">
+
+    <tr class="trLighter" valign="top">
+    <td class="settingTitle tdFormCaption tdCaptionTop required" 
+        style="width: 300px; min-width: 300px; text-align: left; white-space: normal;">
+            {color_sheme_msg}:
+        </td>
+         <td style="width: 210px; min-width: 210px;">
+            <div style="float: left;">
+                <select style="width:150px;" name="color_sheme" id="color_sheme"
+                    onchange="setColorSheme(this.value);">
+                    {color_sheme_select}
+                </select>
+            </div>
+        </td>
+        <td class="not_searchable tdCaptionTop" style="padding-left: 5px;"></td>
+    </tr>
+        
+    <tmpl:row>
+    <tr class="trLighter" valign="top">
+    <td class="settingTitle tdFormCaption tdCaptionTop required" 
+        style="width: 300px; min-width: 300px; text-align: left; white-space: normal;">
+            {title_msg}:
+        </td>
+         <td style="width: 210px; min-width: 210px;">
+            <div style="float: left;">
+                {form_input}
+            </div>
+            
+            <tmpl:color_box>
+            <div style="float: left;background-color: {color};" 
+                class="color_picker" id="{setting_key}_example"></div>
+            </tmpl:color_box>
+        </td>
+        <td class="not_searchable tdCaptionTop" style="padding-left: 5px;">{description_msg}</td>
+    </tr>
+    </tmpl:row>
+        
+    </table>
+</div>        
+
+<br />
+<div class="bottom_button bb_popup">
+    <input type="submit" name="submit" value="{save_msg}" class="button">
+    <input type="button" name="cancel" value="{close_msg}" class="button" 
+        onClick="PopupManager.close();">
+</div>
+
+</form>
+
+<div id="header_example" style="display: none;"><div style="background: grey;">
+    <div class="in_header &#123;container_width_class&#125">
+        <a href="http://domain.com/">your company name or logo</a>
+    </div>
+</div>
+</div>
+
+<div id="footer_example" style="display: none;"><div style="background: grey;">
+    <div class="in_footer &#123;container_width_class&#125">
+        your html here
+    </div>
+</div>
+</div>

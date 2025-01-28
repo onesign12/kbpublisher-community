@@ -1,0 +1,50 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{custom_block_msg}");
+    
+    <tmpl:close_window>
+    var parent_window = PopupManager.getParentWindow();
+    parent_window.$('#custom_block_caption').show();
+    if (parent_window.$('#{custom_block_id}').length || parent_window.$('#popup_{custom_block_id} div div').length) { // updating
+        parent_window.$('#{custom_block_id} span:not(.block_num)').html("{title}");
+        parent_window.$('#popup_{custom_block_id} div div').html("{title}");
+        
+    } else {
+        parent_window.$('#custom_block_list').append('{custom_block_html}');
+    }
+    
+    PopupManager.close();
+    </tmpl:close_window>
+});
+</script>
+
+{error_msg}
+
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td>
+        <input type="text" name="title" placeholder="{title_msg}" value="{title}" style="width: 100%;" />
+    </td>
+</tr>
+
+<tr class="trLighter" valign="top">
+    <td>
+        {ckeditor}
+    </td>
+</tr>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="submit" name="submit" value="{save_msg}" class="button" />
+    <input type="button" value="{close_msg}" class="button" onClick="PopupManager.close();" />
+</div>
+
+</form>

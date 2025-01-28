@@ -1,0 +1,139 @@
+<script>
+function changeStatus(group, line) {
+    confirm2("{sure_common_msg}", function() {
+        xajax_changeStatus(group, line);
+    });
+}
+
+function deleteItem(group, line) {
+    confirm2("{sure_common_msg}", function() {
+        xajax_deleteItem(group, line);
+    });
+}
+
+function resetToDefault() {
+    confirm2("{sure_default2_msg}", function() {
+        document.location.href = '{default_link}';
+    });
+}
+
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+
+    var current_popup = PopupManager.getCurrentPopup();
+    current_popup.dialog('option', 'beforeClose', updateCounter);
+    
+    // $("table.default tr:even").addClass("trDarker");
+    // $("table.default tr:odd").addClass("trlighter");
+});
+
+function showOptionsPopup(group, line) {
+    var url = '{popup_link}'
+    
+    if (group) {
+        url += '&group=' + group + '&line=' + line;
+    }
+     
+    PopupManager.create(url, 'r', 'r', '{setting_name}', 700, 310);
+}
+
+function updateCounter() {
+    window.top.$('#aContentForm').attr('target', '_self');
+    window.top.$('#aContentForm input[name=popup]').remove();
+    window.top.$('#aContentForm').attr('action', window.top.$('#aContentForm').attr('action').replace('&popup={setting_name}', ''));
+    
+    var num = $('#active_rules_list tr').length + $('#inactive_rules_list tr').length;
+    window.top.$('#{setting_name}_count').text(num);
+}
+
+function initSort() {
+    $('#visible_items').sortable({
+        connectWith: '#dropdown_items',
+        placeholder: 'view_placeholder',
+        items: 'li:not(.not_sortable)',
+        stop: function(event, ui) {
+            var group_block_id = ui.item.parent().attr('id');
+            var group_key = group_block_id.split('_')[0];
+            
+            $(ui.item).find('input[type="hidden"]').attr('name', group_key + '_id[]');
+        }
+    });
+    
+    $('#dropdown_items').sortable({
+        connectWith: '#visible_items',
+        placeholder: 'view_placeholder',
+        items: 'li:not(.not_sortable)',
+        stop: function(event, ui) {
+            var group_block_id = ui.item.parent().attr('id');
+            var group_key = group_block_id.split('_')[0];
+            
+            $(ui.item).find('input[type="hidden"]').attr('name', group_key + '_id[]');
+        }
+    });
+    
+    $('#visible_items, #dropdown_items').disableSelection();
+    
+    var title = PopupManager.getTitle() + ' -> ' + "{reorder_msg}"; 
+    PopupManager.setTitle(title);
+}
+
+function showInUseHint() {
+    var options = {'ok_title': "{update_layout_msg}"};
+    confirm2('{menu_item_in_use_msg}', function() {
+        PopupManager.create('{page_design_link}');
+    }, options);
+}
+</script>
+
+<div id="extra_list">
+
+<div style="float: right;">
+    {buttons}
+</div>
+
+<div style="clear: both;height: 10px;"></div>
+
+<tmpl:group>
+<div style="padding-bottom: 8px;">
+    <b>{group_title}</b>
+</div>
+<div class="tdTitle" style="padding:1px;"></div>
+
+<table class="default" id="{group_id}_rules_list">
+    <tmpl:row>
+    <tr class="{class}" id="rule_{line}">
+        <tmpl:built_in_item>
+        <td width="10"  align="center">
+            <tmpl:bullet>
+            <img src="images/icons/bullet.svg" title="{built_in_item_msg}" alt="b" />
+            </tmpl:bullet>
+        </td>
+        </tmpl:built_in_item>
+        
+        <td>{title}</td>
+        
+        <tmpl:dropdown>
+        <td width="50" align="center" class="_tooltip" title="{more_dropdown_msg}">
+            {dropdown_img}
+        </td>
+        </tmpl:dropdown>
+        
+        <td width="1" align="center">
+            {options_img}
+        </td>
+    </tr>
+    </tmpl:row>
+</table>
+
+<br />
+<br />
+</tmpl:group>
+
+</div>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{defaults_msg}" class="button primary"
+        onClick="resetToDefault();" />    
+    <input type="button" value="{done_msg}" class="button" id="close_button"
+        onclick="updateCounter();PopupManager.close();">
+</div>

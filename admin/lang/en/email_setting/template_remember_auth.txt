@@ -1,0 +1,8 @@
+Hi [first_name], 
+
+This is a notification to inform you that a device has been trusted to skip authentication on your "[kb_name]" account ([username]). 
+The request came from the following IP address: [ip].
+
+The device will not be prompted for a username or password for [days] days.
+
+If this action did not originate from you, we recommend that you log in and change your password immediately or contact your KB administrator by emailing [support_email]. 

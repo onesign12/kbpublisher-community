@@ -1,0 +1,51 @@
+<script type="text/javascript">
+
+    function _changeCommentBlock(value) {
+        if(value) {
+            $('#history_comment_td').addClass('disabled');
+            $('#history_comment_text').addClass('disabled');
+            
+        } else {
+            $('#history_comment_td').removeClass('disabled');
+            $('#history_comment_text').removeClass('disabled');
+        }
+    }    
+
+    function _changeSplitButton(value) {
+        if(value) {
+            setButtonValueByDataKey('save_skip', $('#split_dropdown_menu'), '');
+        } else {
+            setButtonValueByDataKey('save', $('#split_dropdown_menu'), '');
+        }
+    }
+
+    function changeCommentBlock() {
+        _changeCommentBlock($('#history_skip').prop('checked'));
+        $("#history_skip").click(function() {
+            _changeCommentBlock($('#history_skip').prop('checked'));
+            _changeSplitButton($('#history_skip').prop('checked'));
+        });
+    }
+</script>
+
+<a id="history_comment_anchor"></a>
+<div id="history_comment" style="display: {h_display};">
+    <table class="formTable">
+    <tr class="trLighter">
+        <td class="tdFormCaption"></td>
+        <td id="history_comment_td">
+            <div style="padding: 3px 0;">
+                <b>{revision_comment_msg}:</b><br />
+                {revision_comment_desk_msg}.
+            </div>
+            <input type="hidden" name="history_flag" id="history_flag" value="{history_flag}" />
+            <textarea cols="80" rows="4" name="history_comment" id="history_comment_text" 
+                style="width: 99%;">{history_comment}</textarea>
+            <div style="padding: 3px 0; display: {h_skip_display};">
+                <input type="checkbox" name="history_skip" id="history_skip" value="1" /> 
+                    <label for="history_skip">{revision_skip_msg}.</label>
+            </div>
+        </td>
+    </tr>
+    </table>
+</div>

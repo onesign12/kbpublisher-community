@@ -1,0 +1,87 @@
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{preview_msg}</b></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="trMoreDarker required">{title_msg}:</td>
+    <td>{title}</td>
+</tr>
+<tr class="trMoreDarker">
+    <td class="trMoreDarker tdCaptionTop">{description_msg}:</td>
+    <td>{description}</td>
+</tr>
+
+<tmpl:from>
+<tr class="trLighter">
+    <td class="tdFormCaption" style="padding: 10 5px;"><b>{from_msg}:</b></td>
+    <td>
+        {email_msg}: {from_email}&nbsp;&nbsp;
+        {name_msg}: {from_name}
+    </td>
+</tr>
+</tmpl:from>
+
+<tmpl:to>
+<tr class="trLighter">
+    <td class="tdFormCaption" style="padding: 10 5px;"><b>{to_msg}:</b></td>
+    <td>
+        {email_msg}: {to_email}&nbsp;&nbsp;
+        {name_msg}: {to_name}
+    </td>
+</tr>
+</tmpl:to>
+
+<tmpl:to_cc>
+<tr class="trLighter">
+    <td class="tdFormCaption" style="padding: 10 5px;">{to_cc_msg}:</td>
+    <td>
+        {email_msg}: {to_cc_email}&nbsp;&nbsp;
+        {name_msg}: {to_cc_name}
+    </td>
+</tr>
+</tmpl:to_cc>
+
+<tmpl:to_bcc>
+<tr class="trLighter">
+    <td class="tdFormCaption" style="padding: 10 5px;">{to_bcc_msg}:</td>
+    <td>
+        {email_msg}: {to_bcc_email}&nbsp;&nbsp;
+        {name_msg}: {to_bcc_name}
+    </td>
+</tr>
+</tmpl:to_bcc>
+
+<tr class="trLighter">
+    <td class="tdFormCaption"></td>
+    <td></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{subject_msg}:</td>
+    <td>{subject}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{message_msg}:</td>
+    <td>{vck_editor}</td>
+</tr>
+
+<!-- <tr class="trLighter">
+    <td class="tdFormCaption">{status_msg}:</td>
+    <td>{status_checkbox}</td>
+</tr> -->
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <form action="">
+        <input type="button" value="{back_msg}" onClick="location.href='{cancel_link}'" class="button">
+        </form>
+    </td>
+</tr>
+</table>
+
+
+
+
+

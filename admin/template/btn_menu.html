@@ -1,0 +1,29 @@
+<div>
+
+    <div style="float: right;">
+        {right_content}
+    </div>
+
+    <div>
+        <tmpl:row>      
+        
+            <tmpl:spacer>
+            <span style="margin-right: 10px;">&nbsp;</span>
+            </tmpl:spacer>    
+    
+            <tmpl:active>
+            <span class="btnMenuActive"  align="center" nowrap style="{td_style}" {td_extra}>
+                <a href="{menu_link}" target="{target}" style="{a_style}" {a_extra}>
+                    <b>{menu_item}</b></a></span>
+            </tmpl:active>    
+    
+            <tmpl:nonactive>
+            <span class="btnMenuNotActive" align="center" nowrap style="{td_style}" {td_extra}>
+                <a href="{menu_link}" target="{target}" style="{a_style}" {a_extra}>
+                    {menu_item}</a></span>
+            </tmpl:nonactive>
+    
+        </tmpl:row>
+    </div>    
+    
+</div>

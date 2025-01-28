@@ -1,0 +1,16 @@
+<form method="post" onSubmit="LeaveScreenMsg.skipCheck();">
+    <ul id="sortable_views">
+        <tmpl:rule>
+        <li id="id_{id}" class="trLighter" style="cursor: move;">
+            <span style="margin-left: 5px;">{title}</span>
+            <input type="hidden" name="sort_id[]" value="{line}" />
+        </li>
+        </tmpl:rule>
+    </ul>
+    
+    <br />
+    
+    <div class="bottom_button bb_popup">
+        <input type="submit" name="submit" value="{done_msg}" class="button" />
+    </div>
+</form>

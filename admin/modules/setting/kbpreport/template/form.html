@@ -1,0 +1,54 @@
+<script>
+<!--
+function retest(key) {
+    xajax_retest(key);
+}
+//-->
+</script>
+
+<form method="post" name="test" id="aContentForm">
+    
+<!--<tr class="tdTitle">
+    <td width="75%">{item_test_msg}</td>
+    <td width="25%" align="center">{entry_status_msg}</td>
+</tr>-->
+
+<tmpl:group>
+<table class="listTable2" style="margin-bottom: 15px;">
+    <tr>
+        <td  class="trMoreDarker" style="padding: 6px 4px;" colspan="2">
+            <b>{group_name}</b>
+        </td>
+    </tr>
+
+    <tmpl:row>
+    <tr id="row_{id}" class="{class}" style="{style}">
+        
+        <td style="color: black; padding-left: 10px;width: 75%;" valign="top">
+            <strong>{title}</strong> <br /> {descr} <br />
+            <span>{setting} {instruction}</span>
+        </td>
+        <td class="action" style="width: 25%;{style2}">{msg}</td>
+    </tr>
+    </tmpl:row>
+</table>
+</tmpl:group>
+
+
+<tmpl:no_report>
+<table class="listTable2" style="margin-bottom: 15px;">
+<tr>
+    <td colspan="2">{no_report_msg}</td>
+</tr>
+</table>
+</tmpl:no_report>
+
+<tmpl:run_test>
+<br /><br />
+<div id="bottom_button" align="center">
+    <input type="submit" name="submit" value="{run_test_msg}" class="button" data-loading-msg="{generating_msg}"
+        onclick="showSpinner('submit');">
+</div>
+</tmpl:run_test>
+
+</form>

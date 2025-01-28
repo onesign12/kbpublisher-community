@@ -1,0 +1,81 @@
+<script type="text/javascript">  
+    $(document).ready(function() {
+        $(':checkbox').change(function() {
+            xajax_setPluginStatus(this.name, this.value);
+        });
+    });
+    
+    function SureDefault(msg, link) {
+        confirm2(msg, function() {
+            location.href = link;
+        });
+    }
+
+    // function xajax_setPluginStatus(plugin, val) {
+        // setPluginStatus
+    //}
+    
+    
+</script>
+
+<style>
+    .action_msg { margin-left: 5px; }
+    .trMoreDarker { padding: 6px 6px; margin-bottom: 1px; }
+    .trLighter { padding: 5px 10px; margin-top: 2px; }
+</style>
+
+<div class="boxMsgDiv hint">
+    Below is a list of KBPublisher plugins to improve performance and enhance user experience. 
+    <br/>Coming soon...
+</div>
+
+{header}
+
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+   
+<div id="eList">
+
+    <tmpl:row>
+        <tmpl:group_delim>
+        <div id="delim_group{delim_id}">&nbsp;</div>
+        </tmpl:group_delim>
+        
+        <tmpl:group>
+        <a class="setting_anchor" id="group_anchor_{group_id}"></a>
+        <div class="main">
+            <div id="group{group_num}">
+                <p class="trMoreDarker">
+                    <b>{group_title}</b>
+                </p>
+             </div>
+         </tmpl:group>
+           
+        <div class="trLighter" id="plugin_{key}">
+            <tmpl:checkbox>
+            <div style="position: relative; float: right;">
+                <input type="checkbox" name="{key}" value="{value}" 
+                    {pchecked} {pdisabled} />
+            </div>
+            </tmpl:checkbox>
+            
+            <b style="">{title}</b><span class="action_msg"></span>
+            <div style="margin-top: 1px;">{descr}</div>
+        </div>
+      
+        {end}          
+    </tmpl:row>
+
+</div>
+
+<!-- <div id="buttons" style="margin-left: 230px; margin-top: 25px;">
+    <div id="bottom_button">
+        <input type="submit" name="submit" value="{save_msg}" class="button"
+            onClick="validateForm();return false;" />
+
+        <input type="button" value="{cancel_msg}"  class="button"
+            onClick="LeaveScreenMsg.skipCheck(); {full_cancel_link}">
+    </div>
+</div> -->
+
+</form>

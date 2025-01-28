@@ -1,0 +1,6 @@
+[files.num] z twoich plików nie został zaktualizowany \ zostały zaktualizowane przez pół roku.
+Status został ustawiony na "Outdated". 
+
+
+Kliknij ten link, aby je sprawdzić:
+[files.link.filtered.outdated]

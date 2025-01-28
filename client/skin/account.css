@@ -1,0 +1,71 @@
+@import url("fira.css");
+
+/* COMMON */
+body, html { padding: 0px; margin: 0px; height: 100%; }
+body, TD, DIV { 
+    font-family : "Fira Sans", Tahoma, Verdana, Arial, Helvetica, sans-serif;
+/*    font-size : 90%;*/
+}
+
+/* TD, DIV    { font-size : 13px; } */
+
+.tdTitle     { background-color : #DADADA; padding: 6px 5px; font-size : 1.0em; font-weight : bold; border-bottom: 0px; }
+.tdSubTitle  { background-color : #A8BCD7;  }
+.trLighter   { background-color : #F7F7F7; }
+.trDarker    { background-color : #F1F1F1; }
+.trMoreDarker{ background-color : #DADADA; }
+.trOver { background-color : #E0E8F1 !important; }
+.trHighlight { background-color : #E0E8F1;  } /*tr click*/
+.trHighlight2, .trHighlight2 > .commentTitle { background-color : #FDF7D4 !important;  } /*bulk checkbox*/
+td.action { text-align: center; padding: 0px 7px; border: 0px; font-weight: normal; }
+
+
+/* sort links */
+A.sort,  A.sort:VISITED{ color: #000 !important; text-decoration: none; /*font-size : 12px;*/  font-weight: bold;  }
+A.sort:HOVER { color : #000; text-decoration : underline;  }
+
+/* .listTable, .listTable2 {  }  */
+.listTable td,th { padding: 6px 4px !important; }
+.listTable td.action { width: 30px; }
+/* @media screen and (max-width: 49.9375em) {  */
+    /* .listTable td.action { width: 100%; text-align: right; } */
+/* } */
+
+#filter_tbl { width: auto !important; }
+#filter_tbl div.cell { padding-left: 0px; }
+
+/* ... button in header */
+#filter_div table.sTable td + td { padding-bottom: 5px; vertical-align: bottom !important; }
+
+#bulk_block { display: none; }
+#bulk_block_display { display: none; } /* to be able to not show  */
+
+.button2_more, .button2_add_new_plus {
+  background-color: #BFBFBF;
+  color: #FFFFFF;
+  padding: 0px !important;
+  width: 25px;
+  height: 25px;
+  font-weight: bold;
+}
+
+/*when + as msg we need bigger font*/
+.button2_add_new_plus {
+    margin-bottom: 4px !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.account_title {
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+
+.member_inline_block {
+    padding: 0 15px;
+}
+
+li.bulk_actions { /* in buttons [...] */
+   /* display: block; */
+   font-size: 12px;
+}

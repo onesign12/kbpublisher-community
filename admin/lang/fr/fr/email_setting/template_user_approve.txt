@@ -1,0 +1,4 @@
+Cher(e) [first_name] [last_name],
+Votre candidature à rejoindre la base de connaissance a bien été reçue. Une fois votre profil validé, nous vous enverrons un courrier éléctronique avec vos informations de connexion. Cela peut durer jusque 2-3 jour ouvrés.
+
+Merci beaucoup pour votre participation.

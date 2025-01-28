@@ -1,0 +1,14 @@
+<input type="submit" name="submit1" value="{save_msg}" class="button"
+    onClick="validateForm('submit1', false, false, 'setting');return false;" />
+
+<input type="submit" name="set_default" id="default_submit" value="{defaults_msg}" class="button secondary"
+    onClick="return confirmForm('{sure_default_msg}', 'default_submit');">
+
+<tmpl:cancel>
+<input type="button" value="{cancel_msg}" class="button" onClick="PopupManager.close();" />
+</tmpl:cancel>
+
+<span style="margin-left: 15px;">
+    <input type="button" name="debug" value="{test_msg} WKHTMLTOPDF" class="button"
+        onClick="submitToPopup('plugin_export_test', true);" />
+</span>

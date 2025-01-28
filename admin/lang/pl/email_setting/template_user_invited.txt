@@ -1,0 +1,7 @@
+Witaj,
+
+Zostałeś/aś zaproszony/a do dołączenia do naszej bazy wiedzy.
+Aby skonfigurować swoje konto, wystarczy kliknąć w poniższy link.
+[link]
+
+Mamy nadzieję, że okaże się dla Ciebie przydatne!

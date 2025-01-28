@@ -1,0 +1,17 @@
+#rules_list tr:not(.not_sortable) {
+    height: 22px;
+}
+
+#rules_list:not(.disabled) tr:not(.not_sortable) td:not(.not_editable):hover {
+    background: #ffffcc;
+    cursor: text;
+}
+
+#rules_list tr span {
+    cursor: auto;
+}
+
+.view_placeholder {
+    background: #eeeeee;
+    border: 1px dashed #999999;
+}

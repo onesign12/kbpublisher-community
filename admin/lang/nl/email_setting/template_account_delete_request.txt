@@ -1,0 +1,14 @@
+De gebruiker heeft verzocht het KB account te beëindigen.
+{request_from_ip_msg}: [ip]
+
+De gebruiker heeft mogelijk enkele gerelateerde activiteiten. Gebruik de onderstaande link om ze te bekijken.
+[link]
+
+Gebruikersnotities:
+[message]
+
+{user_info_msg}:
+------------
+ID: [id]
+Naam: [name]
+E-mail: [email]

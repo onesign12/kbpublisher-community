@@ -1,0 +1,39 @@
+<form style="margin: 0px;">
+{hidden_fields}
+<input type="hidden" name="mode" value="{mode}" />
+
+
+<table id="filter_tbl">
+<tr>
+    <td>
+        <div>{category_msg}:</div>
+        <select name="filter[c]" class="colorInput" style="width: 120px;">
+        {category_select}
+        </select>
+    </td>
+    
+    <td>
+        <div>{entry_status_msg}:</div>
+        <select name="filter[s]" class="colorInput" style="width: 120px;">
+        {status_select}
+        </select>
+    </td>
+    
+    <td>
+        <div>{filename_msg}: ({search_wildcard_help_msg})</div>
+        <input type="text" name="filter[f]" value="{f}" class="colorInput" style="width: 150px;">
+    </td>    
+    
+    <td>
+        <div>{search_str_msg}:{search_help}</div>
+        <input type="text" name="filter[q]" value="{q}" class="colorInput" style="width: 150px;">
+    </td>
+    
+    <td>
+        <button type="submit" name="do_search" value="1" 
+            class="button2 button2_filter">&rarr;</button>
+    </td>
+</tr>
+</table>
+
+</form>

@@ -1,0 +1,14 @@
+Użytkownik poprosił o usunięcie swojego konta KB.
+{request_from_ip_msg}: [ip]
+
+Użytkownik mógł dokonywać pewnych powiązanych aktywności. Użyj poniższego linku, aby je przejrzeć.
+[link]
+
+Notatki użytkownika:
+[message]
+
+{user_info_msg}:
+------------
+ID: [id]
+Imię: [name]
+Email: [email]

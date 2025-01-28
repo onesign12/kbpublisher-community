@@ -1,0 +1,22 @@
+Options -Indexes 
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+	RewriteEngine off
+</IfModule>
+
+
+#FCK Editor fix, could be required in special cases
+# AddType application/x-javascript .js
+# AddType text/css .css
+
+# allow access to admin area from certain ip only
+#order allow,deny 
+#deny from all
+#allow from 192.168.
+
+#AuthType Basic
+#AuthName "Password Required"
+#AuthUserFile /www/passwords/password.file
+#AuthGroupFile /www/passwords/group.file
+#Require Group admins

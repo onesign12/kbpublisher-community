@@ -1,0 +1,9 @@
+Cześć [first_name],
+
+Adres e-mail Twojego konta [kb_name] został niedawno zmieniony.
+Jeśli to ty wprowadziłeś tę zmianę, nie musisz nic więcej robić.
+
+Nowy adres e-mail: [e-mail]
+
+Jeśli to nie ty zmieniłeś hasło, daj nam znać od razu na adres [support_email]
+Zgłoszenie tego faktu  jest ważne, ponieważ pomaga nam zapobiegać kradzieży twoich informacji przez oszustów.

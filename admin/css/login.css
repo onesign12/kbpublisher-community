@@ -1,0 +1,88 @@
+body, TD, DIV { 
+	font-family : Tahoma, Verdana, Arial, Helvetica, sans-serif; 
+	font-size : 12px;
+}
+
+body {
+    background: #f4f4f4;
+}
+
+.form-bg {
+	width: 370px;
+	-moz-border-radius:9px;
+	-webkit-border-radius:9px;
+	border-radius:9px;
+    margin: 70px auto 0;
+    padding: 8px 0 0 8px; 
+}
+
+.form-bg form {
+	width: 360px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	-moz-box-shadow:0px 1px 3px 2px rgba(0,0,0,0.1);
+	-webkit-box-shadow:0px 1px 3px 2px rgba(0,0,0,0.1);
+	box-shadow:0px 1px 3px 2px rgba(0,0,0,0.1);
+	
+	background: white;
+	text-align: center;
+	padding-bottom: 20px;
+}
+
+.form-bg form h2 {
+	font-size: 14px;
+	font-weight: bold;
+	color: #555555;
+	
+	line-height: 45px;
+	margin-bottom: 34px;
+	padding-left:20px;
+	
+	text-align: left;
+	background: #EEEFEE;
+}
+
+input[type="text"], input[type="password"]{
+	box-shadow: 0px 0px 0px 4px #f2f5f7;
+	width: 290px;
+	height: 33px;
+
+	padding: 0 10px 0 10px;
+	margin: 0 auto;
+	color: #7F7F7F;
+	border: 1px solid #bec2c4;
+	font-size: 14px;
+}
+
+input[type="text"]:focus, input[type="password"]:focus{
+	box-shadow: 0px 0px 0px 4px #e0f1fc;
+	border:1px solid #7dc6dd;
+}
+
+input[type="checkbox"] {
+	vertical-align: middle;
+}
+
+.myButton, .myButtonDisabled {
+    padding: 7px 10px !important;
+    -webkit-border-radius:2px 2px;
+    border-radius: 2px 2px;
+    border: solid 0px #bfbfbf;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    width: 300px;
+    color: white;
+    height: 35px;
+    font-size: 16px;
+    margin-top: 10px;
+    background: #799dbe;
+}
+
+.buttonDisabled {
+    cursor: not-allowed;
+    color: #bfbfbf !important;
+    background: #E2E2E2 !important;
+}

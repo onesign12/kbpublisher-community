@@ -1,0 +1,45 @@
+.tooltipster-sidetip.tooltipster-kbp .tooltipster-box {
+    border: 2px solid #868686;
+	border-radius: 5px;
+	background: #fff;
+	box-shadow: 0px 0px 14px rgba(0,0,0,0.3);
+	color: #2c2c2c;
+}
+ 
+.tooltipster-sidetip.tooltipster-top.tooltipster-kbp .tooltipster-arrow-border {
+    border-top-color: #868686;
+}
+
+.tooltipster-sidetip.tooltipster-top.tooltipster-kbp .tooltipster-arrow-background {
+    border-top-color: white;
+}
+
+.tooltipster-sidetip.tooltipster-right.tooltipster-kbp .tooltipster-arrow-border {
+    border-right-color: #868686 !important;
+}
+
+.tooltipster-sidetip.tooltipster-right.tooltipster-kbp .tooltipster-arrow-background {
+    border-right-color: white !important;
+}
+
+.tooltipster-sidetip.tooltipster-bottom.tooltipster-kbp .tooltipster-arrow-border {
+    border-bottom-color: #868686;
+}
+
+.tooltipster-sidetip.tooltipster-bottom.tooltipster-kbp .tooltipster-arrow-background {
+    border-bottom-color: white;
+}
+
+.tooltipster-sidetip.tooltipster-left.tooltipster-kbp .tooltipster-arrow-border {
+    border-left-color: #868686 !important;
+}
+
+.tooltipster-sidetip.tooltipster-left.tooltipster-kbp .tooltipster-arrow-background {
+    border-left-color: white !important;
+}
+
+.tooltipster-sidetip.tooltipster-kbp .tooltipster-content {
+	line-height: 16px;
+	padding: 8px 10px;
+    color: #2c2c2c;
+}

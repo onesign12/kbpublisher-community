@@ -1,0 +1,111 @@
+<link rel="stylesheet" href="../client/skin/jquery/chosen.min.css?v={pvhash}">
+<link rel="stylesheet" href="../client/skin/jquery/chosen_custom.css?v={pvhash}">
+<style>
+.chosen-container-single .chosen-single {
+    height: 20px;
+    line-height: 18px;
+}
+
+.chosen-container-single .chosen-single div b {
+    background-position: 0px 0px;
+}
+</style>
+<script src="../client/jscript/jquery/chosen.jquery.min.js?v={pvhash}"></script>
+<script>
+$(document).ready(function() {
+    $('#country, #state').chosen();
+});
+</script>
+
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="role" onsubmit="LeaveScreenMsg.skipCheck();" id="aContentForm">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{title_msg}:</td>
+    <td><input type="text" name="title" value="{title}" class="longText"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{phone_msg}:</td>
+    <td><input type="text" name="phone" value="{phone}" class="longText"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{phone_msg} 2:</td>
+    <td><input type="text" name="phone2" value="{phone2}" class="longText"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{fax_msg}:</td>
+    <td><input type="text" name="fax" value="{fax}" class="longText"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{email_msg}:</td>
+    <td><input type="text" name="email" value="{email}" class="longText"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{address_msg}:</td>
+    <td><input type="text" name="address" value="{address}" class="longText"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{address_msg} 2:</td>
+    <td><input type="text" name="address2" value="{address2}" class="longText"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{city_msg}:</td>
+    <td><input type="text" name="city" value="{city}" class="longText"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{state_msg}:</td>
+    <td>{state_select}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{zip_msg}:</td>
+    <td><input type="text" name="zip" value="{zip}" class="longText"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{country_msg}:</td>
+    <td>{country_select}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{www_msg}:</td>
+    <td>
+        <input type="text" name="url" value="{url}" class="longText">
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{description_msg}:</td>
+    <td><textarea cols="80" rows="4" name="description">{description}</textarea></td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            
+            <tmpl:assign_company>
+            <input type="submit" name="submit_assign" value="{assign_msg}" class="button"
+                onClick="validateForm('submit_assign');return false;" />
+            </tmpl:assign_company>
+            
+            <input type="submit" name="submit" value="{save_msg}" class="button"
+                onClick="validateForm();return false;" />
+                
+            <input type="button" value="{cancel_msg}"  class="button"
+                onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'">
+        </div>
+    </td>
+</tr>
+</table>
+</form>

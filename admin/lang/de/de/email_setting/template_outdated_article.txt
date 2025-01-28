@@ -1,0 +1,4 @@
+Der Artikel "[article.title]" wurde im letzten halben Jahr nicht aktualisiert.
+Unter Umständen sollten Sie überprüfen, ob er noch aktuell ist.
+
+[article.link]

@@ -1,0 +1,80 @@
+<script>
+    var num_drop_rows = {num_drop_rows};
+</script>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{csvfile_msg}:</td>
+    <td>
+        <div class="file_error">
+            <input type="file" name="file_1"></td>
+        </div>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{csv_fields_msg}:</td>
+    <td>
+
+        <table class="sTable">
+        <tr style="vertical-align: top;">
+            <td>
+
+                <div style="padding-bottom: 3px;"><b>{table_fields_msg}:</b></div>
+                <ul id="ul1" class="draglist">
+                    <tmpl:fields1>
+                    <li class="list1" id="li1_{num}">
+                        <input type="hidden" name="f[]" value="{field_value}">{field_title}
+                    </li>
+                    </tmpl:fields1>
+                </ul>
+
+            </td>
+            <td style="padding: 10px;">&nbsp;</td>
+            <td>
+                <div class="generated_error">
+                    <div style="padding-bottom: 3px;">
+                        <b>{csvfile_fields_msg}</b> ({in_order_msg}):
+                    </div>
+                    
+                    <ul id="ul2" class="draglist">
+                        <tmpl:fields2>
+                        <li class="list2" id="li2_{num}">
+                            <input type="hidden" name="f[]" value="{field_value}">{field_title}
+                        </li>
+                        </tmpl:fields2>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        </table>
+
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop required">{csv_options_msg}:</td>
+    <td>
+
+        <table>
+        <tr>
+            <td>{fields_terminated_msg}:</td>
+            <td>
+                <input type="text" name="fields_terminated" class="shorttext" value="{fields_terminated}">
+            </td>
+        </tr>
+        <tr>
+            <td>{optionally_enclosed_msg}:</td>
+            <td>
+                <input type="text" name="optionally_enclosed" class="shorttext" value="{optionally_enclosed}">
+            </td>
+        </tr>
+        <tr>
+            <td>{lines_terminated_msg}:</td>
+            <td>
+                <input type="text" name="lines_terminated" class="shorttext" value="{lines_terminated}">
+            </td>
+        </tr>
+        </table>
+
+    </td>
+</tr>

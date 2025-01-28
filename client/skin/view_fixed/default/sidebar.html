@@ -1,0 +1,99 @@
+<tmpl:menu_title>
+<link rel="stylesheet" href="{base_href}client/skin/ajax_tree.css?v={pvhash}" />
+<script src="{base_href}client/jscript/CategoryMenu.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function() {
+        loading_img = $('<div id="loading_icon"><img src="{base_href}client/images/ajax/circle.gif" />{loading_msg}</div>');
+        
+        scrollIntoViewIfVisible({scroll_id});
+    });
+
+    function scrollIntoViewIfVisible(scroll_id) {
+        if(!scroll_id) {
+            return;
+        }
+        
+        let elem = $('#{scroll_id}')[0];
+        let container = $(document.body)[0];
+        let rectElem = elem.getBoundingClientRect();
+        let rectContainer = container.getBoundingClientRect();
+        if (rectElem.bottom > rectContainer.bottom) elem.scrollIntoView({ block: "center"});
+        if (rectElem.top < rectContainer.top) elem.scrollIntoView();
+    }
+
+    function setMenuCategoryCookie(category_id) {
+        if(category_id) {
+            createCookie('kb_category_id_', category_id, 0);
+        }
+    }
+</script>
+<style>
+    {level_style}
+</style>
+
+
+<div class="tree_title menuItem3">
+    <a href="{menu_title_link}">{menu_title}</a>
+    
+    <tmpl:top_category_menu>
+    <span data-jq-dropdown="#top_category_menu" style="float: right;padding-left: 12px;">
+        <a href="#">
+            <img src="{base_href}client/images/icons/dropdown_arrow2.gif" 
+                style="border-width: 0; padding: 3px;" />
+        </a>
+    </span>
+    </tmpl:top_category_menu>
+    
+    <img src="{base_href}client/images/icons/x-mark.svg" class="show-for-small-only" 
+        width="10" height="10" title="{close_msg}" alt="{close_msg}"
+    	style="float: right;cursor: pointer;margin-top: 3px;" onclick="toggleMobileMenu();" />
+    
+    {top_category_menu_block}
+</div>
+</tmpl:menu_title>
+
+<div id="tree_menu">
+    
+<tmpl:row>
+<div id="menu_item_{id}" class="tree_item {block_class} {padding_class}">
+    <div class="tree_icon">
+        {icon_str}
+    </div>
+    
+    <tmpl:show_all_start>
+    <div class="tree_all_dots" onclick="xajax_loadEntries({category_id}, 'expand');">
+        ...
+    </div>
+    </tmpl:show_all_start>
+    
+    <tmpl:parent_entries_link>
+    <div class="tree_parent_dots" onclick="xajax_loadEntries({cat_id}, 'show');">
+        ...
+    </div>
+    <div style="clear: both;"></div>
+    </tmpl:parent_entries_link>
+    
+    <tmpl:link>
+    <div class="tree_link">
+        <a href="{link}" id="aitem_{id}" class="node {item_class}" title="{title}" style="{style}" 
+            onclick="setMenuCategoryCookie('{category_id_cookie}')">{short_title}</a>
+    </div>
+    </tmpl:link>
+
+    <tmpl:message>
+    <div class="tree_message" title="{title}">
+        {short_title}
+    </div>
+    </tmpl:message>
+    
+    <tmpl:show_all_end>
+    <div class="tree_all_dots" onclick="xajax_loadEntries({category_id}, 'expand');">
+        ...
+    </div>
+    </tmpl:show_all_end>
+    
+    <div style="clear: both;"></div>
+</div>
+</tmpl:row>
+
+</div>

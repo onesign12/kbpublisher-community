@@ -1,0 +1,41 @@
+<form method="post" onSubmit="LeaveScreenMsg.skipCheck();">
+    
+    <tmpl:first_block>
+    <div style="padding: 10px 0;">
+        <b>{first_block_caption}</b>
+    </div>
+    <div class="tdTitle" style="padding:1px;margin-bottom: 10px;"></div>
+    </tmpl:first_block>
+    
+    <ul id="visible_items" class="sortable_block">
+        <tmpl:visible_item>
+        <li class="trLighter" style="cursor: move; display: {display};">
+            <span style="margin-left: 5px;">{title}</span>
+            <input type="hidden" name="visible_id[]" value="{line}" />
+        </li>
+        </tmpl:visible_item>
+    </ul>
+    
+    <br />
+    
+    <tmpl:dropdown_title>
+    <div style="padding-bottom: 8px;">
+        <b>{dropdown_items_msg}</b>
+    </div>
+    <div class="tdTitle" style="padding:1px;margin-bottom: 10px;"></div>
+    </tmpl:dropdown_title>
+    
+    <ul id="dropdown_items" class="sortable_block">
+        <tmpl:dropdown_item>
+        <li class="trLighter" style="cursor: move; display: {display};">
+            <span style="margin-left: 5px;">{title}</span>
+            <input type="hidden" name="dropdown_id[]" value="{line}" />
+        </li>
+        </tmpl:dropdown_item>
+    </ul>
+    
+    <div class="bottom_button bb_popup">
+        <input type="submit" name="submit" value="{save_msg}" class="button" />
+        <input type="button" value="{close_msg}" class="button" onClick="PopupManager.close();">
+    </div>
+</form>

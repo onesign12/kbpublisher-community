@@ -1,0 +1,100 @@
+<script>
+    $(document).ready(function() {
+        $('body').bind('kbpEditModeRelatedEntryAdded', {}, function(e, params) {
+            xajax_parseRelatedLink(params.id, 'spinner_related');
+            
+            var hidden = $('<input type="hidden" name="related[]" />').val(params.id);
+            $('#aContentForm').append(hidden);
+        });
+        
+        $('body').bind('kbpArticleSelected', {}, function(e, params) {
+            var popup_frame = PopupManager.getCurrentPopupFrame();
+            var popup = PopupManager.getCurrentPopup();
+            
+            var hidden = $('input[name="related[]"][value="' + params.id + '"]');
+            if (hidden.length == 0) {
+                var block_html = $('#readroot_related').html();
+                var block = $(block_html);
+                
+                block.attr('id', 'related_row_' + params.id);
+                block.find('a.articleLinkOther').html(params.title);
+                block.find('span.delete_tag').attr('onclick', 'deleteEntryProperty(' + params.id + ', \'related\', \'{sure_common_msg}\');');
+                        
+                $(block).insertBefore('#writeroot_related');
+                $('body').trigger('kbpEditModeRelatedEntryAdded', [{id: params.id}]);
+                $('#empty_related_block').hide();
+                
+                popup_frame.find('#insert_img_' + params.id).hide();
+                popup_frame.find('#inserted_img_' + params.id).show();
+                
+            } else {
+                hidden.remove();
+                $('#related_row_' + params.id).remove();
+                
+                popup_frame.find('#insert_img_' + params.id).show();
+                popup_frame.find('#inserted_img_' + params.id).hide();
+                
+                $('body').trigger('kbpEditModeEntryPropertyDeleted', [{id: params.id, name: 'related'}]);
+            }
+        });
+        
+        $('body').bind('kbpArticlePopupOpened', {}, function(e, params) {
+            var popup_frame = PopupManager.getCurrentPopupFrame();
+            var popup = PopupManager.getCurrentPopup();
+            
+            $('div:visible[id^=related_row_]').each(function() {
+                var id = $(this).attr('id').split('_').pop();
+                popup.find('iframe').get(0).contentWindow.disableLink($('#attach_link_' + id));
+                popup_frame.find('#attach_link_' + id).parent().parent().attr('class', 'trHighlight');
+                popup_frame.find('#insert_img_' + id).hide();
+                popup_frame.find('#inserted_img_' + id).show();
+            });
+        });
+    });
+</script>
+
+{hidden_fields}
+
+<a id="{anchor}"></a>
+<table class="sTable tableCp1 tableCs1">
+<tr class="tdSubTitle">
+    <td colspan="2" class="tdSubTitle">
+        <b>{title_msg}</b>
+        <span id="spinner_related" style="display: none;">
+            <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+        </span>
+    </td>
+</tr>
+</table>
+
+<div style="padding: 7px;">
+    <div id="empty_related_block" style="display: {empty_display};">--</div>
+    
+    <tmpl:row>
+    <div id="related_row_{id}" style="margin: 2px;" {class}>
+        <span style="padding-right: 4px;">{item_img}</span>
+        <span style="width: 100%;">
+            {item}<span
+            	class="delete_tag" onclick="deleteEntryProperty({id}, 'related', '{sure_common_msg}');">×</span>
+        </span>
+    </div>
+    </tmpl:row>
+    
+    <span id="writeroot_related"></span>
+</div>
+
+<div style="margin-left: 15px;margin-bottom: 15px;">
+    <a href="#" onclick="PopupManager.create('{related_popup_link}', 'r', 'r', 'public');return false;">
+        {add_article_msg}
+    </a>
+</div>
+
+<div id="readroot_related" class="popUpDiv" style="display: none;">
+    <div id="" style="margin: 2px;">
+        <span style="padding-right: 4px;">{item_img}</span>
+        <span style="width: 100%;">
+            <a href="" class="articleLinkOther"></a>
+            <span class="delete_tag" onclick="">×</span>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+[articles.num] of your articles haven't been updated for half a year. 
+Their status has been set to "Outdated".
+
+Follow this link to check them out:
+[articles.link.filtered.outdated]

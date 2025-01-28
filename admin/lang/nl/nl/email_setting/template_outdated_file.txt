@@ -1,0 +1,5 @@
+Het bestand "[file.filename]" is een half jaar niet geüpdatet.
+Het is aan te raden om het te bekijken.
+
+
+[file.link]

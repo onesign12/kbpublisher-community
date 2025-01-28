@@ -1,0 +1,54 @@
+<script>
+    function hideImg() {
+        $('#show_all_img').css('display', 'none');
+    }
+</script>
+<link rel="stylesheet" href="{client_href}skin/followon_menu.css?v={pvhash}" />
+<div class="menuBlockHeader" id="dtree_follow">
+    <div class="menuItem3">
+        <a href="{menu_title_link}">{menu_title}</a>
+        {top_category_menu_block}
+    </div>
+    
+    <div class="categoryBlock2">
+        <div class="dtree">
+            <tmpl:category_row>
+            <div class="treenode oTreeNode">
+                <div class="nodeWrapper">
+                    {item_img}
+                    <span class="{entry_class}">
+                        <a href="{entry_link}" class="node" title="{title}">{short_title}</a>
+                    </span>
+                </div>
+            </div>
+
+            </tmpl:category_row>
+        
+            <div style="margin-left: 4px;">
+                <tmpl:up_row>
+                <div class="treenode2 oTreeNode2">
+                     <div class="nodeWrapper"><span class="{entry_class}">{title}</span></div>
+                </div>
+                </tmpl:up_row>
+                
+                <tmpl:entry_row>
+                <div class="treenode2 oTreeNode2">
+                    <div class="nodeWrapper">
+                    {item_img}<span class="{entry_class}">
+                        <a href="{entry_link}" class="node" title="{title}" id="e_{id}">{short_title}</a></span>
+                    </div>
+                </div>
+                </tmpl:entry_row>
+                
+                <tmpl:category_row2>
+                <div class="treenode3 oTreeNode2">
+                    <div class="nodeWrapper">
+                    {item_img}<span class="followMenu">
+                        <a href="{entry_link}" class="node" title="{title}">{short_title}</a></span>
+                    </div>
+                </div>
+                </tmpl:category_row2>
+            </div>
+        </div>
+    </div>
+</div>

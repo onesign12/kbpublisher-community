@@ -1,0 +1,78 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{action_title}");
+
+    <tmpl:close_requested>
+    PopupManager.reload_parent = true;
+    PopupManager.close();
+    </tmpl:close_requested>
+    
+    <tmpl:close_deleted>
+    PopupManager.reload_parent = true;
+    PopupManager.reload_path = '{base_href}';
+    
+    setTimeout(PopupManager.close, 5000);
+    $('#success_block').css('display', 'block');
+    </tmpl:close_deleted>
+});
+
+</script>
+
+<style>
+  #success_block {
+    //opacity:0.8;
+    text-align:center;
+    padding: 30px;
+    background-color:#fff;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:1000;
+}
+  
+</style>
+
+{error_msg}
+
+{note}
+{note2}
+
+<form action="{action_link}" 
+    onsubmit="LeaveScreenMsg.skipCheck();"
+    id="aContentForm" method="post">
+{hidden_fields}
+
+    <div><br/>
+        <div style="margin-bottom: 5px;">{delete_account_why_msg}</div>
+        <textarea rows="4" name="message" id="message"
+            style="width: 100%; height: 80px;">{message}</textarea>
+    </div>
+    
+    <div class="bottom_button bb_popup">
+        
+        <tmpl:delete>
+        <input type="submit" name="submit" id="submit" value="{delete_account_msg}" 
+            class="button primary" 
+            onClick="validateForm();return false;" />
+        </tmpl:delete>
+        
+        <tmpl:request>
+        <input type="submit" name="submit_request" id="submit_request" value="{send_request_msg}" 
+            class="button primary" 
+            onClick="validateForm('submit_request'); return false;"/>
+        </tmpl:request>
+        
+        <input type="button" class="button" value="{cancel_msg}"   
+            onclick="PopupManager.close();" />
+    
+    </div>
+
+</form>
+
+
+<div id="success_block" style="display: none;">
+  <br/><br/>
+  {success_note}  
+</div>

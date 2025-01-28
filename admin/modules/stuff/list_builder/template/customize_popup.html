@@ -1,0 +1,80 @@
+<script>        
+    $(document).ready(function() {
+        
+        PopupManager = window.top.PopupManager;
+        $('body').bind('keydown', function(e) {
+            PopupManager.checkForEscapeKey(e);
+        });
+        
+        PopupManager.setTitle("{customize_list_msg}");
+        
+        $('.sortable_block').sortable({
+            placeholder: 'view_placeholder',
+            items: 'li:not(.not_sortable)'
+        });
+        $('.sortable_block').disableSelection();
+        
+        $("#check_all").click(function(){
+            $('.sortable_block input:checkbox').not(this).prop('checked', this.checked);
+        });
+    });
+    
+    function saveCustomizedList() {
+        var data = [];
+        var data_sort = [];
+        $('ul.sortable_block li input:checked').each(function() {
+            data.push($(this).val());
+        });
+        
+        $('ul.sortable_block li input').each(function() {
+            data_sort.push($(this).val());
+        });
+        
+        xajax_saveCustomizedList(data, data_sort);
+    }
+    
+    function setDefaultList() {
+        confirm2("{sure_common_msg}", function() {
+            xajax_setDefaultList();
+        });
+    }
+    
+    function reloadList(reload) {
+        if(parseInt(reload, 10)) {
+            var parent_window = PopupManager.getParentWindow();
+            parent_window.location.reload();
+        } else {
+            PopupManager.close();
+        }
+    }
+    
+</script>
+    
+<div style="padding: 10px 15px 40px 15px;">
+
+    <tmpl:check_all>
+    <div style="margin-left: 10px;">
+        <input type="checkbox" value="all" id="check_all" />
+        <span style="margin: 5px;"><label for="check_all">{check_all_msg}</label></span>
+    </div>
+    </tmpl:check_all>
+    
+    <ul class="sortable_block" style="padding-top: 10px;">
+        <tmpl:row>
+        <li class="trLighter" style="cursor: move;">
+            <input type="checkbox" value="{id}" id="{id}_ch" {checked} />
+            <span style="margin: 5px;"><label for="{id}_ch">{title}</label></span>
+        </li>
+        </tmpl:row>
+    </ul>
+    
+    <br />
+    
+    <div class="bottom_button bb_popup">
+        <input type="button" value="{save_msg}" class="button primary" onclick="saveCustomizedList();" />
+        <input type="button" value="{defaults_msg}" class="button secondary" onclick="setDefaultList();">
+        <span style="margin-left: 25px;">
+            <input type="button" value="{close_msg}" class="button" onclick="PopupManager.close();" />
+        </span>
+    </div>
+</div>

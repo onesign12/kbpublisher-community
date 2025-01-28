@@ -1,0 +1,46 @@
+{msg}
+
+{header}
+
+<div id="customize_columns" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative">
+    <ul class="jq-dropdown-menu">
+        <li><a href="#customize" onclick="PopupManager.create('{customize_list_link}', 'r', 'r', 1, 500);void(0);">{customize_list_msg}</a></li>
+    </ul>
+</div>
+
+<table class="listTable stack" id="listTable">
+<tr class="tdTitle">
+    
+    <tmpl:bulk>
+    <td style="width: 1px;">
+        <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+    </td>    
+    </tmpl:bulk>
+    
+    {list_title}
+    
+    <td style="width: 1px; padding: 0px;"></td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    
+    <tmpl:bulk>
+    <td>
+        <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" 
+            style="margin: 0px;" {bulk_ids_ch_option} />    
+    </td>
+    </tmpl:bulk>
+    
+    {list_row}
+    
+    <td class="action">
+        {options_img}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding-top: 2px;"></div>
+{footer}

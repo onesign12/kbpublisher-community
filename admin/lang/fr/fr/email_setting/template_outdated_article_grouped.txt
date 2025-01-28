@@ -1,0 +1,5 @@
+[articles.num] de vos articles n'ont pas été actualisés depuis plus de 6 mois.
+Leur statut a été défini à "Désuet".
+
+Suivez ce lien pour les vérifier:
+[articles.link.filtered.outdated]

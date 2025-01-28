@@ -1,0 +1,45 @@
+{error_msg}
+
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<table class="default">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{detail_msg}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{date_msg}:</td>
+    <td><b>{date_executed_interval}</b> ({date_executed_formatted})</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{type_msg}:</td>
+    <td>{action_type_message}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{is_error_msg}:</td>
+    <td>{is_error}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{detail_msg}:</td>
+    <td>
+        <textarea name="output" rows="12" style="width: 100%;">{output}</textarea>
+    </td>
+</tr>
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="button" value="{back_msg}" onClick="location.href='{cancel_link}'" class="button">
+        </div>
+    </td>
+</tr>
+
+</table>
+</form>

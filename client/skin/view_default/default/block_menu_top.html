@@ -1,0 +1,26 @@
+<tmpl:row>
+<span class="{class}">
+    <a href="{item_link}" target="{target}" {options}>
+        {item_menu}
+    </a>
+</span> |
+</tmpl:row>
+
+<tmpl:more_button>
+<span class="menuItem"><a href="#" data-jq-dropdown="#more_menu">...</a></span>
+        
+<div id="more_menu" class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right">
+    <ul class="jq-dropdown-menu">
+        <tmpl:more_row>
+        <li>
+            <a href="{item_link}" target="{target}" {options}>
+                {item_menu}
+            </a>
+        </li>
+        <li class="jq-dropdown-divider"></li>
+        </tmpl:more_row>
+    </ul>
+</div>
+</tmpl:more_button>
+
+<tmpl:form></tmpl:form>

@@ -1,0 +1,10 @@
+Hola [first_name]:
+
+La información de su cuenta en "[kb_name]" fue modificada recientemente.
+Si realizó este cambio, no necesita hacer nada más.
+
+La solicitud provino de la siguiente dirección IP: [ip].
+Nueva dirección de correo electrónico: [email]
+
+Si no cambió su cuenta, infórmenos de inmediato en [support_email]
+Informarlo es importante porque nos ayuda a evitar que los estafadores roben su información.

@@ -1,0 +1,8 @@
+Witaj [first_name],
+
+Twoje konto w "[kb_name]" zostało niedawno usunięte.
+Jeśli dokonałeś/aś tej zmiany, nie musisz niczego więcej robić.
+
+Żądanie pochodziło z następującego adresu IP: [ip].
+
+Jeśli nie usuwałeś/aś swojego konta, daj nam niezwłocznie znać pisząc na adres [support_email]. Zgłaszanie tego jest ważne, ponieważ pomaga nam zapobiegać oszustwom i kradzieży Twoich informacji.

@@ -1,0 +1,29 @@
+<ul id="submenu3">
+
+<tmpl:row>
+    
+    <tmpl:spacer>
+    &nbsp;
+    </tmpl:spacer>        
+    
+    <tmpl:active>
+    <li class="submenuActive3" style="{td_style}" {td_extra}>
+        <a href="{menu_link}" class="subMenu" target="{target}" style="{a_style}" {a_extra}>
+            <b>{menu_item}</b>
+        </a>
+    </li>
+    </tmpl:active>    
+    
+    <tmpl:nonactive>
+    <li class="submenuNotActive3" style="{td_style}" {td_extra}>
+        <a href="{menu_link}" class="subMenu" target="{target}" style="{a_style}" {a_extra}>
+            {menu_item}
+        </a>
+    </li>
+    </tmpl:nonactive>
+    
+    <li class="submenuNotActive3_spacer"></li>
+    
+</tmpl:row>
+
+</ul>

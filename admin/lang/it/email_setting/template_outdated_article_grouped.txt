@@ -1,0 +1,5 @@
+[articles.num] dei tuoi articoli non è stato aggiornato per sei mesi.
+Il loro stato è stato impostato in "Obsoleto".
+
+Segui questo link per verificarli:
+[articles.link.filtered.outdated]

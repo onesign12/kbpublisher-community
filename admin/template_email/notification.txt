@@ -1,0 +1,4 @@
+<div class="ntf_message">[message]</div>
+<div class="ntf_link">
+    {ntf_link_msg}
+</div>

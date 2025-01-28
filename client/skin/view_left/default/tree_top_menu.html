@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="{client_href}skin/tree_top_menu.css?v={pvhash}" />
+<div class="categoryBlockTopCategory">
+    <div class="menuItem3" style="overflow: hidden;">
+        <a href="{menu_link_top}" style="float: left;">{menu_title_top}</a>
+        {top_category_menu_block}
+        
+        <div style="clear: both;"></div>
+    </div>
+</div>
+{js_tree}
+
+<tmpl:top_category>
+<div class="categoryBlockTopCategory">
+    <tmpl:row>
+    <div class="menuItemTopCategory oTreeNode">
+        <div class="nodeWrapper">
+            {item_img}<a href="{menu_link}" title="{title}">{short_title}</a>
+        </div>
+    </div>
+    </tmpl:row>
+</div>
+</tmpl:top_category>

@@ -1,0 +1,56 @@
+/* filter line */
+#filter_div input.colorInput{
+    border: 1px solid #dadada;
+    border-radius: 3px;
+    height: 20px;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+#filter_div select.colorInput{
+    border: 1px solid #dadada;
+    border-radius: 3px;
+    overflow: hidden;
+
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMSIgaGVpZ2h0PSIxMSIgdmlld0JveD0iMCAwIDUwIDUwIiBmaWxsPSIjOWU5ZTllIj48cGF0aCBkPSJNMjQgMjJoLTI0bDEyLTIweiIvPjxwYXRoIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsMjcpIiBkPSJNMTIgMjJsMTIgLTIwaC0yNHoiLz48L3N2Zz4=') no-repeat 98% 50%;
+
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+
+    /* and then whatever styles you want*/
+    height: 20px;
+    padding-left: 5px;
+    padding-right: 20px;
+    background-color : #F5F4ED;
+}
+
+#filter_div select.colorInput[multiple] {
+    background:none;
+    width:auto;
+    height:auto;
+    padding:0;
+    margin:0;
+    border-width: 2px;
+    border-style: inset;
+    -moz-appearance: menulist;
+    -webkit-appearance: menulist;
+    appearance: menulist;
+}
+
+select:.colorInput::-ms-expand { display: none; } /* to hide built-in arrow in select */
+select::-ms-expand { border: none; } /* to hide border in ie select in arrow */
+#filter_tbl td * { /*display: block;*/  margin: auto; } /* November 28, 2019 commented not sure whay we need it had to check */
+#filter_tbl td { vertical-align: bottom; padding: 0 4px 0 0; }
+#filter_tbl td div { padding-bottom: 3px; }
+.searchTooltipImage { cursor: help; width: 12px; height: 12px; padding-left: 3px; }    
+
+/* where we need responsive */
+#filter_tbl > div { float: left; padding: 0 4px 3px 0;   }
+#filter_tbl > div div { padding-bottom: 3px; }

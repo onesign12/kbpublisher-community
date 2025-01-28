@@ -1,0 +1,84 @@
+<script src="jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script src="jscript/SortShowMore.js?v={pvhash}"></script>
+<script src="jscript/common_entry_form.js?v={pvhash}"></script>
+<script>
+    $(document).ready(function() {
+        PopupManager.setTitle("{custom_fields_title_msg}");
+    });
+    
+    function saveCustom() {
+        custom = [];
+        
+        $('[name^="custom["]').each(function() {
+            
+            var pattern = /\[(\d*)\]/i;
+            var matches = this.name.match(pattern);
+            var custom_id = matches[1];
+            
+            if ($(this).is('input[type=radio]')) {
+                if ($(this).is(':checked')) {
+                    custom[custom_id] = this.value;
+                }
+                
+            } else if ($(this).is('input[type=checkbox]')) {
+                if ($(this).is(':checked')) {
+                    
+                    if (!(custom[custom_id] instanceof Array)) {
+                        custom[custom_id] = [];
+                    }
+                    
+                    custom[custom_id].push(this.value);
+                }
+                
+            } else {
+                var value = $(this).val();
+                if (value) {
+                    custom[custom_id] = $(this).val();
+                }
+            }
+        });
+        
+        console.log(custom);
+        xajax_validate(custom);
+    }
+    
+    function saveValidated() {
+        var values = $('#aContentForm').serializeArray();
+        window.top.$('body').trigger('kbpEditModeCustomFieldsTransferred', [{values: values}]);
+        
+        PopupManager.close();
+    }
+</script>
+<style>
+    .trLighter{
+        background-color: #F8F8F3;
+    }
+    .tdCaptionTop {
+        text-align: left;
+        vertical-align: top;
+        padding-top: 7px;
+    }
+</style>
+
+<div id="custom_error_msg"></div>
+
+<div class="tdTitle">
+    <b>{custom_fields_title_msg}</b>
+</div>
+    
+<form id="aContentForm">
+    <tmpl:group>
+    <div class="trMoreDarker" style="padding: 6px 4px;">
+        <b>{title}</b>
+    </div>
+    
+    <table class="default" style="margin-bottom: 30px; width: 100%;">
+        {block}
+    </table>
+    </tmpl:group>
+</form>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{save_msg}" class="button" onClick="saveCustom();" />
+    <input type="button" value="{cancel_msg}" class="button" onClick="PopupManager.close();" />
+</div>

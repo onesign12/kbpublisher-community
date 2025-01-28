@@ -1,0 +1,24 @@
+<div class="lineTitle">
+    {reorder_msg}
+</div>
+
+<form method="post" onSubmit="LeaveScreenMsg.skipCheck();">
+    
+    <ul id="sortable_views">
+        <tmpl:row>
+        <li id="id_{id}" class="trLighter" style="cursor: move;">
+            <span style="margin-left: 5px;">{title}</span>
+            <input type="hidden" name="sort_id[]" value="{id}" />
+        </li>
+        </tmpl:row>
+    </ul>
+    
+    <br />
+    
+    <div style="text-align: center;">
+        <input type="submit" name="submit" value="{save_msg}" class="button" />
+        <input type="button" value="{cancel_msg}" class="button"
+            onClick="LeaveScreenMsg.skipCheck();location.href='{cancel_link}'" />
+    </div>
+
+</form>

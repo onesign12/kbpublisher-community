@@ -1,0 +1,10 @@
+Hallo [first_name],
+
+Ihre Kontoinformationen in "[kb_name]" wurden kürzlich geändert.
+Wenn Sie diese Änderung vorgenommen haben, brauchen Sie nichts weiter zu tun.
+
+Die Anfrage kam von der folgenden IP-Adresse: [ip].
+Neue E-Mail Adresse: [email]
+
+Wenn Sie Ihr Konto nicht geändert haben, informieren Sie uns bitte sofort unter [support_email].
+Die Meldung ist wichtig, denn sie hilft uns, Betrüger daran zu hindern, Ihre Daten zu stehlen.

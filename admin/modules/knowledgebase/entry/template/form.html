@@ -1,0 +1,652 @@
+<link rel="stylesheet" href="css/tabs.css?v={pvhash}">
+<link rel="stylesheet" href="css/split_button.css?v={pvhash}" />
+
+<script src="tools/ckeditor/ckeditor.js?v={pvhash}"></script>
+<script src="tools/ckeditor_custom/CKDropUploader.js?v={pvhash}"></script>
+<script src="jscript/SortShowMore.js?v={pvhash}"></script>
+<script src="jscript/Autosave.js?v={pvhash}"></script>
+<script src="jscript/TagManager.js?v={pvhash}"></script>
+<script src="jscript/common_entry_form.js?v={pvhash}"></script>
+<script>
+
+    function init(){
+
+        SortShowMore.up_msg = "{show_more_up_msg}";
+        SortShowMore.down_msg = "{show_more_down_msg}";
+        SortShowMore.loading_msg = "{show_more_loading_msg}";
+        SortShowMore.init();
+
+        var fields_to_check = ['tag', 'related', 'attachment'];
+        LeaveScreenMsg.setFieldsToCheck(fields_to_check);
+    }
+
+    CKEDITOR.on('instanceReady', function(evt) {
+        ////CKDropUploader.init(1);
+        ////CKDropUploader.setUploadUrl('{ck_drop_upload_url}');
+
+        ShowDiv('div_entry_type', true);
+        ShowDiv('div_entry_template', true);
+        ShowDiv('div_entry_submit', true);
+        LeaveScreenMsg.setEditor(evt.editor);
+        oEditor = evt.editor;
+        LeaveScreenMsg.setFckDefaultValue();
+
+        evt.editor.on('change', function(e) {
+            checkFckChanges()
+        });
+
+        evt.editor.on('dialogShow', function(dialogShowEvent) {
+            if(CKEDITOR.env.ie) {
+                $(dialogShowEvent.data._.element.$).find('a[href*="void(0)"]').removeAttr('href');
+            }
+        });
+    });
+
+    function checkFckChanges() {
+        if ($('#history_flag').val() != 0) {
+            return;
+        }
+
+        editor = CKEDITOR.instances.body;
+
+        if (checkFckChanges.changed) {
+            return;
+        }
+
+        if (editor.getData() != LeaveScreenMsg.fck_default) {
+            $('#history_comment').css('display', 'block');
+            $('#history_flag').val(1);
+            checkFckChanges.changed = true;
+            
+            if($('#history_comment_icon').length) {
+                $('#history_comment_icon').show();
+                $('#history_comment_icon').fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(400);
+            }
+        }
+    }
+
+    // setEntryTemplate -> xajax_setEntryTemplate -> call_SetEntryTemplate
+    function setEntryTemplate(action) {
+        var template_id = document.getElementById('entry_template').value;
+        if(template_id == 0) {
+            return false;
+        }
+
+        xajax_setEntryTemplate(template_id, action);
+    }
+
+    function insertLink(field, id) {
+        var data = {
+            field: field,
+            value_id: id,
+            do_confirm: false
+        }
+
+        window.top.oEditor.execCommand('insertLink', data);
+        window.top.checkFckChanges();
+    }
+        
+
+    $(document).ready(function() {
+
+        // tabs
+        $('#tabs').tabs({
+            activate: function(event, ui) {
+                var id = 'tab-' + (ui.newTab.index() + 1);
+                $('.lower_tabs').parent('.ui-state-active').removeClass('ui-state-active lowerTabSelected');
+                $('.lower_tabs[href="#' + id + '"]').parent().addClass('ui-state-active lowerTabSelected');
+            }
+        });
+
+        // lower tabs
+        $('.lower_tabs').bind('click', function(e) {
+            $(this).parent().parent().find('.ui-state-active').removeClass('ui-state-active lowerTabSelected');
+            $(this).parent().addClass('ui-state-active lowerTabSelected');
+
+            e.preventDefault();
+
+            var active_tab_index = $(this).attr('href').substr(5) - 1;
+            $('#tabs').tabs('option', 'active', active_tab_index);
+
+            $('html, body').animate({scrollTop:0}, 0);
+        });
+
+
+        // msg for fck template window
+        fck_replace_block_text = {
+            'insert': {
+                'text': "{insert_template2_msg}",
+                'title': "{insert_template_msg}"
+            },
+            'replace': {
+                'text': "{replace_template2_msg}",
+                'title': "{replace_template_msg}"
+            },
+            'include': {
+                'text': "{include_template2_msg}",
+                'title': "{include_template_msg}"
+            },
+            'filter': {
+                'text': "{filter_msg}",
+                'title': ''
+            }
+        };
+
+        <tmpl:auto_save>
+        autosave = new Autosave('article');
+        autosave.setIdKey('{autosave_key}');
+        setInterval(function() {autosave.save.call(autosave)}, {autosave_period});
+        </tmpl:auto_save>
+
+        customFieldCategoryHandler("{sure_delete_msg}");
+
+        $('#entry_type').change(function() {
+            xajax_setTypeTemplate(this.value);
+        });
+
+
+        uBtnOptions = {
+            published_statuses:[{published_statuses}], 
+            non_active_categories:[{non_active_categories}], 
+            publish_msg:"{publish_msg}",
+            save_msg:"{save_msg}",
+            save_draft_msg:"{save_draft_msg}",
+            draft_module:{draft_module}
+        };
+        
+        button_text_enabled = {button_text_enabled};
+        $('select[name="active"]').change(function() {
+            updateButtonText();
+        });
+        
+        updateButtonText();
+
+        s = new getMoreHtml();
+        s.readroot = document.getElementById('readroot_article');
+        s.writeroot = document.getElementById('writeroot_article');
+        s.id_pref = 'more_html_related_';
+
+        s.confirm_use = false;
+        s.confirm_msg = '';
+
+        $('body').bind('kbpArticlePopupOpened', {}, function(e, params) {
+            var popup_frame = PopupManager.getCurrentPopupFrame();
+            var popup = PopupManager.getCurrentPopup();
+            
+            if (popup.length) {
+                $('.popUpDivForm input[name="related[]"]').each(function() {
+                    var id = $(this).val();
+                    popup.find('iframe').get(0).contentWindow.disableLink($('#attach_link_' + id));
+                    popup_frame.find('#attach_link_' + id).parent().parent().attr('class', 'trHighlight');
+                    popup_frame.find('#insert_img_' + id).hide();
+                    popup_frame.find('#inserted_img_' + id).show();
+                });
+            }
+        });
+
+        $('body').bind('kbpArticleSelected', {}, function(e, params) {
+            var popup_frame = PopupManager.getCurrentPopupFrame();
+            var hidden = $('input[name="related[]"][value="' + params.id + '"]');
+
+            if (hidden.length == 0) {
+                var preview_link_str = "{preview_link_str}";
+                var update_link_str = "{update_link_str}";
+                
+                s.get(params.id, params.title);
+                //s.get(params.id, params.title, params.update_link);
+
+                popup_frame.find('#insert_img_' + params.id).hide();
+                popup_frame.find('#inserted_img_' + params.id).show();
+                
+                var hidden = $('input[name="related[]"][value="' + params.id + '"]');
+                
+                var href = preview_link_str.replace('[id]', params.id);
+                hidden.next().wrap('<a href="#" onclick="' + href + '"></a>');
+                
+                var update_link = hidden.parent().next().find('a[target="_blank"]');
+                var href = update_link_str.replace('[id]', params.id);
+                update_link.attr('href', href);
+
+            } else {
+                hidden.parent().parent().remove();
+
+                popup_frame.find('#insert_img_' + params.id).show();
+                popup_frame.find('#inserted_img_' + params.id).hide();
+            }
+        });
+
+        $('body').bind('kbpFileSelected', {}, function(e, params) {
+            var data = {
+                field: 'file',
+                value_id: params.id,
+                do_confirm: false,
+                name: params.name
+            }
+
+            window.top.oEditor.execCommand(params.command_name, data);
+
+            if (window.top.checkFckChanges) {
+                window.top.checkFckChanges();
+            }
+        });
+        
+        changeCommentBlock();
+        
+        initSort();
+    });
+
+
+    function LeaveScreenMsgCheck() {
+        var filter_ids = ['filter'];
+        LeaveScreenMsg.setFilterFields(filter_ids);
+        LeaveScreenMsg.initCheck('aContentForm');
+    }
+
+    function setSelectTemplate(items) {
+        var select = document.getElementById('entry_template');
+        select.options.length = 0;
+        for (var id in items) {
+            select.options[select.options.length] = new Option(items[id], id);
+        }
+    }
+
+    function cancelHandler(cancel_link) {
+        xajax_cancelHandler(cancel_link);
+        LeaveScreenMsg.skipCheck();
+    }
+
+    function insertConvertedArticle(content) {
+        editor = CKEDITOR.instances.body;
+        editor.setData(content);
+    }
+
+    function draftValidateCallback() {
+        confirm2('{save_as_draft_note_msg}', function() {
+            $('#aContentForm').attr('action', '{draft_action}');
+            // $('#submit_button').attr('name', 'submit_draft');
+			$('#submit_button').attr('name', 'submit');
+			
+            $('#submit_button').attr('onclick', '');
+            $('#submit_button').click();
+        });
+    }
+    
+    
+    function initSort() {
+        $('.sortable_block').sortable({
+            placeholder: 'view_placeholder',
+            stop: function(event, ui) {                
+                LeaveScreenMsg.changes = true;
+            },
+        });
+        
+        $('.sortable_block').disableSelection();
+    }
+
+    window.onload = init;
+
+</script>
+
+{menu_block}
+{error_msg}
+
+
+<!-- onSubmit="return Validate(this);" -->
+<tmpl:entry_view>
+<form action="{action_link}" method="post" name="aContentForm" id="aContentForm" onsubmit="subForm();">
+</tmpl:entry_view>
+
+{hidden_fields}
+
+<input type="hidden" id="id_key" name="id_key" value="{autosave_key}" />
+
+<div id="tabs">
+<ul>
+   <li><a href="#tab-1"><span>{tab_main_msg}</span></a></li>
+   <li><a href="#tab-2"><span>{tab_advanced_msg}</span></a></li>
+   <!-- <li><a href="{public_comment_link}"><span>{comments_msg}</span></a></li> -->
+</ul>
+
+<!-- tab 1 -->
+<div id="tab-1">
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tmpl:entry_id>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{id_msg}:</td>
+    <td><strong>{id}</strong></td>
+</tr>
+</tmpl:entry_id>
+
+<tmpl:entry_id2>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{entry_id_msg}:</td>
+    <td><strong>{id2}</strong></td>
+</tr>
+</tmpl:entry_id2>
+
+<tmpl:posted>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{date_msg}:</td>
+    <td>{date_formatted} {formatted_user}</td>
+</tr>
+</tmpl:posted>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{entry_type_msg}:</td>
+    <td>
+        <div id="div_entry_type" style="display: none;">
+            <select name="entry_type" id="entry_type" style="width: 710px;">
+                {entry_type_select}
+            </select>
+        </div>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop {required_class}" id="entry_category_td">{category_msg}:</td>
+    <td>
+        {category_block_search_tmpl}
+        {category_block_tmpl}
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop {title_required_class}">{entry_title_msg}:</td>
+    <td>
+        <textarea rows="1" name="title" id="title" style="width: 706px;">{title}</textarea>
+        <!-- onBlur="xajax_populateUrlTile(this.value)">{title}</textarea> -->
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop {required_class}">
+        {entry_body_msg}:
+    </td>
+    <td>
+        <div id="div_entry_template"></div>
+
+        <tmpl:converter>
+		<div style="float:right; padding-right: 5px; margin-bottom: 5px;">
+            <a href="javascript:PopupManager.create('{convert_link}', 'r', 'r');" title="{create_from_file_msg}">
+                <img src="images/icons/article.svg" alt="article" border="0" width="14" height="14" align="absmiddle">
+			</a>
+		</div>
+        </tmpl:converter>
+
+         <div id="div_entry_template" style="margin-bottom: 5px;">
+            <select name="entry_template" id="entry_template" style="width: 350px;">
+                {template_select}
+            </select>
+            &nbsp;&nbsp;
+			<span>
+            <a href="javascript:setEntryTemplate('insert'); void(0);"
+                class="_tooltip" title="{insert_template_msg}">
+				<img src="images/icons/assign_blue.svg" width="14" height="14" alt="insert" align="absmiddle"></a>
+            &nbsp;
+            <a href="javascript:setEntryTemplate('replace'); void(0);"
+                class="_tooltip" title="{replace_template_msg}">
+            	<img src="images/icons/assign_red.svg" width="14" height="14" alt="replace" align="absmiddle"></a>
+            &nbsp;
+            <a href="javascript:setEntryTemplate('include'); void(0);"
+                class="_tooltip" title="{include_template_msg}">
+            	<img src="images/icons/assign_green.svg" width="14" height="14" alt="include" align="absmiddle"></a>
+            &nbsp;|&nbsp;
+    		<input type="button" value="+" title="{open_template_msg}" class="button2 button2_add"
+        		onclick="PopupManager.create('{template_link}', 'r', 'r');" />
+			</span>
+        </div>
+
+        {ckeditor}
+        <div id="progressbar"></div>
+    </td>
+</tr>
+
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{tags_msg}:</td>
+    <td>
+        {block_tag_tmpl}
+    </td>
+</tr>
+
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{related_articles_msg}:</td>
+    <td>
+        <div style="padding-bottom: 3px;">
+    		<input type="button" value="+" title="{add_new_msg}" class="button2 button2_add"
+        		onclick="PopupManager.create('{related_popup_link}', 'r', 'r');" />
+        </div>
+
+        <ul id="sortable_views" class="sortable_block">
+
+            <tmpl:related_row>
+
+                <li class="popUpDivForm" style="cursor: move;">
+                    <div style="float: left;">
+                    	<input type="hidden" name="related[]" value="{article_id}">
+                    	<a href="#/" onclick="PopupManager.create('{preview_link}', 'r', 'r', 2);">
+                    	    <span title="{atitle}">{title}</span>
+                    	</a>
+                    </div>
+                    <div style="text-align: right;">
+                    	<input type="checkbox" name="related_ref[]" value="{article_id}"
+    						title="{related_crossref_msg}" {related_ref_ch}>
+
+    					<a href="" style="margin: 0px 7px;"
+    						onClick="insertLink('article', {article_id}); return false;">
+                    		<img src="images/icons/link.svg" height="10" alt="anchor" title="{insert_as_link_msg}"></a>
+                		
+    					<a href="" onClick="removeHtml(this, '{sure_common_msg}'); return false;">
+    						<img src="images/icons/delete.svg" alt="delete" title="{delete_msg}"></a>
+                    </div>
+                </li>
+
+            </tmpl:related_row>
+
+            <span id="writeroot_article"></span>
+        </ul>
+
+
+    </td>
+</tr>
+
+<tr class="trLighter" id="custom_field_bottom_border">
+    <td class="tdFormCaption tdCaptionTop">{attachment_msg}:</td>
+    <td>
+        <div style="padding-bottom: 3px;">
+		<input type="button" value="+" title="{add_new_msg}" class="button2 button2_add"
+    		onclick="PopupManager.create('{attachment_popup_link}', 'r', 'r');" />
+        </div>
+
+        <ul id="sortable_views2" class="sortable_block">
+
+            <tmpl:attachment_row>
+
+                <li class="popUpDivForm" style="cursor: move;">
+                    <div style="float: left;">
+                    	<input type="hidden" name="attachment[]" value="{attachment_id}">
+                    	<a href="{open_link}" target="_blank">
+                    	    <span>{filename}</span>
+                    	</a>
+                    </div>
+                    <div style="text-align: right;">
+    					<a href="" style="margin: 0px 7px;"
+    						onClick="insertLink('file', '{attachment_id}'); return false;">
+                    		<img src="images/icons/link.svg" height="10" alt="anchor" title="{insert_as_link_msg}"></a>
+                		  
+    					<a href="" onClick="removeHtml(this, '{sure_common_msg}'); return false;">
+    						<img src="images/icons/delete.svg" alt="delete" title="{delete_msg}"></a>
+                    </div>
+                </li>
+
+            </tmpl:attachment_row>
+        
+            <span id="writeroot"></span>
+        </ul>
+
+    </td>
+</tr>
+
+{custom_field_block_bottom}
+
+</table>
+
+</div>
+<!-- /tab 1 -->
+
+<!-- tab 2 -->
+<div id="tab-2">
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{meta_description_msg}:</td>
+    <td>
+        <textarea cols="80" rows="2" name="meta_description" style="width: 705px;">{meta_description}</textarea>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{external_links_msg}:</td>
+    <td>
+        <span class="hasTooltip" style="width: 705px;">
+            <textarea cols="80" rows="3" name="external_link" style="width: 100%;">{external_link}</textarea>
+        </span>
+       <span class="tooltip" style="width: 5%;text-align: right;">{external_link_tip_msg}</span>
+    </td>
+</tr>
+
+<tmpl:entry_view>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{sort_order_msg}:</td>
+    <td>
+        <div style="width: 710px;">
+            <div id="sort_order_toggle_title" class="formToggleBlockTitle"
+                onclick="toggleBlock('sort_order');">
+                <span>{sort_order_msg}</span>
+            </div>
+
+            <div id="sort_order_toggle_block" class="formToggleBlockBody" style="display: none;">
+                <div id="sort_order_div">
+                    <span id="writeroot_sort">
+                        <tmpl:sort_order_row>
+                            {sort_order_select}
+                        </tmpl:sort_order_row>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>
+</tmpl:entry_view>
+
+<tmpl:block_private>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>
+        {block_private_tmpl}
+    </td>
+</tr>
+</tmpl:block_private>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{schedule_msg}:</td>
+    <td>
+        {block_schedule_tmpl}
+    </td>
+</tr>
+
+<tmpl:block_mustread>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{mustread_msg}:</td>
+    <td>
+        {block_mustread_tmpl}
+    </td>
+</tr>
+</tmpl:block_mustread>
+
+</table>
+
+<!-- /tab 2 -->
+</div>
+
+<!-- tabs -->
+</div>
+
+
+
+<!-- status on every tab page -->
+<tmpl:entry_view>
+<div style="">
+
+    <table class="formTable">
+    <tr class="trLighter">
+        <td class="tdFormCaption">{entry_status_msg}:</td>
+        <td>
+            <select name="active" id="active" style="width: 300px">
+                {status_select}
+            </select>
+        </td>
+    </tr>
+    </table>
+</div>
+</tmpl:entry_view>
+
+<!-- history comment -->
+{history_block_tmpl}
+
+
+<div id="lower_tabs" style="margin-top: 10px;">
+    <ul class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+       <li class="ui-state-default ui-corner-top ui-state-active lowerTab lowerTabSelected">
+           <a href="#tab-1" class="lower_tabs"><span>{tab_main_msg}</span></a>
+       </li>
+       <li class="ui-state-default ui-corner-top lowerTab">
+           <a href="#tab-2" class="lower_tabs"><span>{tab_advanced_msg}</span></a>
+       </li>
+    </ul>
+</div>
+
+<tmpl:entry_view>
+<div style="padding: 20px 0px 0px 170px;">
+    <div id="bottom_button">
+        <div id="div_entry_submit">
+
+            <div>                     
+                <span id="autosave_infoblock" title="{revision_comment_msg}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg>
+                </span>
+                 
+                <a href="#" onclick="$('#history_comment_text').focus(); return false;" id="history_comment_a">
+                    <img id="history_comment_icon" src="images/icons/warning_white.svg"
+                        class="_tooltip tooltipstered" title="{revision_comment_desk_msg}" /></a>
+                
+ 				{split_button}
+                
+                <input type="button" value="{cancel_msg}" class="button"
+                    onClick="cancelHandler('{cancel_link}');" />
+
+                <span style="margin-left: 25px;">
+                    <input type="button" value="{preview_msg}" class="button"
+                        onClick="PopupManager.create('{preview_link}', 'r', 'r');" />
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</form>
+
+{related_templates}
+</tmpl:entry_view>
+<br/>

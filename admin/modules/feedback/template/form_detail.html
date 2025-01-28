@@ -1,0 +1,92 @@
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle">{detail_msg}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{date_posted_msg}:</td>
+    <td>{date_formatted}</a></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{name_msg}:</td>
+    <td>{show_name}</a></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{email_msg}:</td>
+    <td><a href="mailto:{email}">{email}</a></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{subject_msg}:</td>
+    <td>{subject}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{title_msg}:</td>
+    <td>{title}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo tdCaptionTop">{message_msg}:</td>
+    <td>{question}</td>
+</tr>
+
+<tmpl:custom_row>
+<tr class="trMoreDarker">
+    <td class=tdFormCaptionInfo tdCaptionTop">{title}:</td>
+    <td>{value}</td>
+</tr>
+</tmpl:custom_row>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{attachment_msg}:</td>
+    <td>
+        <tmpl:question_file>
+        <a href="{open_link}" target="_blank">{filename}</a>
+        <a href="{download_link}"><img src="../client/images/icons/download.svg" class="download_icon"></a>
+        <br />
+        </tmpl:question_file>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="2"></td>
+</tr>
+
+<tr>
+    <td colspan="2" class="tdTitle">{answer_msg}</td>
+</tr>
+
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{answer_msg}:</td>
+    <td>{answer}</td>
+</tr>
+
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{attachment_msg}:</td>
+    <td>
+        <tmpl:file>
+        <a href="{open_link}" target="_blank">{filename}</a>
+        <a href="{download_link}"><img src="../client/images/icons/download.svg" class="download_icon"></a>
+        <br /><br />
+        </tmpl:file>
+    </td>
+</tr>
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <tmpl:send_button>
+            <input type="submit" name="submit" value="{new_answer_msg}" class="button"
+                onClick="location.href='{answer_link}'" />
+            </tmpl:send_button>
+                    
+            <input type="button" value="{create_article_msg}" onClick="location.href='{place_link}'" class="button">
+            <input type="button" value="{cancel_msg}" onClick="location.href='{cancel_link}'" class="button">
+        </div>
+    </td>
+</tr>
+</table>

@@ -1,0 +1,116 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+});
+
+function addItem() {
+    $("#growls").empty();
+    
+    var data = {};
+    data['title'] = $('#title').val();
+    
+    if ($('#more').prop('checked')) {
+        data['more'] = 1; 
+    }
+    
+    <tmpl:built_in>
+    var is_error = (!data['title']);
+    </tmpl:built_in>
+    
+    <tmpl:extra>
+    data['link'] = $('#link').val();
+    data['options'] = $('#options').val();
+    
+    if ($('#target').prop('checked')) {
+        data['target'] = 1; 
+    }
+    
+    if ($('#logged').prop('checked')) {
+        data['logged'] = 1; 
+    }
+    
+    var is_error = (!data['title'] || !data['link']);
+    </tmpl:extra>
+    
+    if (is_error) {
+        $.growl.error({title: "", message: "{required_msg}", fixed: true});
+        
+    } else {
+        {save_method}(data);
+    }
+}
+
+function refreshItems() {
+    var parent_window = PopupManager.getParentWindow();
+    parent_window.location.reload();
+    PopupManager.close();
+}
+</script>
+
+{hint_msg}
+
+{error_msg}
+
+<form action="{action_link}" method="post" id="aContentForm2" onsubmit="LeaveScreenMsg.skipCheck();">
+    <div class="tdTitle" style="padding:1px;"></div>
+    <table class="default">
+        <tr class="trLighter">
+            <td class="tdFormCaption required">{title_msg}:</td>
+            <td>
+                <input type="text" name="title" value="{title}" id="title" 
+                    style="width: 99%;">
+            </td>
+        </tr>
+        
+        <tmpl:extra>
+        <tr class="trLighter">
+            <td class="tdFormCaption required">URL:</td>
+            <td>
+                <input type="text" name="link" value="{link}" id="link" 
+                    placeholder='http://your_domain.com' style="width: 99%;">
+            </td>
+        </tr>
+        
+        <tr class="trLighter">
+            <td class="tdFormCaption">{options_msg}:</td>
+            <td>
+                <input type="text" name="options" value="{options}" id="options" 
+                    placeholder='e.g. style="color: red;"' style="width: 99%;">
+            </td>
+        </tr>
+        
+        <tr class="trLighter">
+            <td class="tdFormCaption">{new_window_msg}:</td>
+            <td>
+                <input type="checkbox" id="target" {target_attr} />
+                <label for="target" class="smallerText">{new_window_desc_msg}</label>
+            </td>
+        </tr>
+        
+        <tr class="trLighter">
+            <td class="tdFormCaption">{logged_only_msg}:</td>
+            <td>
+                <input type="checkbox" id="logged" {logged_attr} />
+                <label for="logged" class="smallerText">{logged_only_desc_msg}</label>
+            </td>
+        </tr>
+        </tmpl:extra>
+        
+        <tmpl:dropdown>
+        <tr class="trLighter">
+            <td class="tdFormCaption">{more_dropdown_msg}:</td>
+            <td>
+                <input type="checkbox" id="more" {dropdown_attr} />
+                <label for="more" class="smallerText">{more_dropdown_desc_msg}</label>
+            </td>
+        </tr>
+        </tmpl:dropdown>
+    </table>
+    
+    <div class="bottom_button bb_popup">
+        <input type="button" value="{save_msg}" class="button primary" onClick="addItem();" />
+        <input type="button" name="cancel" value="{close_msg}" class="button" 
+            onClick="PopupManager.close();">
+    </div>
+    
+</form>

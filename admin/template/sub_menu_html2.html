@@ -1,0 +1,30 @@
+<div style="border-bottom: 1px solid #8592A2;">
+
+<ul id="submenu3" style="list-style: none;margin: 0;padding: 0;">
+
+<tmpl:row>
+    
+    <tmpl:spacer>
+    &nbsp;
+    </tmpl:spacer>        
+    
+    <tmpl:active>
+    <li class="submenuActive2" style="{td_style}" {td_extra}>
+        <a href="{menu_link}" class="subMenu" target="{target}" style="{a_style}" {a_extra}>
+            <b>{menu_item}</b>
+        </a>
+    </li>
+    </tmpl:active>    
+    
+    <tmpl:nonactive>
+    <li class="submenuNotActive2" style="{td_style}" {td_extra}>
+        <a href="{menu_link}" class="subMenu" target="{target}" style="{a_style}" {a_extra}>
+            {menu_item}
+        </a>
+    </li>
+    </tmpl:nonactive>
+    
+</tmpl:row>
+</ul>
+
+</div>

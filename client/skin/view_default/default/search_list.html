@@ -1,0 +1,132 @@
+<link rel="stylesheet" type="text/css" href="{base_href}client/skin/type_switch.css">
+<script>
+    function addToSpellExcludeDisctionary(str, link) {
+        confirm2('{sure_common_msg}', function() {
+            xajax_addToSpellExcludeDisctionary(str, link, 'spinner2');
+        });
+    }
+        
+    function switchType(url, selected) {
+        location.href = url;
+    }
+    
+    $(document).ready(function() {
+        
+    });
+    
+</script>
+
+<div class="tdTitle">
+    <div>{list_title}</div>
+</div>
+
+<div class="grid-x abbLine" style="margin-bottom: 15px;">
+    <div class="small-12 medium-8 cell">
+        {page_by_page}
+        <tmpl:row_count>
+            | <span><a href="{search_in_link}">{search_in_title}</a></span>
+        </tmpl:row_count>
+    </div>
+    
+    <tmpl:type_switch>
+    <div id="type_switch_block" class="small-12 medium-4 cell niceForm searchSwitch">
+        <span id="type_switch">
+            <tmpl:type_switch_row><span class="_tooltip {class}" title="{title}" onclick="switchType('{link}', $(this).hasClass('selected'));">
+                <img src="{base_href}client/images/icons/sort_{key}.svg" alt="sort_{key}" />
+                <span class="show-for-small-only">
+                    {title}
+                </span>
+                </span></tmpl:type_switch_row>
+        </span>
+    </div>
+    </tmpl:type_switch>
+</div>
+
+<tmpl:spell_suggest>
+<div id="spell_suggest_div" style="margin-bottom: 25px; padding-left: 8px; font-size: 1.1em;">
+
+    <div style="padding-bottom: 3px;">
+        {search_showing_msg}
+        <a href="{suggest_link}"><b>{suggest_str}</b></a>
+    </div>
+    <div>
+        {search_instead_msg}
+        <a href="{mistake_link}"
+            onclick="createCookie('kb_spell_ignore_', '{mistake_str_encoded}', 0);">{mistake_str}</a>
+    
+        <tmpl:dictionary_link>
+        <span style="padding-left: 15px;">        
+            <a href="#add" class="_tooltip" title="{title_str}"
+                onclick="addToSpellExcludeDisctionary('{mistake_str_escaped}', '{mistake_link_escaped}');">
+                <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:bottom;" width="16" height="16" viewBox="0 0 24 24" fill="#666"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+            </a>
+        
+            <span id="spinner2" style="display: none;">
+                <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+            </span>
+        </span>
+        </tmpl:dictionary_link>
+    
+    </div>
+
+</div>
+</tmpl:spell_suggest>
+
+{msg}
+
+<tmpl:row>
+<div style="vertical-align: top; padding-bottom: 10px;">
+    
+    <div>
+        <div style="float:left; margin-right: 6px; padding-top: 3px;">{item_img}</div> 
+        <div style="overflow: hidden;">
+            <a href="{entry_link}" class="articleLink" {entry_link_options}
+                onclick="createCookie('kb_category_id_', {category_id}, 0);">{entry_id}{title}</a>
+                
+        	<tmpl:download_link>
+        	<a href="{download_link}" style="padding-left:10px;" title="{download_msg}">
+        		<img src="{base_href}client/images/icons/download.svg" width="16" height="16" alt="Download" />
+        	</a>
+        	</tmpl:download_link>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div style="padding-left: 22px;">
+        <div style="margin-top: {article_description_padding}px;" class="articleDecription">{body}</div>
+        <div style="padding-top: 5px;"><a href="{category_link}">{full_category}</a></div>
+    </div>
+
+    <div style="padding-top: {article_staff_padding}px; padding-left: 22px;">
+
+        <tmpl:show_rate>
+        <span class="articleStaff2">{rating}</span>
+        </tmpl:show_rate>
+
+        <tmpl:show_date>
+        <span class="articleStaff2">{updated_date}</span>
+        </tmpl:show_date>
+
+        <tmpl:show_filesize>
+        <span class="articleStaff2">{filesize}</span>
+        </tmpl:show_filesize>
+
+        <tmpl:show_hits>
+        <span class="articleStaff2">{views_num_msg}: {hits}</span>
+        </tmpl:show_hits>
+
+        <tmpl:show_comments>
+        <span class="articleStaff">{comment_num_msg}: {comment_num}</span>
+        </tmpl:show_comments>
+
+    </div>
+</div>
+<div style="padding: {article_staff_padding}px;"></div>
+</tmpl:row>
+
+
+<tmpl:by_page_bottom>
+<br />
+<div style="padding-left: 28px;">{page_by_page_bottom}</div>
+<br />
+</tmpl:by_page_bottom>

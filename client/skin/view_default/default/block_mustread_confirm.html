@@ -1,0 +1,63 @@
+<!--255, 255, 0 yellow -->
+<!--255, 215, 0 gold -->
+
+<script>
+    $(document).ready(function() {
+        ToogleMustreadBtn();
+        $('#mustread_confirm_ch').click(ToogleMustreadBtn);  
+    });
+    
+    function ToogleMustreadBtn() {
+        var checked = $("#mustread_confirm_ch").prop('checked');
+    	if(checked) {
+    		$("#mustread_confirm_btn").prop("disabled", false);
+            $('#mustread_confirm_btn').css('opacity', 1);
+		
+    	} else {
+    		$("#mustread_confirm_btn").prop("disabled", true);
+            $('#mustread_confirm_btn').css('opacity', 0.4);
+        }
+    }
+    
+</script>
+
+
+<!--in_content {container_width_class} -->
+<div id="mustread_block" 
+    style="position: fixed; padding: 1px; bottom: 0; left: 0; right: 0; background: gold;">
+    
+	<div class="grid-x align-middle" style="padding: 12px 12px;">            
+        <div class="small-12 medium-6 columns" style="padding-top: 4px;">
+            {mustread_note_msg}
+        </div>
+        
+        <div class="small-12 medium-6 columns" id="mustread_confirm_div">
+            <span>
+                <input type="checkbox" value="1" id="mustread_confirm_ch">
+                <label for="mustread_confirm_ch" style="margin: 0 10px 0 4px;">
+                    {mustread_confirm_msg}
+                </label>
+            </span>
+            
+            <tmpl:confirm>
+            <input type="button" value="{confirm_msg}" id="mustread_confirm_btn" disabled="disabled"  
+                class="button " style="background: grey; color: white;"
+                onClick="xajax_confirmMustreadEntry('{mustread_id}');">
+            </tmpl:confirm>
+            
+            <tmpl:login>
+            <input type="button" value="{login_msg} / {confirm_msg}" id="mustread_confirm_btn" disabled="disabled"  
+                class="button " style="background: grey; color: white;"
+                onClick="location.href='{login_link}'">
+            </tmpl:login>            
+        
+          </div>
+    </div>
+</div>
+
+
+<!-- 
+"location.href='{cancel_link}'"
+"PopupManager.create('{preview_link}', 'r', 'r');"
+onClick="PopupManager.create('{login_link}', 'r', 'r');">
+ -->

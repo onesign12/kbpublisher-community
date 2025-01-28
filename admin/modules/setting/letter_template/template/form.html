@@ -1,0 +1,136 @@
+<script>
+    function SureDefault(msg, link) {
+        confirm2(msg, function() {
+            location.href = link;
+        });
+    }
+</script>
+
+{error_msg}
+
+{hint_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="trMoreDarker" nowrap>{title_msg}:</td>
+    <td>
+        {title}
+    </td>
+</tr>
+<tr class="trMoreDarker">
+    <td class="trMoreDarker" nowrap valign="top">{description_msg}:</td>
+    <td>
+        {description}
+    </td>
+</tr>
+
+<tmpl:from>
+<tr class="trLighter">
+    <td class="tdFormCaption" style="padding: 10 5px;"><b>{from_msg}:</b></td>
+    <td>
+        {email_msg}: 
+        <input type="text" name="from_email" value="{from_email}" 
+            class="middleText" {from_options}>&nbsp;&nbsp;
+        {name_msg}: 
+        <input type="text" name="from_name" value="{from_name}" 
+            class="middleText" {from_options}>
+    </td>
+</tr>
+</tmpl:from>
+
+<tmpl:to>
+<tr class="trLighter">
+    <td class="tdFormCaption" style="padding: 10 5px;"><b>{to_msg}:</b></td>
+    <td>
+        {email_msg}: 
+        <input type="text" name="to_email" id="to_email" value="{to_email}"
+            class="middleText" {to_options}>&nbsp;&nbsp;
+        
+        {name_msg}: 
+        <input type="text" name="to_name" id="to_name" value="{to_name}" 
+            class="middleText" {to_options}>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        <tmpl:category_admin>
+        {and_msg}&nbsp;&nbsp;
+        <input type="checkbox" name="to_special" value="category_admin" 
+            style="margin: 0px;" {ca_checked}>&nbsp;&nbsp;{to_category_admin_msg}
+        </tmpl:category_admin>
+        
+        <tmpl:feedback_admin>
+        {and_msg}&nbsp;&nbsp;
+        <input type="checkbox" name="to_special" value="feedback_admin" 
+            style="margin: 0px;" {ca_checked}>&nbsp;&nbsp;{to_feedback_admin_msg}
+        </tmpl:feedback_admin>        
+    </td>
+</tr>
+</tmpl:to>
+
+<tmpl:to_cc>
+<tr class="trLighter">
+    <td class="tdFormCaption" style="padding: 10 5px;">{to_cc_msg}:</td>
+    <td>
+        {email_msg}: 
+        <input type="text" name="to_cc_email" value="{to_cc_email}" 
+            class="middleText" {to_cc_options}>&nbsp;&nbsp;
+        {name_msg}: 
+        <input type="text" name="to_cc_name" value="{to_cc_name}" 
+            class="middleText" {to_cc_options}>
+    </td>
+</tr>
+</tmpl:to_cc>
+
+<tmpl:to_bcc>
+<tr class="trLighter">
+    <td class="tdFormCaption" style="padding: 10 5px;">{to_bcc_msg}:</td>
+    <td>
+        {email_msg}: 
+        <input type="text" name="to_bcc_email" value="{to_bcc_email}" 
+            class="middleText" {to_bcc_options}>&nbsp;&nbsp;
+        {name_msg}: 
+        <input type="text" name="to_bcc_name" value="{to_bcc_name}" 
+            class="middleText" {to_bcc_options}>
+    </td>
+</tr>
+</tmpl:to_bcc>
+
+<tr class="trLighter">
+    <td class="tdFormCaption"></td>
+    <td></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption required">{subject_msg}:</td>
+    <td><input type="text" name="subject" value="{subject}" style="width:100%"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{message_msg}:</td>
+    <td>{vck_editor}</td>
+</tr>
+
+<tr> 
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit" id="submit" value="{save_msg}" class="button"
+                onClick="validateForm();return false;" />
+                
+            <input type="button" value="{cancel_msg}" onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+            
+            <span style="margin-left: 20px;">
+            <input type="button" value="{defaults_msg}" 
+                onClick="LeaveScreenMsg.skipCheck(); return SureDefault('{sure_default_msg}', '{default_link}')" class="button">    
+            </span>
+        </div>
+    </td>
+</tr>
+</table>
+</form>

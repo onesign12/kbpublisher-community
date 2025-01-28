@@ -1,0 +1,35 @@
+{dear_msg} [first_name] [last_name],
+
+
+<br /><br />
+<b>{new_article_msg}:</b><br />
+[new_article]
+
+
+<br /><br />
+<b>{updated_article_msg}:</b><br />
+[updated_article]
+
+
+<br /><br />
+<b>{commented_article_msg}:</b><br />
+[commented_article]
+
+
+<br /><br />
+<b>{new_file_msg}:</b><br />
+[new_file]
+
+
+<br /><br />
+<b>{updated_file_msg}:</b><br />
+[updated_file]
+
+
+
+<br />
+<hr />
+[support_mailer]
+
+<br /><br />
+<div style="font-size: smaller;">{unsubscribe_msg}</div>

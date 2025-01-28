@@ -1,0 +1,110 @@
+<script>
+    $(document).ready(function() {
+        $(document).keypress(function(e) {
+            if(e.shiftKey && e.keyCode == 13) {
+                $('#aContentForm').append('<input type="hidden" name="adm" value="1" />');
+            }
+    });
+});
+
+</script>
+
+{error_msg}
+
+<tmpl:login_form>
+<div class="niceForm">
+
+<form action="{action_link}" method="post" id="aContentForm">
+{hidden_fields}
+
+<div class="table login2">
+    
+    <div class="formTopDelim"></div>
+    
+    <div class="grid-x">
+        <div class="small-12 cell">            
+            <div style="margin-bottom: 10px;">
+                <input type="text" name="username" id="username" value="{username}" class="longText"
+                    placeholder="* {login_username_msg}" autocomplete="off" autofocus {disabled} />
+            </div>
+    
+            <div>
+                <input type="password" name="password" id="password" value="" class="longText"
+                    placeholder="* {password_msg}" autocomplete="off" {disabled} />
+            </div>
+        </div>
+    </div>
+    
+    {captcha_block}
+    
+    <div class="grid-x skip">
+        <div class="small-6 cell">
+            <tmpl:remember_me>
+            <input type="checkbox" name="remember" id="remember" value="1" {remember_ch} /> 
+            <label for="remember" class="smallerText"
+                style="margin-left: 5px;">{stay_signedin_msg}</label>
+            </tmpl:remember_me>
+        </div>
+        
+        <div class="small-6 cell" style="text-align: right;">
+            <tmpl:forgot_password>
+            <a href="{forgot_password_link}" class="smallerText nocolor">{forgot_password_msg}</a>
+            </tmpl:forgot_password>
+        </div>
+    </div>
+    
+    <input type="submit" name="submit" id="submit" value="{login_msg}" class="button login2 normal"
+        style="margin-top: 20px;" />
+    
+    <tmpl:register_link>
+    <div class="grid-x skip" style="margin: 20px 0 20px 0;">
+        <div class="small-12 cell" style="text-align: center;">
+            {no_account_msg}&nbsp;
+            <a href="{register_link}" class="smallerText nocolor">{sign_up_msg}</a>
+        </div>
+    </div>
+    </tmpl:register_link>
+
+</div>
+
+</form>
+
+</div>
+
+<!-- <br /> -->
+</tmpl:login_form>
+
+<tmpl:sso_link>
+<tmpl:login_form>
+<div style="position: relative;margin-top: 20px;">
+    <div class="divider_line"></div>
+    <p style="margin: auto;text-align: center;"><b>{or_msg}</b></p>
+    <div class="divider_line" style="right: 0;"></div>
+</div>
+</tmpl:login_form>
+<form action="{action_link}" method="post">
+    <div style="margin-top: 30px;">
+        <input type="button" value="{login_via}" onclick="location.href='{sso_link}'; return false;"
+            class="button login2 normal" style="min-width: 270px;"/>
+    </div>
+</form>
+</tmpl:sso_link>
+
+
+<tmpl:social_login>
+<div style="position: relative;margin-top: 30px;">
+    <div class="divider_line"></div>
+    <p style="margin: auto;text-align: center;"><b>{or_msg}</b></p>
+    <div class="divider_line" style="right: 0;"></div>
+</div>
+    
+<div class="table" style="margin: 30px 0;">
+    <tmpl:button>
+    <button class="button login2 social" style="background: {color}; min-width: 270px; margin-top: 8px;" 
+        onclick="location.href='{auth_link}'; return false;">
+        <img src="{base_href}client/images/icons/social/{provider}.svg" 
+            style="width: 20px; height: 20px; margin-right: 15px;" />{login_via_msg}
+    </button>
+    </tmpl:button>
+</div>
+</tmpl:social_login>

@@ -1,0 +1,13 @@
+/*  for printing */
+
+body {
+    background: white !important;
+}
+
+td.mainCell {
+    border: 0;
+}
+
+.nonPrintable {
+    display: none;
+}

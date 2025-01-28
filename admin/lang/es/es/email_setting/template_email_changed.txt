@@ -1,0 +1,9 @@
+Hola [first_name],
+
+El correo electrónico de su cuenta [kb_name] ha sido cambiado recientemente.
+Si hizo este cambio, no necesita hacer nada más.
+
+Nueva dirección de correo electrónico: [email]
+
+Si no cambió su contraseña, infórmenos de inmediato a [support_email]
+Informar es importante porque nos ayuda a evitar que los estafadores roben su información.

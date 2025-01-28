@@ -1,0 +1,27 @@
+<script src="{base_href}admin/jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script>
+    window.selRoleHandler = new CategoriesSelectHandler('role');
+</script>
+
+<table class="sTableNoPadding" style="max-width:700px;">
+<tr>
+    <td>
+        <div class="selectScrollDiv" style="max-width: 690px;">
+            <select name="role[]" id="role" size="3" style="border: 0px;" multiple>
+                {role_select}
+            </select>
+        </div>
+    </td>
+    <td style="width: 50px; text-align: center; vertical-align: top;">
+        <input type="button" value="+" 
+            class="button2 button2_add"
+            onclick="selRoleHandler.callPopUp('{module}', '{page}', 'role', {no_button});" />
+        
+        <div style="padding-top: 3px;">
+            <input type="button" value="-" 
+                class="button2 button2_add"
+                onclick="selRoleHandler.deleteOptionConfirm('{sure_delete_msg}');" />
+        </div>
+    </td>
+</tr>
+</table>

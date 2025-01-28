@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="{meta_content_lang}">
+    <title>{meta_title}</title>
+    <meta http-equiv="content-type" content="text/html; charset={meta_charset}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="none" />
+    <tmpl:base_href><base href="{http_host}"></tmpl:base_href>
+    
+    <!--[if IE]>
+    <link rel="stylesheet" href="{common_ie_css}" />
+    <![endif]-->
+    <link rel="stylesheet" href="{common_css}" />
+    <link rel="stylesheet" href="{common_table_css}" />
+    <link rel="stylesheet" href="{common_view_css}" />
+    <link rel="stylesheet" href="{print_css}" />
+        
+    <script src="{base_href}client/jscript/common.js?v={pvhash}"></script>
+    <script src="{base_href}client/jscript/jquery/jquery.js?v={pvhash}"></script>
+
+    <script>
+    
+        <tmpl:anchor_js>
+        $(document).ready(function(){
+            $("a[href^='\#']").click(function(e){
+              e.preventDefault();
+              document.location.hash=this.href.substr(this.href.indexOf('#')+1);
+            })
+        });
+        </tmpl:anchor_js>
+    
+        <tmpl:print_js>
+        $(document).ready(function(){
+            window.print();
+        });
+        </tmpl:print_js>
+    
+    </script>
+    
+</head>
+<body style="padding: 20px;">
+
+    {content}
+
+</body>
+</html>

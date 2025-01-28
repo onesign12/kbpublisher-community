@@ -1,0 +1,328 @@
+<script src="jscript/common_entry_form.js?v={pvhash}"></script>
+<script src="jscript/SortShowMore.js?v={pvhash}"></script>
+<script src="jscript/livesearch/quicksilver.js?v={pvhash}"></script>
+<script src="jscript/livesearch/livesearch.js?v={pvhash}"></script>
+<script src="jscript/livesearch/file.js?v={pvhash}"></script>
+<script>
+
+    function checkFiles(val) {
+        if(val) {
+            $(".filesch:enabled").each(function(){
+                if ($(this).parent().parent().parent().is(':visible')) {
+                    this.checked = true;
+                }
+            });
+        } else {
+            $(".filesch").each(function(){
+                this.checked = false;
+            });
+        }
+    }
+
+    function onFileListLoaded() {
+        $('#q').liveUpdate('eList', 'block').focus();
+    }
+    
+    function LeaveScreenMsgCheck() {
+        var filter_ids = ['filter'];
+        LeaveScreenMsg.setFilterFields(filter_ids);
+        LeaveScreenMsg.initCheck('aContentForm');
+    }
+
+
+    function createlDialog(id) {
+        var options = {
+            modal: true,
+            width: 925,
+            height: 510,
+            open: function() {
+                $('.ui-dialog').css('box-shadow', '#555 2px 2px 2px');
+            },
+            position: {
+                my: 'center top',
+                at: 'center top+10%',
+                of: window
+            },
+            appendTo: '#aContentForm'
+        }
+        
+        $('#' + id).dialog(options);
+    }
+    
+
+    function parseDirectory() {
+        ShowDiv('spinner_files', true); 
+        ResetFiles();
+        
+        var manager = ($('#s3_type').prop('checked')) ? 's3_manager' : 'manager';
+        xajax_getFileList($('#directory_id').val(), manager);
+    }
+
+    
+    function ResetFiles() {
+        $('#file_root').empty();
+        $("#files_num_container").css("display", "none");
+    }
+
+
+    $(document).ready(function(){
+        customFieldCategoryHandler('{sure_delete_msg}');
+        
+        $("#directory_id").keypress(function (e) {
+            if (e.which == 13) {
+                e.preventDefault();
+                $("#get_files").click();
+            }
+        });
+    });
+    
+    
+    $(document).on('click', ".filesch", function () {
+        var num = $(".filesch:checked").length;
+        $("#files_num").text(num);
+        $("#files_num_container").css("display", "inline");
+        if(!num) {
+            $("#files_num_container").css("display", "none");
+        }
+    });
+
+</script>
+
+<style>
+    .aSpinner { width: 100%; text-align: center; margin-top: 50px; display: none; }
+    .aSpinner img { width: 96px; height: 96px; }
+    
+    
+    .onoffswitch {
+        position: relative; width: 130px;
+        -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    }
+    .onoffswitch-checkbox {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+    .onoffswitch-label {
+        display: block; overflow: hidden; cursor: pointer;
+        border: 1px solid #bec2c4; border-radius: 3px;
+    }
+    .onoffswitch-inner {
+        display: block; width: 200%; margin-left: -100%;
+        transition: margin 0.3s ease-in 0s;
+    }
+    .onoffswitch-inner:before, .onoffswitch-inner:after {
+        display: block; float: left; width: 50%; height: 35px; padding: 0; line-height: 35px;
+        font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+        box-sizing: border-box;
+    }
+    .onoffswitch-inner:before {
+        content: "Amazon S3";
+        padding-left: 10px;
+        background-color: #F9F9F9; color: #6c6c6c;
+    }
+    .onoffswitch-inner:after {
+        content: "Directory";
+        padding-right: 10px;
+        background-color: #F9F9F9; color: #6c6c6c;
+        text-align: right;
+    }
+    .onoffswitch-switch {
+        display: block; width: 19px; margin: 8px;
+        background: #FFFFFF;
+        position: absolute; top: 0; bottom: 0;
+        right: 93px;
+        border: 1px solid #bec2c4; border-radius: 3px;
+        transition: all 0.3s ease-in 0s; 
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+        margin-left: 0;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+        right: 0px; 
+    }
+</style>
+
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" enctype="multipart/form-data"
+    id="aContentForm" onsubmit="subForm();">
+<input type="hidden" name="step" value="2">
+{hidden_fields}
+
+<!--  onclick="xajax_getFileList(document.getElementById('directory_id').value)">  -->
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{local_add_msg}:</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{files_msg}:</td>
+    <td>
+        
+        <input type="button" value="+" class="button2 button2_add"
+            onClick="createlDialog('file_container');" >
+        
+        <span id="files_num_container" style="display:none; margin-left: 20px;">
+            <a href="#get_files" onclick="createlDialog('file_container'); return false;">
+                {selected_msg}:</a> <span id="files_num"></span>
+            
+        </span>
+        
+        <div id="file_container" title="{get_file_list_msg}" style="display: none;">
+            
+            <div style="height: 400px; overflow-y: auto; width: 100%;">
+            <div style="padding-top: 10px;" class="trDarker_no">    
+                <table style="width: 100%;">
+                <tr>
+                    <tmpl:s3_type>
+                    <td>
+                        <div class="onoffswitch _tooltip tooltipstered" title="{dir_s3_switch_msg}">
+                            <input type="checkbox" name="s3_type" class="onoffswitch-checkbox" id="s3_type" tabindex="0"
+                                onchange="ResetFiles();">
+                            <label class="onoffswitch-label" for="s3_type">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </td>
+                    </tmpl:s3_type>
+                    <td width="100%">
+                        <input type="text" name="directory" id="directory_id" value=""
+                            placeholder="{dir_s3_info_msg}" 
+                            style="width: 97% !important;" 
+                            class="ui-autocomplete-input nice_popup_input">
+                    </td>
+                    <td width="100" style="text-align: center; margin-left: 10px;">
+                        <button type="button" name="get_files" id="get_files" title="{get_file_list_msg}" 
+                            class="button" style="min-width: 30px;"
+                            onclick="parseDirectory();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#666" d="M10.024 4h6.015l7.961 8-7.961 8h-6.015l7.961-8-7.961-8zm-10.024 16h6.015l7.961-8-7.961-8h-6.015l7.961 8-7.961 8z"/></svg>
+                        </button>
+                    </td>
+                </tr>
+                </table>
+            </div> 
+            
+            <div id="spinner_files" class="aSpinner">
+                <img src="images/ajax/dotted_bar.svg" alt="loading" />
+            </div>
+            
+            <div id="file_root" style="margin-top:10px;">                
+                {file_list_block}
+            </div>
+            </div>
+            
+            <div class="bottom_button_dialog">
+                <input type="button" value="{done_msg}" class="button"
+                    onclick="$('#file_container').dialog('close');">
+            </div>
+            
+        </div>
+        
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop required">{category_msg}:</td>
+    <td>
+        {category_block_search_tmpl}
+        {category_block_tmpl}
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{title_msg}:</td>
+    <td><input type="text" name="title" value="{title}" class="longText" style="width: 705px;"></td>
+</tr>
+
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{description_msg}:</td>
+    <td><textarea rows="5" style="width: 705px;" name="description">{description}</textarea>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop required">{author_msg}:</td>
+    <td id="tdAdmin">
+        
+        <tmpl:author>
+        <div class="popUpDiv" id="more_html_default" style="float: left;background: transparent;">
+            <div>
+                <input type="hidden" name="author_id" value="{author_id}"><span>{name}</span>
+            </div>
+        </div>
+        </tmpl:author>
+        
+        <div style="float: right;" id="test">
+            <input type="button" value="+" class="button2 button2_add"
+                onclick="PopupManager.create('{user_popup_link}', 'r', 'r');">
+        </div>
+        
+        <span id="writeroot"></span>
+
+    </td>
+</tr>
+
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{tags_msg}:</td>
+    <td>
+        {block_tag_tmpl}
+    </td>
+</tr>
+
+
+<tmpl:block_private>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>
+        {block_private_tmpl}
+    </td>
+</tr>
+</tmpl:block_private>
+
+{custom_field_block_bottom}
+
+<tmpl:status>
+<tr class="trLighter">
+    <td class="tdFormCaption">{entry_status_msg}:</td>
+    <td>
+        <select name="active" id="active" style="width: 250px">
+            {status_select}
+        </select>
+    </td>
+</tr>
+</tmpl:status>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            
+            <tmpl:file_button>
+            <input type="submit" name="submit" value="{add_files_msg}" class="button"
+                onClick="validateForm();return false;" />
+            </tmpl:file_button>
+            
+            <input type="submit" name="submit_draft" value="{save_as_drafts_msg}" 
+                class="button secondary"
+                onClick="validateForm('submit_draft');return false;" />
+            
+            {submission_block}
+        
+        </div>
+    </td>
+</tr>
+</table>
+</form>
+
+
+<div id="readroot" class="popUpDiv" style="display: none;">
+    <div style="float: left;">
+    <input type="hidden" name="author_id" value="" id=""><span>1</span>
+    </div>
+    <div>
+        <!-- <a href="" onClick="removeHtml(this); LeaveScreenMsg.changes = true; return false;"><img src="images/icons/delete.svg" alt="Delete" title="{delete_msg}"></a> -->
+    </div>
+</div>

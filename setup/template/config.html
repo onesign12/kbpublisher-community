@@ -1,0 +1,17 @@
+<script>
+    function selectContent(id) {
+        var s = document.getElementById(id);
+        s.focus();
+        s.select();
+    }
+</script>
+
+{user_msg}
+
+<div>{phrase_msg}</div>
+<div align="right" style="padding-bottom: 5px;">
+    <a href="{download_link}">{download_msg}</a> | 
+    <a href="javascript: selectContent('content'); void(0);">{select_all_msg}</a>
+</div>
+
+<textarea name="content" id="content" class="dataTextarea1" wrap="off" readonly>{content}</textarea>

@@ -1,0 +1,33 @@
+<tmpl:row>
+    <tmpl:group_delim>
+    <div id="delim_group{delim_id}">&nbsp;</div>
+    </tmpl:group_delim>
+    
+    <tmpl:group>
+    <a class="setting_anchor" id="group_anchor_{group_id}"></a>
+    <div class="main">
+        <div style="width: 100%;" id="group{group_num}" class="tes" data-group_id="{group_id}">
+            <p class="trMoreDarker" style="padding: 6px 0px; margin-bottom: 1px; width: 100%;">
+                <span style="padding-left: 5px;"><b class="searchable">{group_title_msg}</b> &nbsp;</span>
+            </p>
+         </div>
+     </tmpl:group>
+       
+    <a class="setting_anchor" id="anchor_{id}"></a>
+    <div id="template_{id}">
+        <table class="default">
+            <tr class="trLighter" style="vertical-align: top; {tr_extra_style}">
+                <td class="settingTitle tdCaptionTop {required_class}" 
+                    style="width: 220px; min-width: 220px; text-align: left; white-space: normal;">
+                    {title_msg}:
+                </td>
+                <td style="width: 310px; min-width: 310px;">{form_input}</td>
+                <td class="not_searchable tdCaptionTop" style="padding-left: 5px;">{description_msg}</td>
+            </tr>
+        </table>
+    </div>
+  
+    <tmpl:submit></tmpl:submit>
+    
+    {end}          
+</tmpl:row>

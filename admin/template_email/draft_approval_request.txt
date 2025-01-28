@@ -1,0 +1,9 @@
+{welcome_msg}
+
+[comment]
+
+{review_msg}: 
+[link]
+
+--
+[support_mailer]

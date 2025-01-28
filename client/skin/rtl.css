@@ -1,0 +1,6 @@
+html { direction: rtl; }
+/*body, td, span, div  { direction: rtl; unicode-bidi: embed; }*/
+/*body, td, span, div  { unicode-bidi: bidi-override; }*/
+
+.fleft { float: right; }
+.fright { float: left; }

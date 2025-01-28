@@ -1,0 +1,36 @@
+<form method="post" onSubmit="LeaveScreenMsg.skipCheck();">
+    <input type="hidden" name="lowest_sort_order" value="{lowest_sort_order}" />
+    <input type="hidden" name="sort_field" value="{sort_field}" />
+    
+    <div style="float: left;padding-bottom: 30px;">
+        <b>{reorder_msg}</b>
+    </div>
+    <div style="clear: both;"></div>
+    
+    <ul id="sortable_views">
+        <tmpl:parent_category>
+        <li class="not_sortable" style="background: #e7e7e7;">
+            {parent_category}
+        </li>
+        </tmpl:parent_category>
+        
+        <tmpl:row>
+        <li id="id_{id}" class="trLighter" style="cursor: move;">
+            <tmpl:icon>
+            <img src="images/icons/join.gif" width="14" height="9" style="vertical-align: middle;" />
+            </tmpl:icon>
+            
+            <span class="sort_order_num">{sort_order}</span>.
+            <span style="margin-left: 5px;">{title}</span>
+            <input type="hidden" name="sort_id[]" value="{id}" />
+        </li>
+        </tmpl:row>
+    </ul>
+    
+    <br />
+    
+    <div style="text-align: center;">
+        <input type="submit" name="submit" value="{save_msg}" class="button" />
+        <input type="button" value="{cancel_msg}" onClick="LeaveScreenMsg.skipCheck();location.href='{cancel_link}'" class="button" />
+    </div>
+</form>

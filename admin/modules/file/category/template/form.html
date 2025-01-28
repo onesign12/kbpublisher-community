@@ -1,0 +1,187 @@
+<script src="jscript/DynamicOptionList.js?v={pvhash}"></script>
+<script src="jscript/common_category_form.js?v={pvhash}"></script>
+
+<script>
+
+    var UpdateSort = new DynamicOptionList("sort_order","parent_id");
+
+    <tmpl:js_option_list>
+    UpdateSort.addOptions({js_option_list_values});
+    UpdateSort.setDefaultOption({js_option_default});
+    </tmpl:js_option_list>
+
+    window.onload = init;
+
+    $(document).ready(function() {
+        PopupManager.setTitle("{action_title}");
+    });
+
+</script>
+
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="category" id="aContentForm" onsubmit="subForm();">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{title_msg}:</td>
+    <td><input type="text" name="name" value="{name}" class="longText" style="width: 700px;"></td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{description_msg}:</td>
+    <td><textarea cols="80" rows="3" name="description" style="width:700px;">{description}</textarea></td>
+<tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop required">{parent_category_msg}:</td>
+    <td>
+        <select name="parent_id" id="parent_id" style="width: 350px;"
+            onChange="parentCategoryHandler2(this.value);">
+            {category_select}
+        </select>
+
+        {category_popup_block}
+
+        <div style="padding-top: 8px;">
+            <div id="category_info">{category_info}</div>
+            <div style="padding-top: 3px;" id="category_info_write">{category_info_write}</div>
+        </div>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{sort_public_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+	    	<select name="sort_public" id="sort_public" style="width: 350px;">
+                {sort_public_select}
+            </select>
+		</span>
+        <span class="tooltip">{sort_public_tip_msg}</span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{sort_order_msg}:</td>
+    <td>
+        <select size="1" name="sort_order" style="width: 350px;">
+        <script>UpdateSort.printOptions();</script>
+        </select>
+    </td>
+</tr>
+
+<tmpl:block_private>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>
+        {block_private_tmpl}
+    </td>
+</tr>
+</tmpl:block_private>
+
+ <tr class="trLighter">
+    <td class="tdFormCaption">{attachable_msg}:</td>
+    <td>
+        <span class="hasTooltip">
+	    	<input type="checkbox" name="attachable" id="attachable" value="1" {attachable_options} />
+            <label for="attachable">{yes_msg}</label>
+		</span>
+        <span class="tooltip">{attachable_tip_msg}</span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{status_published_msg}:</td>
+    <td>{status_checkbox}</td>
+</tr>
+
+<tr>
+    <td colspan="2" height="10">&nbsp;</td>
+</tr>
+
+<tr>
+    <td colspan="2" class="trMoreDarker">
+        <span class="hasTooltip">
+	    	<b>{category_admin_msg}</b>
+		</span>
+
+        <span class="tooltip">{category_admin_tip_msg}</span>
+
+        <span style="float: right;margin-right: 25px;">
+            <a href="#add" onclick="getCategoryAdmin(document.getElementById('parent_id').value); void(0);"
+                title="{copy_from_parent_category_msg}">
+                <img src="images/icons/assign.svg" width="16" height="16" border="0"
+                    alt="{copy_from_parent_category_msg}">
+            </a>
+        </span>
+
+        <span style="float: right;margin-right: 8px;">
+            <a href="#copy" onclick="PopupManager.create('{user_popup_link}', 'r', 'r');"
+                title="{add_new_msg}">
+                <img src="images/icons/add_new.svg" alt="{add_new_msg}">
+            </a>
+        </span>
+
+        <div style="clear: both"></div>
+    </td>
+</tr>
+
+<tr>
+	<td colspan="2" style="padding: 0px;">
+
+		<tmpl:admin_user_row>
+		<div class="popUpDiv">
+			<div style="float: left;">
+                <input type="hidden" name="admin_user[]" value="{user_id}">
+                <span>{name}</span>
+            </div>
+			<div style="float: right;">
+			    <a href="" onClick="removeHtml(this); return false;">
+			        <img src="images/icons/delete.svg" alt="{delete_msg}" title="{delete_msg}">
+                </a>
+			</div>
+            <div style="clear: both"></div>
+		</div>
+        </tmpl:admin_user_row>
+
+        <span id="writeroot"></span>
+	</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br /><br /></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit" value="{save_msg}" class="button"
+                onClick="validateForm();return false;" />
+                
+            <input type="button" value="{cancel_msg}"  class="button"
+                onClick="LeaveScreenMsg.skipCheck(); {full_cancel_link}">
+        </div>
+    </td>
+</tr>
+</table>
+</form>
+
+<br />
+
+<div id="readroot" class="popUpDiv" style="display: none;">
+    <div style="float: left;">
+        <input type="hidden" name="admin_user[]" value="" id="">
+        <span>1</span>
+    </div>
+
+    <div style="float: right;">
+        <a href="" onClick="removeHtml(this); return false;">
+            <img src="images/icons/delete.svg" alt="{delete_msg}" title="{delete_msg}">
+        </a>
+    </div>
+
+    <div style="clear: both"></div>
+</div>

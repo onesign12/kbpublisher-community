@@ -1,0 +1,29 @@
+<script>
+    function initSort() {
+        $('#sortable_views').sortable({
+            placeholder: 'view_placeholder',
+            items: 'li:not(.not_sortable)',
+            stop: function(event, ui) {                
+                LeaveScreenMsg.changes = true;
+            }
+        });
+        $('#sortable_views').disableSelection();
+        
+        LeaveScreenMsg.setDoCheck(1);
+        LeaveScreenMsg.check();
+    }
+
+    function setSortValues(values) {
+        var i = 0;
+        $('input[name="sort_id[]"]').each(function() {
+            $(this).attr('name', 'sort_id[' + values[i] + ']');
+            i ++;
+        });
+    }
+</script>
+
+<div id="trigger_list">
+    
+   {content}
+
+</div>

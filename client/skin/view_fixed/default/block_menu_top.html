@@ -1,0 +1,20 @@
+<a href="#" data-jq-dropdown="#nav_menu">
+    <svg xmlns="http://www.w3.org/2000/svg" class="header login" viewBox="0 0 24 24">
+        <path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z"/>
+    </svg></a>
+
+<div id="nav_menu" class="jq-dropdown jq-dropdown-tip">
+    <ul class="jq-dropdown-menu">
+        <tmpl:row>
+        <li>
+            <a href="{item_link}" target="{target}" {options}>
+                {item_menu}
+            </a>
+        </li>
+        <li class="jq-dropdown-divider"></li>
+        </tmpl:row>
+    </ul>
+</div>
+
+<tmpl:form>
+</tmpl:form>

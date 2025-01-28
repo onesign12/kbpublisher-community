@@ -1,0 +1,30 @@
+.lowerTab {
+    border: 0 !important;
+    list-style: none;
+    float: left;
+    position: relative;
+    margin: 0 .2em 1px 0;
+    padding: 4px;
+    white-space: nowrap;
+}
+
+#lower_tabs {
+    border-top: 1px solid #ddd;
+}
+
+.lower_tabs {
+    float: left;
+    padding: .5em 1em;
+    text-decoration: none;
+}
+
+
+.lowerTabSelected {
+    margin-bottom: 0;
+    padding-bottom: 1px;
+    padding-top: 2px;
+    margin-top: 0px;
+    bottom: 1px;
+    border-top: 3px solid #446d99 !important;
+    font-weight: bold !important;
+}

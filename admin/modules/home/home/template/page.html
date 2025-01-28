@@ -1,0 +1,226 @@
+<script>
+$(document).ready(function() {
+    portlet_ids = [[{column1_ids}], [{column2_ids}]];
+
+    $('.column1').sortable({
+        connectWith: '.column2',
+        items: '> *:visible',
+        update: function() {
+            saveLayout();
+        }
+    });
+
+    $('.column2').sortable({
+        connectWith: '.column1',
+        items: '> *:visible',
+        update: function() {
+            saveLayout();
+        }
+    });
+
+    $('#customizePopup').dialog({
+        autoOpen: false,
+        modal: true,
+        open: function() { // prevent the focus
+        	$('input:first').blur();
+        } 
+    });
+
+    $('.placeholder').click(function() {
+        $('#customizePopup').dialog('open');
+        active_part = this.id.substring(11);
+    });
+});
+     
+     
+function saveLayout() {
+    var col1 = $('.column1').sortable('toArray');
+    var col2 = $('.column2').sortable('toArray');
+    
+    if (col1.toString() != portlet_ids[0].toString() || col2.toString() != portlet_ids[1].toString()) {
+        portlet_ids = [col1, col2];
+        xajax_setUserHome(portlet_ids);
+    }
+}
+ 
+ 
+function togglePortlet(id, show) {
+    
+    if (show) {
+        var portlet = $('#' + id);
+        $('.column' + active_part).append(portlet);
+        portlet.show();
+        
+    } else {
+        $('#' + id).hide();
+        $('#' + id + '_customize').prop('checked', false);
+    }
+    
+    var col1 = $('.column1').sortable('toArray');
+    var col2 = $('.column2').sortable('toArray');
+    
+    portlet_ids = [col1, col2];
+    xajax_setUserHome(portlet_ids);
+    
+    var unchecked_left = $('#customizePopup input:checkbox:not(:checked)').length;
+    if (unchecked_left == 0) {
+        $('.placeholder').hide();
+        
+    } else {
+        $('.placeholder').show();
+    }
+}
+
+function hideGetStartedBlock(is_confirm) {
+    
+    if(is_confirm) {
+        if(confirm("{sure_common_msg}")){
+            $('#get_started_block').hide();
+            xajax_hideGetStartedBlock();
+        }
+        
+    } else {
+        $('#get_started_block').hide();
+        xajax_hideGetStartedBlock();
+    }
+}
+
+
+</script>
+
+<style>
+    .div-table {
+        display: table;         
+        width: 100%;
+    }
+    
+    .div-table-row {
+        display: table-row;
+        width: auto;
+        clear: both;
+    }
+    
+    .div-table-col {
+        float: left;
+        display: table-column;
+    }
+</style>
+
+
+<!-- test messages -->
+<!--
+
+<div class="boxMsgDiv error hasTitle">
+    <div class="title">Title</div>
+    You have successfully completed the Quick Start Wizard. Click the "Done" button below to exit.
+</div>
+
+<div class="boxMsgDiv error">
+    <div class="title2">Title 2</div>
+    You have successfully completed the Quick Start Wizard. Click the "Done" button below to exit.
+</div>
+
+<div class="boxMsgDiv error">
+    You have successfully completed the Quick Start Wizard. Click the "Done" button below to exit.
+</div>
+<br/><br/>
+
+<div class="boxMsgDiv success hasTitle">
+    <div class="title">Title</div>
+    You have successfully completed the Quick Start Wizard. Click the "Done" button below to exit.
+</div>
+
+<div class="boxMsgDiv success">
+    You have successfully completed the Quick Start Wizard. Click the "Done" button below to exit.
+</div>
+<br/><br/>
+
+<div class="boxMsgDiv hint hasTitle">
+    <div class="title">Title</div>
+    You have successfully completed the Quick Start Wizard. Click the "Done" button below to exit.
+</div>
+
+<div class="boxMsgDiv hint">
+    You have successfully completed the Quick Start Wizard. Click the "Done" button below to exit.
+</div>
+<br/><br/>
+
+<div class="boxMsgDiv info hasTitle">
+    <div class="title">Title</div>
+    You have successfully completed the Quick Start Wizard. Click the "Done" button below to exit.
+</div>
+
+<div class="boxMsgDiv info">
+    You have successfully completed the Quick Start Wizard. Click the "Done" button below to exit.
+</div>
+<br/><br/>
+-->
+
+{user_msg}
+
+<tmpl:start_wizard>
+<div id="get_started_block" 
+    style="margin-bottom: 20px;background-color: #F8F8F3;border: 2px solid #D3DDEB; padding: 14px;">
+    
+    <div>
+        <div style="float: left;font-size: 1.2em;margin-bottom: 5px;">
+            <b>{welcome_wizard_msg}</b>
+        </div>
+        <div style="float: right;font-size: 0.9em;position: relative;top: -8px;right: -3px;">
+            <a href="#" onclick="hideGetStartedBlock(1);" style="text-decoration: none;color: #7898C2;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 24 24"><path fill="#7898C2" d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
+                {dismiss_msg}
+            </a>
+        </div>
+        <div style="clear: both;"></div>
+        
+        {start_wizard_note_msg}
+        <div style="margin-top: 15px;">
+        <input type="button" value="{start_wizard_msg}" class="button2 button2_add_new"
+            onclick="PopupManager.create('{wizard_link}', false, false, 1, '900', 650);">
+        </div>
+    </div>
+</div>
+</tmpl:start_wizard>
+
+
+<div id="customizePopup" title="{customize_page_msg}">
+    <div style="margin-top: 5px; margin-bottom: 35px;">
+    <tmpl:portlet_row>
+        <input type="checkbox" id="{block_id}_customize" {checked} 
+            onclick="togglePortlet({block_id}, this.checked);" />&nbsp;
+        <label for="{block_id}_customize">{block_name}</label>
+        <div style="margin: 2px;"></div>
+    </tmpl:portlet_row>
+    </div>  
+    
+    <div class="bottom_button_dialog">
+        <a href="#default" onclick="xajax_setUserHomeDefault();"
+            style="margin-right: 10px;">{defaults_msg}</a>
+        <!-- <input type="button" value="{defaults_msg}" class="button primary" onclick="xajax_setUserHomeDefault();"> -->
+        <!-- <input type="button" value="{close_msg}" class="button" onclick="$('#customizePopup').dialog('close');"> -->
+    </div>
+    
+</div>
+
+<div class="div-table">
+    <div class="div-table-row">
+        <tmpl:column>
+        <div class="div-table-col" style="width: {percentage_column_width}%">
+            <div class="column{column_id}" style="width: 100%;padding-bottom: 0px;">
+            
+                <tmpl:portlet>
+                <div id="{id}" class="portlet" style="margin: 10px 5px;border: 1px solid #d3ddeb; display: {display};">
+                    {portlet}
+                </div>
+                </tmpl:portlet>
+                
+            </div>
+            
+            <div id="placeholder{column_id}" class="placeholder" style="margin: 10px 5px;display: {placeholder_display};">
+                + {add_module_msg}
+            </div>
+        </div>
+        </tmpl:column>
+    </div>
+</div>

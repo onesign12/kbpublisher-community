@@ -1,0 +1,89 @@
+
+
+
+<div class="niceForm table">
+    <div class="formTopDelim"></div>
+
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">{first_name_msg}:</div>
+        <div class="medium-9 small-12 cell">{first_name}</div>
+    </div>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">{last_name_msg}:</div>
+        <div class="medium-9 small-12 cell">{last_name}</div>
+    </div>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">{middle_name_msg}:</div>
+        <div class="medium-9 small-12 cell">{middle_name}</div>
+    </div>
+
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">{phone_msg}:</div>
+        <div class="medium-9 small-12 cell">{phone}</div>
+    </div>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">{email_msg}:</div>
+        <div class="medium-9 small-12 cell">{email}</div>
+    </div>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">{username_msg}:</div>
+        <div class="medium-9 small-12 cell">{username}</div>
+    </div>
+
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">{company_msg}:</div>
+        <div class="medium-9 small-12 cell">{company}</div>
+    </div>
+
+    <tmpl:role>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">{role_msg}:</div>
+        <div class="medium-9 small-12 cell">{role}</div>
+    </div>
+    </tmpl:role>
+
+    <tmpl:priv>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">{priv_msg}:</div>
+        <div class="medium-9 small-12 cell">{priv}</div>
+    </div>
+    </tmpl:priv>
+
+    <tmpl:api>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">{api_access_msg}:</div>
+        <div class="medium-9 small-12 cell">{api_access_value}</div>
+    </div>
+    </tmpl:api>
+
+    <tmpl:mfa>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">{mfa_msg}:</div>
+        <div class="medium-9 small-12 cell">{mfa_value}</div>
+    </div>
+    </tmpl:mfa>
+
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">{sso_accounts_msg}:</div>
+        <div class="medium-9 small-12 cell">
+             <tmpl:row_sso>
+             <div style="padding-bottom: 3px;">{sso_provider}: {sso_user_id}</div>
+             </tmpl:row_sso> 
+        </div>
+    </div>
+
+    <br />
+    <div style="text-align: center;">
+        
+        <tmpl:account_update>
+        <input type="button" value="{update_profile_msg}" class="button btn btn-default" 
+            onclick="location.href='{update_link}';" />
+        </tmpl:account_update>
+        
+        <tmpl:api_update>
+        <input type="button" value="{api_update_msg}" class="button btn btn-default" 
+            onclick="location.href='{update_api_link}';" />
+        </tmpl:api_update>
+
+    </div>
+</div>

@@ -1,0 +1,252 @@
+<link rel="stylesheet" href="css/rule_popup.css?v={pvhash}">
+<link rel="stylesheet" href="../client/skin/jquery/chosen.min.css?v={pvhash}">
+<link rel="stylesheet" href="../client/skin/jquery/chosen_custom.css?v={pvhash}">
+<script src="../client/jscript/jquery/chosen.jquery.min.js?v={pvhash}"></script>
+<script src="../client/jscript/jquery/jquery.jeditable.mini.js?v={pvhash}"></script>
+<script>
+function showAddedRule(html, line_num) {
+    $('#rules_list').append(html);
+    
+    makeEditable('#rule_' + line_num);
+    
+    $('#new_rule').hide();
+}
+
+function hideDeletedRule(line) {
+    $('#rule_' + line).remove();
+    
+    $('tr[id^=rule_]').each(function() {
+        var rule_id = this.id.substring(5);
+        if (rule_id > line) {
+            var new_rule_id = rule_id - 1;
+            $(this).attr('id', 'rule_' + new_rule_id);
+            $(this).find('a').attr('onclick', 'deleteRule(' + new_rule_id + '); return false;');
+        }
+    });
+}
+
+function addRule() {
+    var data = {};
+    data['ldap_group_name'] = $('#ldap_group option:selected').text();
+    data['ldap_group_dn'] = $('#ldap_group').val();
+    data['kbp_priv'] = $('#kbp_priv').val();
+
+    xajax_addRule(data);
+}
+
+function deleteRule(line) {
+    confirm2("{sure_common_msg}", function() {
+        xajax_deleteRule(line);
+    });
+}
+
+function toggleCustom() {
+    var visible = $('#custom').is(':visible');
+
+    $('#custom_block').slideToggle('fast');
+
+    var src = (visible) ? 'images/icons/dropdown_arrow.svg' : 'images/icons/dropdown_arrow_up.svg';
+    $('#custom_img').attr('src', src);
+}
+
+$(document).ready(function() {
+    PopupManager.setTitle("{group_to_priv_mapping_msg}");
+
+    var current_popup = PopupManager.getCurrentPopup();
+    current_popup.dialog('option', 'beforeClose', updateCounter);
+
+    <tmpl:mapping_block>
+    $('#ldap_group').chosen({
+        width: '100%'
+    });
+
+    $('#kbp_priv').chosen({
+        width: '100%'
+    });
+    
+    makeEditable('tr[id^=rule_]');
+    </tmpl:mapping_block>
+});
+
+function makeEditable(selector) {
+    $(selector + ' td.editable_chosen').click(function(e) {
+        $(this).unbind('click');
+        
+        e.stopPropagation();
+        
+        var type = $(this).attr('data-type');
+        var cloned_select = $('#' + type).clone();
+        var tmp_id = type + '_tmp';
+        
+        cloned_select.attr('id', tmp_id);
+        cloned_select.val($(this).attr('data-value'));
+        
+        $(this).html(cloned_select);
+        
+        $('#' + tmp_id).on('chosen:ready', function(evt, params) {
+            $(window).click(function(e) {
+                var id = $('#kbp_attr_tmp').parent().parent().attr('id');
+                if (id) {
+                    var line_num = id.substr(5);
+                    xajax_updateItem(line_num, 2, $('#' + tmp_id).val());
+                }
+                
+                $(window).unbind('click');
+            });
+            
+            $('#' + tmp_id + '_chosen').click(function(e) {
+                e.stopPropagation();
+            });
+        });
+        
+        
+        $('#' + tmp_id).chosen({
+            width: '100%'
+        });
+        
+        $('#' + tmp_id).trigger('chosen:activate');
+        
+        $('#' + tmp_id).on('change', function(evt, params) {
+            var line_num = $(this).parent().parent().attr('id').substr(5);
+            var name = $(this).find('option[value="' + params.selected + '"]').text();
+            xajax_updateItem(line_num, type, params.selected, name);
+        });
+    });
+}
+
+function updateCounter() {
+    window.top.$('#aContentForm').attr('target', '_self');
+    window.top.$('#aContentForm input[name=popup]').remove();
+    window.top.$('#aContentForm').attr('action', window.top.$('#aContentForm').attr('action').replace('&popup=remote_auth_map_group_to_priv', ''));
+
+    // update the counter
+    var rules_num = $('#rules_list tr').length - 1;
+    if ($('#custom').val()) {
+        rules_num += $('#custom').val().split('\n').length;
+    }
+    window.top.$('#remote_auth_map_group_to_priv_count').text(rules_num);
+}
+</script>
+
+<tmpl:license_limit_user>
+<div style="padding-bottom: 10px;">
+    {license_limit_user_msg}
+</div>
+</tmpl:license_limit_user>
+
+{error_message}
+
+<tmpl:mapping_block>
+<div style="float: right;">
+    {buttons}
+</div>
+
+<div style="clear: both;height: 10px;"></div>
+
+<div id="new_rule" class="not_sortable trLighter" style="display: none; margin-bottom: 20px;">
+    <div class="tdTitle">{add_new_msg}</div>
+    <table class="default">
+        <tr class="trMoreDarker">
+            <td width="45%">
+                <b>{ldap_group_msg}</b>
+                <span style="float: right;">
+                    <!--<span style="text-decoration: underline;">Own filter</span> |
+                    <span style="text-decoration: underline;">Refresh</span>-->
+                </span>
+            </td>
+            <td width="7%"></td>
+            <td>
+                <b>{kbp_priv_msg}</b>
+            </td>
+        </tr>
+        <tr class="trLighter">
+            <td>
+                {ldap_group_select}
+            </td>
+            <td align="center" style="font-size: 15px;">
+                <b>&rarr;</b>
+            </td>
+            <td>
+                {kbp_priv_select}
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center;padding: 20px 0 10px 0;">
+        <input type="button" value="{add_msg}" class="button" onClick="addRule();" />
+        <input type="button" value="{cancel_msg}" class="button" onClick="$('#new_rule').hide();">
+    </div>
+</div>
+</tmpl:mapping_block>
+
+<table class="default {table_class}" id="rules_list">
+    <tr class="trMoreDarker not_sortable">
+        <td width="45%">
+            <b>{ldap_group_msg}</b>
+        </td>
+        <td width="7%"></td>
+        <td>
+            <b>{kbp_priv_msg}</b>
+        </td>
+        <td>
+            <b>{entry_status_msg}</b>
+        </td>
+        <td></td>
+    </tr>
+    
+    <tmpl:rule>
+    <tr class="trLighter" id="rule_{line}">
+        <td class="editable_chosen" data-type="ldap_group" data-value="{ldap_group_dn}">
+            {ldap_group}
+        </td>
+        <td class="not_editable" align="center" style="font-size: 15px;">
+            <b>&rarr;</b>
+        </td>
+        <td class="editable_chosen" data-type="kbp_priv" data-value="{kbp_priv_id}">
+            {kbp_priv}
+        </td>
+        <td class="not_editable" width="1" align="center">
+            <tmpl:status_icon>
+            <img src="images/icons/{img}" class="_tooltip" title="{title}" />
+            </tmpl:status_icon>
+        </td>
+        <td class="not_editable" width="1">
+            <a href="" onClick="deleteRule({line}); return false;">
+		        <img src="images/icons/delete.svg" alt="{delete_msg}" title="{delete_msg}">
+            </a>
+        </td>
+    </tr>
+    </tmpl:rule>
+</table>
+
+<div style="margin-top: 30px;cursor: pointer;padding: 5px;" class="trMoreDarker" onclick="toggleCustom();">
+    <div style="float: left;">
+        <b>{custom_mapping_msg}</b> <span id="custom_counter">{custom_num}</span>
+    </div>
+    
+    <div style="float: right;line-height: 10px;margin-right: 5px;">
+        <img id="custom_img" src="images/icons/dropdown_arrow.svg" />
+    </div>
+    
+    <div style="clear: both;"></div>
+</div>
+
+<div id="custom_block" style="display: none;padding: 5px;">
+    <div>
+        {custom_usage_note_msg}<br />
+        {custom_priv_desc_msg}
+        <br />
+        {example_msg}: mail|*@domain.com|1
+        <br /><br />
+    </div>
+
+    <textarea id="custom" rows="5" style="width: 100%;">{custom_mapping}</textarea>
+
+    <div style="text-align: center;">
+        <input type="button" value="{save_msg}" class="button" onClick="xajax_saveCustom($('#custom').val());">
+    </div>
+</div>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{done_msg}" class="button" id="close_button"
+        onclick="updateCounter();PopupManager.close();">
+</div>

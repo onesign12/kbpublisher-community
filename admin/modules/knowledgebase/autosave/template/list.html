@@ -1,0 +1,27 @@
+<div class="trLighter" style="padding: 5px;">
+    <strong>{nav}</strong>
+</div>
+
+{header}
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+    <td class="tdTitle" width="250">{autosaved_date_msg}</td>
+    <td>{entry_title_msg}</td>
+    
+    <td width="1">{action_hidemsginui_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id_key}" class="{class}" style="{style}">
+    
+    <td width="250"><b>{date_interval}</b>&nbsp;&nbsp;({date_formatted})</td>
+    <td>{title}</td>
+    
+    <td class="action" width="1">
+        {options_img}
+    </td>
+</tr>
+</tmpl:row>
+
+</table>

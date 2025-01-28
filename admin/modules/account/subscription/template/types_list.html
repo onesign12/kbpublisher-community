@@ -1,0 +1,36 @@
+<script>
+    function confirmNews(msg, link, do_confirm) {
+        if(do_confirm) {
+            confirm2(msg, link);
+            return false;
+        }
+        
+        return true;
+    }
+</script>
+
+{error_msg}
+
+<div class="formTopDelim"></div>
+    
+<tmpl:row>
+    
+<div class="{class}" style="{style} padding: 10px 8px; margin-bottom: 1px; ">
+    <div><strong>{item_title}</strong></div>
+    
+    <div style="padding-top:4px; padding-left: 2px;">
+        {item_subscribed} {item_count} - 
+        <a href="{item_link}" style="{style}" {options} 
+            onclick="return confirmNews('{sure_common_msg}', '{item_link}', {do_confirm});">{item_manage}</a>
+            
+        <tmpl:new_window>
+        <span style="vertical-align:middle; margin-left: 3px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24">
+                <path fill="#666" d="M22 6v12h-16v-12h16zm2-6h-20v20h20v-20zm-22 22v-19h-2v21h21v-2h-19z"/>
+            </svg>
+        </span>
+        </tmpl:new_window>
+    </div>
+</div>
+        
+</tmpl:row>

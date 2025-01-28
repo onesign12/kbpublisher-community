@@ -1,0 +1,29 @@
+<form style="margin: 0px;">
+{hidden_fields}
+
+<table id="filter_tbl">
+<tr>
+    <td>
+        <div>{category_msg}:</div>
+        <select name="filter[c]" class="colorInput" style="width: 250px;"
+            onchange="this.form.submit(true)">
+        {category_select}
+        </select>
+    </td>
+    
+<!--     <td>
+        <div>{entry_type_msg}:</div>
+        <select name="filter[et]" class="colorInput" style="width: 150px;">
+        {type_select}
+        </select>
+    </td>     -->
+        
+    
+<!--     <td>
+        <button type="submit" name="do_search" value="1" 
+            class="button2 button2_filter">&rarr;</button>
+    </td> -->
+</tr>
+</table>
+
+</form>

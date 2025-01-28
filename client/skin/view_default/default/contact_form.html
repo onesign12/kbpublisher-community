@@ -1,0 +1,169 @@
+<link rel="stylesheet" href="{base_href}client/skin/form.css?v={pvhash}" media="screen">
+<script>
+<!--
+function closeQuickResponce() {
+    div = document.getElementById('quick_response');
+    div.innerHTML = '';
+} 
+
+function Validate(form) {
+    return true;
+}
+//-->
+</script>
+
+{user_msg}
+
+<div class="niceForm">
+
+<form action="{action_link}" method="post" id="aContentForm" 
+	enctype="multipart/form-data" onSubmit="return Validate(this);">
+{hidden_fields}
+
+<div class="table">
+    <div class="grid-x skip">
+        <div class="small-12 cell tdSubTitle">
+            <b>{menu_contact_us_msg}</b>
+        </div>
+    </div>
+    
+    <tmpl:not_registered>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="name">{name_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input type="text" name="name" id="name" value="{name}" class="longText" {name_option} />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="email" class="required">{email_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input type="text" name="email" id="email" value="{email}" class="longText" {email_option} />
+        </div>
+    </div>
+    </tmpl:not_registered>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="subject_id" class="required">{feedback_subject_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <select name="subject_id" id="subject_id" style="width: 250px">
+            {subject_select}
+            </select>
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="title" class="required">{title_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input type="text" name="title" id="title" value="{title}" class="longText" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="message" class="required">{question_comment_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            {demo_responce_msg}
+            <textarea rows="9" name="message" id="message" class="fixed-for-medium" 
+                style="vertical-align: top; margin-right: 7px; height: 160px;" 
+                onkeyup="{onkeyup_action}">{message}</textarea>
+            
+            <span id="spinner_message" style="display: none;">
+                <img src="{base_href}client/images/ajax/indicator.svg" alt="" />
+            </span>   
+        </div>
+    </div>
+    
+    <!-- <div id="attachments"> -->
+    <tmpl:is_attachment>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="file_{num}">{attachment_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <div  id="attachments"  class="fixed-for-medium" style="padding: 3px 3px 1px 3px;">
+            <tmpl:attachment>
+            <div style="margin-bottom: 5px;">
+                <input type="file" name="file_{num}" id="file_{num}"  class="longText">
+            </div>
+            </tmpl:attachment>
+            </div>
+        </div>
+    </div>
+    </tmpl:is_attachment>
+
+    <!-- </div> -->
+    
+    <tmpl:allowed_extension>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+        </div>
+        <div class="medium-9 small-12 cell">
+            <span class="formComment">{allowed_extension_msg}: {allowed_extension}</span>
+        </div>
+    </div>
+    </tmpl:allowed_extension>
+    
+    
+    <tmpl:custom_row>
+    <div class="grid-x">
+        <div class="medium-3 small-12 cell">
+            <label for="custom_{id}" class="{required_class}">{title}</label>:
+        </div>
+        <div class="medium-9 small-12 cell">
+            <div style="vertical-align: middle;">
+                <div style="width: 510px;display: inline-block;vertical-align: middle;">
+                    {input}
+                </div>
+                
+                <tmpl:tooltip>
+                <div style="display: inline-block;vertical-align: middle;">
+                    <img src="{base_href}client/images/icons/help.svg" alt="help"
+                        style="cursor: help;width: 16px;height: 16px;" class="_tooltip" title="{tooltip}" />
+                </div>    
+                </tmpl:tooltip>
+            
+            </div>
+        </div>
+    </div>
+    </tmpl:custom_row>
+    
+    {captcha_block}
+    
+    <div class="grid-x donotshow">
+        <div class="medium-3 small-12 cell">
+            <label for="company" class="required">{company_msg}:</label>
+        </div>
+        <div class="medium-9 small-12 cell">
+            <input type="text" name="s_company" value="{s_company}" class="longText" />
+            <input type="checkbox" name="s_company_set" value="{s_company_set}" />            
+        </div>
+    </div>
+        
+    <div class="grid-x skip">
+        <div class="medium-3 small-12 cell"></div>
+        <div class="medium-9 small-12 cell">
+            <div id="quick_response"></div>
+            <div><br /></div>
+            <button type="submit" name="submit" id="submit" class="button primary"
+                onClick="validateForm();return false;">
+                {send_msg}
+            </button>
+                
+            <input type="button" value="{cancel_msg}" onclick="location.href='{cancel_link}'" class="button" />
+        </div>
+    </div>
+</div>
+
+</form>
+
+</div>

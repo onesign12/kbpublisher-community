@@ -1,0 +1,111 @@
+<link rel="stylesheet" href="../client/skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp_title.css?v={pvhash}">
+<script>
+<!--
+    $(document).ready(function() {
+        $('#private_key_link').tooltipster({
+            contentAsHTML: true,
+            theme: ['tooltipster-kbp_title'],
+            interactive: true,
+            maxWidth: 300,
+            trigger: 'click',
+            functionBefore: function(instance) {
+                var content = instance.content();
+                
+                instance.content('<div class="tooltipster-form_title"><b>{api_private_key_msg}</b>' +
+                    '<img src="images/icons/close.svg" id="close_button" onclick="$(\'#private_key_link\').tooltipster(\'hide\');" /></div>' + 
+                    '<div style="padding: 10px;">' + content + '</div>');
+            }
+        });
+    });
+    
+    
+    var private_key = '{api_private_key}';
+
+    function resetApiKey(sure_msg) {
+        confirm2(sure_msg, function() {
+            xajax_generateApiKey();
+        });
+    }
+
+//-->
+</script>
+
+{menu_block}
+
+{error_msg}
+
+<!-- onSubmit="return validate_employee_form({is_admin});" -->
+<form action="{action_link}" method="post" id="aContentForm" onsubmit="LeaveScreenMsg.skipCheck();">
+{hidden_fields}
+
+<table class="default">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b> &nbsp;</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{username_msg}:</td>
+    <td>{username}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{api_url_msg}:</td>
+    <td>{api_url}</td>
+</tr>
+
+<tmpl:api_access_checkbox>
+<tr class="trLighter">
+    <td class="tdFormCaption">{api_access_msg}:</td>
+    <td>
+        <input type="checkbox" name="extra[{api_rule_id}][value1]" id="api_access" value="1" {ch_api_access}>
+        <label for="api_access">{yes_msg}</label>
+        
+        <span style="margin-left:30px;">
+           ( <input type="checkbox" name="extra[{api_rule_id}][puser]" id="api_puser" value="1" {ch_api_puser}>
+            <label for="api_puser">{api_anonymous_user_msg}</label> )
+        </span>
+    </td>
+</tr>
+</tmpl:api_access_checkbox>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{api_public_key_msg}:</td>
+    <td>
+        <input type="text" name="extra[{api_rule_id}][value2]" id="api_public_key" value="{api_public_key}" 
+            class="longText" readonly>&nbsp;&nbsp;
+        
+        <tmpl:generate_key>
+        <a href="" onClick="xajax_generateApiKey(); return false;">{api_generate_key_msg}</a>
+        </tmpl:generate_key>
+        
+        <tmpl:reset_key>
+        <a href="" onClick="resetApiKey('{api_reset_key_sure_msg}'); return false;">{api_reset_key_msg}</a>
+        </tmpl:reset_key>        
+    </td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{api_private_key_msg}:</td>
+    <td>
+        <a id="private_key_link" href="#show" title="" style="display: {private_key_link_display};"
+            onclick="$(this).tooltipster('content', '<b>' + private_key + '</b><br /><br />{api_private_key_note_msg}');">
+            {api_private_key_show_msg}
+        </a>
+                        
+        <input type="hidden" name="extra[{api_rule_id}][value3]" id="api_private_key" value="{api_private_key}">
+    </td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <div id="bottom_button">
+            <input type="submit" name="submit" value="{save_msg}" class="button"
+                onClick="validateForm();return false;" />
+                
+            <input type="button" value="{cancel_msg}"  class="button"
+                onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'">
+        </div>
+    </td>
+</tr>
+</table>
+</form>

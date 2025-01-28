@@ -1,0 +1,38 @@
+<script src='https://www.google.com/recaptcha/api.js?render={site_key}'></script>
+<input type="checkbox" name="captcha" id="captcha" value="1" checked=checked style="visibility: hidden;"> 
+<!-- <input type="hidden" name="responce" id="responce" />  -->
+ <script>
+
+    $( "#aContentForm" ).submit(function( event ) {
+        
+        if($('#g-recaptcha-response').length) {
+            return;
+        }
+        
+        event.preventDefault();
+        
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{site_key}', {action: '{action}'}).then(function(token) {
+                $('#aContentForm').prepend('<input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" value="' + token + '">');
+                // $( "#aContentForm" ).submit();
+                // $('#submit').trigger('click');
+                $("#submit").click();
+            });
+        });
+        
+    });
+    
+</script>
+
+
+<tmpl:default>
+</tmpl:default>
+
+<tmpl:placeholder>
+</tmpl:placeholder>
+
+<tmpl:line>
+</tmpl:line>
+
+<tmpl:admin>
+</tmpl:admin>

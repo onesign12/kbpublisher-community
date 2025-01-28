@@ -1,0 +1,47 @@
+<script>
+    function copyUser(to_field) {
+        var from_field = (to_field == 'author') ? 'updater' : 'author';
+        var user_id = $('#' + from_field + '_id').val();
+        var user_text = $('#' + from_field + '_text').val();
+    
+        $('#' + to_field + '_id').val(user_id);
+        $('#' + to_field + '_text').val(user_text);
+    }
+    
+    function deleteUser(field) {
+        $('#' + field + '_id').val('');
+        $('#' + field + '_text').val('');
+    }
+</script>
+
+<div style="padding-bottom: 50px;">
+    <div style="padding-bottom: 4px;">{author_msg}:</div>
+    <div style="padding-bottom: 10px;">
+        <input type="text" id="author_text" class="longText" disabled />
+        <span title="{delete_msg}" style="cursor: pointer;" onclick="deleteUser('author');">×</span>
+        
+        <input type="hidden" id="author_id" name="value[author]" />
+
+        <input type="button" value="+" class="button2 button2_add" title="{assign_msg}" 
+            style="margin-left: 5px;"
+            onclick="PopupManager.create('{user_popup_link}', 'author', 'r', 2);" />
+        
+        <input type="button" value="&darr;" class="button2 button2_add" title="{copy_msg}" 
+            style="margin-left: 5px;"
+            onclick="copyUser('updater');" />
+    </div>
+
+    <div style="padding-bottom: 4px;">{updater_msg}:</div>
+    <div>
+        <input type="text" id="updater_text" class="longText" disabled />
+        <span title="{delete_msg}" style="cursor: pointer;" onclick="deleteUser('updater');">×</span>
+        
+        <input type="hidden" id="updater_id" name="value[updater]" />
+        
+        <input type="button" value="+" class="button2 button2_add" title="{assign_msg}" style="margin-left: 5px;"
+            onclick="PopupManager.create('{user_popup_link}', 'updater', 'r', 2);" />
+            
+        <input type="button" value="&uarr;" class="button2 button2_add" title="{copy_msg}" style="margin-left: 5px;"
+            onclick="copyUser('author');" />
+    </div>
+</div>

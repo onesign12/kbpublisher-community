@@ -1,0 +1,4 @@
+php_flag display_errors off
+
+order deny,allow 
+deny from all

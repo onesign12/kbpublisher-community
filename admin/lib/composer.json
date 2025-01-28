@@ -1,0 +1,17 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^6.5",
+        "adodb/adodb-php": "^5.22",
+        "aws/aws-sdk-php": "^3.166",
+        "bacon/bacon-qr-code": "^2.0",
+        "robthree/twofactorauth": "^1.8"
+    },   
+
+    "config": {
+        "optimize-autoloader": true,
+        "prepend-autoloader": false,
+        "platform": {
+            "php": "8.0.0"
+        }
+    }
+}

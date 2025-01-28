@@ -1,0 +1,25 @@
+<script src="jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script>    
+    window.selHandler = new CategoriesSelectHandler('parent_id');
+    selHandler.setMaxAllowSelected(1);
+    selHandler.addOnPopupCloseFunction('setParentCategory');
+    
+    selHandler.createSelectCategories = function(categories) { // overrides
+        if (categories[0]) {
+            var value = categories[0]['value'];
+            $('#' + this.idFirst).val(value);
+            
+        } else {
+            $('#' + this.idFirst).val(0);
+        }
+    }
+    
+    function setParentCategory() {
+        var parent_id = $('#parent_id').val();
+        parentCategoryHandler2(parent_id);
+    }
+</script>
+
+<input type="button" id="add_category_button" value="+" title="{assign_parent_category_msg}" 
+    class="button2 button2_add"
+    onclick="selHandler.callPopUp('{popup_link}', '', false, true, false);" />

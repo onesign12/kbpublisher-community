@@ -1,0 +1,65 @@
+{msg}
+
+<table class="default sTable tableCp5 tableCs1">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{detail_msg}</b> &nbsp;</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{date_start_msg}:</td>
+    <td>{date_start_formatted}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{valid_for_msg}:</td>
+    <td>{date_end_formatted}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{ban_type_msg}:</td>
+    <td>{ban_type}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{ban_rule_msg}:</td>
+    <td>{ban_rule}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{ban_reason_msg}:</td>
+    <td>{ban_reason}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{ban_value_msg}:</td>
+    <td>{ban_value}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{ban_comment_admin_msg}:</td>
+    <td>{admin_reason}</td>
+</tr>
+<tr class="trLighter">
+    <td class="tdFormCaption">{ban_comment_user_msg}:</td>
+    <td>{user_reason}</td>
+</tr>
+
+<tr>
+    <td colspan="2" align="center"><div><br></div>
+        <div id="bottom_button">
+            <input type="button" value="{back_msg}" onClick="location.href='{cancel_link}'" class="button">
+            
+            <tmpl:deactivate_button>
+            <input type="button" value="{deactivate_msg}" onClick="location.href='{deactivate_link}'" class="button">
+            </tmpl:deactivate_button>
+            
+            <tmpl:duplicate_button>
+            <input type="button" value="{duplicate_msg}" onClick="location.href='{duplicate_link}'" class="button">
+            </tmpl:duplicate_button>
+        </div>
+    </td>
+</tr>
+
+</table>
+
+<br />

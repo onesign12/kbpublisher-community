@@ -1,0 +1,85 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+    
+    $('#visible_items').sortable({
+        connectWith: '#dropdown_items',
+        placeholder: 'view_placeholder',
+        items: 'li:not(.not_sortable)',
+        stop: function(event, ui) {
+            var group_block_id = ui.item.parent().attr('id');
+            var group_key = group_block_id.split('_')[0];
+            
+            $(ui.item).find('input[type="hidden"]').attr('name', group_key + '_id[]');
+        }
+    });
+    
+    $('#dropdown_items').sortable({
+        connectWith: '#visible_items',
+        placeholder: 'view_placeholder',
+        items: 'li:not(.not_sortable)',
+        stop: function(event, ui) {
+            var group_block_id = ui.item.parent().attr('id');
+            var group_key = group_block_id.split('_')[0];
+            
+            $(ui.item).find('input[type="hidden"]').attr('name', group_key + '_id[]');
+        }
+    });
+});
+</script>
+
+<form method="post" onSubmit="LeaveScreenMsg.skipCheck();">
+    
+    <div style="padding: 10px 0;">
+        <b>{visible_items_msg}</b>
+    </div>
+    <div class="tdTitle" style="padding:1px;margin-bottom: 0px;"></div>
+    <ul id="visible_items" class="sortable_block">
+        &nbsp;
+        <tmpl:active_item>
+        <li class="trLighter" style="cursor: move;">
+            <span style="margin-left: 5px;">{title}</span>
+            <span style="margin-left: 5px;float: right;font-size: 0.9em;"><i>{desc}</i></span>
+            <input type="hidden" name="visible_id[]" value="{key}" />
+        </li>
+        </tmpl:active_item>
+    </ul>
+    
+    <br />
+    
+    <div style="padding-bottom: 8px;">
+        <b>{dropdown_items_msg}</b>
+    </div>
+    <div class="tdTitle" style="padding:1px;margin-bottom: 10px;"></div>
+    <ul id="dropdown_items" class="sortable_block" style="margin-bottom: 20px;">
+        <tmpl:inactive_item>
+        <li class="trLighter" style="cursor: move;">
+            <span style="margin-left: 5px;">{title}</span>
+            <span style="margin-left: 5px;float: right;font-size: 0.9em;"><i>{desc}</i></span>
+            <input type="hidden" name="dropdown_id[]" value="{key}" />
+        </li>
+        </tmpl:inactive_item>
+        
+        <li class="trLighter not_sortable" style="border-style: solid;">
+            <span style="margin-left: 5px;">{permalink_msg}</span>
+        </li>
+    </ul>
+    
+    <div class="bottom_button bb_popup">
+        <div style="float: left;padding-left: 20px;">
+            <a href="#manage" onClick="PopupManager.create('{social_link}', 'r', 'r', 'item_share_link');">
+                {manage_social_msg}
+            </a>
+        </div>
+        
+        <input type="submit" name="submit" value="{save_msg}" class="button" />
+        
+        <input type="submit" name="set_default" id="default_submit" value="{defaults_msg}" 
+            class="button secondary" 
+            onClick="confirmForm('{sure_default_msg}', 'default_submit');return false;" />
+        
+        <span style="margin-left: 25px;">
+            <input type="button" value="{close_msg}" class="button" onClick="PopupManager.close();">
+        </span>
+    </div>
+</form>

@@ -1,0 +1,412 @@
+<link rel="stylesheet" href="css/dropzone_.css?v={pvhash}">
+<script src="jscript/dropzone_.js?v={pvhash}"></script>
+<script>
+    var saved_files = [];
+    var duplicate_files = [];
+    
+    Dropzone.autoDiscover = false;
+    
+    $(document).ready(function() {
+        
+        <tmpl:admin>
+        // checking for selection
+        editor = window.top.CKEDITOR.instances.body;
+        var selection = editor.getSelection().getNative();
+        
+        var text = (selection.createRange) ? selection.createRange().text : selection;
+        var text = String(text);
+        mode = (text.length > 0) ? 'insert' : 'attach';
+        
+        if (mode == 'insert') {
+            PopupManager.setTitle("{insert_and_attach_msg}");
+            
+        } else {
+            PopupManager.setTitle("{add_attachments_msg}");
+        }
+        
+        s = new getMoreHtml();
+        s.readroot = window.top.document.getElementById('readroot');
+        s.writeroot = window.top.document.getElementById('writeroot');
+        s.id_pref = 'more_html_attachment_';
+        
+        s.confirm_use = false;
+        s.confirm_msg = '';
+        </tmpl:admin>
+        
+        <tmpl:public>
+        PopupManager.setTitle("{add_attachments_msg}");
+        mode = 'attach';
+        </tmpl:public>
+        
+        var processing = false;
+        insert_and_attach = false;
+        
+        var options = {
+            url: '{file_upload_url}',
+            addRemoveLinks: true,
+            previewsContainer: '#file_container',
+            maxFilesize: "{max_file_size}",
+            maxFiles: 5,
+            parallelUploads: 5,
+            createImageThumbnails: false,
+            autoProcessQueue: false,
+            dictDefaultMessage: '',
+            dictRemoveFile: "{remove_msg}",
+            dictCancelUpload: "{cancel_msg}",
+            dictInvalidFileType: "{attachment_bad_extension_msg}",
+            dictFileTooBig: "{attachment_bad_size_msg}",
+            dictMaxFilesExceeded: "{attachment_limit_reached_msg}",
+            //forceFallback: true,
+            fallback: function() {
+                $('#drop_enabled_caption').hide();
+                $('#drop_disabled_caption').show();
+            },
+            
+            <tmpl:accepted_files>
+            acceptedFiles: {allowed_extensions},
+            </tmpl:accepted_files>
+            
+            <tmpl:denied_extensions>
+            accept: function(file, done) {
+                var ext = file.name.substr(file.name.lastIndexOf('.'));
+                if (ext && ext.match(/{denied_extensions}/i)) {
+                    done("{attachment_bad_extension_msg}");
+                    return;
+                }
+                
+                done();
+            }
+            </tmpl:denied_extensions>
+        }
+        
+        if (mode == 'insert') {
+            options.maxFiles = 1;
+        }
+        
+        
+        d = new Dropzone('#aContentForm', options);
+        
+        d.on('success', function(file, response) {
+            var data = $.parseJSON(response);
+            
+            if (data['error']) {
+                alert(data['error']);
+                this.removeFile(file);
+                
+            } else {
+                addFile(data['id'], data['name']);
+            }
+        });
+        
+        d.on('drop', function() {
+            if (mode == 'insert') {
+                resetAttachments();
+            }
+        });
+        
+        d.on('addedfile', function(file) {
+            if (mode == 'insert') {
+                $('#insert_button').show();
+                $('#insert_and_attach_button').show();
+                
+            } else {
+                $('#attach_button').show();
+            }
+            
+            var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+            var id = randLetter + Date.now();
+            
+            $(file.previewTemplate).attr('id', id);
+            
+            if (file.upload) {
+                xajax_checkFilePresence(file.name, id, 'spinner');
+                
+            } else {
+                $(file.previewTemplate).find('div.dz-progress').hide();
+            }
+            
+        });
+        
+        d.on('removedfile', function(file) {
+            if (!file.upload) {
+                var index = $.inArray(file.name, saved_files);
+                if (index != -1) {
+                    saved_files.splice(index, 1);
+                }
+            }
+            
+            if (this.getQueuedFiles().length == 0) {
+                hide = true;
+                for (var i in saved_files) {
+                    if (saved_files[i]) {
+                        hide = false;
+                    }
+                }
+                
+                if (hide) {
+                    if (mode == 'insert') {
+                        $('#insert_button').hide();
+                        $('#insert_and_attach_button').hide();
+                        
+                    } else {
+                        $('#attach_button').hide();
+                    }
+                }
+            }
+        });
+        
+        d.on('processing', function() {
+            this.options.autoProcessQueue = true;
+            processing = true;
+        });
+        
+        d.on('queuecomplete', function(file) {
+            if (processing) {
+                setTimeout(PopupManager.close, 3000);
+            }
+        });
+        
+        d.on('error', function(file, errorMessage) {
+            alert(errorMessage);
+            this.removeFile(file);
+        });
+        
+        $('#input_file').change(function() {
+            if (mode == 'insert') {
+                resetAttachments();
+            }
+            
+            var file = this.files[0];
+            d.addFile(file);
+            
+            $('#input_file').replaceWith($('#input_file').clone(true));
+        });
+        
+        
+        $('body').bind('kbpFileSelected', {}, function(e, params) {
+            if (mode == 'insert') {
+                resetAttachments();
+            }
+            
+            var mockFile = {
+                name: params.name,
+                size: params.size
+            };
+            
+            d.emit('addedfile', mockFile);
+            //d.emit('complete', mockFile);
+            
+            //var existingFileCount = 1;
+            //d.options.maxFiles = d.options.maxFiles - existingFileCount;
+            
+            //d.files.push(mockFile);
+            //d.emit('success', mockFile, id);
+            
+            saved_files[params.id] = params.name;
+            
+            if (mode == 'insert') {
+                PopupManager.close();
+            }
+        });
+        
+        
+        $('body').bind('kbpFilePopupOpened', {}, function(e, params) {
+            var popup_frame = PopupManager.getCurrentPopupFrame();
+            var popup = PopupManager.getCurrentPopup();
+            
+            var skip_ids = [];
+            
+            for (var id in saved_files) {
+                skip_ids.push(id);
+            }
+            
+            if (mode == 'attach') {
+                
+                // top window
+                window.top.$('div.popUpDivForm input[name="attachment[]"]').each(function(){
+                    skip_ids.push($(this).val());
+                });
+                
+                window.top.$('div:visible[id^=attachment_row_]').each(function(){
+                    skip_ids.push($(this).attr('id').split('_').pop());
+                });
+            }
+            
+            for (var i in skip_ids) {
+                var id = skip_ids[i];
+                popup.find('iframe').get(0).contentWindow.disableLink(popup_frame.find('#attach_link_' + id));
+                
+                popup_frame.find('#attach_link_' + id).parent().parent().attr('class', 'trHighlight');
+                popup_frame.find('#insert_img_' + id).hide();
+                popup_frame.find('#inserted_img_' + id).show();
+            }
+        });
+    });
+    
+    function addAttachments() {
+        for (var i in saved_files) {
+            addFile(i, saved_files[i]);
+        }
+        
+        if (d.getQueuedFiles().length > 0) {
+            d.processQueue();
+            
+        } else {
+            PopupManager.close();
+        }
+    }
+    
+    function resetAttachments() {
+        d.removeAllFiles();
+        $('a.dz-remove').each(function() {
+            $(this)[0].click();
+        });
+    }
+    
+    function addFile(id, name) {
+        var insert = (mode == 'insert') ? true : false;
+        var attach = (mode == 'attach') ? true : false;
+        
+        if (insert_and_attach) {
+            attach = true;
+        }
+        
+        <tmpl:admin>
+        if (insert) {
+            var data = {
+                field: 'file',
+                value_id: id,
+                do_confirm: false
+            }
+            
+            window.top.oEditor.execCommand('insertLink', data);
+            window.top.checkFckChanges();
+        }
+        
+        if (attach) {
+            s.get(id, name);
+            
+            var preview_link_str = "{preview_link_str}";
+            var update_link_str = "{update_link_str}";
+                
+            var hidden = window.top.$('input[name="attachment[]"][value="' + id + '"]');
+            
+            var href = preview_link_str.replace('[id]', id);
+            hidden.next().wrap('<a href="' + href + '" target="_blank"></a>');
+            
+            var update_link = hidden.parent().next().find('a[target="_blank"]');
+            var href = update_link_str.replace('[id]', id);
+            update_link.attr('href', href);
+        }
+        </tmpl:admin>
+        
+        <tmpl:public>
+        if (insert) {
+            window.top.insertLink('file', id);
+        }
+        
+        if (attach) {
+            var block_html = window.top.$('#readroot').html();
+            var block = $(block_html);
+            
+            block.attr('id', 'attachment_row_' + id);
+            block.find('a.articleLinkOther').html(name);
+            block.find('span.delete_tag').attr('onclick', 'deleteEntryProperty(' + id + ', \'attachment\', \'{sure_common_msg}\');');
+            
+            window.top.$(block).insertBefore('#writeroot');
+            window.top.$('body').trigger('kbpEditModeAttachmentAdded', [{id: id}]);
+            window.top.$('#empty_attachment_block').hide();
+        }
+        </tmpl:public>
+    }
+    
+    function showHint(div_id, file_params) {
+        duplicate_files[file_params.id] = file_params;
+        
+        var html = '<div style="width: 120px; font-size: 0.9em; margin-top: 5px;">{file_exists_msg} <a href="javascript:showDialog(\'' +
+            div_id + '\', \'' + file_params.id + '\');" style="cursor: pointer;">{learn_more_msg}</a></div>';
+        
+        $('#' + div_id).append(html);
+    }
+    
+    function showDialog(div_id, file_id) {
+        var file = duplicate_files[file_id];
+        
+        $('#dialog').dialog({modal: true, width: 300}).parent().css('z-index','10000');
+        
+        $('#dialog_filename').html(file.filename);
+        
+        $('#dialog_popup_link').attr('href', 'javascript:openReplacePopup(' + file.id + ');');
+        $('#dialog_replace_link').attr('href', 'javascript:replaceFile(\'' + div_id + '\', ' + file.id + ');');
+    }
+    
+    function openReplacePopup(file_id) {
+        $('#dialog').dialog('close');
+        PopupManager.create(duplicate_files[file_id]['link'], 'r', 'r');
+    }
+    
+    function replaceFile(div_id, file_id) {
+        $('#dialog').dialog('close');
+        
+        $('#' + div_id + ' a.dz-remove')[0].click();
+        addMockFile(file_id);
+    }
+    
+    function addMockFile(file_id) {
+        var file = duplicate_files[file_id];
+        
+        var mockFile = {
+            name: file.filename,
+            size: file.size
+        };
+    
+        d.emit('addedfile', mockFile);
+        saved_files[file_id] = file.filename;
+    }
+</script>
+
+{error_msg}
+
+<div id="form_block">
+    {extensions_hint}
+        
+    <form id="aContentForm" name="aContentForm" class="dropzone" method="post" enctype="multipart/form-data" style="cursor: default;">
+        <input id="input_file" type="file" name="file" style="display: none;" />
+        <!--<input type="submit" name="submit" value="{send_msg}" class="button" onclick="showProgressBar();">-->
+        <div id="drop_enabled_caption" style="font-size: 20px;color: #888888;">
+            {attachment_drop_file}
+        </div>
+        
+        <div id="drop_disabled_caption" style="display: none;font-size: 20px;color: #888888;">
+            {attachment_drop_disabled}
+        </div>
+        
+        <div id="file_container" style="text-align: center;"></div>
+    </form>
+    
+    <div style="float: right;">
+        {filesize_max_msg}: {max_file_size_str}
+    </div>
+    
+    <div style="clear: both;"></div>
+    
+    <div class="bottom_button bb_popup">
+        <input type="button" id="attach_button" class="button primary" value="{add_attachments_msg}" 
+            onclick="addAttachments();" style="display: none;" />
+            
+        <input type="button" id="insert_button" class="button" value="{insert_as_link_msg}" 
+            title="{insert_as_link_title_msg}"
+            onclick="addAttachments();" style="display: none;" />
+            
+        <input type="button" id="insert_and_attach_button" class="button" value="{insert_and_attach_msg}" 
+            onclick="insert_and_attach = 1;addAttachments();" style="display: none;" />
+            
+        <input type="button" value="{close_msg}" class="button" onClick="PopupManager.close();" />
+    </div>
+</div>
+
+<div id="dialog" title="{file_exists_msg}" style="display: none;">
+    <p>
+        {same_name_msg}
+    </p>
+</div>

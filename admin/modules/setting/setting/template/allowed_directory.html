@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="css/rule_popup.css?v={pvhash}">
+<script src="../client/jscript/jquery/jquery.jeditable.mini.js?v={pvhash}"></script>
+<script src="jscript/SettingPopupList.js?v={pvhash}"></script>
+<script>
+
+    SettingPopupList.required_msg = "{required_msg}";
+    SettingPopupList.sure_common_msg = "{sure_common_msg}";
+    SettingPopupList.setting_name = "{setting_name}";
+
+    
+    $(document).ready(function() {
+        PopupManager.setTitle("{popup_title}");
+
+        var current_popup = PopupManager.getCurrentPopup();
+        current_popup.dialog('option', 'beforeClose', SettingPopupList.updateCounter);    
+        SettingPopupList.makeEditable('tr[id^=rule_]');
+    
+        $(document).on('click', 'tr:not(.not_sortable) input[type=checkbox]', function() {
+            var line_num = $(this).parent().parent().attr('id').substr(5);
+            var value = ($(this).is(':checked')) ? 1 : 0;
+        
+            xajax_updateItem(line_num, 3, value);
+        });
+    });
+</script>
+
+
+<div id="extra_list">
+
+<div style="float: right;">
+    {buttons}
+</div>
+
+<div style="clear: both;height: 10px;"></div>
+
+<div id="new_rule" class="not_sortable trLighter" style="display: none; margin-bottom: 20px;">
+    <div class="tdTitle">{add_new_msg}</div>
+    <table class="default">
+        <tr>
+            <td>
+                <input type="text" id="title" style="width: 99%;height: 20px;padding-left: 5px;" 
+			placeholder="/directory/to/parse/" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center;padding: 20px 0 10px 0;">
+        <input type="button" value="{add_msg}" class="button primary" 
+            onClick="SettingPopupList.addRule(['title']);" />
+        
+        <input type="button" value="{cancel_msg}" class="button" 
+            onClick="SettingPopupList.hideAddBlock();" />
+    </div>
+</div>
+
+<table class="default" id="rules_list">
+    <tr class="trMoreDarker not_sortable">
+        <td>
+            <b>{directory_msg}</b>
+        </td>
+        <td width="20"></td>
+    </tr>
+    
+    <tmpl:rule>
+    <tr class="trLighter" id="rule_{line}">
+        <td class="editable_0" height="22">{title}</td>
+        
+        <td class="not_editable" width="1" align="center">
+            <a href="" onClick="SettingPopupList.deleteRule(this); return false;">
+		        <img src="../client/images/icons/x-mark.svg" height="10" alt="{delete_msg}" title="{delete_msg}">
+            </a>
+        </td>
+    </tr>
+    </tmpl:rule>
+</table>
+
+</div>
+
+<div class="bottom_button bb_popup">
+    <form method="post" onSubmit="LeaveScreenMsg.skipCheck();">
+        <input type="submit" name="set_default" id="default_submit" value="{defaults_msg}" class="button"
+            onClick="confirmForm('{sure_default_msg}', 'default_submit'); return false;" />
+    
+        <input type="button" value="{done_msg}" class="button" id="close_button"
+            onclick="PopupManager.close();">
+    </form>
+</div>

@@ -1,0 +1,80 @@
+.split_button {
+    position: relative;
+    display: inline-block;
+}
+
+.split_button button {
+    margin-left: -4px;
+    min-width: 26px;
+    padding: 7px !important;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    outline: 0;
+    border-color: #bde8f0;
+}
+
+.split_button li {
+    padding: 3px 15px 4px 10px;
+    white-space: nowrap;
+    cursor: pointer;
+    line-height: normal;
+}
+
+.split_button li:hover {
+    background-color: #ececec;
+}
+
+.split_button input.btn_submit {
+    margin-right: 1px;
+    position: relative;
+    min-width: 140px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.split_button ul {
+    font-size: 12px;
+/*    padding-top: 10px;*/
+/*    padding-bottom: 10px;*/
+    border-color: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    margin: 2px 0 0;
+    top: auto;
+    bottom: 32px;
+    margin-bottom: 2px;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 165px;
+    padding: 5px 0;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 2px;
+    -webkit-box-shadow: 0 -4px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, .175);
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    
+    content: "";
+    border-bottom: 0;
+    border-top: 4px dashed;
+    border-top: 4px solid \9;
+    
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.open > .dropdown-menu {
+    display: block;
+}

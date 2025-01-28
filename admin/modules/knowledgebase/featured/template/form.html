@@ -1,0 +1,50 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{featured_msg}");
+});
+</script>
+
+<form action="{action_link}" method="post" id="aContentForm" onSubmit="LeaveScreenMsg.skipCheck(); selHandler.selectAll(); return Validate(this);">
+    
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{entry_id_msg}:</td>
+    <td><strong>{id}</strong></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{title_msg}:</td>
+    <td>{title}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{index_page_msg}:</td>
+    <td>
+        <input type="checkbox" id="index_page" name="index_page" value="1" {ch_index_page} /> 
+        <label for="index_page">{yes_msg}</label>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{category_page_msg}:</td>
+    <td>
+        {category_block_tmpl}
+    </td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <input type="submit" name="submit" value="{save_msg}" class="button">
+        <input type="button" value="{cancel_msg}" 
+            onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+    </td>
+</tr>
+
+</table>
+
+</form>

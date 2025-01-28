@@ -1,0 +1,21 @@
+{user_do_msg}
+{user_msg}
+
+
+<tmpl:row_group>
+
+<div style="margin-bottom: 20px; background-color: #F2F2F2; padding: 10px;">
+
+    <tmpl:row_user>
+    <div style="margin-bottom: 8px;">
+        <div style="margin-bottom: 6px;">{first_name} {last_name} &lt;{current_email}&gt;</div>
+        <input type="text" name="email[{id}]" id="email_{id}" value="{email}" 
+            class="normalText {error_class}">
+    </div>
+    </tmpl:row_user>
+
+</div>
+
+</tmpl:row_group>
+
+<input type="hidden" name="update_email" value="1" />

@@ -1,0 +1,289 @@
+<script src="jscript/SortShowMore.js?v={pvhash}"></script>
+<script src="jscript/FileInput.js?v={pvhash}"></script>
+<script src="jscript/common_entry_form.js?v={pvhash}"></script>
+<script src="jscript/TagManager.js?v={pvhash}"></script>
+<script>
+
+    function init() {
+
+        SortShowMore.up_msg = "{show_more_up_msg}";
+        SortShowMore.down_msg = "{show_more_down_msg}";
+        SortShowMore.loading_msg = "{show_more_loading_msg}";
+        SortShowMore.init();
+
+        sf = new getMoreHtmlFiles();
+        sf.confirm_remove = false;
+        sf.confirm_remove_msg = "{sure_common_msg}";
+        sf.denied_extension_msg = "{denied_extension_msg}!";
+        sf.file_exists_handler = true;
+        sf.file_exists_msg = "{file_exists_msg}!";
+        sf.max_allowed = {num_files_upload};
+        sf.allowed_extension = {allowed_extension};
+        sf.denied_extension = {denied_extension};
+
+        var fields_to_check = ['tag'];
+        LeaveScreenMsg.setFieldsToCheck(fields_to_check);
+    }
+    
+    function LeaveScreenMsgCheck() {
+        var filter_ids = ['filter'];
+        LeaveScreenMsg.setFilterFields(filter_ids);
+        LeaveScreenMsg.initCheck('aContentForm');
+    }
+
+
+    // for history
+    function checkFileChanges(history_needed) {
+        if (!history_needed) {
+            return;
+        }
+        
+        if ($('#history_flag').val() != 0) {
+            return;
+        }
+
+        if (checkFileChanges.changed) {
+            return;
+        }
+
+        // if (editor.getData() != LeaveScreenMsg.fck_default) {
+            $('#history_comment').css('display', 'block');
+            $('#history_flag').val(1);
+            checkFileChanges.changed = true;
+            
+            if($('#history_comment_icon').length) {
+                $('#history_comment_icon').show();
+                $('#history_comment_icon').fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(400);
+            }
+        // }
+    }
+    
+
+    $(document).ready(function() {
+        customFieldCategoryHandler('{sure_delete_msg}');
+        
+        uBtnOptions = {
+            published_statuses:[{published_statuses}], 
+            non_active_categories:[{non_active_categories}], 
+            publish_msg:"{publish_msg}",
+            save_msg:"{save_msg}",
+            save_draft_msg:"{save_draft_msg}",
+            draft_module:{draft_module}
+        };
+        
+        button_text_enabled = {button_text_enabled};
+        $('select[name="active"]').change(function() {
+            updateButtonText();
+        });
+        
+        changeCommentBlock();
+        
+        updateButtonText();
+    });
+
+    window.onload = init;
+
+</script>
+
+{menu_block}
+{success_msg}
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<tmpl:entry_view>
+<form action="{action_link}" method="post" enctype="multipart/form-data"
+    id="aContentForm" name="aContentForm" onsubmit="subForm();">
+</tmpl:entry_view>
+        
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle">
+        <b>{action_title}: </b>
+        <span style="font-weight: normal; margin-left: 10px;">
+            {filesize_max_msg}: {file_size_max}
+            <tmpl:group_size>
+            | {postsize_max_msg}: {postsize_max}
+            </tmpl:group_size>
+        </span>
+    </td>
+</tr>
+
+<tmpl:entry_id>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{id_msg}</td>
+    <td><strong>{id}</strong></td>
+</tr>
+</tmpl:entry_id>
+
+<tmpl:entry_id2>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{entry_id_msg}:</td>
+    <td><strong>{id2}</strong></td>
+</tr>
+</tmpl:entry_id2>
+
+<tmpl:filename>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{filename_msg}:</td>
+    <td>
+        <a href="{file_link}" class="_tooltip" title="{file_path}"><strong>{filename}</strong></a>
+        &nbsp;&nbsp;&nbsp;({file_addtype})
+    </td>
+</tr>
+</tmpl:filename>
+
+<tmpl:posted>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{date_msg}:</td>
+    <td>{date_formatted} {formatted_user}</td>
+</tr>
+</tmpl:posted>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop {file_required_class}">{file_msg}:</td>
+    <td>
+        
+        <div class="file_error hasTooltip">
+            <input type="file" name="file_1" id="file_1" class="file_input"
+                onchange="sf.onFileSelected(this); checkFileChanges({history_needed});">
+                
+            <div id="writeroot_file"></div>
+        </div>
+
+        <tmpl:update>
+        <span class="tooltip">{file_update_tip_msg}</span>
+        </tmpl:update>
+
+        <div style="clear:both;"></div>
+        <div id="file_add" style="display: none;">
+            <div style="margin-top: 5px; margin-left: 3px;">
+                <a href="javascript:void(0);" onclick="sf.get(); return false;">
+                    {add_new_msg}
+                </a>
+            </div>
+        </div>
+        
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop {required_class}" id="entry_category_td">{category_msg}:</td>
+    <td>
+        {category_block_search_tmpl}
+        {category_block_tmpl}
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption">{title_msg}:</td>
+    <td><input type="text" name="title" value="{title}" class="longText" style="width: 705px;"></td>
+</tr>
+
+<tr class="trLighter" valign="top">
+    <td class="tdFormCaption">{description_msg}:</td>
+    <td><textarea rows="5" style="width: 705px;" name="description">{description}</textarea>
+</tr>
+
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{tags_msg}:</td>
+    <td>
+        {block_tag_tmpl}
+    </td>
+</tr>
+
+
+<tmpl:block_private>
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{private_msg}:</td>
+    <td>
+        {block_private_tmpl}
+    </td>
+</tr>
+</tmpl:block_private>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{schedule_msg}:</td>
+    <td>
+        {block_schedule_tmpl}
+    </td>
+</tr>
+
+<tmpl:entry_view>
+<tr class="trLighter" id="custom_field_bottom_border">
+    <td class="tdFormCaption tdCaptionTop">{sort_order_msg}:</td>
+    <td>
+        <div style="width: 710px;">
+            <div id="sort_order_toggle_title" class="formToggleBlockTitle" onclick="toggleBlock('sort_order');">
+                <span>{sort_order_msg}</span>
+            </div>
+
+            <div id="sort_order_toggle_block" class="formToggleBlockBody" style="display: none;">
+                <div id="sort_order_div">
+                    <span id="writeroot_sort">
+                        <tmpl:sort_order_row>
+                            {sort_order_select}
+                        </tmpl:sort_order_row>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>
+</tmpl:entry_view>
+
+{custom_field_block_bottom}
+
+<tmpl:entry_view>
+<tr class="trLighter">
+    <td class="tdFormCaption">{entry_status_msg}:</td>
+    <td>
+        <select name="active" id="active" style="width: 300px">
+            {status_select}
+        </select>
+    </td>
+</tr>
+</tmpl:entry_view>
+
+</table>
+
+<!-- history comment -->
+{history_block_tmpl}
+
+
+<tmpl:entry_view>
+<div style="padding: 20px 0px 0px 170px;">
+    <div id="bottom_button">
+
+        <a href="#" onclick="$('#history_comment_text').focus(); return false;" id="history_comment_a">
+            <img id="history_comment_icon" src="images/icons/warning_white.svg"
+                class="_tooltip tooltipstered" title="{revision_comment_desk_msg}" /></a>
+
+        <input type="submit" name="submit" id="submit_button" value="{button_text}" 
+            class="button" data-key="save" 
+            onClick="validateForm();return false;" />
+
+        <tmpl:upload_and_attach_button>
+        <input type="submit" name="submit_attach" id="submit_attach" value="{upload_and_attach_msg}" class="button"
+            onClick="validateForm('submit_attach');return false;" />
+        </tmpl:upload_and_attach_button>
+
+        <input type="button" value="{cancel_msg}"  class="button"
+            onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'">
+    </div>
+</div>
+</form>
+</tmpl:entry_view>
+
+<!--{related_templates}-->
+
+<div id="readroot_file" style="display: none;">
+    <input type="file" name="" class="file_input" onchange="sf.onFileSelected(this);">
+    <span class="file_delete" style="color: grey; cursor: pointer; margin-left: 5px;"
+        onClick="sf.remove(this); return false;">
+        <b>×</b>
+    </span>
+    <span class="file_error_msg" style="color: red; margin-left: 10px;"></span>
+</div>

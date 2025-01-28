@@ -1,0 +1,44 @@
+<div style="padding-bottom: 10px;">{phrase_msg}</div>
+
+<iframe src="{license_src}" name="license" id="license" width="100%" height="160" 
+    marginwidth="3" marginheight="3" frameborder="1" class="license"></iframe>
+
+<script>
+function setButtonState(button, state) {
+    var b = document.getElementById(button);
+    b.disabled = state;
+    b.className = (state) ? 'buttonDisabled' : 'button';
+    
+    if(!state) {
+        b.focus();
+        //b.select();    
+    }
+}
+
+function init() {
+    var r = document.getElementById('accept0');
+    setButtonState('next', r.checked);
+}
+
+function goNextPage(page) {
+    goNextPageLink(page);
+}
+</script>
+    
+<div style="padding-bottom: 1px;">&nbsp;</div>
+<table class="sTable tableCp3 tableCs1">
+<tr>
+    <td width="1">
+        <input type="radio" name="accept" id="accept1" value="1" 
+            onClick="setButtonState('next', document.getElementById('accept0').checked)">
+        </td>
+    <td><label for="accept1">{accept_license_msg}</label></td>
+</tr>
+<tr>
+    <td>
+        <input type="radio" name="accept" id="accept0" value="1" 
+            onClick="setButtonState('next', this.checked)" checked>
+    </td>
+    <td><label for="accept0">{not_accept_license_msg}</label></td>
+</tr>
+</table>

@@ -1,0 +1,73 @@
+<script>    
+    function openCategoryPopup(link) {
+        submitToPopup(link + '&main_category_id=' + main_category_id);
+    }
+    
+    var main_category_id = {main_category_id};
+</script>
+
+{hidden_fields}
+
+<a id="{anchor}"></a>
+<table class="sTable tableCp1 tableCs1">
+<tr class="tdSubTitle">
+    <td colspan="2" class="tdSubTitle">
+        <b>{title_msg}</b>
+        <span id="spinner_category" style="display: none;">
+            <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+        </span>
+    </td>
+</tr>
+</table>
+
+<div style="padding: 7px;">
+    <div id="empty_category_block" style="display: {empty_display};">--</div>
+    
+    <tmpl:row>
+    <div id="category_row_{category_id}" style="margin: 2px;" {class}>
+        <span style="padding-left: 2px;vertical-align: middle;">{item_img}</span>
+        <span style="width: 100%;padding-left: 4px;">
+            {item}<span class="delete_tag" 
+                onclick="deleteEntryProperty({category_id}, 'category', '{sure_common_msg}');">×</span>
+        </span>
+    </div>
+    </tmpl:row>
+    
+    <span id="writeroot_category"></span>
+</div>
+
+<tmpl:category_link>
+<tr style="vertical-align: top;">
+    <td></td>
+    <td style="padding-top: 7px;">
+        <a href="{category_link}" class="smallerText">&raquo; {category_link_msg}</a>
+    </td>
+</tr>
+</tmpl:category_link>
+
+<div style="margin-left: 15px;margin-bottom: 15px;">
+    <a href="#" onclick="PopupManager.create('{popup_link}', 'r', 'selHandler', 'public');return false;">
+        {add_category_msg}
+    </a>
+</div>
+
+<div id="readroot_category" class="popUpDiv" style="display: none;">
+    <div id="" style="margin: 2px;">
+        <span style="padding-left: 2px;vertical-align: middle;">{item_img}</span>
+        <span style="width: 100%;padding-left: 4px;">
+            <a href="" class="articleLinkOther"></a>
+            <span class="delete_tag" onclick="">×</span>
+        </span>
+    </div>
+</div>
+
+<br/>
+<div style="background: #ffffcc;padding: 4px;margin: 7px 0;">
+    <b>{published_in_msg}:</b>
+    <span id="spinner_main_category" style="display: none;">
+        <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+    </span>
+    <span id="main_category">{main_category_name}</span>
+    - <a href="#" onclick="openCategoryPopup('{main_category_popup_link}'); return false;">{manage_msg}</a>
+    
+</div>

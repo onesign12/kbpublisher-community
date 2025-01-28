@@ -1,0 +1,8 @@
+Hola [first_name]:
+
+Esta es una notificación para informarle que se ha confiado en un dispositivo para omitir la autenticación en su cuenta "[kb_name]" ([username]).
+La solicitud provino de la siguiente dirección IP: [ip].
+
+No se le solicitará al dispositivo un nombre de usuario o contraseña durante [days] días.
+
+Si esta acción no la originó usted, le recomendamos que inicie sesión y cambie su contraseña inmediatamente o se comunique con el administrador de su KB enviando un correo electrónico a [support_email].

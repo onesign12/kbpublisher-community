@@ -1,0 +1,64 @@
+<div class="jq-dropdown-panel" style="min-width: 250px;">
+    
+    <tmpl:share_block>
+    <div style="margin-bottom: 25px;">
+        <div class="more_title">
+            {share_link_msg}
+        </div>
+        
+        <div class="grid-x align-stretch">
+            <tmpl:share_item>
+            <div id="{key}_panel_item2" class="medium-6" style="padding: 0 5px;" {li_attr}>
+                <a href="{link}" title="{title}" rel="nofollow" {attr}>
+                    <div class="more_item">
+                        <div class="round_icon" style="background-image: url('{icon}');" data-color="{color}"></div>
+                        <div class="icon_title">
+                            <span class="icon">{title}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            </tmpl:share_item>
+        </div>
+    </div>
+    </tmpl:share_block>
+    
+    <tmpl:action_block>
+    <div style="margin-bottom: 25px;">
+        <div class="more_title">
+            {actions_msg}
+        </div>
+        
+        <div class="grid-x grid-padding-x">
+            <tmpl:action_item>
+            <div id="{key}_panel_item2" class="medium-6" style="padding: 0 5px;" {li_attr}>
+                <a href="{link}" title="{title}" rel="nofollow" {attr}>
+                    <div class="more_item">
+                        <div class="round_icon hasBadgeIcon badgeIconPopup {badge_class}"  
+                            style="background-image: url('{icon}');" data-color="{color}"></div>
+                            
+                        <div class="icon_title">
+                            <span class="icon">{title}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            </tmpl:action_item>
+        </div>
+    </div>
+    </tmpl:action_block>
+    
+    <div id="permalink_block">
+        <div class="more_title">
+            <div style="float: left;">
+                {permalink_msg}
+            </div>
+            <a href="#/" class="copy_block smallerText2" style="float: right; font-weight: normal;"
+                onclick="copyUrl();">{copy_msg}</a>
+            <div class="copied_block smallerText" 
+                style="float: right;display: none; font-weight: normal;">{copied_msg}</div>
+            <div style="clear: both;"></div>
+        </div>
+        <input type="text" class="share_url" value="[full_url]" style="color: #666;" readonly="readonly" />
+    </div>
+</div>

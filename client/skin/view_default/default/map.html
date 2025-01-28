@@ -1,0 +1,241 @@
+<link rel="stylesheet" type="text/css" href="{base_href}client/skin/map.css">
+<link rel="stylesheet" type="text/css" href="{base_href}client/skin/type_switch.css">
+<script type="text/javascript" src="{base_href}client/jscript/fuse.min.js?v={pvhash}"></script>
+<script type="text/javascript" src="{base_href}client/jscript/jquery/jquery.clearsearch.js?v={pvhash}"></script>
+<script src="{client_href}jscript/jquery/jquery.waypoints.min.js?v={pvhash}"></script>
+
+<script>
+
+    $(document).ready(function() {
+        var list = [
+            {list}
+        ];
+        
+        var options = {
+            shouldSort: true,
+            includeScore: true,
+            threshold: 0.1,
+            maxPatternLength: 32,
+            minMatchCharLength: 4,
+            tokenize: true,
+            matchAllTokens: true,
+            keys: [
+                'title'
+            ]
+        };
+        
+        var fuse = new Fuse(list, options);
+        
+        $('#map_filter').clearSearch({
+            callback: function() {
+                $('#map_filter').keyup();
+            } 
+        });
+        // $('#map_filter').keyup(function(e) {//jquerymigrate
+        $('#map_filter').on('keyup', function(e) {
+            $('div[id^="category_"]').addClass('grayedOut');
+            $('div[id^="category_"]').removeClass('matched');
+            
+            $('.category_container').show();
+            $('.no_matches').hide();
+            
+            var value = $.trim(this.value);
+            
+            if (value.length > 1) {
+                var result = fuse.search(value);
+                
+                if (result.length) {
+                    var groups_in_use = [];
+                    
+                    for (var i in result) {
+                        var item = result[i]['item'];
+                        
+                        var el = $('#' + item['group'] + '_block div[id="category_' + item['id'] + '"]');
+                        el.removeClass('grayedOut');
+                        el.addClass('matched');
+                        
+                        console.log(result[i]);
+                        
+                        if ($.inArray(item['group'], groups_in_use) == -1) {
+                            groups_in_use.push(item['group']);
+                        }
+                    }
+                    
+                    $('.item_block').each(function () {
+                        var parts = this.id.split('_');
+                        if ($.inArray(parts[0], groups_in_use) == -1) {
+                            $('#' + this.id + ' .category_container').hide();
+                            $('#' + this.id + ' .no_matches').show();
+                        }
+                    });
+                    
+                    
+                } else {
+                    $('.category_container').hide();
+                    $('.no_matches').show();
+                }
+                
+            } else {
+                $('div[id^="category_"]').removeClass('grayedOut');
+                $('div[id^="category_"]').removeClass('matched');
+            }
+        });
+        
+        $('#sidebar2_filter').on('keyup');
+        
+        $('div[id^=anchor]').waypoint(
+            function(direction) {
+                $('.item_title').removeClass('fixed');
+                if (direction == 'down') {
+                    var title = $(this).next();
+                    title.addClass('fixed');
+                    
+                    <tmpl:fixed>
+                    title.css('top', $('#header_div').outerHeight());
+                    </tmpl:fixed>
+                    
+                } else {
+                    var prev_title = $(this).prevAll('div.item_title:first');
+                    if (prev_title.length) {
+                        prev_title.addClass('fixed');
+                    }
+                }
+            },
+            {
+                context: {context},
+                offset: 35
+            }
+        );
+    });
+
+    function toggleChildCategories(el) {
+        var item_block = $(el).parent().parent().next();
+        
+        if (item_block.find('div.children:visible').length) {
+            item_block.find('div.children').hide();
+            $(el).html("{expand_all_msg}");
+            
+        } else {
+            item_block.find('div.children').show();
+            $(el).html("{collapse_all_msg}");
+        }
+    }
+
+    function goToCategory(id) {
+        if (!$('#category_' + id).is(':visible')) { // this category is not displayed
+            $('#category_' + id).parent().find('.map_show_all').click();
+        }
+        
+        location.hash = 'category_' + id;
+    }
+
+    function switchType(url, selected) {
+        if (selected) {
+            url = '{index_page_link}';
+        }
+        
+        location.href = url;
+    }
+    
+</script>    
+
+<div class="tdTitle" style="margin-bottom: 12px;">
+    <div>{list_title}</div>
+</div>
+
+{msg}
+
+<div class="grid-x" id="filter_bar">
+    <div class="small-12 medium-6 cell niceForm" style="padding: 20px 20px;">
+        <input type="search" id="map_filter" value="" class="colorInput fixed-for-medium" placeholder="{filter_msg}" results>
+    </div>
+    
+    <tmpl:type_switch>
+    <div id="type_switch_block" class="small-12 medium-6 cell niceForm">
+        <span id="type_switch">
+            <tmpl:type_switch_row><span class="_tooltip {class}" title="{title}" onclick="switchType('{link}', $(this).hasClass('selected'));">
+                <img src="{base_href}client/images/icons/{key}.svg" alt="" />
+                <span class="show-for-small-only">
+                    {title}
+                </span>
+                </span></tmpl:type_switch_row>
+        </span>
+    </div>
+    </tmpl:type_switch>
+    
+</div>
+
+<br />
+
+<!-- <div class="grid-x" style="background: #F4F4F4;align-items: baseline;">
+    <tmpl:item_link>
+    <div class="small-6 medium-auto cell" style="padding: 20px 20px;text-align: center;">
+        <a href="#anchor_{id}">{item_menu}</a>
+    </div>
+    </tmpl:item_link>
+</div>
+
+<br /> -->
+
+<div id="map">
+
+    <tmpl:item>
+    <div id="{key}_block" class="item_block">
+        <div id="anchor_{id}" style="padding-top: 10px; margin-top: -30px;"></div>
+        
+        
+        <div class="grid-x item_title">
+            <div class="small-12 medium-6 cell">
+                <a href="{item_link}">{item_title}</a>
+            </div>
+            
+            <tmpl:top_category_toggle>
+            <div class="small-12 medium-6 cell left-for-small" style="text-align: right;">
+                <span class="top_cat_toggle" onclick="toggleChildCategories(this);">
+                    {collapse_all_msg}
+                </span>
+            </div>
+            </tmpl:top_category_toggle>
+        </div>
+    
+        <div class="grid-x {extra_class}" style="margin-bottom: {category_padding_bottom}px; padding: 10px 0;">
+            <tmpl:top_category>
+            <div class="small-12 medium-6 large-4 cell" style="padding: 3px;">
+                <!-- <a id="category_{id}" class="category_anchor"></a> -->
+                <div id="category_{id}" style="padding: 2px 3px 10px 0px;">
+                    <div style="float: left;margin: 0 10px;">{item_img}</div>
+                    <div style="overflow: hidden;">
+                        <a href="{link}">{name}</a>
+                    </div>
+                </div>
+                
+                <div class="children" 
+                    style="padding-bottom: {padding_bottom_children}px; border-top-width: {border_children}px;">
+                    <tmpl:child_category>
+                    <!-- <a id="category_{id}" class="category_anchor"></a> -->
+                    <div id="category_{id}" style="padding-top: 10px;">
+                        <div style="float: left;margin: 0 5px; padding-left: {padding}px;">
+                            {item_img}
+                        </div>
+                        <div style="overflow: hidden;">
+                            <a href="{link}">{name}</a>
+                        </div>
+                    </div>
+                    </tmpl:child_category>
+                </div>
+            </div>
+            </tmpl:top_category>
+            
+        </div>
+        
+        <tmpl:no_matches>
+        <div class="no_matches" style="padding: 15px;display: none;">
+            {no_search_result_msg}
+            <br /><br /><br />
+        </div>
+        </tmpl:no_matches>
+    </div>
+    </tmpl:item>
+
+</div>
+<br />

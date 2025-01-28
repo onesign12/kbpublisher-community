@@ -1,0 +1,102 @@
+<script src="jscript/CategoriesSelectHandler.js?v={pvhash}"></script>
+<script src="jscript/TagManager.js?v={pvhash}"></script>
+<script>
+    window.selHandler = new CategoriesSelectHandler('category');
+
+    function ShowExtraDiv(action) {
+        HideDiv('bulk_category');
+        if(action == 'category_move' || action == 'category_add') {
+            return HideShowCategory(action);
+        }
+
+        if(action == 'custom') {
+            xajax_parseCutomBulkAction({filtered_cat});
+        }
+    }
+
+    function BulkOnSubmit() {
+        selHandler.selectAll();
+        optionalHandlersSelectAll();
+    }
+
+    function bulkValidate(action) {
+
+        if(action == 'category_move' || action == 'category_add') {
+            if(!$("#category").find('option').length) {
+                return "{no_bulk_values_msg}";
+            }
+        }
+
+        if(action == 'tag') {
+            return validateTag("{no_bulk_values_msg}");
+        }
+
+        return true;
+    }
+</script>
+
+
+<div id="bulk_category_add"></div>
+<div id="bulk_category_move"></div>
+
+<div id="bulk_category" style="display: none;">
+    <div style="padding-left: 5px; width: 45px; float: right;">
+        <input type="button" value="+"
+            class="button2 button2_bulk"
+            onclick="selHandler.callPopUp('file', 'file_entry');" /><br />
+        <input type="button" value="-"
+            class="button2 button2_bulk" style="margin-top: 3px;"
+            onclick="selHandler.deleteOption();" />
+    </div>
+    <div style="width: 400px;">
+        <select name="value[category][]" id="category" size="6"
+            style="width: 100%;" class="colorInput" multiple>
+        </select>
+    </div>
+    <div style="clear: both"></div>
+</div>
+
+<tmpl:private>
+<div id="bulk_private" style="display: none;">
+    {block_private_tmpl}
+</div>
+<div id="bulk_public" style="display: none;"></div>
+</tmpl:private>
+
+<div id="bulk_tag" style="display: none;">
+    <select name="value[tag_action]" id="tag_action" class="colorInput"
+        onchange="toggleBulkActionBlock(this.value, 'tag_form');">
+        {tag_action_select}
+    </select>
+        
+    <div id="tag_form" style="margin-top: 15px;">
+        {block_tag_tmpl}
+    </div>
+</div>
+
+<div id="bulk_schedule" style="display: none;">
+    <select name="value[schedule_action]" class="colorInput" 
+        onchange="$('#block_schedule').toggle();">
+        {schedule_action_select}
+    </select>
+    <div id="block_schedule" style="margin-top: 15px;">{block_schedule_tmpl}</div>
+</div>
+
+<div id="bulk_parse" style="display: none;">
+<tmpl:parse_row>
+    <input type="checkbox" name="value[parse][]" id="value_parse_{name}" value="{name}" checked>
+    <label for="value_parse_{name}">{caption}</label>
+    <div style="margin: 1px;"></div>
+</tmpl:parse_row>
+</div>
+
+<div id="bulk_status" style="display: none;">
+    <select name="value[status]" class="colorInput">
+        {status_select}
+    </select>
+</div>
+
+<div id="bulk_delete" style="display: none;"></div>
+<div id="bulk_custom" style="display: none;">
+    <div id="bulk_custom_container"></div>
+</div>

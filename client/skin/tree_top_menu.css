@@ -1,0 +1,40 @@
+/* TOP CATEGORY -> Tree */
+
+.categoryBlockTopCategory {
+	background: #F4F4F4;
+	border-top: 1px solid #DADADA;
+	border-left: 1px solid #DADADA;
+	border-right: 1px solid #DADADA;
+	font-family : Tahoma, Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 0.9em;
+	color: #666;
+	white-space: nowrap;
+}
+
+.menuItemTopCategory {
+	padding: 4px 7px;
+	border-bottom: 1px solid #DADADA;
+}
+
+.menuItemTopCategory img {
+	border: 0px;
+	vertical-align: -1px;
+}
+
+.menuItemTopCategory a {
+	color: #004171;
+	text-decoration: none;
+	white-space: nowrap;
+	padding: 0px 2px 0px 6px;
+}
+
+.menuItemTopCategory a:hover {
+	text-decoration: underline;
+}
+
+.nodeWrapper {
+/*	padding-right: 2px; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;    
+}

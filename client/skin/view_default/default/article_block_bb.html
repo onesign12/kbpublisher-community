@@ -1,0 +1,162 @@
+<script>
+    $(document).ready(function() {
+        PoolManager.stick_msg = "{pin_msg}";
+        PoolManager.unstick_msg = "{unpin_msg}";
+    });
+</script>
+<script src="{client_href}jscript/PoolManager.js?v={pvhash}"></script>
+
+<div class="grid-x">
+
+    <tmpl:entry_block>
+    <div class="small-12 medium-3 auto cell abBgrDarker">   
+        <div class="space">
+            {entry_id_msg}: {id}
+        </div>
+        
+        <div class="space">
+            {last_updated_msg}: <span class="date_updated">{date_updated_formatted}</span>
+        </div>
+        
+        <tmpl:revision>
+        <div class="space">
+            {revision_msg}: {revision}
+        </div>
+        </tmpl:revision>
+        
+        <tmpl:private>
+        <div class="space">
+            {access_msg}:
+            <span class="_tooltip" title="{private_body}">
+                {private_title}
+            </span>
+        </div>
+        </tmpl:private>
+        
+    </div>    
+    </tmpl:entry_block>
+            
+    <tmpl:data_block>
+    <div class="small-12 medium-3 auto cell abBgrDarker nowrap">
+        <tmpl:show_hits>
+            <div class="less_space">{views_num_msg}: {hits}</div>
+        </tmpl:show_hits>
+        <tmpl:show_votes>
+            <div class="less_space">{votes_num_msg}: {votes}</div>
+        </tmpl:show_votes>
+        <tmpl:show_comments>
+            <div class="less_space">{comment_num_msg}: {comment_num}</div>
+        </tmpl:show_comments>
+    </div>
+    </tmpl:data_block>
+    
+    <tmpl:author_block>
+    <div class="small-12 medium-3 auto cell abBgrDarker">
+    
+        <div class="space">
+            {posted_msg}: {date_posted_formatted} {by_user_msg} 
+            <span class="nowrap">{author}</span>
+        </div>    
+        <div>
+            {updated_msg}: <span class="date_updated">{date_updated_formatted}</span> {by_user_msg} 
+            <span id="updater" class="nowrap">{updater}</span>
+        </div>
+    
+    </div>
+    </tmpl:author_block>
+    
+</div>
+        
+
+<tmpl:action_block>
+    
+    <div class="abBgrDarker" style="padding: 0 7px 7px 7px !important">
+        <div class="grid-x">
+            
+            <div class="medium-9 small-12">
+                <div class="show-for-small-only" style="padding: 10px 0;cursor: pointer;" onclick="$('#action_block').slideToggle();">
+                    <b>{actions_msg}</b>
+                    <img src="{base_href}client/images/icons/arrow_down.svg" style="float: right;"/>
+                </div>
+                
+                <div id="action_block" class="action_block" style="font-size: 14px;">
+                    <tmpl:action_item>
+                    <span class="abItem">
+                        <img src="{icon2}" alt="{title}" style="width: 14px;height: 14px;" class="hide-for-small-only" />&nbsp;
+                        <a class="abLink" href="{link}" rel="nofollow">{title}</a>
+                    </span>
+                    </tmpl:action_item>
+                    
+                    <tmpl:save_item>
+                    <span class="abItem">
+                        <img src="{base_href}client/images/icons/bookmark.svg" alt="" style="width: 14px;height: 14px;" class="hide-for-small-only" />
+                            
+                        <span id="div_subscribe_yes" style="display: {subscribe_yes_display};">                            
+                            <a href="#1{id}" onclick="xajax_doSubscribe(1, 'spinner_subsc'); return false;" 
+                                class="abLink" rel="nofollow">{save_to_list_msg}</a>
+                        </span>
+                        <span id="div_subscribe_no" style="display: {subscribe_no_display};">
+                            <a href="#0{id}" onclick="xajax_doSubscribe(0, 'spinner_subsc'); return false;" 
+                                class="abLink" rel="nofollow">{remove_from_list_msg}</a>
+                        </span>
+                    </span>
+                    </tmpl:save_item>
+                    
+                    <tmpl:share_item>
+                    <span class="abItem">
+                        <img src="{base_href}client/images/icons/share.svg" alt="" style="width: 14px;height: 14px;" class="hide-for-small-only" />&nbsp;
+                        <a href="#" class="abLink" rel="nofollow" data-jq-dropdown="#share_menu" data-vertical-offset="5">{share_link_msg}</a>
+                        <div id="share_menu" class="jq-dropdown jq-dropdown-tip jq-has-icons jq-dropdown-above {dropdown_extra_class}" style="width: 300px;">
+                            {share_block}
+                        </div>
+                    </span>
+                    </tmpl:share_item>
+                    
+                    <tmpl:stick_item>
+                    <span class="abItem">
+                        <img src="{base_href}client/images/icons/pin.svg" alt="" style="width: 14px;height: 14px;" class="hide-for-small-only" />&nbsp;
+                        
+                        <a class="pool_add_link abLink" href="#" rel="nofollow"
+                            onclick="PoolManager.add({id}); return false;" 
+                            style="display: {display_add_pool};">{pin_msg}</a>
+                            
+                        <a class="pool_delete_link abLink" href="#" rel="nofollow"
+                            onclick="PoolManager.remove({id}); return false;" 
+                            style="display: {display_delete_pool};">{unpin_msg}</a>
+                    </span>
+                    </tmpl:stick_item>
+                </div>
+            </div>
+        
+        <tmpl:admin_block_menu>
+        <div id="admin_block_menu" class="medium-3 small-12 left-for-small" style="text-align: right;margin-top: 7px;">
+            <div class="hide-for-small-only">
+                <a class="abLink" href="" rel="nofollow" data-jq-dropdown="#action_menu2">
+                    <img src="{base_href}client/images/icons/menu_dot.svg" alt="edit" 
+                        style="width: 14px;height: 14px; margin-right: 7px;" />{admin_tools_msg}
+                </a>    
+            </div>
+            
+            <div id="action_menu2" class="hide-for-small-only jq-dropdown jq-dropdown-tip jq-dropdown-above jq-dropdown-anchor-right {dropdown_extra_class}"
+                style="display: none;font-size: 12px;">
+                {action_menu}
+            </div>
+            
+            <div class="show-for-small-only" style="cursor: pointer;margin-top: 10px;" onclick="$('#action_menu2_small').slideToggle();">
+                <b>{admin_tools_msg}</b>
+                <img src="{base_href}client/images/icons/arrow_down.svg" style="float: right;"/>
+            </div>
+            
+            <div id="action_menu2_small" class="show-for-small-only" style="display: none;">
+                {action_menu}
+            </div>
+            
+        </div>
+        </tmpl:admin_block_menu>
+        
+        </div>
+        
+        <div style="clear: both;"></div>
+    </div>
+
+</tmpl:action_block>

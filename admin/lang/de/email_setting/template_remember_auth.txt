@@ -1,0 +1,8 @@
+Hallo [first_name],
+
+Mit dieser Benachrichtigung möchten wir Sie darüber informieren, dass die Authentifizierung Ihres "[kb_name]"-Kontos ([username]) von einem vertrauenswürdigen Gerät übersprungen wurde.
+Die Anfrage kam von der folgenden IP-Adresse: [ip].
+
+Das Gerät wird für [days] Tage nicht zur Eingabe eines Benutzernamens oder Passworts aufgefordert.
+
+Wenn diese Aktion nicht von Ihnen stammt, empfehlen wir Ihnen, sich anzumelden und Ihr Passwort sofort zu ändern oder Ihren KB-Administrator per E-Mail unter [support_email] zu kontaktieren.

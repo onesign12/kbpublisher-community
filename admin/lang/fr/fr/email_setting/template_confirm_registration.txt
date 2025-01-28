@@ -1,0 +1,10 @@
+Cher Monsieur ou Madame,
+
+Nous avons reçu votre demande de création de compte .
+Veuillez cliquer sur le lien ci-dessous pour confirmer cette demande.
+
+[link]
+
+Si le lien ci-dessus ne marche pas, veuillez copier et coller l'URL dans une nouvelle fenêtre de navigateur.
+
+Si vous avez reçu ce message par erreur, vous n'avez besoin de faire aucune action. 

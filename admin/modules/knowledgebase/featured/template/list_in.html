@@ -1,0 +1,28 @@
+<script>
+    function initSort(lowest_sort_order) {
+        $('#sortable_views').sortable({
+            placeholder: 'view_placeholder',
+            stop: function(event, ui) {
+                var ids = $('#sortable_views').sortable('toArray');
+                
+                var index = lowest_sort_order;
+                for (var i in ids) {
+                    $('#' + ids[i] + ' span.sort_order_num').html(index);
+                    index ++;
+                }
+                
+                LeaveScreenMsg.changes = true;
+            }
+        });
+        $('#sortable_views').disableSelection();
+        
+        LeaveScreenMsg.setDoCheck(1);
+        LeaveScreenMsg.check();
+    }
+</script>
+
+<div id="trigger_list">
+
+    {content}
+
+</div>

@@ -1,0 +1,44 @@
+<div class="boxMsgDiv hint">
+    {hint_msg}
+</div>
+{error_msg}
+<br />
+
+<div class="niceForm">
+
+<form action="{action_link}" method="post" id="aContentForm">
+
+<div class="table login2">
+    <div class="formTopDelim"></div>
+    
+    <div class="grid-x">
+        <div class="large-12 cell">
+            <input type="text" name="email" id="email" value="{email}" 
+                placeholder="{email_msg}" class="longText" />
+        </div>
+    </div>
+    
+    <!-- <div class="grid-x">
+        <div class="large-12 cell">
+            <label for="email" class="required">{email_msg}:</label>
+        </div>
+        <div class="large-12 cell">
+            <input type="text" name="email" id="email" class="longText" />
+        </div>
+    </div> -->
+    
+    <div class="buttons">
+        <button type="submit" name="submit" id="submit" class="button primary" 
+            onClick="validateForm();return false;">
+            {ok_msg}
+        </button>
+            
+        <input type="button" value="{cancel_msg}"  class="button"
+            onclick="location.href='{cancel_link}'" />
+    </div>  
+    
+</div>
+
+</form>
+
+</div>

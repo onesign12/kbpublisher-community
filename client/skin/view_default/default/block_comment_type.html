@@ -1,0 +1,95 @@
+<style>
+    #commentType {
+        width: 100%;
+    /*    min-height: 17px;*/
+    /*    line-height: 17px;*/
+        list-style: none; 
+        margin: 0; 
+        padding: 0;
+        margin-bottom: 4px;
+    }
+
+    #commentType li {
+        display: inline;
+        margin-right: 10px;
+        overflow: hidden;
+    }
+
+    #commentType li a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .commentTypeActive, .commentTypeNotActive {
+    /*    font-size : 1.1em;*/
+        padding : 0px 7px 2px 7px;
+    }
+
+    .commentTypeActive a {
+        font-weight: bold;
+    }
+
+    .commentTypeActive {
+        border-bottom: 2px solid #7f7f7f;
+    }
+
+    .commentTypeNotActive {
+    }
+
+    .commentTypeSpacer {
+        margin: 15px;
+    }
+
+    .commentPublicBackground { background-color: ; }
+    .commentInternalBackground { background-color: #FFFCF1; }
+    .commentPrivateBackground { background-color: #FFF2F2; }
+</style>
+
+
+<!--
+-- Add internal comment type 
+-- 
+ALTER TABLE `kbp_kb_comment` ADD `internal` TINYINT NOT NULL DEFAULT '0' AFTER `date_posted`;
+ -->
+
+<link rel="stylesheet" href="{base_href}client/skin/comment.css?v={pvhash}" />
+<script>
+<!--
+$(document).ready(function() {
+    var commentTypes = {
+        public: {type: 0, class: 'commentPublicBackground'},
+        internal: {type: 1, class: 'commentInternalBackground'},
+        private: {type: 2, class: 'commentPrivateBackground'}
+    }
+
+    $('#commentType li').click(function() {
+
+        $('#commentType li').removeClass('commentTypeActive');
+        $(this).addClass('commentTypeActive');
+
+        var type = $('a', this).data('type');
+        var t = commentTypes[type];
+
+        for(t2 in commentTypes) {
+            $('#comment').removeClass(commentTypes[t2].class);
+        }
+        $('#comment').addClass(t.class);
+        $('#internal').val(t.type);
+    });
+});
+
+
+//-->
+</script>
+                
+    <ul id="commentType">
+        <li class="commentTypeActive">
+            <a href="#public" data-type="public" class="_tooltip" title="Public">Public</a>
+        </li>
+        <li class="commentType">
+            <a href="#internal" data-type="internal" class="_tooltip" title="Public">Internal</a>
+        </li>
+        <!-- <li class="commentType">
+            <a href="#private" data-type="private" class="_tooltip" title="Public">Private</a>
+        </li> -->
+    </ul>

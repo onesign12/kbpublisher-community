@@ -1,0 +1,135 @@
+{error_msg}
+
+<script src="../client/jscript/jquery/jquery.ipmask.js?v={pvhash}"></script>
+<script>
+$(document).ready(function(){
+    showHideDateEndNum();
+    toggleUserList();
+});
+    
+function toggleUserList() {
+    $('#ban_value_text').replaceWith($('#ban_value_text').clone());
+    
+    var value = $('#ban_rule').val();
+    if (value == '1') {
+        $('#user_list_link').show();
+        $('#ban_value_text').attr('readonly', true);
+                            
+    } else if (value == '2') {
+        $('#user_list_link').hide();
+        $('#ban_value_text').attr('readonly', false);
+        
+    } else {
+        $('#user_list_link').hide();
+        $('#ban_value_text').attr('readonly', false);
+        $('#ban_value_text').ipmask();
+    }
+}
+    
+function openUserPopup() {
+    var ban_rule = $('#ban_rule').val();
+    PopupManager.create('{users_link}', 'ban_value', 'r', 2);
+}
+
+function showHideDateEndNum() {
+    var date_end = $('#date_end').val();
+    
+    if (date_end == 'perm') {
+        $('#date_end_num').hide();
+    } else {
+        $('#date_end_num').show();
+    }
+}
+</script>
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post" name="role" onsubmit="LeaveScreenMsg.skipCheck();" id="aContentForm">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tmpl:user>
+<tr class="trMoreDarker">
+    <td class="tdFormCaptionInfo">{user_msg}:</td>
+    <td>{user}</td>
+</tr>
+</tmpl:user>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{ban_type_msg}:</td>
+    <td>{ban_type_select}</td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{ban_rule_msg}:</td>
+    <td>
+        <select name="ban_rule" id="ban_rule" style="width: 250px; margin: 0px;" onchange="toggleUserList();">
+            {ban_rule_select}
+        </select>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{ban_reason_msg}:</td>
+    <td>
+        <select name="ban_reason" id="ban_reason" style="width: 250px; margin: 0px;">
+            {ban_reason_select}
+        </select>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption required">{ban_value_msg}:</td>
+    <td>
+        <input type="text" name="ban_value" id="ban_value_text" value="{ban_value}" class="longText" />
+        <input type="hidden" name="user_id" id="ban_value_id" value="{user_id}" />
+        <span id="user_list_link" style="margin-left: 10px;">
+            <a href="javascript:openUserPopup();">{user_list_msg}</a>
+        </span>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop">{ban_comment_admin_msg}:</td>
+    <td>
+        <textarea cols="80" rows="3" name="admin_reason">{admin_reason}</textarea>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop required">{ban_comment_user_msg}:</td>
+    <td>
+        <textarea cols="80" rows="3" name="user_reason">{user_reason}</textarea>
+    </td>
+</tr>
+
+<tr class="trLighter">
+    <!-- <td class="tdFormCaption required">{date_end_msg}:</td> -->
+    <td class="tdFormCaption required">{valid_for_msg}:</td>
+    <td>
+        <tmpl:date_end_edit>
+            <input type="text" name="date_end_num" id="date_end_num" value="{date_end_num}" size="3" maxlength="3" style="display: none;">
+            <select name="date_end" id="date_end" style="width: 250px; margin: 0px;" onchange="showHideDateEndNum();">
+            {date_end_select}
+            </select>
+        </tmpl:date_end_edit>
+        <tmpl:date_end>
+            {date_end_formatted}
+        </tmpl:date_end>
+    </td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <input type="submit" name="submit" value="{save_msg}" class="button"
+            onClick="validateForm();return false;" />
+                
+        <input type="button" value="{cancel_msg}" onClick="LeaveScreenMsg.skipCheck(); location.href='{cancel_link}'" class="button">
+    </td>
+</tr>
+</table>
+</form>

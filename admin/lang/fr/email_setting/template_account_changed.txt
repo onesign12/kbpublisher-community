@@ -1,0 +1,10 @@
+Bonjour [first_name ],
+
+Vos informations de compte dans "[kb_name]" ont été récemment modifiées.
+Si vous avez effectué ce changement, vous n'avez plus rien à faire.
+
+La demande provient de l'adresse IP suivante : [ip].
+Nouvelle adresse e-mail : [email]
+
+Si vous n'avez pas modifié votre compte, faites-le nous savoir immédiatement à l'adresse [support_email]
+Il est important de le signaler, car cela nous aide à empêcher les fraudeurs de voler vos informations.

@@ -1,0 +1,25 @@
+{header}
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+    <td class="tdTitle">{ban_type_msg}</td>
+    <td>{ban_rule_msg}</td>
+    <td>{date_start_msg}</td>
+    <td>{date_end_msg}</td>
+    <!--<td>{admin_reason_msg}</td>-->
+    <td align="center" width="1">{action_hidemsginui_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    
+    <td>{ban_type}</td>
+    <td>{ban_rule}</td>
+    <td>{date_start_formatted}</td>
+    <td>{date_end_formatted}</td>
+    <!--<td>{admin_reason}</td>-->    
+    <td class="action" width="1">{options_img}</td>
+</tr>
+</tmpl:row>
+
+</table>

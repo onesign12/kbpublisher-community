@@ -1,0 +1,176 @@
+<script src="jscript/CategoriesInputHandler.js?v={pvhash}"></script>
+<script src="jscript/common_filter_form.js?v={pvhash}"></script>  
+<script>
+    var categories = [{categories}];
+    var non_active_categories = [{non_active_categories}];
+    var disabled_categories = [];
+    
+    $(document).ready(function() {
+        var creation_allowed = {creation_allowed};
+        
+        CategoriesInputHandler.select = function(e, ui) {
+            e.preventDefault();
+            
+            if (ui.item.value == 'add') {
+                if (creation_allowed) {
+                    openCategoryPopup();
+                }
+                
+            } else if (ui.item.value != 'more') {
+                addCategory(ui.item.value, ui.item.label);
+                $('body').trigger('kbpErrorResolved', [{field: 'category'}]);
+            }
+        }
+        
+        CategoriesInputHandler.width = $('#filter').width() + 5;
+        CategoriesInputHandler.reset_option = false;
+        CategoriesInputHandler.init(categories);
+        
+        if (window.selHandler) {
+            $('#filter').unbind('focus');
+            
+        } else {
+            // $('#filter').focus();
+        }
+        
+        $('#filter').keypress(function(e) {
+            if (e.which == '13') {
+                e.preventDefault(); // prevent form submit
+                
+                if (creation_allowed) {
+                    $('#filter').autocomplete('close');
+                    
+                    openCategoryPopup();
+                }
+            }
+        });
+        
+        $('#filter').on('autocompleteresponse', function(e, ui) {
+            var autoFocus = false;
+            if (ui.content.length > 0 && $('#filter').val().toUpperCase() == ui.content[0].label.toUpperCase()) {
+                autoFocus = true;
+            }
+            
+            $('#filter').autocomplete('option', 'autoFocus', autoFocus);
+            
+            if (ui.content.length == 0) {
+                var label = (creation_allowed) ? "{enter_category_msg}" : "{no_matches_msg}";
+                
+            } else {
+                var label = (autoFocus) ? "{enter_category3_msg}" : "{enter_category2_msg}";
+            }
+            
+            ui.content.push({label: label, value: 'add'});
+        });
+        
+        $('body').bind('kbpCategoryAdded', {}, function(e, params) {
+            categories.push({label: params.label, value: params.id});
+        });
+    });
+    
+    function openCategoryPopup() {
+        var referer = "{referer}";
+        var extra_params = 'referer=' + referer + '&category_name=' + encodeURIComponent($('#filter').val());
+                    
+        if (window.selHandler) {
+            selHandler.callPopUp('{module}', '{page}', 'insert', false, false, extra_params);
+            
+        } else {
+            var url = '{popup_link}&' + extra_params;
+            PopupManager.create(url, 'r', 'r');
+        }
+    }
+    
+    function addCategory(value, text) {
+        
+        if (window.selHandler) {
+            var categories = [];
+        
+            $('#category').children('option').each(function() {
+                categories.push({value: this.value, text: this.text});
+            });
+            
+            categories.push({value: value, text: text});
+            
+            selHandler.createSelectCategories(categories);
+            categoryAjaxHandler();
+            getCustomByCategory([categories]);
+            
+            var is_non_active = $.inArray(parseInt(value), non_active_categories);
+            if (is_non_active != -1) {
+                alert("{non_active_category_msg}");
+            }
+            
+        } else { // public
+            
+            var parent_window = PopupManager.getParentWindow();
+            if (!parent_window.main_category_id || window.main_category_mode) {
+                $('#category').html('');
+                assigned_categories = [];
+            }
+            
+            $('#category_row').show();
+            
+            var delete_icon = (!parent_window.main_category_id || window.main_category_mode) ? '' : '<div class="delete" onclick="deleteCategory(this, ' + value + ');">×</div>';
+            var category_block = '<div class="assignedCategory">' + text + delete_icon  + '</div>';
+            $('#category').append(category_block);
+            $('#submit_button').attr('disabled', false).removeClass('buttonDisabled');
+            
+            assigned_categories.push({
+                value: value,
+                text: text
+            });
+            
+            if (window.main_category_mode) {
+                $('#writeroot_private').empty();
+                $('#category_toggle_title').removeClass('formToggleUnfolded').hide();
+                $('#category_toggle_block').hide();
+            }
+            
+            xajax_getCategoryPrivateInfo(value, text);
+            
+            disableCategory(value);
+            
+            $('#submit_button').focus();
+        }
+        
+        $('#' + CategoriesInputHandler.text_input_id).val('');
+    }
+    
+    function deleteCategory(element, value) {
+    	$(element).parent().remove();
+    	
+    	for (var i in assigned_categories) {
+	        if (assigned_categories[i]['value'] == value) {
+	        	categories.push( // pushing it back
+	        		{
+	        			value: assigned_categories[i]['value'],
+	        			label: assigned_categories[i]['text']
+	        		}
+	        	);
+	            delete assigned_categories[i];
+	            assigned_categories.splice(i, 1);
+	        }
+        }
+    	
+    	//categoryAjaxHandler();
+    	$('#category_toggle_title').removeClass('formToggleUnfolded').hide();
+        $('#category_toggle_block').hide();
+    	$('#category_private_div').html('<span id="writeroot_private"></span>');
+	    $('#category_private_content, #category_private_content2').hide();
+		
+		var writeroot = document.getElementById('writeroot_sort');
+		if(writeroot) {
+			$('#writeroot_sort').html('<span id="writeroot_sort"></span>');
+		}
+	
+    	for (var i in assigned_categories) {
+    		xajax_getCategoryPrivateInfo(assigned_categories[i]['value'], assigned_categories[i]['text']);
+    	}
+    }
+</script>
+
+<div style="margin: 0px 0px;">
+    <input type="text" id="filter" value="" placeholder="{type_category_msg}" 
+        style="width: 705px;" />
+</div>

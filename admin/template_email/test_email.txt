@@ -1,0 +1,4 @@
+{welcome_msg}
+
+--
+[support_mailer]

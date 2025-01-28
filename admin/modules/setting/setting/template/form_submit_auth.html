@@ -1,0 +1,61 @@
+<script>
+    
+<tmpl:ldap>
+var ldap_fields = {
+    ad: {
+        fname: 'givenName',
+        lname: 'sn',
+        email: 'mail',
+        ruid: 'sAMAccountName'
+    },
+    ol: {
+        fname: 'givenName',
+        lname: 'sn',
+        email: 'mail',
+        ruid: 'uid'
+    },
+}
+
+function setExampleData(val) {
+    $('#ldap_host').val('localhost');
+    $('#ldap_base_dn').val('dc=example,dc=com');
+    
+    for (var i in ldap_fields[val]) {
+        var selector = '#remote_auth_map_' + i; 
+        $(selector).val(ldap_fields[val][i]);
+    }
+}
+</tmpl:ldap>
+
+function debugValidateErrorCallback() {
+    if (window.win) {
+        win.close();
+        
+    } else {
+        PopupManager.close();
+    }
+}
+</script>
+
+
+<input type="submit" name="submit1" value="{save_msg}" class="button"
+    onClick="validateForm('submit1', false, false, 'setting');return false;" />
+    
+<input type="submit" name="set_default" id="default_submit" value="{defaults_msg}" class="button secondary"
+    onClick="return confirmForm('{sure_default_msg}', 'default_submit');">
+    
+<span style="margin-left:15px;">
+<input type="button" name="debug" value="{test_msg} / {debug_msg}" class="button"
+    onClick="submitToPopup('{type}_debug', {params}); validateForm('debug', 'validate', 'debug'); return false;" />
+</span>
+
+<tmpl:ldap>
+<span class="bbInfo" style="white-space: nowrap; ">
+    <span>{set_example_data_msg}:</span>
+    <select id="ldap_type">
+        <option value="ad">Active Directory</option>
+        <option value="ol">Open LDAP</option>
+    </select>
+    <input type="button" value="{ok_msg}" onClick="setExampleData($('#ldap_type').val());" />
+</span>
+</tmpl:ldap>

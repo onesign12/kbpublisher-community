@@ -1,0 +1,4 @@
+Plik "[file.filename]" nie był aktualizowany przez ostatnie pół roku.
+Być może, należy to sprawdzić.
+
+[file.link]

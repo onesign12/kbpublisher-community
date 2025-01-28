@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="css/dropzone.css?v={pvhash}">
+<script src="jscript/dropzone.js?v={pvhash}"></script>
+<script>
+    Dropzone.autoDiscover = false;
+    
+    $(document).ready(function() {
+        PopupManager.setTitle("{create_from_file_msg}");
+        
+        resetProgressBar();
+        
+        var d = new Dropzone("#aContentForm", {
+            url: '{file_upload_url}',
+            addRemoveLinks: true,
+            previewsContainer: '#file_container',
+            dictRemoveFile: '{delete_msg}',
+            maxFiles: 1,
+            //maxFilesize: {max_file_size},
+            acceptedFiles: {allowed_extensions},
+            dictCancelUpload: 'Cancel converting',
+            createImageThumbnails: false
+        });
+        
+        d.on('drop', function(file) {
+            showProgressBar();
+        });
+        
+        d.on('success', function(file, response) {
+            var data = $.parseJSON(response);
+            
+            if (data['error']) {
+                alert(data['error']);
+                this.removeFile(file);
+                
+            } else {
+                $('#form_block').hide();
+                $('#converted_block').show();
+                
+                $('#article').html(data['content']);
+                
+                var parent_window = PopupManager.getParentWindow();
+                parent_window.$('#progressbar_conversion').hide();
+            }
+        });
+        
+        d.on('removedfile', function(file) {
+        });
+        
+        d.on('error', function(file, errorMessage) {
+            alert(errorMessage);
+            this.removeFile(file);
+        });
+        
+        
+        $('#input_file').change(function(){
+            showProgressBar();
+            
+            var file = this.files[0];
+            d.addFile(file);
+        });
+        
+        
+        $('#cancel_button').click(function() {
+            d.removeAllFiles();
+            $('#article').empty();
+            $('#converted_block').hide();
+            $('#form_block').show();
+        });
+        
+    });
+        
+    function resetProgressBar() {
+        var parent_window = PopupManager.getParentWindow();
+        parent_window.$('#progressbar_conversion').remove();
+        
+        var popup = PopupManager.getCurrentPopup();
+        var progressbar = '<img id="progressbar_conversion" src="images/ajax/progressbar_conversion.gif" style="display: none;position: absolute;top: 260px;left: 345px;" />';
+        popup.append(progressbar);
+    }
+    
+    function showProgressBar() {
+        var parent_window = PopupManager.getParentWindow();
+        parent_window.$('#progressbar_conversion').show();
+    }
+</script>
+
+{error_msg}
+
+<div id="converted_block" style="display: none;">
+    <!--<b>Your converted article:</b>
+    <br /><br />-->
+    
+    <div id="article" style="margin-bottom: 30px;"></div>
+    
+    <div id="bottom_button">
+        <input type="button" value="{ok_msg}" class="button" 
+            onclick="javascript:window.top.insertConvertedArticle($('#article').html());PopupManager.close();" />
+        <input id="cancel_button" type="button" value="{cancel_msg}" class="button" />
+    </div>
+</div>
+
+<div id="form_block">
+    {conversion_hint}
+    
+    <!--<div style="float: left;">
+        {convertion_choose_file_msg}:
+    </div>-->
+    
+    {extensions_hint}
+        
+    <form id="aContentForm" name="aContentForm" class="dropzone" method="post" enctype="multipart/form-data" 
+        style="min-height: 315px;">
+        <input id="input_file" type="file" name="file" style="display: none;" />
+        <!--<input type="submit" name="submit" value="{send_msg}" class="button" onclick="showProgressBar();">-->
+        <div style="font-size: 20px;color: #888888;">
+            Drop a file here or <a href="#" onclick="$('#input_file').click();return false;">choose it from disk</a>
+        </div>
+        
+        <div id="file_container" style="text-align: center;"></div>
+    </form>
+</div>

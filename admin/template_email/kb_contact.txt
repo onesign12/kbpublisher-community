@@ -1,0 +1,24 @@
+{welcome_msg}:
+[link]
+
+
+[title]
+-------------------------
+[message]
+
+[custom]
+
+{attachments_msg}:
+-------------------------
+[attachment]
+
+
+{user_info_msg}:
+--------------------------
+{user_name_msg}:  [name]
+{user_email_msg}: [email]
+{user_username_msg}: [username]
+{user_phone_msg}: [phone]
+
+--
+[support_mailer]

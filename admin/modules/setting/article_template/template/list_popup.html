@@ -1,0 +1,56 @@
+<script>
+    $(document).ready(function() {
+        PopupManager.setTitle("{open_template_msg}");
+    });
+    
+    function setEntryTemplate(id, action) {
+        window.top.xajax_setEntryTemplate(id, action);
+        PopupManager.close();
+    }
+</script>
+
+{header}
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+    
+    {list_title}
+    
+    <td style="width: 1px;" colspan="3" class="tdTitle">&nbsp;</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+
+    {list_row}
+    
+    <td width="1" lass="action">
+        <a href="" onClick="setEntryTemplate('{id}', 'insert'); return false;"     
+            class="_tooltip" title="{insert_template_msg}">
+            <img src="images/icons/assign_blue.svg" width="14" height="14" alt="{insert_template2_msg}" > 
+        </a>
+    </td>
+    
+    <td width="1" class="action">
+        <a href="" onClick="setEntryTemplate('{id}', 'replace'); return false;"
+            class="_tooltip" title="{replace_template_msg}">
+            <img src="images/icons/assign_red.svg" width="14" height="14" alt="{replace_template2_msg}" >
+        </a>
+    </td>
+    
+    <td width="1" class="action">
+        <a href="" onClick="setEntryTemplate('{id}', 'include'); return false;"
+            class="_tooltip" title="{include_template_msg}">
+            <img src="images/icons/assign_green.svg" width="14" height="14" alt="{include_template2_msg}" > 
+        </a>
+    </td>
+    
+</tr>
+</tmpl:row>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{close_msg}" class="button" onclick="PopupManager.close();" />
+</div>
+<tmpl:bulk></tmpl:bulk>

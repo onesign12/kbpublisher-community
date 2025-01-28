@@ -1,0 +1,88 @@
+<script>
+<!--
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+    
+    var parent_window = PopupManager.getParentWindow();
+    
+    <tmpl:upload_and_attach>
+    parent_window.$('body').trigger('kbpFileSelected', [{id: '{attach_id}', name: '{attach_escaped_filename}', size: {attach_size}}]);
+    PopupManager.close();
+    </tmpl:upload_and_attach>
+    
+    parent_window.$('body').trigger('kbpFilePopupOpened');
+});
+
+
+function _attachEntry() {
+    
+}
+
+
+function attachEntry(id, name, size, link) {
+    var parent_window = PopupManager.getParentWindow();
+    var options = {
+        id: id,
+        name: name,
+        size: size,
+        mode: '{event_mode}',
+        command_name: '{command_name}'
+    }
+    
+    parent_window.$('body').trigger('kbpFileSelected', [options]);
+    
+    <tmpl:replace>
+    parent_window.$('#{replace_id} a.dz-remove')[0].click();
+    PopupManager.close();
+    </tmpl:replace>
+    
+    disableLink(link);
+    
+    $('#insert_img_' + id).hide();
+    $('#inserted_img_' + id).show();
+}
+//-->
+</script>
+
+{header}
+
+<div id="afterActionMessage" style="display: none;">
+    {after_action_message_block}
+</div>
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+
+    {list_title}
+    
+    <td style="width: 1px;" class="tdTitle">&nbsp;</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}">
+
+    {list_row}
+    
+    <td width="1" style="padding: 4px 8px;" class="action">
+        <a href="#" id="attach_link_{id}" title="{link_title}"
+            onClick="attachEntry('{id}', '{escaped_filename}', {size}, this); return false;">
+            <img src="images/icons/attach.svg" width="14" height="14" id="insert_img_{id}" 
+                alt="{img_alt}" style="padding: 0px 4px;" />
+            <img src="images/icons/check.svg" width="14" height="14" id="inserted_img_{id}" 
+                style="display: none; padding: 0px 4px;" />
+        </a>
+    </td>
+    
+</tr>
+</tmpl:row>
+
+</table>
+
+<tmpl:close_button>
+<div class="bottom_button bb_popup">
+    <input type="button" value="{done_msg}" class="button" onclick="PopupManager.close();" />
+</div>
+</tmpl:close_button>
+
+<tmpl:bulk></tmpl:bulk>
+<tmpl:attach></tmpl:attach>

@@ -1,0 +1,20 @@
+<script src="tools/ckeditor/ckeditor.js?v={pvhash}"></script>
+<script src="tools/ckeditor_custom/CKDropUploader.js?v={pvhash}"></script>
+<script>
+CKEDITOR.on('instanceReady', function(evt) {
+    //CKDropUploader.init(1);
+    //CKDropUploader.setUploadUrl('{ck_drop_upload_url}');
+
+    ShowDiv('div_entry_submit', true);
+    LeaveScreenMsg.setEditor(evt.editor);
+    oEditor = evt.editor;
+    LeaveScreenMsg.setFckDefaultValue();
+
+    evt.editor.on('dialogShow', function(dialogShowEvent) {
+        if(CKEDITOR.env.ie) {
+            $(dialogShowEvent.data._.element.$).find('a[href*="void(0)"]').removeAttr('href');
+        }
+    });
+});
+</script>
+

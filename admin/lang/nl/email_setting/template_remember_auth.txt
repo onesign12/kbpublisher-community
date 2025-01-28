@@ -1,0 +1,8 @@
+Hallo [irst_name],
+
+Dit is een melding om u te laten weten dat een apparaat vertrouwd is om de authenticatie op uw "[kb_name]"-account ([username]) over te slaan.
+Het verzoek kwam van het volgende IP-adres: [ip].
+
+Het apparaat wordt gedurende [dagen] dagen niet om een gebruikersnaam of wachtwoord gevraagd.
+
+Als deze actie niet van u afkomstig is, raden wij u aan in te loggen en uw wachtwoord onmiddellijk te wijzigen of contact op te nemen met uw KB-beheerder door een e-mail te sturen naar [support_email].

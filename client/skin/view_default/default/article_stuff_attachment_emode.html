@@ -1,0 +1,56 @@
+<script>
+    $(document).ready(function() {
+        $('body').bind('kbpEditModeAttachmentAdded', {}, function(e, params) {
+            window.top.xajax_parseAttachmentIconAndLink(params.id, 'spinner_attachment');
+            
+            var hidden = $('<input type="hidden" name="attachment[]" />').val(params.id);
+            $('#aContentForm').append(hidden);
+        });
+    });
+</script>
+
+{hidden_fields}
+
+<a id="{anchor}"></a>
+<table class="sTable tableCs1">
+<tr class="tdSubTitle">
+    <td colspan="2" class="tdSubTitle">
+        <b>{title_msg}</b>
+        <span id="spinner_attachment" style="display: none;">
+            <img src="{base_href}client/images/ajax/indicator.gif" alt="Loading" />
+        </span>
+    </td>
+</tr>
+</table>
+
+<div style="padding: 7px;">
+    <div id="empty_attachment_block" style="display: {empty_display};">--</div>
+    
+    <tmpl:row>
+    <div id="attachment_row_{id}" style="margin: 2px;" {class}>
+        <span style="padding-right: 4px;">{item_img}</span>
+        <span style="width: 100%;">
+            <!-- {attachment_title} -->
+            {item}<!--({filesize})--><span class="delete_tag" onclick="deleteEntryProperty({id}, 'attachment', '{sure_common_msg}');">×</span>
+        </span>
+    </div>
+    </tmpl:row>
+    
+    <span id="writeroot"></span>
+</div>
+
+<div style="margin-left: 15px;margin-bottom: 15px;">
+    <a href="#" onclick="PopupManager.create('{base_href}admin/index.php?module=knowledgebase&page=kb_entry&action=attachment&client=1', 'r', 'r', 1);return false;">
+        {add_attachment_msg}
+    </a>
+</div>
+
+<div id="readroot" class="popUpDiv" style="display: none;">
+    <div id="" style="margin: 2px;">
+        <span style="padding-right: 4px;"></span>
+        <span style="width: 100%;">
+            <a href="" class="articleLinkOther"></a>
+            <span class="delete_tag" onclick="">×</span>
+        </span>
+    </div>
+</div>

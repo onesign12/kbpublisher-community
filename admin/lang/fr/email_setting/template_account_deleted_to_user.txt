@@ -1,0 +1,9 @@
+Bonjour [first_name],
+
+Votre compte dans "[kb_name]" a été récemment clôturé.
+Si vous avez effectué ce changement, vous n'avez plus rien à faire.
+
+La demande provient de l'adresse IP suivante : [ip].
+
+Si vous n'avez pas supprimé votre compte, faites-le nous savoir immédiatement à [support_email]
+Il est important de le signaler, car cela nous aide à empêcher les fraudeurs de voler vos informations.

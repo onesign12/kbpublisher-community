@@ -1,0 +1,56 @@
+<div class="abBgrDarker  itemImage">
+	<div class="grid-x">
+		<div class="medium-9 small-12">
+			
+			<div class="show-for-small-only" style="padding: 5px 0;cursor: pointer;" onclick="$('#action_block').slideToggle();$(this).find('i').toggleClass('fa-angle-down fa-angle-up');">
+                <b>{actions_msg}</b>
+                <img src="{base_href}client/images/icons/arrow_down.svg" style="float: right;" alt="" />
+            </div>
+			
+			<div id="action_block">
+				<tmpl:print_link>
+	            <span class="abItem" style="margin-top: 0;">
+	                <img src="{base_href}client/images/icons/printer.svg" alt="print" style="width: 14px;height: 14px;" />&nbsp;
+	                <a class="abLink" href="{print_link}" rel="nofollow">{print_msg}</a>
+	            </span>
+	            </tmpl:print_link>
+			    
+			    <tmpl:share_link>
+			    <div class="abItem" style="margin-top: 0;">
+			    	<img src="{base_href}client/images/icons/share.svg" style="width: 14px;height: 14px;" alt="" />&nbsp;
+			        <a href="#" class="abLink" rel="nofollow" data-jq-dropdown="#share_menu">{share_link_msg}</a>
+			        
+			        <div id="share_menu" class="jq-dropdown jq-dropdown-tip jq-has-icons jq-dropdown-above">
+                        {dropdown_block}
+                    </div>
+			    </div>
+			    </tmpl:share_link>
+		    </div>
+		</div>
+		
+		<tmpl:admin_block_menu>
+		<div id="admin_block_menu" class="medium-3 small-12 left-for-small" style="text-align: right;">
+	    	<div class="hide-for-small-only">
+		        <a class="abLink" href="" rel="nofollow" data-jq-dropdown="#action_menu2">
+                    <img src="{base_href}client/images/icons/menu_dot.svg" alt="" 
+                        style="width: 14px;height: 14px; margin-right: 7px;" />{admin_tools_msg}
+                </a>
+	        </div>
+	            
+	        <div id="action_menu2" class="hide-for-small-only jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right" style="display: none;">
+	            {action_menu}
+	        </div>
+	        
+	        <div class="show-for-small-only" style="cursor: pointer;margin-top: 10px;" onclick="$('#action_menu2_small').slideToggle();$(this).find('i').toggleClass('fa-angle-down fa-angle-up');">
+	            <b>{admin_tools_msg}</b>
+	            <img src="{base_href}client/images/icons/arrow_down.svg" style="float: right;" alt="" />
+	        </div>
+	        
+	        <div id="action_menu2_small" class="show-for-small-only" style="display: none;">
+	            {action_menu}
+	        </div>
+	    </div>
+	    </tmpl:admin_block_menu>
+	
+	</div>
+</div>

@@ -1,0 +1,89 @@
+ul.ui-autocomplete {
+    font-family: inherit;
+    font-size: 1.1em !important;
+    border: 1px solid #cfcfcf;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 170px;
+}
+
+ul.ui-autocomplete li.ui-menu-item {
+    list-style-image: none;
+    padding-bottom: 2px;
+}
+
+ul.ui-autocomplete li.ui-menu-item a {
+    /* padding: 3px !important; */
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+
+ul.ui-autocomplete li.ui-menu-item a:hover {
+   background: #f2ebeb !important;
+   /* background: #f4f4f4 !important; */
+   border: 1px solid white;
+}
+
+ul.ui-autocomplete li a.ui-state-focus {
+    background: #f2ebeb !important;
+    /* background: #f4f4f4 !important; */
+    border: 1px solid white;
+    border-radius: 0;
+}
+
+.ui-dialog {
+	padding: 0;
+	border: 0;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+	background: #f5f5f5;
+	border: 0;
+	font-size: 18px;
+	font-weight: normal;
+	border-bottom: 1px solid #ccc;
+	border-radius: 0;
+	padding: 10px 20px;
+}
+
+.ui-dialog .ui-dialog-titlebar button {
+	border: 0;
+	background: #f5f5f5;
+	outline: none;
+}
+
+
+.ui-dialog .ui-icon-closethick {
+	/* background: none; */
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+	top: 40%;
+	right: 15px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close:before {
+	 content: "×";
+	 opacity: 0.65;
+	 font-size: 28px;
+	 font-family: Arial, Baskerville, monospace;
+}
+
+.ui-widget-overlay {
+	background: #0b0b0b;
+	opacity: 0.5 !important;
+}
+
+.ui-dialog-titlebar {
+    overflow: hidden;
+}
+
+li .ui-state-active  {
+    border: 0 !important;
+    margin: 0 !important;
+    background: #f5f5f5 !important;
+}

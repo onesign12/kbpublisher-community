@@ -1,0 +1,31 @@
+/* Top menu */
+
+.menuItem a:visited, .menuItemSelected a:visited {
+/*	color: MediumBlue;*/
+}
+
+.menuItemSelected a {
+	text-decoration: none;
+}
+
+.menuItemSelected {
+	font-weight: bold;
+}
+
+
+/* LEFT SEARCH FILTER */
+#menu_content {
+    width: 300px;
+    margin-right: 14px;
+    background: #F9F9F9;
+    border: 1px solid #DADADA;
+}
+
+
+.menuItem3 {
+	background: #ececec;
+	font-size : 0.9em;
+	font-weight: bold;
+	padding: 6px 10px;
+	border-bottom: 1px solid #DADADA;
+}

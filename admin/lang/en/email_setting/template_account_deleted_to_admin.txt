@@ -1,0 +1,14 @@
+User terminated his KB account.
+{request_from_ip_msg}: [ip]
+
+You can review and restore at 
+[link]
+
+User notes:
+[message]
+
+{user_info_msg}:
+------------
+ID: [id] 
+Name: [name]
+Email: [email]

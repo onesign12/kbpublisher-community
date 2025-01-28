@@ -1,0 +1,98 @@
+<script>
+function mfaEnable(url, disabled) {
+    if (disabled) {
+        return false;
+    } else {
+        return PopupManager.create(url, 'r', 'r');
+    }
+}
+
+function mfaDisable() {
+    if ({mfa_disabled_num}) {
+        return false;
+    } else {
+        confirmFormActionSubmit('aContentForm', '{sure_common_msg}');
+    }
+}
+
+</script>
+
+
+<div id="eList" style="width: 100%;">
+
+    <div>&nbsp;</div>
+    <a class="setting_anchor" id="anchor_mfa"></a>
+    <div class="main">
+      
+        <div class="trMoreDarker" style="padding: 6px 7px;">
+            <b>{mfa_msg}</b>
+        </div>
+        
+        <form action="{mfa_off_link}" method="post" id="aContentForm">
+        <input type="hidden" name="atoken" id="atoken" value="{atoken}" />
+        
+        <div class="trLighter" style="padding: 8px 8px;">
+          {mfa_desc_msg} <br />
+          {mfa_msg}: <b id="mfa_status" style="color: {mfa_color}">{mfa_status}</b>
+        
+          <div style="margin-top: 10px;">
+              <tmpl:mfa_enable>
+                <input type="button" name="mfa" value="{enable_msg}" 
+                    class="button primary {mfa_disabled}"
+                    onClick="mfaEnable('{mfa_link}', {mfa_disabled_num});" />
+              </tmpl:mfa_enable>          
+              
+              <tmpl:mfa_disable>
+                <input type="hidden" name="mfa_off2" id="mfa_off2" value="1" />
+                <input type="button" name="mfa_off" value="{disable_msg}" 
+                    class="button primary {mfa_disabled}"
+                    onClick="validateForm('mfa_off', 'validate', 'mfaDisable');" />
+             </tmpl:mfa_disable>  
+            
+             <tmpl:mfa_reset>  
+                <input type="button" name="mfa" value="{reset_msg}" 
+                    class="button {mfa_disabled}"
+                    onClick="mfaEnable('{mfa_link}', {mfa_disabled_num});" />
+             </tmpl:mfa_reset>  
+         </div>
+        
+        </div>
+        </form>
+        
+        <!-- password -->
+        <br /><br />
+        <div class="trMoreDarker" style="padding: 6px 7px;">
+            <b>{password_msg}</b>
+        </div>
+        <div class="trLighter" style="padding: 8px 8px;">
+          {update_password_desc_msg} <br />
+          {password_hint}
+            
+            <div style="margin-top: 10px;">
+                <input type="button" name="mfa" value="{update_password_msg}" 
+                    class="button primary {password_disabled}"
+                    onClick="location.href='{password_link}'" />
+                    <!-- onclick="PopupManager.create('{password_link}');" /> -->
+            </div>
+        </div>
+        
+        
+        <tmpl:account_delete>
+        <br /><br />
+        <div class="trMoreDarker" style="padding: 6px 7px;">
+            <b>{delete_account_msg}</b>
+        </div>
+        <div class="trLighter" style="padding: 8px 8px;">
+          {delete_account_desc_msg}
+            
+            <div style="margin-top: 10px;">
+                <input type="button" name="delete" value="{delete_account_msg}" 
+                    class="button primary {delete_disabled}"
+                    onclick="PopupManager.create('{delete_link}');" />
+            </div>
+        </div>
+        </tmpl:account_delete>
+        
+        
+    </div>
+</div>

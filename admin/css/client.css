@@ -1,0 +1,15 @@
+/* approval */
+H1.articleTitle    { font-size: 1.6em; font-weight: normal; margin: 0px; line-height: 150%; }
+.tdArticleTitle    { background-color: #EFEFEF; padding: 1px 4px; border-bottom: 1px solid #D4D4D4; }
+
+.textBlock { line-height : 150%; font-size: 1.1em; }
+
+div.textBlock > p:first-child, div.textBlock > div.customField + p {
+	padding: 0px; 
+	margin: 0px;
+}
+
+div.textBlock > h3:first-child , div.textBlock > div.customField + h3 {
+	padding-top: 0px; 
+	margin-top: 0px;
+}

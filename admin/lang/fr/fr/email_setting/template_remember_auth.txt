@@ -1,0 +1,8 @@
+Bonjour [first_name],
+
+Ceci est une notification pour vous informer qu'un appareil a été autorisé à ignorer l'authentification sur votre compte "[kb_name]" ([username]).
+La demande provient de l'adresse IP suivante : [ip].
+
+L'appareil ne sera pas invité à entrer un nom d'utilisateur ou un mot de passe pendant [days] jours.
+
+Si vous n'êtes pas à l'origine de cette action, nous vous recommandons de vous connecter et de modifier votre mot de passe immédiatement ou de contacter votre administrateur KB par courriel [support_email].

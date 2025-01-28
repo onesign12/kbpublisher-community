@@ -1,0 +1,110 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+
+    var parent_window = PopupManager.getParentWindow();
+    parent_window.$('body').trigger('kbpArticlePopupOpened');
+    
+    if (parent_window.CKEDITOR) {
+        var editor = parent_window.oEditor;
+        if (editor) {
+            var selection = editor.getSelection();
+        
+            if (selection) {
+                var text = (selection.createRange) ? selection.createRange().text : selection;
+                var text = String(text);
+            
+                if (text.length != 0) {
+                    $('td.insert_td').show();
+                    
+                    if ($('td.attach_td').length) {
+                        $('#action_td').attr('colspan', 2);
+                    }
+                }
+            }
+        }
+    }
+});
+
+function confirmNotPublishedEntry(msg, link) {
+    confirm2(msg, function() {
+        document.location.href = link;
+    });
+}
+
+function insertLink(id) {
+    var data = {
+        field: 'article',
+        value_id: id,
+        do_confirm: false
+    }
+    
+    window.top.oEditor.execCommand('insertLink', data);
+    
+    if (window.top.checkFckChanges) {
+        window.top.checkFckChanges();
+    }
+    
+    PopupManager.close();
+}
+
+function attachEntry(id, title, link) {
+    var parent_window = PopupManager.getParentWindow();
+    parent_window.$('body').trigger('kbpArticleSelected', [{id: id, title: title}]);
+}
+</script>
+
+{header}
+
+<div id="afterActionMessage" style="display: none;">
+    {after_action_message_block}
+</div>
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+
+    {list_title}
+    
+    <td style="width: 1px;" class="tdTitle" colspan="2">&nbsp;</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}">
+
+    {list_row}
+    
+    <tmpl:insert>
+    <td width="1" class="insert_td action" style="display: none;">
+        <a href="" title="{insert_as_link_title_msg}"
+            onClick="insertLink('{id}'); return false;">
+            <img src="images/icons/link.svg" width="14" height="14" 
+                alt="{insert_as_link_msg}" style="padding: 0px 4px;" />
+        </a>
+    </td>
+    </tmpl:insert>
+    
+    <tmpl:attach>
+    <td width="1" class="attach_td action">
+        <a href="#" id="attach_link_{id}" title="{insert_as_attachment_title_msg}" 
+            onClick="attachEntry('{id}', '{escaped_title}', this); return false;">
+            <img src="images/icons/attach.svg" width="14" height="14" id="insert_img_{id}" 
+                alt="{insert_as_attachment_msg}" style="padding: 0px 4px;" />
+            <img src="images/icons/check.svg" id="inserted_img_{id}" 
+				style="display: none; padding: 0px 4px;" />
+        </a>
+    </td>
+    </tmpl:attach>
+
+</tr>
+</tmpl:row>
+
+</table>
+
+<tmpl:close_button>
+<div class="bottom_button bb_popup">
+    <input type="button" value="{done_msg}" class="button" onclick="PopupManager.close();" />
+</div>
+</tmpl:close_button>
+        
+<tmpl:bulk></tmpl:bulk>
+<tmpl:attach></tmpl:attach>

@@ -1,0 +1,13 @@
+<input type="submit" name="submit" value="{save_msg}" 
+    class="button {class}" {disabled}
+    onClick="validateForm('submit', false, false, 'setting');return false;" />
+
+<tmpl:default>
+<input type="submit" name="set_default" id="default_submit" value="{defaults_msg}" 
+    class="button secondary {class}" {disabled}
+    onClick="return confirmForm('{sure_default_msg}', 'default_submit');">
+</tmpl:default>
+
+<tmpl:cancel>
+<input type="button" value="{cancel_msg}" class="button" onClick="PopupManager.close();" />
+</tmpl:cancel>

@@ -1,0 +1,53 @@
+<script>
+<!--
+$(document).ready(function() {
+    PopupManager.setTitle("{company_msg}");
+
+    <tmpl:assign_company>
+    attachEntry('{new_id}', '{new_company}');
+    </tmpl:assign_company>
+});
+
+function attachEntry(id, title) {
+    var parent_window = PopupManager.getParentWindow();
+    if (!parent_window.$('#company_id option[value="' + id + '"]').length) {
+         parent_window.$('#company_id').append(new Option(title, id));
+         
+         parent_window.$('#company_id').val(id);
+         parent_window.$('#company_id').trigger("chosen:updated");
+    }
+
+    parent_window.$('#company_id').val(id);
+    PopupManager.close();
+}
+</script>
+
+{header}
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+    
+    {list_title}
+    
+    <td style="width: 1px;" class="tdTitle">&nbsp;</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}">
+    
+    {list_row}
+
+    <td class="action">
+        <a href="" title="{assign_msg}" 
+            onClick="attachEntry('{id}', '{escaped_title}'); return false;">
+            <img src="images/icons/attach.svg" width="14" height="14" alt="{assign_msg}" />
+        </a>
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{close_msg}" class="button" onclick="PopupManager.close();" />
+</div>

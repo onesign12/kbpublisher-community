@@ -1,0 +1,87 @@
+.followMenu, .followMenuSelected, .followMenuUp {
+	padding: 1px 1px 1px 1px;
+	margin-left: 2px;
+	overflow: hidden;
+/*	max-width: 40%;*/
+}
+
+.followMenuSelected {
+	background-color: #c0d2ec;
+}
+
+.followMenuUp {
+	font-weight : bold;
+}
+
+
+.dtree {
+	font-family : Tahoma, Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 0.9em;
+	color: #666;
+	white-space: nowrap;
+	width: 100%;
+	overflow: hidden;
+}
+.dtree img {
+	border: 0px;
+	vertical-align: -1px;
+}
+.dtree a {
+	color: #004171;
+	text-decoration: none;
+}
+
+/*
+.dtree a:visited {
+	color: #5a6f7f;
+	text-decoration: none;
+}
+*/
+
+.dtree a.node, .dtree a.nodeSel {
+	white-space: nowrap;
+}
+.dtree a.node:hover, .dtree a.nodeSel:hover {
+/*	color: #800000;*/
+	text-decoration: underline;
+}
+
+.dtree .clip {
+	overflow: hidden;
+}
+
+/* eleontev */
+.treenode, .treenode2, treenode3 {
+	padding: 2px 0px;
+	overflow: hidden;
+}
+
+.treenode2 {
+	padding: 2px 0px;
+}
+
+
+/* new with lines */
+.treenode {
+	padding: 4px 7px;
+	border-bottom: 1px solid #DADADA;
+}
+
+/* entry */
+.treenode2 {
+	padding: 2px 7px;
+}
+
+
+/* category after entries */
+.treenode3 {
+	padding: 3px 7px;
+}
+
+/* wrapper to have space */
+.nodeWrapper {
+/*    padding-right: 2px;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;    
+}

@@ -1,0 +1,165 @@
+<link rel="stylesheet" href="{client_href}skin/jquery/tooltipster/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-kbp_title.css?v={pvhash}">
+<script>
+<!--
+function setUsername() {
+    email = document.getElementById('email');
+    username = document.getElementById('username');
+    username.value = email.value;
+
+    if (email.value) {
+        $('body').trigger('kbpErrorResolved', [{field: 'username'}]);
+    }
+}
+//-->
+</script>
+
+<style>
+    .agree_lable{
+          text-indent: 0;
+          padding-left: 2rem;
+    }
+
+    .agree_lable:after, 
+    .agree_lable:before{
+         top: 0;
+    }
+</style>
+
+{error_msg}
+
+<div class="niceForm" style="margin: 30px 0;">
+
+<form action="{action_link}" method="post" id="aContentForm">
+<input type="hidden" name="id" id="id" value="{id}" />
+<input type="hidden" name="date_registered" id="date_registered" value="{date_registered}" />
+<input type="hidden" name="lastauth" id="lastauth" value="{lastauth}" />
+<input type="hidden" name="grantor_id" id="grantor_id" value="{grantor_id}" />
+
+{hidden_fields}
+
+<div class="table login2">
+    
+    <div class="formTopDelim"></div>
+    
+    <div class="grid-x">
+        <div class="large-12 cell">
+            <label for="first_name" class="required">{first_name_msg}:</label>
+        </div>
+        <div class="large-12 cell">
+            <input name="first_name" type="text" class="longText" id="first_name" value="{first_name}" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="large-12 cell">
+            <label for="last_name" class="required">{last_name_msg}:</label>
+        </div>
+        <div class="large-12 cell">
+            <input name="last_name" id="last_name" type="text" class="longText" value="{last_name}" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="large-12 cell">
+            <label for="middle_name">{middle_name_msg}:</label>
+        </div>
+        <div class="large-12 cell">
+            <input name="middle_name" id="middle_name" type="text" class="longText" value="{middle_name}" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="large-12 cell">
+            <label for="phone">{phone_msg}:</label>
+        </div>
+        <div class="large-12 cell">
+            <input name="phone" id="phone" type="text" value="{phone}" class="longText" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="large-12 cell">
+            <label for="email" class="required">{email_msg}:</label>
+        </div>
+        <div class="large-12 cell">
+            <input name="email" id="email" type="text" value="{email}" class="longText" />
+        </div>
+    </div>
+    
+    <tmpl:username>
+    <div class="grid-x">
+        <div class="large-12 cell">
+            <label for="username" class="required">{username_msg}:</label>
+            <div style="float: right;" class="smallerText2">
+                <a href="javascript: setUsername(); void(0);">{username_as_email_msg}</a>
+            </div>
+        </div>
+        <div class="large-12 cell">
+            <input name="username" id="username" type="text" value="{username}" class="longText" />
+        </div>
+    </div>
+    </tmpl:username>
+    
+    <tmpl:register>
+    <div class="grid-x">
+        <div class="large-12 cell">
+            <label for="password" class="required">{password_msg}:</label>
+            <div style="float: right;"  class="smallerText2">
+                {generate_pass_block}
+            </div>
+        </div>
+        <div class="large-12 cell">
+            <input type="password" name="password" id="password" class="longText" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="large-12 cell">
+            <label for="password_2" class="required">{password_repeat_msg}:</label>
+        </div>
+        <div class="large-12 cell">
+            <input type="password" name="password_2" id="password_2" class="longText" />
+        </div>
+    </div>
+    
+    <div class="grid-x">
+        <div class="large-12 cell">
+            <label for="user_comment">{comment_msg}:</label>
+        </div>
+        <div class="large-12 cell">
+            <textarea rows="4" name="user_comment" id="user_comment" class="fixed-for-medium">{user_comment}</textarea>
+        </div>
+    </div>
+    </tmpl:register>
+    
+    {captcha_block}
+    
+    <tmpl:subscription>
+    <div style="padding: 20px 10px 10px 10px;">
+        <input type="checkbox" name="subsc_news" id="subsc_news" {ch_subsc_news} />
+        <label for="subsc_news" style="margin-left: 5px;">{subsc_news_msg}</label>
+    </div>
+    </tmpl:subscription>
+    
+    <tmpl:agree_terms_row>
+    <div style="padding: 15px 10px 0px 10px;">
+        <input type="hidden" name="agree_terms_validate" value="1"/>
+        
+        <input type="checkbox" name="agree_terms_{num}" id="agree_terms_{num}"  
+            value="1" {agree_terms_ch} 
+            style="float: left; margin-top: 3px; margin-right:10px;"/>
+        
+        <label for="agree_terms_{num}" id="agree_terms_label_{num}" 
+            style="overflow: hidden;">{text}</label>
+    </div>
+    </tmpl:agree_terms_row>
+    
+    <button type="submit" name="submit" id="submit" class="button login2 normal" style="margin-top: 30px;"
+        onClick="validateForm();return false;">
+        {ok_msg}
+    </button>
+</div>
+
+</form>
+
+</div>

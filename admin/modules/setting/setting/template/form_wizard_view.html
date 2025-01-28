@@ -1,0 +1,215 @@
+<link rel="stylesheet" href="../client/skin/jquery/slick/slick.css?v={pvhash}">
+<link rel="stylesheet" href="../client/skin/jquery/slick/slick-theme.css?v={pvhash}">
+<link rel="stylesheet" href="../client/skin/jquery/icheck/skins/square/blue.css?v={pvhash}" />
+<link rel="stylesheet" href="../client/skin/jquery/icheck/skins/flat/blue.css?v={pvhash}" />
+<script src="../client/jscript/jquery/icheck.min.js?v={pvhash}"></script>
+<script src="../client/jscript/jquery/slick.min.js?v={pvhash}"></script>
+<script>
+$(document).ready(function() {
+    $('input[type="checkbox"]').iCheck({
+        checkboxClass: 'iradio_square-blue',
+    });
+    
+    $('input').on('ifChecked', function(event) {
+        var view = $(this).parents().eq(2).attr('id');
+        console.log(view);
+        selectView(view);
+    });
+});
+
+function selectView(view) {
+    $('#view_grid').show();
+    
+    $('input[type="checkbox"]').prop('checked',false);
+    $('#' + view + ' input').prop('checked', true);
+    
+    $('input[type="checkbox"]').iCheck('update');
+    
+    $('#view_grid > div').removeClass('selected');
+    $('.view_slide').removeClass('selected');
+    
+    $('#' + view).addClass('selected');
+    $('#' + view + '_zoomed').addClass('selected');
+    
+    $('#aContentForm input[type=hidden]').remove();
+    
+    var hidden = $('<input type="hidden" />').attr('name', 'values[{setting_id}]').val(view);
+    $('#aContentForm').append(hidden);
+}
+
+function zoomView(view, slide_num) {
+    var options = {
+        modal: true,
+        width: '97%',
+        height: '580',
+        open: function() {
+            if ($('.fade').hasClass('slick-initialized')) {
+                $('.fade').slick('unslick');
+            }
+            
+            $('.fade').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear',
+                initialSlide: slide_num,
+                prevArrow: '<img src="images/icons/arrow_left.svg" style="cursor: pointer;width: 30px;width: 40px;position: absolute;left: 5px;top: 50%;z-index: 100000;" />',
+                nextArrow: '<img src="images/icons/arrow_right.svg" style="cursor: pointer;width: 40px;position: absolute;right: 5px;top: 50%;" />'
+            });
+        },
+        position: {
+            my: 'center top',
+            at: 'center top+10%',
+            of: window
+        }
+    }
+
+    $('#desc_dialog').dialog(options);
+}
+</script>
+<style>
+    #group_header {
+        color: #dddddd;
+    }
+    
+    #group_header div.line {
+        background: #dddddd;
+    }
+    
+    #group_header .active_group {
+        color: black;
+    }
+    
+    #group_header .active_group div.line {
+        background: #7898C2;
+    }
+    
+    
+    .select_button {
+        border-radius: 5px;
+        padding: 10px 20px;
+        background: #eeeeee;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    #view_grid > div {
+        width: 28%;
+        height: 230px;
+        margin: 2.6%;
+        float: left;
+    }
+    
+    #view_grid > div > div:first-child {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        padding: 10px;
+    }
+    
+    #view_grid > div.selected > div:first-child {
+        background: #eeeeee url('images/icons/check.svg') no-repeat 95% 50%;
+    }
+    
+    #view_grid .image img:first-child {
+        border: 1px solid #dddddd;
+        cursor: pointer;
+    }
+    
+    .slider .caption {
+        padding: 15px 50px;
+    }
+    
+    .slider .caption b {
+        font-size: 1.1em;
+    }
+    
+    .slider .caption div {
+        margin: 3px 0;
+    }
+    
+    .slider .action, .slider .info {
+        margin: 12px 50px 2px 0;
+        float: right;
+    }
+    
+    .slider .info {
+        cursor: auto;
+    }
+    
+    .slider .info img {
+        margin-right: 5px;
+    }
+    
+    .slider .image img {
+        width: 500px;
+        margin: 0 auto;
+    }
+    
+    .slider .info {
+        display: none;
+    }
+    
+    .slider .selected .action {
+        display: none;
+    }
+    
+    .slider .selected .info {
+        display: block !important;
+    }
+    
+    .view_slide {
+        outline: none;
+    }
+</style>
+
+<input type="hidden" name="values[{setting_id}]" value="{setting_value}" />
+
+<div id="view_grid" style="margin: 30px 0;">
+    
+    <tmpl:preview_row>
+    <div id="{id}" class="{class}">
+        <div>
+            <b>{title}</b>
+        </div>
+        <div class="image" onclick="zoomView('{id}', {slide_num});">
+            <img src="images/wizard/{id}_thumbnail.png" style="width: 100%;" />
+        </div>
+        <div style="text-align: center;padding: 30px;">
+            <input type="checkbox" {checked} />
+        </div>
+    </div>
+    </tmpl:preview_row>
+    
+</div>
+
+<div style="clear: both;"></div>
+
+
+<div id="desc_dialog" title="{preview_msg}" style="display: none;">
+    <div class="slider fade" style="width: 600px;margin: 15px auto;">
+        
+        <tmpl:zoomed_row>
+        <div id="{id}_zoomed" class="view_slide {class}">
+            <div class="action select_button" onclick="$('#desc_dialog').dialog('close');selectView('{id}');">
+                {choose_view_msg}
+            </div>
+            <div class="info select_button">
+                <img src="images/icons/check.svg" style="margin: 0; text-align: left;" />
+            </div>
+            
+            <div class="caption">
+                <b>{title}</b>
+                <div>
+                    <i>{desc}</i>
+                </div>
+            </div>
+            
+            <div style="clear: both"></div>
+            <div class="image">
+                <img src="images/wizard/{id}.png" />
+            </div>
+        </div>
+        </tmpl:zoomed_row>
+    </div>
+</div>

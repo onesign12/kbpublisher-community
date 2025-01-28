@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="{base_href}client/skin/notification.css?v={pvhash}">
+<script src="{base_href}client/jscript/NotificationManager.js?v={pvhash}"></script>
+<script>
+$(document).ready(function() {
+    NotificationManager.updateBadge({msg_num});
+    
+    <tmpl:websocket>
+    NotificationManager.connect('{websocket_url}');
+    </tmpl:websocket>
+    
+    $('body').bind('kbpNotificationListUpdated', {}, function(e, params) {
+        $('#notification_frame').css('height', 205 + (30 * params.num));
+        NotificationManager.updateBadge(params.unseen_num);
+    });
+    
+    $('#notifications').on('show', function(event, dropdownData) {
+        $('#notifications div div').remove();
+        xajax_loadNotificationList({spinner: 'notification_spinner'});
+    });
+});
+
+function viewNotification(e, id, url, change_num) {
+    if (!$(e.target).hasClass('dismiss')) {
+        PopupManager.create(url);
+        if(change_num) {
+            NotificationManager.remove(id, {msg_num_after_view});
+        }
+        $('#notifications').jqDropdown('hide');
+    }
+}
+</script>
+<div id="notifications" class="jq-dropdown jq-dropdown-anchor-right jq-dropdown-tip jq-dropdown-scroll fix_top">
+    <div class="jq-dropdown-panel">
+        <ul style="list-style-type: none;margin: 0;padding: 0;">
+            <li id="notification_list">
+                <span style="float: left;">
+                    {notifications_msg}
+                </span>
+                <span class="view_all_notifications" style="float: right;">
+                    <a href="{notification_link}" style="color: #278cc5;text-decoration: none;margin-right: 10px;">
+                        {view_all_msg}
+                    </a>
+                </span>
+                <img id="notification_spinner" src="{base_href}client/images/ajax/indicator_arrows.gif" alt="note" />
+            </li>
+            
+            <li id="notification_empty" style="display: {empty_display};">
+                {no_new_notifications_msg}
+            </li>
+            
+            <tmpl:row>
+            <li id="notification_{id}" 
+                ontouchstart="viewNotification(event, {id}, '{view_link}', {change_num}); return false;">
+                
+                <div style="float: left;width: 25px;">
+                    <img src="{base_href}admin/images/icons/{icon}.svg" />
+                </div>
+                
+                <div style="float: right;">
+                    {date}
+                </div>
+                
+                <div style="overflow: hidden;">
+                    <!-- <span class="date">{datea}</span> -->
+                    <b>{subject}</b>
+
+                    <div style="margin-left: 3px;">
+                        <div style="white-space: normal; padding: 2px 0;">
+                            {title}
+                        </div>
+
+                        <div class="links">
+                            <a href="#" 
+                                onclick="viewNotification(event, {id}, '{view_link}', {change_num}); return false;">{view_msg}</a> | 
+                            <a href="#" class="dismiss" style="padding-left: 5px;"
+                                onclick="xajax_dismissNotification({id}); return false;">{dismiss_msg}</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </li>
+            </tmpl:row>
+        
+        </ul>
+    </div>
+</div>

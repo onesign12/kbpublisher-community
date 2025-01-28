@@ -1,0 +1,46 @@
+<script src="{base_href}admin/jscript/bulk.js?v={pvhash}"></script>
+<script>
+$(document).ready(function() {
+    $('body').bind('kbpErrorResolved kbpUserSelected', {}, function(e, params) {
+        $('div.bulk_dialog div.ui-dialog-content div.error').remove();
+    });
+
+    $('#close_button').click(function () {
+        $(this).parent().parent().dialog('close');
+        $('#bulk_action').val('none');
+
+        window.top.$('div.ui-widget-overlay').remove();
+        // window.top.$('.client_frame').removeClass('modal_blocked');
+    });
+});
+</script>
+
+<div id="bulk_block_display">
+<div id="bulk_block" class="bottom_button">
+    <div style="vertical-align: middle;">
+        <select name="bulk_action" id="bulk_action" class="colorInput"
+            onchange="performAction(this.value, '{sure_common_msg}', '{confirm_type}');">
+            {action_select}
+        </select>
+    </div>
+    
+    <div>
+        {bulk_content}
+    </div>
+    
+    <div id="bulk_update" class="bottom_button_dialog" style="display: none;">
+        <input type="submit" name="submit" value="{ok_msg}" class="button" id="bulk_submit"
+            onclick="return bulkSubmit('{sure_common_msg}');">
+        <input type="button" value="{cancel_msg}" class="button" id="close_button" />
+    </div>
+    
+    <div id="bulk_clear">
+        <a href="#" onclick="TableListHandler.toggleAll(false);">
+            {clear_selection_msg}
+        </a>
+    </div>
+</div>
+</div>
+
+{hidden_fields}
+</form>

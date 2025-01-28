@@ -1,0 +1,10 @@
+Hi [first_name], 
+
+Your account info in "[kb_name]" was recently changed. 
+If you made this change, you don't need to do anything more. 
+
+The request came from the following IP address: [ip].
+New email address: [email]
+
+If you didn't change your account, let us know right away at [support_email] 
+Reporting it is important because it helps us prevent fraudsters from stealing your information.

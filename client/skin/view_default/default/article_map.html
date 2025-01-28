@@ -1,0 +1,47 @@
+<div class="tdTitle" style="margin-bottom: 2px;">
+    
+    <tmpl:list_option_button>
+    <div class="fright menuItemOption">
+        <a href="#show" onclick="$('#list_option_block').toggle(); return false;">
+            {list_option_msg}
+        </a>
+    </div>
+    </tmpl:list_option_button>
+        
+    <div class="fleft">{list_title}</div>
+    <div style="clear: both;"></div>
+</div>
+
+{block_list_option_tmpl}
+<div>&nbsp;</div>
+
+{msg}
+
+<div style="margin-left: 10px;">
+<tmpl:category_row>
+
+    <div style="padding-left: {padding}px; padding-bottom: {padding_category}px;">
+        
+        <div class="mapTreeCategoryBlock">
+            <span class="{img_class}">{item_img}</span>
+            <span class="mapTreeLinkBlock">
+                <a href="{category_link}" class="{a_class}">{entry_prefix}{title}</a>
+            </span>
+        </div>    
+    
+    <tmpl:entry_row>
+
+        <div class="mapTreeArticleBlock">
+            <span class="mapTreeArticleImage">{item_img}</span>
+            <span class="mapTreeLinkBlock">
+                <a href="{entry_link}" class="articleLinkOther"
+                    onclick="createCookie('kb_category_id_', {category_id}, 0);">{entry_prefix}{title}</a>
+            </span>
+        </div>
+    
+    </tmpl:entry_row>
+        
+    </div>    
+
+</tmpl:category_row>
+</div>

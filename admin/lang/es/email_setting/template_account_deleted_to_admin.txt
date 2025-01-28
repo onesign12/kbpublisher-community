@@ -1,0 +1,14 @@
+El usuario canceló su cuenta de KB.
+{request_from_ip_msg}: [ip]
+
+Puede revisar y restaurar en
+[link]
+
+Notas de usuario:
+[message]
+
+{user_info_msg}:
+------------
+ID: [id]
+Nombre: [name]
+Correo electrónico: [email]

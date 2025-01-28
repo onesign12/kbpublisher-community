@@ -1,0 +1,64 @@
+<script>
+<!--
+function assignUser(id, name) {
+    var selector = '#{select_id}';
+    var parent_window = PopupManager.getParentWindow();
+
+    if (parent_window.$(selector).find('option[value="' + id + '"]').length == 0) {
+        var option = '<option value="' + id + '">' + name + '</option>';
+        var more_option = parent_window.$(selector).find('option[value="more"]');
+        parent_window.$(option).insertBefore(more_option);
+    }
+
+    parent_window.$(selector).val(id);
+
+    parent_window.$('#popupModalDiv1').off('dialogclose');
+
+    PopupManager.close();
+}
+
+$(document).ready(function() {
+    PopupManager.setTitle("{users_msg}");
+
+    var parent_window = PopupManager.getParentWindow();
+
+    parent_window.$('#popupModalDiv1').on('dialogclose', function() {
+        var selector = '#{select_id} option:first';
+        parent_window.$(selector).attr('selected','selected');
+    });
+});
+
+//-->
+
+</script>
+
+{header}
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+    
+    {list_title}
+    
+    <td style="width: 1px;" class="tdTitle">&nbsp;</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}">
+    
+    {list_row}
+
+    <td class="action">
+        <a href="" title="{assign_msg}" onClick="assignUser('{id}', '{escaped_name}'); return false;">
+            <img src="images/icons/attach.svg" width="14" height="14" alt="{assign_msg}" />
+        </a>
+    </td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div class="bottom_button bb_popup">
+    <input type="button" value="{close_msg}" class="button" onclick="PopupManager.close();" />
+</div>
+
+<tmpl:bulk></tmpl:bulk>

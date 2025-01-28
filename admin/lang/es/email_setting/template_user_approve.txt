@@ -1,0 +1,5 @@
+Estimado [first_name] [last_name],
+
+Su solicitud para unirse a la base de conocimiento ha sido recibida. Una vez que hayamos revisado su perfil, le enviaremos un correo electrónico con su información de inicio de sesión. Esto debe tomar de 2-3 días laborales.
+
+Muchas gracias por participar.

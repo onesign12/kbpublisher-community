@@ -1,0 +1,45 @@
+{error_msg}
+
+<!-- onSubmit="return Validate(this);" -->
+<form action="{action_link}" method="post">
+{hidden_fields}
+
+<table class="formTable">
+<tr>
+    <td colspan="2" class="tdTitle"><b>{action_title}</b></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{name_msg}:</td>
+    <td>{show_name}</td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{from_email_msg}:</td>
+    <td><input name="from_email" type="text" class="longText" value="{from_email}"></td>
+</tr>
+
+<tr class="trMoreDarker">
+    <td>{title_msg}:</td>
+    <td><input name="title" type="text" class="longText" value="{title}"></td>
+</tr>
+
+<tr class="trLighter">
+    <td class="tdFormCaption tdCaptionTop required">{message_msg}:</td>
+    <td><textarea cols="80" rows="18" name="message" style="width: 100%">{message}</textarea></td>
+</tr>
+
+<tr>
+    <td></td>
+    <td><div><br></div>
+        <input type="submit" name="submit" value="{send_msg}" class="button">
+        <input type="button" value="{place_to_kb_msg}" onClick="location.href='{place_link}'" class="button">
+        <input type="button" value="{cancel_msg}" onClick="location.href='{cancel_link}'" class="button">
+    </td>
+</tr>
+</table>
+</form>
+
+
+
+

@@ -1,0 +1,25 @@
+<tmpl:title>
+<div class="tdTitle" style="margin-bottom: 10px;">
+	{list_title}
+</div>
+</tmpl:title>
+
+{msg}
+
+<tmpl:row>
+<div style="vertical-align: top;">
+    <div style="padding-left: 5px;" class="tdImage">
+		{item_img}
+        <a href="{entry_link}" class="articleLink">{title}</a>
+        <div style="margin-top: 2px;" class="newsDate">{date_formatted}</div>
+        <div style="margin-top: 5px;" class="articleDecription">{body}</div>
+    </div>
+</div>
+<div style="padding: 5px;"></div>
+</tmpl:row>
+<br />
+
+<tmpl:by_page_bottom>
+<div style="padding-left: 12px;">{page_by_page_bottom}</div>
+<br />
+</tmpl:by_page_bottom>

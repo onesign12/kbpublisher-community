@@ -1,0 +1,103 @@
+<script>
+$(document).ready(function() {
+    PopupManager.setTitle("{popup_title}");
+    
+    <tmpl:close_window>
+    refreshItems();
+    </tmpl:close_window>
+});
+
+function validateForm() {
+    $("#growls").empty();
+    
+    var data = {};
+    data['title'] = $('#title').val();
+    
+    data['url'] = $('#url').val();
+    
+    var is_error = (!data['title'] || !data['url']);
+    
+    if (is_error) {
+        $.growl.error({title: "", message: "{required_msg}", fixed: true});
+        
+    } else {
+        $('#submit_detail').attr('onclick', '');
+        $('#submit_detail').click();
+    }
+}
+
+function renderIcon(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        var extension = input.files[0].name.split('.').pop().toLowerCase();
+        
+        if (extension != 'svg') {
+            $.growl.error({title: "", message: "{wrong_extension_msg}", fixed: true});
+        }
+
+        reader.onload = function(e) {
+            $('div.round_icon').show();
+            $('div.round_icon').css('background-image', "url('" + e.target.result) + "')";
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function refreshItems() {
+    var parent_window = PopupManager.getParentWindow();
+    parent_window.location.reload();
+    PopupManager.close();
+}
+</script>
+
+{hint_msg}
+
+{error_msg}
+
+<form action="{action_link}" method="post" enctype="multipart/form-data" id="aContentForm2" onsubmit="LeaveScreenMsg.skipCheck();">
+    <input type="hidden" name="id" value="{id}" />
+    
+    <div class="tdTitle" style="padding:1px;"></div>
+    <table class="default">
+        <tr class="trLighter">
+            <td class="tdFormCaption required">{title_msg}:</td>
+            <td>
+                <input type="text" name="title" value="{title}" id="title" 
+                    style="width: 99%;">
+            </td>
+        </tr>
+        
+        <tr class="trLighter">
+            <td class="tdFormCaption required">URL:</td>
+            <td>
+                <span class="hasTooltip">
+                    <input type="text" name="url" value="{url}" id="url" 
+                        placeholder='http://example.com/submit?url=&#91;url&#93;&title=&#91;title&#93;' style="width: 400px;">
+                </span>
+                <span class="tooltip">{share_url_tip_msg}</span>
+            </td>
+        </tr>
+        
+        <tr class="trLighter">
+            <td class="tdFormCaption">{icon_msg}:</td>
+            <td>
+                <span class="hasTooltip">
+                    <div class="round_icon"
+                        style="display: {icon_display};background-image: url('{icon}');width: 35px;height: 35px;margin-bottom: 10px;"></div>
+                    
+                    <input type="file" name="icon_1" onchange="renderIcon(this);" />
+                </span>
+                <span class="tooltip">{share_icon_tip_msg}</span>
+            </td>
+        </tr>
+    </table>
+    
+    <div class="bottom_button bb_popup">
+        <input type="submit" id="submit_detail" name="submit_detail" value="{save_msg}" class="button primary"
+            onclick="validateForm();return false;" />
+        <input type="button" name="cancel" value="{close_msg}" class="button" 
+            onClick="PopupManager.close();">
+    </div>
+    
+</form>

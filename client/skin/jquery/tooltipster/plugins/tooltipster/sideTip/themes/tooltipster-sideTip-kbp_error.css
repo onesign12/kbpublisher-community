@@ -1,0 +1,29 @@
+.tooltipster-sidetip.tooltipster-kbp_error .tooltipster-box {
+    border: 2px solid #cc0033;
+	border-radius: 5px;
+	background: #fff;
+	box-shadow: 0px 0px 14px rgba(0,0,0,0.3);
+	color: #2c2c2c;
+}
+ 
+.tooltipster-sidetip.tooltipster-right.tooltipster-kbp_error .tooltipster-arrow-border {
+    border-right-color: #cc0033;
+}
+
+.tooltipster-sidetip.tooltipster-right.tooltipster-kbp_error .tooltipster-arrow-background {
+    border-right-color: white;
+}
+
+.tooltipster-sidetip.tooltipster-top.tooltipster-kbp_error .tooltipster-arrow-border {
+    border-top-color: #cc0033;
+}
+
+.tooltipster-sidetip.tooltipster-top.tooltipster-kbp_error .tooltipster-arrow-background {
+    border-top-color: white;
+}
+
+.tooltipster-sidetip.tooltipster-kbp_error .tooltipster-content {
+	line-height: 16px;
+	padding: 8px 10px;
+    color: #2c2c2c;
+}

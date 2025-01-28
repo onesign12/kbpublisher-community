@@ -1,0 +1,38 @@
+#type_switch_block {
+    text-align: right;
+}
+
+#type_switch {
+    background: white;
+    border: 1px solid #DADADA;
+    border-radius: 3px;
+    padding: 5px 0;
+}
+
+#type_switch > span > img {
+    weight: 15px;
+    height: 15px;
+}
+
+#type_switch > span {
+    padding: 5px 12px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    border-right: 1px solid #DADADA;
+}
+    
+#type_switch > span > span {
+    font-size: 0.9em;
+    color: #444444;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+#type_switch > span:last-child {
+    border-right: 0;
+}
+
+#type_switch > span.selected {
+    background: #e5e5e5;
+}

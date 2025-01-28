@@ -1,0 +1,57 @@
+{msg}
+{header}
+
+<table class="listTable" id="listTable">
+<tr class="tdTitle">
+    
+    <tmpl:bulk>
+    <td width="1">
+        <input type="checkbox" name="id_check" value="1" style="margin: 0px;" />
+    </td>    
+    </tmpl:bulk>    
+    
+    <td width="1">{id_msg}</td>
+    
+    <td class="tdTitle" width="85">{date_posted_msg}</td>
+    <td class="tdTitle" width="85">{date_updated_msg}</td>
+    <td>{title_msg}</td>
+    <td>{category_msg}</td>
+    <td>{filename_msg}</td>    
+    <td width="60">{filesize_msg}</td>
+    
+    <td width="1">{entry_status_msg}</td>
+    <td width="1">{action_hidemsginui_msg}</td>
+</tr>
+
+<tmpl:row>
+<tr id="row_{id}" class="{class}" style="{style}" onDblClick="RecordToDo('{update_link}')">
+    
+    <tmpl:bulk>
+    <td width="1">
+        <input type="checkbox" name="id[]" value="{id}" id="ch_{id}" style="margin: 0px;" {bulk_ids_ch_option} />        
+    </td>
+    </tmpl:bulk>    
+    
+    <td width="1" align="right"><b>{id}</b></td>
+    
+    <td><span title="{date_updated_formatted_full}">{date_updated_formatted}</span></td>
+    <td><span title="{date_updated_formatted_full}">{date_updated_formatted}</span></td>
+    <td>{title}</td>    
+    
+    <td><a href="{category_filter_link}" style="{style}">{category}</a></td>
+
+    <td><a href="{file_link}" title="{title}" style="{style}">{filename}</a></td>
+    <td align="right" width="60">{filesize}</td>
+    
+    <td width="1" align="center">{active_img}</td>
+    <td class="action" width="1">{options_img}</td>
+</tr>
+</tmpl:row>
+
+</table>
+
+<div style="padding-top: 2px;"></div>
+{footer}
+
+<!-- <td>{title}</td> -->
+<!-- <td>{filetype}</td> -->
