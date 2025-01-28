@@ -1,7 +1,0 @@
-Do not update files here!
-Do not move or delete ~/dev/www/kbp/kbp_dev
-They are hardcoded from ~/dev/www/kbp/kbp_dev
-
-To find all files with 1 links ignoring admin/land and .git
-find ./ -type f -links 1 -not -path './admin/lang/*' -not -path './.git/*' -print
-
