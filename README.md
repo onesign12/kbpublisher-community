@@ -1,6 +1,6 @@
-# KBPublisher community edition 
+# KBPublisher Community Edition 
 
-KBPublisher is web based Knowledge Management Software.
+KBPublisher Comunity Edition is web based open source Knowledge Management Software.
 Use it to share knowledge. Publish and manage articles, white papers, user manuals, business processes, FAQs, online help, APIs, or any other type of information.
 
 The "KBPublisher Community Edition" is an open source application that includes basic functions for all users.
