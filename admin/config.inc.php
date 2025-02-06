@@ -13,7 +13,7 @@ $conf['allow_setup']  = 1;                 // allow or not setup wizard, redirec
 
 
 /* PATHS */
-$_SERVER['DOCUMENT_ROOT'] = '/var/www/html';
+//$_SERVER['DOCUMENT_ROOT'] = '/var/www/html';
 $_SERVER['HTTP_HOST']     = 'localhost';
 
 // admin path
