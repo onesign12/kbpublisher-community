@@ -24,11 +24,24 @@ Server side
 
 ### Installing
 
-You can find our documentation on our
+In the example below, we assume you are installing KBPublisher in a kb folder in your web server's document root.  
+The URL for your KB will look like this: http://domain.com/kb, you can use any directory you like.  
+For example, if you want to install into the 'kbase' directory, change 'kb' to 'kbase'.  
+Example: `git clone https://github.com/onesign12/kbpublisher-community.git kbase && cd kbase`  
+To install to the root directory use './' instead of 'kb'.  
+
+    cd /var/www # change to your web server document root
+    git clone https://github.com/onesign12/kbpublisher-community.git kb && cd kb
+    cp admin/.gitignore_prod admin/.gitignore
+    cp setup/.gitignore_prod setup/.gitignore
+
+Then open your browser, go to http://domain/kb/setup/index.php and follow the setup wizard instruction.
+
+You can find documentation on our
 [website](https://www.kbpublisher.com/kb/installing-kbpublisher_115.html)
 
 ### Documentation
-- Installation [website](https://www.kbpublisher.com/kb/installation-5/)
-- User Manual [website](https://www.kbpublisher.com/kb/user-manual-v80-1/)
-- Developer Manual [website](https://www.kbpublisher.com/kb/developer-manual-50/)
-- Knowledge base [website](https://www.kbpublisher.com/kb/)
+- [Installation](https://www.kbpublisher.com/kb/installation-5/)
+- [User Manual](https://www.kbpublisher.com/kb/user-manual-v80-1/)
+- [Developer Manual](https://www.kbpublisher.com/kb/developer-manual-50/)
+- [Knowledge base](https://www.kbpublisher.com/kb/)
