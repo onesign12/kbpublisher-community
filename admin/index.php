@@ -294,6 +294,7 @@ if(BaseModel::isCloud()) {
 
 foreach(array_keys($emodules) as $v) {
     if(!AppPlugin::isPlugin($v)) {
+        
         if(!empty($nav->menu_array['menu'])) {
             $nav->unsetMenuItem($v);
             foreach(AppPlugin::getModulesPages($v) as $epage) {
@@ -304,15 +305,12 @@ foreach(array_keys($emodules) as $v) {
                 }
             }
 
-            foreach(AppPlugin::getModulesUpdateNav($v) as $update_menu => $links) {
-                $menu_link = $controller->getLink($links[0], $links[1], $links[2]);
-                $nav->updateMenuItem($update_menu, false, $menu_link);
+            if($default = AppPlugin::getModulesPagesDefault($v)) {
+                $mi = key($default);
+                $menu_link = $controller->getLink($default[$mi][0], $default[$mi][1], @$default[$mi][2]);
+                $nav->updateMenuItem($mi, false, $menu_link);
             }
         }
-
-        // if($controller->page == $v) {
-            // $controller->goPage('home', 'home');
-        // }
     }
 }
 
@@ -378,7 +376,8 @@ if(in_array($controller->page, $submenu_display)) {
     foreach(array_keys($emodules) as $v) {
         if(!AppPlugin::isPlugin($v)) {
             if(!empty($nav->menu_array['menu'])) {
-                foreach(AppPlugin::getModulesPages($v) as $epage => $sub_page) {
+                
+                foreach(AppPlugin::getModulesPages($v) as $sub_page) {
                     $nav->unsetMenuItem($sub_page);
                     
                     if($controller->sub_page == $sub_page) {
@@ -388,6 +387,8 @@ if(in_array($controller->page, $submenu_display)) {
             }
         }
     }
+    
+    // exit;
     
     $submenu = $nav->generate('sub_menu') . '<br>';
 }

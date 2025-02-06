@@ -10,12 +10,22 @@
 // | file that was distributed with this source code.                          |
 // +---------------------------------------------------------------------------+
 
+#[AllowDynamicProperties]
 
 class KBClientAjax extends Ajax
 {
 
     var $vars = array();
+    var $view;
+    var $manager;
 
+    var $controller;
+    var $encoding;
+    var $entry_id;
+    var $category_id;
+    var $js_dir;
+    // var $atoken;
+    
 
     static function &factory($view) {
         

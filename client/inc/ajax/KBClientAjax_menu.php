@@ -14,6 +14,8 @@
 class KBClientAjax_menu extends KBClientAjax
 {
 
+    var $menu;
+
     function getAllTreeEntries($mode, $img_id) {
 
         $objResponse = new xajaxResponse();

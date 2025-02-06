@@ -105,7 +105,10 @@ class KBClientView_tags extends KBClientView_common
 
         $tpl->tplAssign('hidden_search', $form_hidden);
         $tpl->tplAssign('form_search_action', $this->getLink('tags'));
-        $tpl->tplAssign('qf', $this->stripVars(trim(@$_GET['qf']), array(), 'asdasdasda'));        
+        
+        if(isset($_GET['qf'])) {
+            $tpl->tplAssign('qf', $this->stripVars(trim($_GET['qf']), array(), 'asdasdasda'));        
+        }
         
         $tpl->tplAssign('list_title', $title);
         

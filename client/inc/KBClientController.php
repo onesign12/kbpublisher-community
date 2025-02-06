@@ -44,6 +44,23 @@ class KBClientController
     var $auth_ended = false;
     var $admin_login = false; // used for login page in admin/
 
+    var $debug;
+    var $kb_dir;
+    var $admin_path;
+    var $skin_dir;
+    var $skin_path;
+    var $common_dir;
+    var $default_working_dir;
+    
+    var $entry_title;
+    var $view_key;
+    var $view_id;
+    var $category_id;
+    var $category_title;
+    var $entry_id;
+    var $page_id;
+    var $msg_id;
+    var $link_path;
     
     function __construct() {
         
@@ -82,10 +99,14 @@ class KBClientController
     function setUrlVars() {
 
         $this->category_id = (int) $this->getRequestVar('category_id');
-        $this->category_title = urldecode($this->getRequestVar('category_title'));
+        if($this->category_title = $this->getRequestVar('category_title')) {
+            $this->category_title = urldecode($this->category_title);
+        }
 
         $this->entry_id = (int) $this->getRequestVar('entry_id');
-        $this->entry_title = urldecode($this->getRequestVar('entry_title'));
+        if($this->entry_title = $this->getRequestVar('entry_title')) {
+            $this->entry_title = urldecode($this->entry_title);
+        }
         
         $this->view_key = $this->getRequestKey('view');
         $view_id = $this->getRequestVar('view');

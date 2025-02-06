@@ -93,7 +93,8 @@ class RequestDataUtil
         } else {
         
             if(is_numeric($value)) { return $value; }
-        
+            elseif(!$value) { return $value; }
+            
             $value = str_replace($rules['search'], $rules['replace'], $value); // for compability
             $value = htmlspecialchars($value);// ENT_QUOTES - both single and double quotes are translated
             

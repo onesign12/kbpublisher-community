@@ -15,7 +15,6 @@
 // +----------------------------------------------------------------------+
 
 
-
 class AppMailParser
 {
 
@@ -25,7 +24,7 @@ class AppMailParser
                            'contact'            => 'kb_contact.txt'
                            );
     
-    
+    var $replacer;
     var $vars      = array('support_name', 
                            'support_email', 
                            'support_mailer',

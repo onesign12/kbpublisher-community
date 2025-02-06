@@ -29,6 +29,9 @@ class AppMailSender
     var $alt_body_msg = 'Your email client does not support HTML email.';
     var $letter_key;
     
+    var $model;
+    var $parser;
+    
     // added March 11, 2020 to keep all users we calculated in mail obj
     var $notification_users = array();
     

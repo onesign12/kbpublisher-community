@@ -43,7 +43,7 @@ class KBClientAction_login extends KBClientAction_common
         $view->auth_remote = $auth_remote;
         $view->auth_auto = $auth_auto;
 
-        $msg_id = $view->msg_id;
+        $msg_id = $view->msg_id ?: '';
         // $view->msg_id = false;
         
         $log = new LoggerModel;

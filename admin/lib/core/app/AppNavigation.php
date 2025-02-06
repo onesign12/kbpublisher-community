@@ -27,6 +27,7 @@ class AppNavigation extends Navigation
     var $msg = array();
     var $callback_tpl;
     var $sub_equal;
+    var $sm;
     
     
     function __construct() {

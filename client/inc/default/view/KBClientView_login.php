@@ -123,9 +123,9 @@ class KBClientView_login extends KBClientView_common
         }
         
         // social login, oath
-        $social_login_block = false;
+        // $social_login_block = false;
         
-        if(AppPlugin::isPlugin('auth')) {
+        // if(AppPlugin::isPlugin('auth')) {
             $providers = AuthSocial::getProviderList();
             $providers = ($this->controller->admin_login) ? [] : $providers;
 
@@ -146,12 +146,12 @@ class KBClientView_login extends KBClientView_common
                     $tpl->tplParse($v, 'social_login/button');
                 }
             }
-        }
+        // }
 
-        if ($social_login_block) {
+        // if ($social_login_block) {
             $tpl->tplSetNested('social_login/button');
             $tpl->tplParse(null, 'social_login');
-        }
+        // }
         
         if($manager->getSetting('auth_allow_email') || $manager->getSetting('username_force_email')) {
             $this->msg['login_username_msg'] = $this->msg['login_email_msg'];

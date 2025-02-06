@@ -14,6 +14,11 @@
 class KBClientAction_contact extends KBClientAction_common
 {
 
+    var $attachment_dir;
+    var $attachment_max_filesize;
+    var $attachment_allowed;
+    
+
     function &execute($controller, $manager) {
         
         // need to login

@@ -18,6 +18,14 @@ class KBClientMenu
     var $entry_menu_max_len = 50; // nums signs to leave in menu items, set to 0 to disable cut off
     var $display_parent_entry = false; 
 
+    var $view;
+    var $view_id;
+    var $entry_id;
+    var $category_id;
+    var $kb_path;    
+    var $tree;    
+    var $tree2;    
+
 
     function __construct(&$view) {
 

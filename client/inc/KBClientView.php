@@ -10,6 +10,7 @@
 // | file that was distributed with this source code.                          |
 // +---------------------------------------------------------------------------+
 
+#[AllowDynamicProperties]
 
 class KBClientView extends BaseView
 {
@@ -24,6 +25,8 @@ class KBClientView extends BaseView
     var $msg = array();
     var $controller;
     var $css = array();
+    var $style_css;
+    var $week_start;
 
     var $meta_title;
     var $meta_keywords;
@@ -35,6 +38,9 @@ class KBClientView extends BaseView
     var $entry_key;
     var $entry_id;
     var $view_key;
+    var $view_id;
+    var $page_id;
+    var $msg_id;
 
     var $home_link = false;             // use home link n navigation as link
     var $category_nav_generate = true;     // generate or not categories in navigation line
@@ -70,6 +76,7 @@ class KBClientView extends BaseView
     var $date_format;
     var $date_convert;
     var $action_msg_format = 'hint';
+    var $conf;
 
 
     function __construct() {
@@ -763,7 +770,7 @@ class KBClientView extends BaseView
 
     function getMsgFormat($msg_id) {
         $error_format = array('_error', '_failed');
-        $error_match = (str_replace($error_format, '', $msg_id) != $msg_id);
+        $error_match = ($msg_id) ? (str_replace($error_format, '', $msg_id) != $msg_id) : false;
         $msg_format = ($error_match) ? 'error' : $this->action_msg_format;
         return $msg_format;
     }

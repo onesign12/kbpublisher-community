@@ -45,6 +45,7 @@ class AppController extends Controller
     var $module;
     var $page;
     var $sub_page;
+    var $rp;
     
     // it should be added to params is isset
     // when we return from good operations or from "cancel" from form

@@ -16,6 +16,8 @@ class KBClientPageRenderer
     //var $site_path;
     var $title_delim = ' - ';
     var $vars = array();
+    var $view;
+    var $manager;
 
 
     function __construct(&$view, &$manager) {
@@ -346,14 +348,23 @@ class KBClientPageRenderer
         return implode($this->title_delim, $data);
     }
 
+    
+    private function getMeta($var) {
+        if(empty($var)) {
+            return $var;
+        }
+        
+        return str_replace(array("\r\n", "\n", "\r"), ' ', $var);
+    }
+
 
     function getMetaKeywords() {
-        return str_replace(array("\r\n", "\n", "\r"), ' ', $this->view->meta_keywords);
+        return $this->getMeta($this->view->meta_keywords);
     }
 
 
     function getMetaDescription() {
-        return str_replace(array("\r\n", "\n", "\r"), ' ', $this->view->meta_description);
+        return $this->getMeta($this->view->meta_description);
     }
 
 
@@ -387,8 +398,6 @@ class KBClientPageRenderer
 
 
     function getCache() {
-
-        
 
         $cache = new ResultCache();
         //$cache->refresh = true;

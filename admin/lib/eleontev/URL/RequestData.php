@@ -14,6 +14,8 @@
 // | Lesser General Public License for more details.                      |
 // +----------------------------------------------------------------------+
 
+#[AllowDynamicProperties]
+
 class RequestData
 {
     

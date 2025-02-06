@@ -49,11 +49,18 @@ class AppPlugin
     
     
     static $plugins = [
-        'auth' => [
+        // 'auth' => [
+        //     'menu' => 1,
+        //     'pages' => ['auth_setting'],
+        //     'setting_id' => [160, 162, 163, 164],
+        //     'loginlog' => [8,7,2,9]
+        // ],
+        'auth' => [// keep social auth
             'menu' => 1,
-            'pages' => ['auth_setting'],
-            'setting_id' => [160, 162, 163, 164],
-            'loginlog' => [8,7,2,9]
+            'pages' => ['rauth_setting', 'ldap_setting', 'saml_setting'],
+            'pages_default' => ['auth_setting' => ['this', 'auth_setting', 'sauth_setting']],
+            'setting_id' => [160, 162, 163],
+            'loginlog' => [8,7,2]
         ],
         'automation' => [
             'menu' => 1,
@@ -203,7 +210,8 @@ class AppPlugin
         }
             
         return $plugins;
-    }    
+    }
+    
     
     static function getPluginsAll() {
         return array_keys(self::$plugins);
@@ -282,8 +290,8 @@ class AppPlugin
     
     
     // to change menu link if default is hidden
-    static function getModulesUpdateNav($module) {
-        return @$pages[$module]['pages_update'] ?: array();
+    static function getModulesPagesDefault($module) {
+        return @self::$plugins[$module]['pages_default'] ?: false;
     }
     
     

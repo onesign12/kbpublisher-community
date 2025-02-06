@@ -4,8 +4,9 @@
 #/admin/config.inc.php
 /admin/config_local.inc.php
 /admin/cron/_test*.php
-#/plugins/*
+/plugins/*
 !/plugins/plugins.php
+!/plugins/community.php
 /admin/lang/*
 !/admin/lang/??
 !/admin/lang/CompareLang.php
@@ -16,4 +17,3 @@ error_log
 .ea-php-cli.cache
 #/admin/lib/vendor
 #/admin/lib/composer.lock
-README_LOCAL

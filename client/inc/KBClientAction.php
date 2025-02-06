@@ -14,6 +14,15 @@
 class KBClientAction
 {
 
+    var $rq;
+    var $rp;
+    
+    var $entry_id;
+    var $category_id;
+    var $view_id;
+    var $msg_id;    
+
+
     function __construct() {
         
     }

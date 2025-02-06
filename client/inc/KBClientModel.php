@@ -37,7 +37,9 @@ class KBClientModel extends KBClientBaseModel
     var $is_registered = false;
     var $user_id;
     var $user_priv_id;
+    var $user_role_id;
     var $search_params;
+    var $setting;
 
     var $categories = array();
     var $categories_parent = array();
@@ -75,6 +77,8 @@ class KBClientModel extends KBClientBaseModel
     var $dv_manager;
     var $role_manager;
     var $mustread_manager;
+    var $cf_manager;
+    
     
     // ATTACHMENT // ----------------------
     

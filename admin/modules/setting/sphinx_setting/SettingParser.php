@@ -24,6 +24,8 @@ use AppController;
 class SettingParser extends SettingParserCommon
 {
     
+    var $error;
+    
     function getCustomFormHeader($obj) {
 		
         $header = '';

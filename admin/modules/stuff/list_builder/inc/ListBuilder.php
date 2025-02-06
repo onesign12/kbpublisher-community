@@ -18,6 +18,7 @@ class ListBuilder
     private $columns;
     private $columns_sort; //saved in settings to be able to sort available columns in customize view added 26-10-2022
     private $eview;
+    private $col_options;
     
     
     public function __construct($view, $page = false) {

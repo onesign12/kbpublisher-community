@@ -400,7 +400,7 @@ class DBUtil
         }
 
         $db->SetFetchMode(ADODB_FETCH_ASSOC);
-        $db->ADODB_COUNTRECS = false;
+        // $db->ADODB_COUNTRECS = false; // 29-01-2025 this one ig GLOBAL now  and it woked without it
         $db->debug = (!empty($conf['debug_db_sql']) && !isset($_GET['ajax'])) ? 1 : 0;
 
         // set connection names, could be required for some situations
