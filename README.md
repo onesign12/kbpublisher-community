@@ -44,4 +44,7 @@ You can find documentation on our
 - [Installation](https://www.kbpublisher.com/kb/installation-5/)
 - [User Manual](https://www.kbpublisher.com/kb/user-manual-v80-1/)
 - [Developer Manual](https://www.kbpublisher.com/kb/developer-manual-50/)
-- [Knowledge base](https://www.kbpublisher.com/kb/)
+
+## Demo
+You can see KBPublisher in action on our site.   
+Here is our [Documentations/Knowledge base](https://www.kbpublisher.com/kb/) buitl on KBPublisher.
