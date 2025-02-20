@@ -46,5 +46,5 @@ You can find documentation on our
 - [Developer Manual](https://www.kbpublisher.com/kb/developer-manual-50/)
 
 ## Demo
-You can see KBPublisher in action on our site.   
-Here is our [Documentations/Knowledge base](https://www.kbpublisher.com/kb/) buitl on KBPublisher.
+You can see KBPublisher in action on our website.
+Here is our [Documentation/Knowledge Base](https://www.kbpublisher.com/kb/), built on top of KBPublisher.
