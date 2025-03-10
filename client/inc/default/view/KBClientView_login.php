@@ -123,35 +123,33 @@ class KBClientView_login extends KBClientView_common
         }
         
         // social login, oath
-        // $social_login_block = false;
+        $social_login_block = false;
         
-        // if(AppPlugin::isPlugin('auth')) {
-            $providers = AuthSocial::getProviderList();
-            $providers = ($this->controller->admin_login) ? [] : $providers;
+        $providers = AuthSocial::getProviderList();
+        $providers = ($this->controller->admin_login) ? [] : $providers;
 
-            foreach ($providers as $provider => $color) {
-                if(SettingModel::getQuickCron(164, $provider . '_auth')) {
-                    $social_login_block = true;
-                    
-                    $v = array();
-                    $v['provider'] = $provider;
-                    $v['color'] = $color;
-                    
-                    $auth = AuthSocial::factory($provider);
-                    $v['auth_link'] = $auth->getLoginLink();
-                    
-                    $r = array('name' => ucwords($provider));
-                    $v['login_via_msg'] = AppMsg::replaceParse($this->msg['login_via_msg'], $r);
-                    
-                    $tpl->tplParse($v, 'social_login/button');
-                }
+        foreach ($providers as $provider => $color) {
+            if(SettingModel::getQuickCron(164, $provider . '_auth')) {
+                $social_login_block = true;
+                
+                $v = array();
+                $v['provider'] = $provider;
+                $v['color'] = $color;
+                
+                $auth = AuthSocial::factory($provider);
+                $v['auth_link'] = $auth->getLoginLink();
+                
+                $r = array('name' => ucwords($provider));
+                $v['login_via_msg'] = AppMsg::replaceParse($this->msg['login_via_msg'], $r);
+                
+                $tpl->tplParse($v, 'social_login/button');
             }
-        // }
+        }
 
-        // if ($social_login_block) {
+        if ($social_login_block) {
             $tpl->tplSetNested('social_login/button');
             $tpl->tplParse(null, 'social_login');
-        // }
+        }
         
         if($manager->getSetting('auth_allow_email') || $manager->getSetting('username_force_email')) {
             $this->msg['login_username_msg'] = $this->msg['login_email_msg'];

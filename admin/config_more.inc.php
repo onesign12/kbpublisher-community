@@ -39,7 +39,7 @@ $conf['cache_dir'] = str_replace('\\', '/', $conf['cache_dir']);
 /* DON'T MODIFY */
 $conf['product_name']    = 'KBPublisher Community';
 $conf['product_www']     = 'https://www.kbpublisher.com/';
-$conf['product_version'] = '1.0 (Beta)';
+$conf['product_version'] = '1.0';
 $conf['product_desc']    = 'Knowledge base software';
 $conf['product_hash']    = substr(md5($conf['product_version']), 0, 8);
 
