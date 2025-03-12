@@ -328,19 +328,21 @@ class SettingData
     
     
     static function getEntryCommentItem($manager, $view, $entry_data) {
-        $commentable = ($entry_data) ? $entry_data['commentable'] : 1;
-        if($view->view_id != 'entry' && $view->isCommentable($manager, $commentable)) {            
-            $data = array();
-            
-            if ($entry_data) {
-                $data['link'] = "#add_comment";
-                $data['attr'] = 'onclick="showCommentPanel();"';
-                if ($view->comment_form) {
-                    $data['attr'] = 'onclick="slideToCommentForm();"';
+        if($view->view_id == 'entry') {     
+            $commentable = ($entry_data) ? $entry_data['commentable'] : 1;
+            if($view->isCommentable($manager, $commentable)) {            
+                $data = array();
+                
+                if ($entry_data) {
+                    $data['link'] = "#add_comment";
+                    $data['attr'] = 'onclick="showCommentPanel();"';
+                    if ($view->comment_form) {
+                        $data['attr'] = 'onclick="slideToCommentForm();"';
+                    }
                 }
+                
+                return $data;
             }
-            
-            return $data;
         }
     }
     
