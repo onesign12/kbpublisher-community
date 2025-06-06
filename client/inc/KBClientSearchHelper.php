@@ -121,18 +121,23 @@ class KBClientSearchHelper
     }
     
     
-    static function getSearchParams($strip = true) {
+    static function getSearchParams($strip = true, $extra = array()) {
         
         $arr = $_GET;
         $r = ['q', 'in', 'by', 'c', 'cp', 'et', 'period', 'pv', 
             'date_from', 'date_to', 'is_from', 'is_to', 'custom', 'sort'];
-            
+        $r = array_merge($r, $extra);
+        
         foreach(array_keys($arr) as $k) {
             if(!in_array($k, $r)) {
                unset($arr[$k]);
             }
         }
 
+        if(isset($arr['s'])) {
+            $arr['s'] = intval($arr['s']);
+        }
+        
         if(isset($arr['q'])) {
             $arr['q'] = trim($arr['q']);
         }

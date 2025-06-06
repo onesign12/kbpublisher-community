@@ -812,8 +812,8 @@ class KBClientView_search_list extends KBClientView_search
     }
 
 
-    function getSearchParams($strip = true) {
-        return KBClientSearchHelper::getSearchParams($strip);
+    function getSearchParams($strip = true, $extra = []) {
+        return KBClientSearchHelper::getSearchParams($strip, $extra);
     }
 
 
@@ -881,7 +881,10 @@ class KBClientView_search_list extends KBClientView_search
 
     function &getPageByPage($limit, $multiple = false) {
 
-        $bp = $this->getPageByPageObj('page', $limit, $_GET);
+        $action_page = $this->getLink('search');
+        $params = $this->getSearchParams(false, ['s']);
+        
+        $bp = $this->getPageByPageObj('page', $limit, $params, $action_page);
         if($multiple) {
             $bp->setMultiple(4);
         }
