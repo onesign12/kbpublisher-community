@@ -10,11 +10,13 @@
             $(".filesch:enabled").each(function(){
                 if ($(this).parent().parent().parent().is(':visible')) {
                     this.checked = true;
+                    setHiddenState($(this).attr('id'));
                 }
             });
         } else {
             $(".filesch").each(function(){
                 this.checked = false;
+                setHiddenState($(this).attr('id'));
             });
         }
     }
@@ -84,7 +86,16 @@
         if(!num) {
             $("#files_num_container").css("display", "none");
         }
+            
+        setHiddenState($(this).attr('id'));
     });
+
+
+    function setHiddenState(id) {
+        var id_num = id.substring(2);
+        var ch = ($('#' + id).is(':checked')) ? false : true;
+        $('#file_' + id_num).find('input[type="hidden"]').prop('disabled', ch);
+    }
 
 </script>
 
@@ -305,9 +316,11 @@
                 onClick="validateForm();return false;" />
             </tmpl:file_button>
             
+            <tmpl:draft_button>
             <input type="submit" name="submit_draft" value="{save_as_drafts_msg}" 
                 class="button secondary"
                 onClick="validateForm('submit_draft');return false;" />
+            </tmpl:draft_button>
             
             {submission_block}
         

@@ -17,10 +17,7 @@ class BulkFileEntryView_form extends FileEntryView_form
     var $template = 'form.html';
     
     
-    // function execute(&$obj, &$manager, $draft_manager) {
     function execute(&$obj, &$manager, $data = array()) {
-                
-        $draft_manager = $data['draft_manager'];
         
         $this->addMsg('user_msg.ini');
         $this->addMsg('common_msg.ini', 'knowledgebase');
@@ -93,14 +90,16 @@ class BulkFileEntryView_form extends FileEntryView_form
         $xajax->registerFunction(array('getFileList', $this, 'ajaxGetFileList'));
         
         // buttons
-        if ($this->priv->isPrivOptional('insert', 'draft')) {
+        if (isset($data['draft_manager']) && $this->priv->isPrivOptional('insert', 'draft')) {
             
+            $draft_manager = $data['draft_manager'];
             $workflow = $draft_manager->getAppliedWorkflow();
             $submission_block = '';
             if ($workflow) {
                 $submission_block = $this->getSubmissionBlock();
             }
             
+            $tpl->tplSetNeeded('/draft_button');
             $tpl->tplAssign('submission_block', $submission_block);
             
         } else {

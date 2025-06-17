@@ -15,13 +15,14 @@ $rq = new RequestData($_GET, array('id'));
 $rp = new RequestData($_POST);
 $controller->rp = &$rp;
 
-
 $obj = new BulkFileEntry;
 $manager = new FileEntryModel_dir;
 $manager->s3_manager = new FileEntryModel_s3;
 
-$draft_manager = new FileDraftModel;
-$draft_action = new FileDraftAction($rq, $rp);
+if(AppPlugin::isPlugin('draft')) {
+    $draft_manager = new FileDraftModel;
+    $draft_action = new FileDraftAction($rq, $rp);
+}
 
 // settings
 $setting = SettingModel::getQuick(array(1, 12));
@@ -141,7 +142,10 @@ default: // ------------------------------------
         $obj->set('active', $status);
     }
     
-    $data = array('draft_manager' => $draft_manager);
+    $data = [];
+    if(isset($draft_manager)) {
+        $data = array('draft_manager' => $draft_manager);
+    }
     $view = $controller->getView($obj, $manager, 'BulkFileEntryView_form', $data);
 }
 

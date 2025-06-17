@@ -1,5 +1,0 @@
-[files.num] de sus archivos no se han actualizado durante medio año.
-Su estado se ha establecido en "obsoleto".
-
-Siga este enlace para verlos:
-[files.link.filtered.outdated]
