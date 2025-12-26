@@ -1,2 +1,9 @@
-config.json merge=ours
-secrets.env merge=ours
+# If any conflicts on our protected files, use:
+#git checkout --ours path/to/protected/file
+#git add path/to/protected/file
+
+# Files to always keep from the github branch during merges
+#config.json merge=ours
+#secrets.env merge=ours
+admin/config.inc.php
+admin/lib/core/base/BaseApp.php merge=ours
