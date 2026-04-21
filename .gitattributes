@@ -5,5 +5,6 @@
 # Files to always keep from the github branch during merges
 #config.json merge=ours
 #secrets.env merge=ours
-admin/config.inc.php
+.gitignore merge=ours
+admin/config.inc.php merge=ours
 admin/lib/core/base/BaseApp.php merge=ours

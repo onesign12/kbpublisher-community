@@ -1,0 +1,55 @@
+<?php
+
+/* GENERAL */
+$conf['db_host']      = "localhost";
+$conf['db_base']      = "kbp_github2";
+$conf['db_user']      = "root";
+$conf['db_pass']      = "root";
+$conf['db_driver']    = "mysqli";             // no other were tested 
+$conf['tbl_pref']     = 'kbp_';  
+  
+$conf['session_name'] = 'cfc6c0e8990e9ed9aa2c1c44d8c42812';        // session name
+$conf['allow_setup']  = 0;                 // allow or not setup wizard, redirect to setup wizard if 1
+
+
+/* PATHS */
+$_SERVER['DOCUMENT_ROOT'] = '/home/eleontev/dev/www';
+$_SERVER['HTTP_HOST']     = 'localhost';
+
+// admin path
+$conf['admin_home_dir']   = '/kbp/kbp_github/admin/';         // path to admin dir, relative to DOCUMENT_ROOT
+
+// client path
+$conf['client_home_dir']  = '/kbp/kbp_github/';               // path to kb dir, relative to DOCUMENT_ROOT
+
+// other path
+$conf['site_address']     = $_SERVER['HTTP_HOST'];
+$conf['cache_dir']        = '/home/eleontev/dev/kb_cache/';        // full path to cache dir, it should be writeable
+
+
+/* SECURITY */
+$conf['auth_check_ip']    = 1;        // on every request IP will be checked with saved one on login
+$conf['ssl_admin']        = 0;        // 0 = OFF, 1 = ON (default port 443) or use concrete port number
+$conf['ssl_client']       = 0;        // 0 = OFF, 1 = ON (default port 443) or use concrete port number
+$conf['auth_remote']      = 1;        // remote auth 0 - disabled, 1 - enabled 
+
+/* DEBUG */                           // some configs 1 = yes, 0 = no
+$conf['debug_info']       = 1;        // display $_GET, $_SESSION, $_POST and also set displaying all errors
+$conf['debug_speed']      = 1;        // display page generating speed
+$conf['debug_db_error']   = 0;        // 0 - just a notice about db error, 1 - real error short format, 2 - full format 
+$conf['debug_db_sql']     = 0;        // display all sent sql (adodb format)
+$conf['debug_sphinx_sql'] = 0;        // display all sent sphinx sql (adodb format)
+$conf['config_local']     = 0;        // 0 - disabled, or set full path to config file
+
+
+/* OTHER */
+$conf['php_dir']          = '/usr/local/bin/php'; // probably could be required (upd: is not used in cron job)
+$conf['use_ob_gzhandler'] = 0;                    // on some instalations(php version) it should be set to 0
+$conf['timezone']         = '';                   // if empty php.ini setting (date.timezone) will be used 
+                                                  // if you need special one or have php errors set it here
+                                                  // available timezones see at http://www.php.net/manual/en/timezones.php
+
+$conf['db_names']         = '';        // if set to UTF8, it will force to send sql "SET NAMES 'UTF8'"
+
+$conf['web_service_url'] = '45.33.115.56/web_service/api.php';
+?>

@@ -15,5 +15,6 @@ error_log
 *.zip
 .DS_Store
 .ea-php-cli.cache
+/admin/jscript/webpack
 #/admin/lib/vendor
 #/admin/lib/composer.lock

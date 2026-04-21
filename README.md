@@ -32,8 +32,9 @@ To install to the root directory use './' instead of 'kb'.
 
     cd /var/www # change to your web server document root
     git clone https://github.com/onesign12/kbpublisher-community.git kb && cd kb
-    cp admin/.gitignore_prod admin/.gitignore
-    cp setup/.gitignore_prod setup/.gitignore
+    cp admin/.gitignore_prod admin/.gitignore # stop rewriting config file on git pull 
+
+    # optionaly your can remove setup dircetory 
 
 Then open your browser, go to http://domain/kb/setup/index.php and follow the setup wizard instruction.
 
