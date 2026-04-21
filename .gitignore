@@ -2,6 +2,7 @@
 /_dev
 /*.txt
 #/admin/config.inc.php
+/admin/config.inc.php2
 /admin/config_local.inc.php
 /admin/cron/_test*.php
 /plugins/*
@@ -18,3 +19,5 @@ error_log
 /admin/jscript/webpack
 #/admin/lib/vendor
 #/admin/lib/composer.lock
+push_git_ru.ch
+README_ru.md
