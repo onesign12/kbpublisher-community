@@ -49,3 +49,7 @@ You can find documentation on our
 ## Demo
 You can see KBPublisher in action on our website.
 Here is our [Documentation/Knowledge Base](https://www.kbpublisher.com/kb/), built on top of KBPublisher.
+
+## Web Sites
+- [International](https://www.kbpublisher.com/)
+- [Russian](https://www.kbpublisher.ru/)
